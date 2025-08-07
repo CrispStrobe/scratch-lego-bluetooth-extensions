@@ -7566,29 +7566,64 @@ var img$1 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3
 var img = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='79px' height='123px' viewBox='0 0 79 123' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-illustration%3c/title%3e %3cg id='spikeprime-illustration' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3cg id='Group' transform='translate(1.000000%2c 1.000000)'%3e %3crect id='Rectangle' stroke='%237C87A5' fill='white' x='0' y='0' width='77' height='121' rx='5.5'%3e%3c/rect%3e %3ccircle id='Oval' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-3' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-5' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3cpath d='M16.5%2c99 C13.4624339%2c99 11%2c101.462434 11%2c104.5 C11%2c107.537566 13.4624339%2c110 16.5%2c110 C38.5%2c110 38.5%2c110 60.5%2c110 C63.5375661%2c110 66%2c107.537566 66%2c104.5 C66%2c101.462434 63.5375661%2c99 60.5%2c99 C38.5%2c99 38.5%2c99 16.5%2c99 Z' id='Path' stroke='%237C87A5' stroke-width='0.5'%3e%3c/path%3e %3ccircle id='Center-Button' stroke='%237C87A5' stroke-width='1.5' fill='white' cx='38.5' cy='104.5' r='10.5'%3e%3c/circle%3e %3ccircle id='Bluetooth' stroke='%234C97FF' stroke-width='1.5' cx='60.5' cy='16.5' r='6.5'%3e%3c/circle%3e %3cg id='matrix' transform='translate(12.000000%2c 34.000000)' fill='%23FFD500'%3e %3crect id='Rectangle-Copy-24' x='0' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-26' x='11' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-25' x='11' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-29' x='22' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-28' x='33' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-27' x='33' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-31' x='44' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-42' x='0' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-40' x='11' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-39' x='11' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-38' x='22' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-37' x='22' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-36' x='33' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-35' x='33' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-34' x='44' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-45' x='22' y='44' width='9' height='9'%3e%3c/rect%3e %3c/g%3e %3c/g%3e %3c/g%3e%3c/svg%3e";
 
 var entry = {
-  name: 'LEGO Education SPIKE Prime (Legacy)',
+  name: 'LEGO Education SPIKE Prime',
+  // Removed "(Legacy)" since this is the new implementation
   extensionId: 'spikeprime',
-  collaborator: 'bricklife',
+  collaborator: 'CrispStrobe',
+  // with acknowledgments and big thanks towards bricklife
   iconURL: img$2,
   insetIconURL: img$1,
   description: /*#__PURE__*/React.createElement(FormattedMessage, {
-    defaultMessage: "Build interactive robots and more. (doesn't work on Windows)",
-    id: "gui.extension.spikeprime.description"
+    defaultMessage: "Build with SPIKE Prime, Robot Inventor, and Powered Up devices. Supports motors, sensors, lights, and displays.",
+    id: "gui.extension.spikeprime.description" // Updated to reflect comprehensive support
   }),
   featured: true,
   disabled: false,
   bluetoothRequired: true,
-  internetConnectionRequired: true,
+  internetConnectionRequired: false,
+  // Changed from true - BLE extensions don't typically need internet
   launchPeripheralConnectionFlow: true,
-  useAutoScan: false,
+  useAutoScan: true,
+  // Changed to true for better UX - auto-scan for SPIKE Prime hubs
   connectionIconURL: img,
   connectionSmallIconURL: img$1,
   connectingMessage: /*#__PURE__*/React.createElement(FormattedMessage, {
-    defaultMessage: "Connecting",
-    id: "gui.extension.boost.connectingMessage"
+    defaultMessage: "Connecting to SPIKE Prime...",
+    id: "gui.extension.spikeprime.connectingMessage" // Fixed - was pointing to boost
   }),
-  helpLink: 'https://scratch.mit.edu/boost'
+  helpLink: 'https://education.lego.com/' // Fixed - was pointing to boost help
 };
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -7630,579 +7665,6 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-/**
- * Block argument types
- * @enum {string}
- */
-var ArgumentType$1 = {
-  /**
-   * Numeric value with angle picker
-   */
-  ANGLE: 'angle',
-  /**
-   * Boolean value with hexagonal placeholder
-   */
-  BOOLEAN: 'Boolean',
-  /**
-   * Numeric value with color picker
-   */
-  COLOR: 'color',
-  /**
-   * Numeric value with text field
-   */
-  NUMBER: 'number',
-  /**
-   * String value with text field
-   */
-  STRING: 'string',
-  /**
-   * String value with matrix field
-   */
-  MATRIX: 'matrix',
-  /**
-   * MIDI note number with note picker (piano) field
-   */
-  NOTE: 'note',
-  /**
-   * Inline image on block (as part of the label)
-   */
-  IMAGE: 'image'
-};
-var argumentType = ArgumentType$1;
-
-/**
- * Types of block
- * @enum {string}
- */
-var BlockType$1 = {
-  /**
-   * Boolean reporter with hexagonal shape
-   */
-  BOOLEAN: 'Boolean',
-  /**
-   * A button (not an actual block) for some special action, like making a variable
-   */
-  BUTTON: 'button',
-  /**
-   * Command block
-   */
-  COMMAND: 'command',
-  /**
-   * Specialized command block which may or may not run a child branch
-   * The thread continues with the next block whether or not a child branch ran.
-   */
-  CONDITIONAL: 'conditional',
-  /**
-   * Specialized hat block with no implementation function
-   * This stack only runs if the corresponding event is emitted by other code.
-   */
-  EVENT: 'event',
-  /**
-   * Hat block which conditionally starts a block stack
-   */
-  HAT: 'hat',
-  /**
-   * Specialized command block which may or may not run a child branch
-   * If a child branch runs, the thread evaluates the loop block again.
-   */
-  LOOP: 'loop',
-  /**
-   * General reporter with numeric or string value
-   */
-  REPORTER: 'reporter'
-};
-var blockType = BlockType$1;
-
-var Color$3 = /*#__PURE__*/function () {
-  function Color() {
-    _classCallCheck(this, Color);
-  }
-  _createClass(Color, null, [{
-    key: "RGB_BLACK",
-    get:
-    /**
-     * @typedef {object} RGBObject - An object representing a color in RGB format.
-     * @property {number} r - the red component, in the range [0, 255].
-     * @property {number} g - the green component, in the range [0, 255].
-     * @property {number} b - the blue component, in the range [0, 255].
-     */
-
-    /**
-     * @typedef {object} HSVObject - An object representing a color in HSV format.
-     * @property {number} h - hue, in the range [0-359).
-     * @property {number} s - saturation, in the range [0,1].
-     * @property {number} v - value, in the range [0,1].
-     */
-
-    /** @type {RGBObject} */
-    function get() {
-      return {
-        r: 0,
-        g: 0,
-        b: 0
-      };
-    }
-
-    /** @type {RGBObject} */
-  }, {
-    key: "RGB_WHITE",
-    get: function get() {
-      return {
-        r: 255,
-        g: 255,
-        b: 255
-      };
-    }
-
-    /**
-     * Convert a Scratch decimal color to a hex string, #RRGGBB.
-     * @param {number} decimal RGB color as a decimal.
-     * @return {string} RGB color as #RRGGBB hex string.
-     */
-  }, {
-    key: "decimalToHex",
-    value: function decimalToHex(decimal) {
-      if (decimal < 0) {
-        decimal += 0xFFFFFF + 1;
-      }
-      var hex = Number(decimal).toString(16);
-      hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
-      return hex;
-    }
-
-    /**
-     * Convert a Scratch decimal color to an RGB color object.
-     * @param {number} decimal RGB color as decimal.
-     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-     */
-  }, {
-    key: "decimalToRgb",
-    value: function decimalToRgb(decimal) {
-      var a = decimal >> 24 & 0xFF;
-      var r = decimal >> 16 & 0xFF;
-      var g = decimal >> 8 & 0xFF;
-      var b = decimal & 0xFF;
-      return {
-        r: r,
-        g: g,
-        b: b,
-        a: a > 0 ? a : 255
-      };
-    }
-
-    /**
-     * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
-     * CC-BY-SA Tim Down:
-     * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-     * @param {!string} hex Hex representation of the color.
-     * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-     */
-  }, {
-    key: "hexToRgb",
-    value: function hexToRgb(hex) {
-      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-      hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-        return r + r + g + g + b + b;
-      });
-      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : null;
-    }
-
-    /**
-     * Convert an RGB color object to a hex color.
-     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-     * @return {!string} Hex representation of the color.
-     */
-  }, {
-    key: "rgbToHex",
-    value: function rgbToHex(rgb) {
-      return Color.decimalToHex(Color.rgbToDecimal(rgb));
-    }
-
-    /**
-     * Convert an RGB color object to a Scratch decimal color.
-     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-     * @return {!number} Number representing the color.
-     */
-  }, {
-    key: "rgbToDecimal",
-    value: function rgbToDecimal(rgb) {
-      return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
-    }
-
-    /**
-    * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
-    * @param {!string} hex Hex representation of the color.
-    * @return {!number} Number representing the color.
-    */
-  }, {
-    key: "hexToDecimal",
-    value: function hexToDecimal(hex) {
-      return Color.rgbToDecimal(Color.hexToRgb(hex));
-    }
-
-    /**
-     * Convert an HSV color to RGB format.
-     * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
-     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-     */
-  }, {
-    key: "hsvToRgb",
-    value: function hsvToRgb(hsv) {
-      var h = hsv.h % 360;
-      if (h < 0) h += 360;
-      var s = Math.max(0, Math.min(hsv.s, 1));
-      var v = Math.max(0, Math.min(hsv.v, 1));
-      var i = Math.floor(h / 60);
-      var f = h / 60 - i;
-      var p = v * (1 - s);
-      var q = v * (1 - s * f);
-      var t = v * (1 - s * (1 - f));
-      var r;
-      var g;
-      var b;
-      switch (i) {
-        default:
-        case 0:
-          r = v;
-          g = t;
-          b = p;
-          break;
-        case 1:
-          r = q;
-          g = v;
-          b = p;
-          break;
-        case 2:
-          r = p;
-          g = v;
-          b = t;
-          break;
-        case 3:
-          r = p;
-          g = q;
-          b = v;
-          break;
-        case 4:
-          r = t;
-          g = p;
-          b = v;
-          break;
-        case 5:
-          r = v;
-          g = p;
-          b = q;
-          break;
-      }
-      return {
-        r: Math.floor(r * 255),
-        g: Math.floor(g * 255),
-        b: Math.floor(b * 255)
-      };
-    }
-
-    /**
-     * Convert an RGB color to HSV format.
-     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-     * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
-     */
-  }, {
-    key: "rgbToHsv",
-    value: function rgbToHsv(rgb) {
-      var r = rgb.r / 255;
-      var g = rgb.g / 255;
-      var b = rgb.b / 255;
-      var x = Math.min(Math.min(r, g), b);
-      var v = Math.max(Math.max(r, g), b);
-
-      // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
-      var h = 0;
-      var s = 0;
-      if (x !== v) {
-        var f = r === x ? g - b : g === x ? b - r : r - g;
-        var i = r === x ? 3 : g === x ? 5 : 1;
-        h = (i - f / (v - x)) * 60 % 360;
-        s = (v - x) / v;
-      }
-      return {
-        h: h,
-        s: s,
-        v: v
-      };
-    }
-
-    /**
-     * Linear interpolation between rgb0 and rgb1.
-     * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
-     * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
-     * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
-     * @return {RGBObject} the interpolated color.
-     */
-  }, {
-    key: "mixRgb",
-    value: function mixRgb(rgb0, rgb1, fraction1) {
-      if (fraction1 <= 0) return rgb0;
-      if (fraction1 >= 1) return rgb1;
-      var fraction0 = 1 - fraction1;
-      return {
-        r: fraction0 * rgb0.r + fraction1 * rgb1.r,
-        g: fraction0 * rgb0.g + fraction1 * rgb1.g,
-        b: fraction0 * rgb0.b + fraction1 * rgb1.b
-      };
-    }
-  }]);
-  return Color;
-}();
-var color$1 = Color$3;
-
-var Color$2 = color$1;
-
-/**
- * @fileoverview
- * Utilities for casting and comparing Scratch data-types.
- * Scratch behaves slightly differently from JavaScript in many respects,
- * and these differences should be encapsulated below.
- * For example, in Scratch, add(1, join("hello", world")) -> 1.
- * This is because "hello world" is cast to 0.
- * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
- * Use when coercing a value before computation.
- */
-var Cast$1 = /*#__PURE__*/function () {
-  function Cast() {
-    _classCallCheck(this, Cast);
-  }
-  _createClass(Cast, null, [{
-    key: "toNumber",
-    value:
-    /**
-     * Scratch cast to number.
-     * Treats NaN as 0.
-     * In Scratch 2.0, this is captured by `interp.numArg.`
-     * @param {*} value Value to cast to number.
-     * @return {number} The Scratch-casted number value.
-     */
-    function toNumber(value) {
-      // If value is already a number we don't need to coerce it with
-      // Number().
-      if (typeof value === 'number') {
-        // Scratch treats NaN as 0, when needed as a number.
-        // E.g., 0 + NaN -> 0.
-        if (Number.isNaN(value)) {
-          return 0;
-        }
-        return value;
-      }
-      var n = Number(value);
-      if (Number.isNaN(n)) {
-        // Scratch treats NaN as 0, when needed as a number.
-        // E.g., 0 + NaN -> 0.
-        return 0;
-      }
-      return n;
-    }
-
-    /**
-     * Scratch cast to boolean.
-     * In Scratch 2.0, this is captured by `interp.boolArg.`
-     * Treats some string values differently from JavaScript.
-     * @param {*} value Value to cast to boolean.
-     * @return {boolean} The Scratch-casted boolean value.
-     */
-  }, {
-    key: "toBoolean",
-    value: function toBoolean(value) {
-      // Already a boolean?
-      if (typeof value === 'boolean') {
-        return value;
-      }
-      if (typeof value === 'string') {
-        // These specific strings are treated as false in Scratch.
-        if (value === '' || value === '0' || value.toLowerCase() === 'false') {
-          return false;
-        }
-        // All other strings treated as true.
-        return true;
-      }
-      // Coerce other values and numbers.
-      return Boolean(value);
-    }
-
-    /**
-     * Scratch cast to string.
-     * @param {*} value Value to cast to string.
-     * @return {string} The Scratch-casted string value.
-     */
-  }, {
-    key: "toString",
-    value: function toString(value) {
-      return String(value);
-    }
-
-    /**
-     * Cast any Scratch argument to an RGB color array to be used for the renderer.
-     * @param {*} value Value to convert to RGB color array.
-     * @return {Array.<number>} [r,g,b], values between 0-255.
-     */
-  }, {
-    key: "toRgbColorList",
-    value: function toRgbColorList(value) {
-      var color = Cast.toRgbColorObject(value);
-      return [color.r, color.g, color.b];
-    }
-
-    /**
-     * Cast any Scratch argument to an RGB color object to be used for the renderer.
-     * @param {*} value Value to convert to RGB color object.
-     * @return {RGBOject} [r,g,b], values between 0-255.
-     */
-  }, {
-    key: "toRgbColorObject",
-    value: function toRgbColorObject(value) {
-      var color;
-      if (typeof value === 'string' && value.substring(0, 1) === '#') {
-        color = Color$2.hexToRgb(value);
-
-        // If the color wasn't *actually* a hex color, cast to black
-        if (!color) color = {
-          r: 0,
-          g: 0,
-          b: 0,
-          a: 255
-        };
-      } else {
-        color = Color$2.decimalToRgb(Cast.toNumber(value));
-      }
-      return color;
-    }
-
-    /**
-     * Determine if a Scratch argument is a white space string (or null / empty).
-     * @param {*} val value to check.
-     * @return {boolean} True if the argument is all white spaces or null / empty.
-     */
-  }, {
-    key: "isWhiteSpace",
-    value: function isWhiteSpace(val) {
-      return val === null || typeof val === 'string' && val.trim().length === 0;
-    }
-
-    /**
-     * Compare two values, using Scratch cast, case-insensitive string compare, etc.
-     * In Scratch 2.0, this is captured by `interp.compare.`
-     * @param {*} v1 First value to compare.
-     * @param {*} v2 Second value to compare.
-     * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
-     */
-  }, {
-    key: "compare",
-    value: function compare(v1, v2) {
-      var n1 = Number(v1);
-      var n2 = Number(v2);
-      if (n1 === 0 && Cast.isWhiteSpace(v1)) {
-        n1 = NaN;
-      } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
-        n2 = NaN;
-      }
-      if (isNaN(n1) || isNaN(n2)) {
-        // At least one argument can't be converted to a number.
-        // Scratch compares strings as case insensitive.
-        var s1 = String(v1).toLowerCase();
-        var s2 = String(v2).toLowerCase();
-        if (s1 < s2) {
-          return -1;
-        } else if (s1 > s2) {
-          return 1;
-        }
-        return 0;
-      }
-      // Handle the special case of Infinity
-      if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
-        return 0;
-      }
-      // Compare as numbers.
-      return n1 - n2;
-    }
-
-    /**
-     * Determine if a Scratch argument number represents a round integer.
-     * @param {*} val Value to check.
-     * @return {boolean} True if number looks like an integer.
-     */
-  }, {
-    key: "isInt",
-    value: function isInt(val) {
-      // Values that are already numbers.
-      if (typeof val === 'number') {
-        if (isNaN(val)) {
-          // NaN is considered an integer.
-          return true;
-        }
-        // True if it's "round" (e.g., 2.0 and 2).
-        return val === parseInt(val, 10);
-      } else if (typeof val === 'boolean') {
-        // `True` and `false` always represent integer after Scratch cast.
-        return true;
-      } else if (typeof val === 'string') {
-        // If it contains a decimal point, don't consider it an int.
-        return val.indexOf('.') < 0;
-      }
-      return false;
-    }
-  }, {
-    key: "LIST_INVALID",
-    get: function get() {
-      return 'INVALID';
-    }
-  }, {
-    key: "LIST_ALL",
-    get: function get() {
-      return 'ALL';
-    }
-
-    /**
-     * Compute a 1-based index into a list, based on a Scratch argument.
-     * Two special cases may be returned:
-     * LIST_ALL: if the block is referring to all of the items in the list.
-     * LIST_INVALID: if the index was invalid in any way.
-     * @param {*} index Scratch arg, including 1-based numbers or special cases.
-     * @param {number} length Length of the list.
-     * @param {boolean} acceptAll Whether it should accept "all" or not.
-     * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
-     */
-  }, {
-    key: "toListIndex",
-    value: function toListIndex(index, length, acceptAll) {
-      if (typeof index !== 'number') {
-        if (index === 'all') {
-          return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
-        }
-        if (index === 'last') {
-          if (length > 0) {
-            return length;
-          }
-          return Cast.LIST_INVALID;
-        } else if (index === 'random' || index === 'any') {
-          if (length > 0) {
-            return 1 + Math.floor(Math.random() * length);
-          }
-          return Cast.LIST_INVALID;
-        }
-      }
-      index = Math.floor(Cast.toNumber(index));
-      if (index < 1 || index > length) {
-        return Cast.LIST_INVALID;
-      }
-      return index;
-    }
-  }]);
-  return Cast;
-}();
-var cast = Cast$1;
-
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -8224,6 +7686,31 @@ function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
   return _getPrototypeOf(o);
+}
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = _getPrototypeOf(object);
+    if (object === null) break;
+  }
+  return object;
+}
+
+function _get() {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get.bind();
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = _superPropBase(target, property);
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+      if (desc.get) {
+        return desc.get.call(arguments.length < 3 ? target : receiver);
+      }
+      return desc.value;
+    };
+  }
+  return _get.apply(this, arguments);
 }
 
 function _setPrototypeOf(o, p) {
@@ -8251,349 +7738,20 @@ function _inherits(subClass, superClass) {
   if (superClass) _setPrototypeOf(subClass, superClass);
 }
 
-var JSONRPC$1 = /*#__PURE__*/function () {
-  function JSONRPC() {
-    _classCallCheck(this, JSONRPC);
-    this._requestID = 0;
-    this._openRequests = {};
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
   }
-
-  /**
-   * Make an RPC request and retrieve the result.
-   * @param {string} method - the remote method to call.
-   * @param {object} params - the parameters to pass to the remote method.
-   * @returns {Promise} - a promise for the result of the call.
-   */
-  _createClass(JSONRPC, [{
-    key: "sendRemoteRequest",
-    value: function sendRemoteRequest(method, params) {
-      var _this = this;
-      var requestID = this._requestID++;
-      var promise = new Promise(function (resolve, reject) {
-        _this._openRequests[requestID] = {
-          resolve: resolve,
-          reject: reject
-        };
-      });
-      this._sendRequest(method, params, requestID);
-      return promise;
-    }
-
-    /**
-     * Make an RPC notification with no expectation of a result or callback.
-     * @param {string} method - the remote method to call.
-     * @param {object} params - the parameters to pass to the remote method.
-     */
-  }, {
-    key: "sendRemoteNotification",
-    value: function sendRemoteNotification(method, params) {
-      this._sendRequest(method, params);
-    }
-
-    /**
-     * Handle an RPC request from remote, should return a result or Promise for result, if appropriate.
-     * @param {string} method - the method requested by the remote caller.
-     * @param {object} params - the parameters sent with the remote caller's request.
-     */
-  }, {
-    key: "didReceiveCall",
-    value: function didReceiveCall( /* method , params */
-    ) {
-      throw new Error('Must override didReceiveCall');
-    }
-  }, {
-    key: "_sendMessage",
-    value: function _sendMessage( /* jsonMessageObject */
-    ) {
-      throw new Error('Must override _sendMessage');
-    }
-  }, {
-    key: "_sendRequest",
-    value: function _sendRequest(method, params, id) {
-      var request = {
-        jsonrpc: '2.0',
-        method: method,
-        params: params
-      };
-      if (id !== null) {
-        request.id = id;
-      }
-      this._sendMessage(request);
-    }
-  }, {
-    key: "_handleMessage",
-    value: function _handleMessage(json) {
-      if (json.jsonrpc !== '2.0') {
-        throw new Error("Bad or missing JSON-RPC version in message: ".concat(json));
-      }
-      if (Object.prototype.hasOwnProperty.call(json, 'method')) {
-        this._handleRequest(json);
-      } else {
-        this._handleResponse(json);
-      }
-    }
-  }, {
-    key: "_sendResponse",
-    value: function _sendResponse(id, result, error) {
-      var response = {
-        jsonrpc: '2.0',
-        id: id
-      };
-      if (error) {
-        response.error = error;
-      } else {
-        response.result = result || null;
-      }
-      this._sendMessage(response);
-    }
-  }, {
-    key: "_handleResponse",
-    value: function _handleResponse(json) {
-      var result = json.result,
-        error = json.error,
-        id = json.id;
-      var openRequest = this._openRequests[id];
-      delete this._openRequests[id];
-      if (openRequest) {
-        if (error) {
-          openRequest.reject(error);
-        } else {
-          openRequest.resolve(result);
-        }
-      }
-    }
-  }, {
-    key: "_handleRequest",
-    value: function _handleRequest(json) {
-      var _this2 = this;
-      var method = json.method,
-        params = json.params,
-        id = json.id;
-      var rawResult = this.didReceiveCall(method, params);
-      if (id !== null && typeof id !== 'undefined') {
-        Promise.resolve(rawResult).then(function (result) {
-          _this2._sendResponse(id, result);
-        }, function (error) {
-          _this2._sendResponse(id, null, error);
-        });
-      }
-    }
-  }]);
-  return JSONRPC;
-}();
-var jsonrpc = JSONRPC$1;
-
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-var JSONRPC = jsonrpc;
-var BT$1 = /*#__PURE__*/function (_JSONRPC) {
-  _inherits(BT, _JSONRPC);
-  /**
-   * A BT peripheral socket object.  It handles connecting, over web sockets, to
-   * BT peripherals, and reading and writing data to them.
-   * @param {Runtime} runtime - the Runtime for sending/receiving GUI update events.
-   * @param {string} extensionId - the id of the extension using this socket.
-   * @param {object} peripheralOptions - the list of options for peripheral discovery.
-   * @param {object} connectCallback - a callback for connection.
-   * @param {object} resetCallback - a callback for resetting extension state.
-   * @param {object} messageCallback - a callback for message sending.
-   */
-  function BT(runtime, extensionId, peripheralOptions, connectCallback) {
-    var _this;
-    var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-    var messageCallback = arguments.length > 5 ? arguments[5] : undefined;
-    _classCallCheck(this, BT);
-    _this = _callSuper(this, BT);
-    _this._socket = runtime.getScratchLinkSocket('BT');
-    _this._socket.setOnOpen(_this.requestPeripheral.bind(_assertThisInitialized(_this)));
-    _this._socket.setOnError(_this._handleRequestError.bind(_assertThisInitialized(_this)));
-    _this._socket.setOnClose(_this.handleDisconnectError.bind(_assertThisInitialized(_this)));
-    _this._socket.setHandleMessage(_this._handleMessage.bind(_assertThisInitialized(_this)));
-    _this._sendMessage = _this._socket.sendMessage.bind(_this._socket);
-    _this._availablePeripherals = {};
-    _this._connectCallback = connectCallback;
-    _this._connected = false;
-    _this._characteristicDidChangeCallback = null;
-    _this._resetCallback = resetCallback;
-    _this._discoverTimeoutID = null;
-    _this._extensionId = extensionId;
-    _this._peripheralOptions = peripheralOptions;
-    _this._messageCallback = messageCallback;
-    _this._runtime = runtime;
-    _this._socket.open();
-    return _this;
-  }
-
-  /**
-   * Request connection to the peripheral.
-   * If the web socket is not yet open, request when the socket promise resolves.
-   */
-  _createClass(BT, [{
-    key: "requestPeripheral",
-    value: function requestPeripheral() {
-      var _this2 = this;
-      this._availablePeripherals = {};
-      if (this._discoverTimeoutID) {
-        window.clearTimeout(this._discoverTimeoutID);
-      }
-      this._discoverTimeoutID = window.setTimeout(this._handleDiscoverTimeout.bind(this), 15000);
-      this.sendRemoteRequest('discover', this._peripheralOptions).catch(function (e) {
-        return _this2._handleRequestError(e);
-      });
-    }
-
-    /**
-     * Try connecting to the input peripheral id, and then call the connect
-     * callback if connection is successful.
-     * @param {number} id - the id of the peripheral to connect to
-     * @param {string} pin - an optional pin for pairing
-     */
-  }, {
-    key: "connectPeripheral",
-    value: function connectPeripheral(id) {
-      var _this3 = this;
-      var pin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var params = {
-        peripheralId: id
-      };
-      if (pin) {
-        params.pin = pin;
-      }
-      this.sendRemoteRequest('connect', params).then(function () {
-        _this3._connected = true;
-        _this3._runtime.emit(_this3._runtime.constructor.PERIPHERAL_CONNECTED);
-        _this3._connectCallback();
-      }).catch(function (e) {
-        _this3._handleRequestError(e);
-      });
-    }
-
-    /**
-     * Close the websocket.
-     */
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      if (this._connected) {
-        this._connected = false;
-      }
-      if (this._socket.isOpen()) {
-        this._socket.close();
-      }
-      if (this._discoverTimeoutID) {
-        window.clearTimeout(this._discoverTimeoutID);
-      }
-
-      // Sets connection status icon to orange
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_DISCONNECTED);
-    }
-
-    /**
-     * @return {bool} whether the peripheral is connected.
-     */
-  }, {
-    key: "isConnected",
-    value: function isConnected() {
-      return this._connected;
-    }
-  }, {
-    key: "sendMessage",
-    value: function sendMessage(options) {
-      var _this4 = this;
-      return this.sendRemoteRequest('send', options).catch(function (e) {
-        _this4.handleDisconnectError(e);
-      });
-    }
-
-    /**
-     * Handle a received call from the socket.
-     * @param {string} method - a received method label.
-     * @param {object} params - a received list of parameters.
-     * @return {object} - optional return value.
-     */
-  }, {
-    key: "didReceiveCall",
-    value: function didReceiveCall(method, params) {
-      // TODO: Add peripheral 'undiscover' handling
-      switch (method) {
-        case 'didDiscoverPeripheral':
-          this._availablePeripherals[params.peripheralId] = params;
-          this._runtime.emit(this._runtime.constructor.PERIPHERAL_LIST_UPDATE, this._availablePeripherals);
-          if (this._discoverTimeoutID) {
-            window.clearTimeout(this._discoverTimeoutID);
-          }
-          break;
-        case 'userDidPickPeripheral':
-          this._availablePeripherals[params.peripheralId] = params;
-          this._runtime.emit(this._runtime.constructor.USER_PICKED_PERIPHERAL, this._availablePeripherals);
-          if (this._discoverTimeoutID) {
-            window.clearTimeout(this._discoverTimeoutID);
-          }
-          break;
-        case 'userDidNotPickPeripheral':
-          this._runtime.emit(this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT);
-          if (this._discoverTimeoutID) {
-            window.clearTimeout(this._discoverTimeoutID);
-          }
-          break;
-        case 'didReceiveMessage':
-          this._messageCallback(params); // TODO: refine?
-          break;
-        default:
-          return 'nah';
-      }
-    }
-
-    /**
-     * Handle an error resulting from losing connection to a peripheral.
-     *
-     * This could be due to:
-     * - battery depletion
-     * - going out of bluetooth range
-     * - being powered down
-     *
-     * Disconnect the socket, and if the extension using this socket has a
-     * reset callback, call it. Finally, emit an error to the runtime.
-     */
-  }, {
-    key: "handleDisconnectError",
-    value: function handleDisconnectError( /* e */
-    ) {
-      // log.error(`BT error: ${JSON.stringify(e)}`);
-
-      if (!this._connected) return;
-      this.disconnect();
-      if (this._resetCallback) {
-        this._resetCallback();
-      }
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_CONNECTION_LOST_ERROR, {
-        message: "Scratch lost connection to",
-        extensionId: this._extensionId
-      });
-    }
-  }, {
-    key: "_handleRequestError",
-    value: function _handleRequestError( /* e */
-    ) {
-      // log.error(`BT error: ${JSON.stringify(e)}`);
-
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
-        message: "Scratch lost connection to",
-        extensionId: this._extensionId
-      });
-    }
-  }, {
-    key: "_handleDiscoverTimeout",
-    value: function _handleDiscoverTimeout() {
-      if (this._discoverTimeoutID) {
-        window.clearTimeout(this._discoverTimeoutID);
-      }
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT);
-    }
-  }]);
-  return BT;
-}(JSONRPC);
-var bt = BT$1;
+  return obj;
+}
 
 var lookup = [];
 var revLookup = [];
@@ -10270,125 +9428,580 @@ function isSlowBuffer(obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0));
 }
 
-var browserAtob = {exports: {}};
+/**
+ * Block argument types
+ * @enum {string}
+ */
+var ArgumentType$2 = {
+  /**
+   * Numeric value with angle picker
+   */
+  ANGLE: 'angle',
+  /**
+   * Boolean value with hexagonal placeholder
+   */
+  BOOLEAN: 'Boolean',
+  /**
+   * Numeric value with color picker
+   */
+  COLOR: 'color',
+  /**
+   * Numeric value with text field
+   */
+  NUMBER: 'number',
+  /**
+   * String value with text field
+   */
+  STRING: 'string',
+  /**
+   * String value with matrix field
+   */
+  MATRIX: 'matrix',
+  /**
+   * MIDI note number with note picker (piano) field
+   */
+  NOTE: 'note',
+  /**
+   * Inline image on block (as part of the label)
+   */
+  IMAGE: 'image'
+};
+var argumentType = ArgumentType$2;
 
-(function (module) {
-  (function (w) {
+/**
+ * Types of block
+ * @enum {string}
+ */
+var BlockType$2 = {
+  /**
+   * Boolean reporter with hexagonal shape
+   */
+  BOOLEAN: 'Boolean',
+  /**
+   * A button (not an actual block) for some special action, like making a variable
+   */
+  BUTTON: 'button',
+  /**
+   * Command block
+   */
+  COMMAND: 'command',
+  /**
+   * Specialized command block which may or may not run a child branch
+   * The thread continues with the next block whether or not a child branch ran.
+   */
+  CONDITIONAL: 'conditional',
+  /**
+   * Specialized hat block with no implementation function
+   * This stack only runs if the corresponding event is emitted by other code.
+   */
+  EVENT: 'event',
+  /**
+   * Hat block which conditionally starts a block stack
+   */
+  HAT: 'hat',
+  /**
+   * Specialized command block which may or may not run a child branch
+   * If a child branch runs, the thread evaluates the loop block again.
+   */
+  LOOP: 'loop',
+  /**
+   * General reporter with numeric or string value
+   */
+  REPORTER: 'reporter'
+};
+var blockType = BlockType$2;
 
-    function findBest(atobNative) {
-      // normal window
-      if ('function' === typeof atobNative) {
-        return atobNative;
-      }
+var Color$4 = /*#__PURE__*/function () {
+  function Color() {
+    _classCallCheck(this, Color);
+  }
+  _createClass(Color, null, [{
+    key: "RGB_BLACK",
+    get:
+    /**
+     * @typedef {object} RGBObject - An object representing a color in RGB format.
+     * @property {number} r - the red component, in the range [0, 255].
+     * @property {number} g - the green component, in the range [0, 255].
+     * @property {number} b - the blue component, in the range [0, 255].
+     */
 
-      // browserify (web worker)
-      if ('function' === typeof Buffer) {
-        return function atobBrowserify(a) {
-          //!! Deliberately using an API that's deprecated in node.js because
-          //!! this file is for browsers and we expect them to cope with it.
-          //!! Discussion: github.com/node-browser-compat/atob/pull/9
-          return new Buffer(a, 'base64').toString('binary');
-        };
-      }
+    /**
+     * @typedef {object} HSVObject - An object representing a color in HSV format.
+     * @property {number} h - hue, in the range [0-359).
+     * @property {number} s - saturation, in the range [0,1].
+     * @property {number} v - value, in the range [0,1].
+     */
 
-      // ios web worker with base64js
-      if ('object' === _typeof$1(w.base64js)) {
-        // bufferToBinaryString
-        // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
-        return function atobWebWorker_iOS(a) {
-          var buf = w.base64js.b64ToByteArray(a);
-          return Array.prototype.map.call(buf, function (ch) {
-            return String.fromCharCode(ch);
-          }).join('');
-        };
-      }
-      return function () {
-        // ios web worker without base64js
-        throw new Error("You're probably in an old browser or an iOS webworker." + " It might help to include beatgammit's base64-js.");
+    /** @type {RGBObject} */
+    function get() {
+      return {
+        r: 0,
+        g: 0,
+        b: 0
       };
     }
-    var atobBest = findBest(w.atob);
-    w.atob = atobBest;
-    if (module && module.exports) {
-      module.exports = atobBest;
-    }
-  })(window);
-})(browserAtob);
 
-var btoa$1 = {exports: {}};
-
-(function () {
-
-  function btoa(str) {
-    var buffer;
-    if (str instanceof Buffer) {
-      buffer = str;
-    } else {
-      buffer = Buffer.from(str.toString(), 'binary');
-    }
-    return buffer.toString('base64');
-  }
-  btoa$1.exports = btoa;
-})();
-
-var atob = browserAtob.exports;
-var btoa = btoa$1.exports;
-var Base64Util$1 = /*#__PURE__*/function () {
-  function Base64Util() {
-    _classCallCheck(this, Base64Util);
-  }
-  _createClass(Base64Util, null, [{
-    key: "base64ToUint8Array",
-    value:
-    /**
-     * Convert a base64 encoded string to a Uint8Array.
-     * @param {string} base64 - a base64 encoded string.
-     * @return {Uint8Array} - a decoded Uint8Array.
-     */
-    function base64ToUint8Array(base64) {
-      var binaryString = atob(base64);
-      var len = binaryString.length;
-      var array = new Uint8Array(len);
-      for (var i = 0; i < len; i++) {
-        array[i] = binaryString.charCodeAt(i);
-      }
-      return array;
+    /** @type {RGBObject} */
+  }, {
+    key: "RGB_WHITE",
+    get: function get() {
+      return {
+        r: 255,
+        g: 255,
+        b: 255
+      };
     }
 
     /**
-     * Convert a Uint8Array to a base64 encoded string.
-     * @param {Uint8Array} array - the array to convert.
-     * @return {string} - the base64 encoded string.
+     * Convert a Scratch decimal color to a hex string, #RRGGBB.
+     * @param {number} decimal RGB color as a decimal.
+     * @return {string} RGB color as #RRGGBB hex string.
      */
   }, {
-    key: "uint8ArrayToBase64",
-    value: function uint8ArrayToBase64(array) {
-      var base64 = btoa(String.fromCharCode.apply(null, array));
-      return base64;
+    key: "decimalToHex",
+    value: function decimalToHex(decimal) {
+      if (decimal < 0) {
+        decimal += 0xFFFFFF + 1;
+      }
+      var hex = Number(decimal).toString(16);
+      hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
+      return hex;
     }
 
     /**
-    * Convert an array buffer to a base64 encoded string.
-    * @param {array} buffer - an array buffer to convert.
-    * @return {string} - the base64 encoded string.
+     * Convert a Scratch decimal color to an RGB color object.
+     * @param {number} decimal RGB color as decimal.
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "decimalToRgb",
+    value: function decimalToRgb(decimal) {
+      var a = decimal >> 24 & 0xFF;
+      var r = decimal >> 16 & 0xFF;
+      var g = decimal >> 8 & 0xFF;
+      var b = decimal & 0xFF;
+      return {
+        r: r,
+        g: g,
+        b: b,
+        a: a > 0 ? a : 255
+      };
+    }
+
+    /**
+     * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
+     * CC-BY-SA Tim Down:
+     * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+     * @param {!string} hex Hex representation of the color.
+     * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hexToRgb",
+    value: function hexToRgb(hex) {
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    /**
+     * Convert an RGB color object to a hex color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!string} Hex representation of the color.
+     */
+  }, {
+    key: "rgbToHex",
+    value: function rgbToHex(rgb) {
+      return Color.decimalToHex(Color.rgbToDecimal(rgb));
+    }
+
+    /**
+     * Convert an RGB color object to a Scratch decimal color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!number} Number representing the color.
+     */
+  }, {
+    key: "rgbToDecimal",
+    value: function rgbToDecimal(rgb) {
+      return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
+    }
+
+    /**
+    * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
+    * @param {!string} hex Hex representation of the color.
+    * @return {!number} Number representing the color.
     */
   }, {
-    key: "arrayBufferToBase64",
-    value: function arrayBufferToBase64(buffer) {
-      var binary = '';
-      var bytes = new Uint8Array(buffer);
-      var len = bytes.byteLength;
-      for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode(bytes[i]);
+    key: "hexToDecimal",
+    value: function hexToDecimal(hex) {
+      return Color.rgbToDecimal(Color.hexToRgb(hex));
+    }
+
+    /**
+     * Convert an HSV color to RGB format.
+     * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hsvToRgb",
+    value: function hsvToRgb(hsv) {
+      var h = hsv.h % 360;
+      if (h < 0) h += 360;
+      var s = Math.max(0, Math.min(hsv.s, 1));
+      var v = Math.max(0, Math.min(hsv.v, 1));
+      var i = Math.floor(h / 60);
+      var f = h / 60 - i;
+      var p = v * (1 - s);
+      var q = v * (1 - s * f);
+      var t = v * (1 - s * (1 - f));
+      var r;
+      var g;
+      var b;
+      switch (i) {
+        default:
+        case 0:
+          r = v;
+          g = t;
+          b = p;
+          break;
+        case 1:
+          r = q;
+          g = v;
+          b = p;
+          break;
+        case 2:
+          r = p;
+          g = v;
+          b = t;
+          break;
+        case 3:
+          r = p;
+          g = q;
+          b = v;
+          break;
+        case 4:
+          r = t;
+          g = p;
+          b = v;
+          break;
+        case 5:
+          r = v;
+          g = p;
+          b = q;
+          break;
       }
-      return btoa(binary);
+      return {
+        r: Math.floor(r * 255),
+        g: Math.floor(g * 255),
+        b: Math.floor(b * 255)
+      };
+    }
+
+    /**
+     * Convert an RGB color to HSV format.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     */
+  }, {
+    key: "rgbToHsv",
+    value: function rgbToHsv(rgb) {
+      var r = rgb.r / 255;
+      var g = rgb.g / 255;
+      var b = rgb.b / 255;
+      var x = Math.min(Math.min(r, g), b);
+      var v = Math.max(Math.max(r, g), b);
+
+      // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
+      var h = 0;
+      var s = 0;
+      if (x !== v) {
+        var f = r === x ? g - b : g === x ? b - r : r - g;
+        var i = r === x ? 3 : g === x ? 5 : 1;
+        h = (i - f / (v - x)) * 60 % 360;
+        s = (v - x) / v;
+      }
+      return {
+        h: h,
+        s: s,
+        v: v
+      };
+    }
+
+    /**
+     * Linear interpolation between rgb0 and rgb1.
+     * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
+     * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
+     * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
+     * @return {RGBObject} the interpolated color.
+     */
+  }, {
+    key: "mixRgb",
+    value: function mixRgb(rgb0, rgb1, fraction1) {
+      if (fraction1 <= 0) return rgb0;
+      if (fraction1 >= 1) return rgb1;
+      var fraction0 = 1 - fraction1;
+      return {
+        r: fraction0 * rgb0.r + fraction1 * rgb1.r,
+        g: fraction0 * rgb0.g + fraction1 * rgb1.g,
+        b: fraction0 * rgb0.b + fraction1 * rgb1.b
+      };
     }
   }]);
-  return Base64Util;
+  return Color;
 }();
-var base64Util = Base64Util$1;
+var color$1 = Color$4;
 
-var MathUtil$1 = /*#__PURE__*/function () {
+var Color$3 = color$1;
+
+/**
+ * @fileoverview
+ * Utilities for casting and comparing Scratch data-types.
+ * Scratch behaves slightly differently from JavaScript in many respects,
+ * and these differences should be encapsulated below.
+ * For example, in Scratch, add(1, join("hello", world")) -> 1.
+ * This is because "hello world" is cast to 0.
+ * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
+ * Use when coercing a value before computation.
+ */
+var Cast$2 = /*#__PURE__*/function () {
+  function Cast() {
+    _classCallCheck(this, Cast);
+  }
+  _createClass(Cast, null, [{
+    key: "toNumber",
+    value:
+    /**
+     * Scratch cast to number.
+     * Treats NaN as 0.
+     * In Scratch 2.0, this is captured by `interp.numArg.`
+     * @param {*} value Value to cast to number.
+     * @return {number} The Scratch-casted number value.
+     */
+    function toNumber(value) {
+      // If value is already a number we don't need to coerce it with
+      // Number().
+      if (typeof value === 'number') {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        if (Number.isNaN(value)) {
+          return 0;
+        }
+        return value;
+      }
+      var n = Number(value);
+      if (Number.isNaN(n)) {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        return 0;
+      }
+      return n;
+    }
+
+    /**
+     * Scratch cast to boolean.
+     * In Scratch 2.0, this is captured by `interp.boolArg.`
+     * Treats some string values differently from JavaScript.
+     * @param {*} value Value to cast to boolean.
+     * @return {boolean} The Scratch-casted boolean value.
+     */
+  }, {
+    key: "toBoolean",
+    value: function toBoolean(value) {
+      // Already a boolean?
+      if (typeof value === 'boolean') {
+        return value;
+      }
+      if (typeof value === 'string') {
+        // These specific strings are treated as false in Scratch.
+        if (value === '' || value === '0' || value.toLowerCase() === 'false') {
+          return false;
+        }
+        // All other strings treated as true.
+        return true;
+      }
+      // Coerce other values and numbers.
+      return Boolean(value);
+    }
+
+    /**
+     * Scratch cast to string.
+     * @param {*} value Value to cast to string.
+     * @return {string} The Scratch-casted string value.
+     */
+  }, {
+    key: "toString",
+    value: function toString(value) {
+      return String(value);
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color array to be used for the renderer.
+     * @param {*} value Value to convert to RGB color array.
+     * @return {Array.<number>} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorList",
+    value: function toRgbColorList(value) {
+      var color = Cast.toRgbColorObject(value);
+      return [color.r, color.g, color.b];
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color object to be used for the renderer.
+     * @param {*} value Value to convert to RGB color object.
+     * @return {RGBOject} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorObject",
+    value: function toRgbColorObject(value) {
+      var color;
+      if (typeof value === 'string' && value.substring(0, 1) === '#') {
+        color = Color$3.hexToRgb(value);
+
+        // If the color wasn't *actually* a hex color, cast to black
+        if (!color) color = {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        };
+      } else {
+        color = Color$3.decimalToRgb(Cast.toNumber(value));
+      }
+      return color;
+    }
+
+    /**
+     * Determine if a Scratch argument is a white space string (or null / empty).
+     * @param {*} val value to check.
+     * @return {boolean} True if the argument is all white spaces or null / empty.
+     */
+  }, {
+    key: "isWhiteSpace",
+    value: function isWhiteSpace(val) {
+      return val === null || typeof val === 'string' && val.trim().length === 0;
+    }
+
+    /**
+     * Compare two values, using Scratch cast, case-insensitive string compare, etc.
+     * In Scratch 2.0, this is captured by `interp.compare.`
+     * @param {*} v1 First value to compare.
+     * @param {*} v2 Second value to compare.
+     * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
+     */
+  }, {
+    key: "compare",
+    value: function compare(v1, v2) {
+      var n1 = Number(v1);
+      var n2 = Number(v2);
+      if (n1 === 0 && Cast.isWhiteSpace(v1)) {
+        n1 = NaN;
+      } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
+        n2 = NaN;
+      }
+      if (isNaN(n1) || isNaN(n2)) {
+        // At least one argument can't be converted to a number.
+        // Scratch compares strings as case insensitive.
+        var s1 = String(v1).toLowerCase();
+        var s2 = String(v2).toLowerCase();
+        if (s1 < s2) {
+          return -1;
+        } else if (s1 > s2) {
+          return 1;
+        }
+        return 0;
+      }
+      // Handle the special case of Infinity
+      if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
+        return 0;
+      }
+      // Compare as numbers.
+      return n1 - n2;
+    }
+
+    /**
+     * Determine if a Scratch argument number represents a round integer.
+     * @param {*} val Value to check.
+     * @return {boolean} True if number looks like an integer.
+     */
+  }, {
+    key: "isInt",
+    value: function isInt(val) {
+      // Values that are already numbers.
+      if (typeof val === 'number') {
+        if (isNaN(val)) {
+          // NaN is considered an integer.
+          return true;
+        }
+        // True if it's "round" (e.g., 2.0 and 2).
+        return val === parseInt(val, 10);
+      } else if (typeof val === 'boolean') {
+        // `True` and `false` always represent integer after Scratch cast.
+        return true;
+      } else if (typeof val === 'string') {
+        // If it contains a decimal point, don't consider it an int.
+        return val.indexOf('.') < 0;
+      }
+      return false;
+    }
+  }, {
+    key: "LIST_INVALID",
+    get: function get() {
+      return 'INVALID';
+    }
+  }, {
+    key: "LIST_ALL",
+    get: function get() {
+      return 'ALL';
+    }
+
+    /**
+     * Compute a 1-based index into a list, based on a Scratch argument.
+     * Two special cases may be returned:
+     * LIST_ALL: if the block is referring to all of the items in the list.
+     * LIST_INVALID: if the index was invalid in any way.
+     * @param {*} index Scratch arg, including 1-based numbers or special cases.
+     * @param {number} length Length of the list.
+     * @param {boolean} acceptAll Whether it should accept "all" or not.
+     * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
+     */
+  }, {
+    key: "toListIndex",
+    value: function toListIndex(index, length, acceptAll) {
+      if (typeof index !== 'number') {
+        if (index === 'all') {
+          return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
+        }
+        if (index === 'last') {
+          if (length > 0) {
+            return length;
+          }
+          return Cast.LIST_INVALID;
+        } else if (index === 'random' || index === 'any') {
+          if (length > 0) {
+            return 1 + Math.floor(Math.random() * length);
+          }
+          return Cast.LIST_INVALID;
+        }
+      }
+      index = Math.floor(Cast.toNumber(index));
+      if (index < 1 || index > length) {
+        return Cast.LIST_INVALID;
+      }
+      return index;
+    }
+  }]);
+  return Cast;
+}();
+var cast = Cast$2;
+
+var MathUtil$3 = /*#__PURE__*/function () {
   function MathUtil() {
     _classCallCheck(this, MathUtil);
   }
@@ -10531,7 +10144,1351 @@ var MathUtil$1 = /*#__PURE__*/function () {
   }]);
   return MathUtil;
 }();
-var mathUtil = MathUtil$1;
+var mathUtil = MathUtil$3;
+
+var Color$2 = {
+  BLACK: 0,
+  PINK: 1,
+  PURPLE: 2,
+  BLUE: 3,
+  LIGHT_BLUE: 4,
+  LIGHT_GREEN: 5,
+  GREEN: 6,
+  YELLOW: 7,
+  ORANGE: 8,
+  RED: 9,
+  WHITE: 10,
+  NONE: -1
+};
+var color = Color$2;
+
+var setupTranslations = function setupTranslations(formatMessage) {
+  var extTranslations = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var localeSetup = formatMessage.setup();
+  var translations = {
+    'en': {
+      'legobluetooth.motorPWM': '[PORT] start motor at [POWER] % power',
+      'legobluetooth.motorStop': '[PORT] stop motor',
+      'legobluetooth.motorRunFor': '[PORT] run [DIRECTION] for [VALUE] [UNIT]',
+      'legobluetooth.motorGoDirectionToPosition': '[PORT] go [DIRECTION] to position [POSITION]',
+      'legobluetooth.motorStart': '[PORT] start motor [DIRECTION]',
+      'legobluetooth.motorSetSpeed': '[PORT] set speed to [SPEED] %',
+      'legobluetooth.getRelativePosition': '[PORT] relative position',
+      'legobluetooth.getPosition': '[PORT] position',
+      'legobluetooth.motorResetRelativePosition': '[PORT] reset relative position to [RELATIVE_POSITION]',
+      'legobluetooth.displayImageFor': 'turn on [MATRIX] for [DURATION] seconds',
+      'legobluetooth.displayImage': 'turn on [MATRIX]',
+      'legobluetooth.displayText': 'write [TEXT]',
+      'legobluetooth.displayClear': 'turn off pixels',
+      'legobluetooth.displaySetBrightness': 'set pixel brightness to [BRIGHTNESS] %',
+      'legobluetooth.displaySetPixel': 'set pixel at [X] , [Y] to [BRIGHTNESS] %',
+      'legobluetooth.centerButtonLights': 'set center button light to [COLOR]',
+      'legobluetooth.ultrasonicLightUp': '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]',
+      'legobluetooth.getColor': '[PORT] color',
+      'legobluetooth.getDistance': '[PORT] distance',
+      'legobluetooth.getForce': '[PORT] force',
+      'legobluetooth.getTilt': '[PORT] tilt [XY]',
+      'legobluetooth.setHubLEDColor': 'set hub LED color to [COLOR]',
+      'legobluetooth.getHubTilt': 'hub tilt [XYZ]',
+      'legobluetooth.getAngle': '[AXIS] angle',
+      'legobluetooth.getName': 'name',
+      'legobluetooth.getFirmwareVersion': 'firmware version',
+      'legobluetooth.getBatteryLevel': 'battery level',
+      'legobluetooth.rotations': 'rotations',
+      'legobluetooth.degrees': 'degrees',
+      'legobluetooth.seconds': 'seconds',
+      'legobluetooth.shortestPath': 'shortest',
+      'legobluetooth.clockwise': 'clockwise',
+      'legobluetooth.counterclockwise': 'counterclockwise',
+      'legobluetooth.black': '(0) Black',
+      'legobluetooth.pink': '(1) Pink',
+      'legobluetooth.purple': '(2) Purple',
+      'legobluetooth.blue': '(3) Blue',
+      'legobluetooth.lightBlue': '(4) Light blue',
+      'legobluetooth.lightGreen': '(5) Light green',
+      'legobluetooth.green': '(6) Green',
+      'legobluetooth.yellow': '(7) Yellow',
+      'legobluetooth.orange': '(8) Orange',
+      'legobluetooth.red': '(9) Red',
+      'legobluetooth.white': '(10) White',
+      'legobluetooth.noColor': '(-1) No color',
+      'legobluetooth.pitch': 'pitch',
+      'legobluetooth.roll': 'roll',
+      'legobluetooth.yaw': 'yaw'
+    },
+    'it': {},
+    'ja': {
+      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーで回す',
+      'legobluetooth.motorStop': '[PORT] モーターを止める',
+      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] 方向に [VALUE] [UNIT] 回す',
+      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] で位置 [POSITION] まで回す',
+      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] 方向に回す',
+      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
+      'legobluetooth.getRelativePosition': '[PORT] 相対位置',
+      'legobluetooth.getPosition': '[PORT] 位置',
+      'legobluetooth.motorResetRelativePosition': '[PORT] 相対位置を [RELATIVE_POSITION] にリセットする',
+      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] 秒間オンにする',
+      'legobluetooth.displayImage': '[MATRIX] をオンにする',
+      'legobluetooth.displayText': '[TEXT] を表示する',
+      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
+      'legobluetooth.displaySetBrightness': 'ピクセルの明るさを [BRIGHTNESS] %にする',
+      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルの明るさを [BRIGHTNESS] %にする',
+      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
+      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
+      'legobluetooth.getColor': '[PORT] 色',
+      'legobluetooth.getDistance': '[PORT] 距離',
+      'legobluetooth.getForce': '[PORT] 圧力',
+      'legobluetooth.getTilt': '[PORT] 傾き [XY]',
+      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
+      'legobluetooth.getHubTilt': 'ハブの傾き [XYZ]',
+      'legobluetooth.getAngle': '[AXIS] 角',
+      'legobluetooth.getName': '名前',
+      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
+      'legobluetooth.getBatteryLevel': '電池残量',
+      'legobluetooth.rotations': '回転',
+      'legobluetooth.degrees': '度',
+      'legobluetooth.seconds': '秒',
+      'legobluetooth.shortestPath': '最短経路',
+      'legobluetooth.clockwise': '時計回り',
+      'legobluetooth.counterclockwise': '反時計回り',
+      'legobluetooth.black': '(0) 黒',
+      'legobluetooth.pink': '(1) ピンク',
+      'legobluetooth.purple': '(2) 紫',
+      'legobluetooth.blue': '(3) 青',
+      'legobluetooth.lightBlue': '(4) 水色',
+      'legobluetooth.lightGreen': '(5) 明るい緑',
+      'legobluetooth.green': '(6) 緑',
+      'legobluetooth.yellow': '(7) 黄色',
+      'legobluetooth.orange': '(8) オレンジ',
+      'legobluetooth.red': '(9) 赤',
+      'legobluetooth.white': '(10) 白',
+      'legobluetooth.noColor': '(-1) 色なし',
+      'legobluetooth.pitch': 'ピッチ',
+      'legobluetooth.roll': 'ロール',
+      'legobluetooth.yaw': 'ヨー'
+    },
+    'ja-Hira': {
+      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーでまわす',
+      'legobluetooth.motorStop': '[PORT] モーターをとめる',
+      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] ほうこうに [VALUE] [UNIT] まわす',
+      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] でいち [POSITION] までまわす',
+      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] ほうこうにまわす',
+      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
+      'legobluetooth.getRelativePosition': '[PORT] そうたいいち',
+      'legobluetooth.getPosition': '[PORT] いち',
+      'legobluetooth.motorResetRelativePosition': '[PORT] そうたいいちを [RELATIVE_POSITION] にリセットする',
+      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] びょうかんオンにする',
+      'legobluetooth.displayImage': '[MATRIX] をオンにする',
+      'legobluetooth.displayText': '[TEXT] をひょうじする',
+      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
+      'legobluetooth.displaySetBrightness': 'ピクセルのあかるさを [BRIGHTNESS] %にする',
+      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルのあかるさを [BRIGHTNESS] %にする',
+      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
+      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
+      'legobluetooth.getColor': '[PORT] いろ',
+      'legobluetooth.getDistance': '[PORT] きょり',
+      'legobluetooth.getForce': '[PORT] あつりょく',
+      'legobluetooth.getTilt': '[PORT] かたむき [XY]',
+      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
+      'legobluetooth.getHubTilt': 'ハブのかたむき [XYZ]',
+      'legobluetooth.getAngle': '[AXIS] かく',
+      'legobluetooth.getName': 'なまえ',
+      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
+      'legobluetooth.getBatteryLevel': 'でんちざんりょう',
+      'legobluetooth.rotations': 'かいてん',
+      'legobluetooth.degrees': 'ど',
+      'legobluetooth.seconds': 'びょう',
+      'legobluetooth.shortestPath': 'さいたんきょり',
+      'legobluetooth.clockwise': 'とけいまわり',
+      'legobluetooth.counterclockwise': 'はんとけいまわり',
+      'legobluetooth.black': '(0) くろ',
+      'legobluetooth.pink': '(1) ピンク',
+      'legobluetooth.purple': '(2) むらさき',
+      'legobluetooth.blue': '(3) あお',
+      'legobluetooth.lightBlue': '(4) みずいろ',
+      'legobluetooth.lightGreen': '(5) あかるいみどり',
+      'legobluetooth.green': '(6) みどり',
+      'legobluetooth.yellow': '(7) きいろ',
+      'legobluetooth.orange': '(8) オレンジ',
+      'legobluetooth.red': '(9) あか',
+      'legobluetooth.white': '(10) しろ',
+      'legobluetooth.noColor': '(-1) いろなし',
+      'legobluetooth.pitch': 'ピッチ',
+      'legobluetooth.roll': 'ロール',
+      'legobluetooth.yaw': 'ヨー'
+    }
+  };
+  for (var locale in translations) {
+    if (extTranslations[locale]) {
+      Object.assign(translations[locale], extTranslations[locale]);
+    }
+    if (!localeSetup.translations[locale]) {
+      localeSetup.translations[locale] = {};
+    }
+    Object.assign(localeSetup.translations[locale], translations[locale]);
+  }
+};
+var setupTranslations_1 = setupTranslations;
+
+var ArgumentType$1 = argumentType;
+var BlockType$1 = blockType;
+var Cast$1 = cast;
+var Color$1 = color;
+var _setupTranslations = setupTranslations_1;
+var BLESendInterval = 100;
+var waitPromise = function waitPromise() {
+  return new Promise(function (resolve) {
+    return window.setTimeout(resolve, BLESendInterval);
+  });
+};
+var BleBaseBlocks$1 = /*#__PURE__*/function () {
+  function BleBaseBlocks(peripheral) {
+    _classCallCheck(this, BleBaseBlocks);
+    this._peripheral = peripheral;
+  }
+  _createClass(BleBaseBlocks, [{
+    key: "externalPorts",
+    get: function get() {
+      return ['A', 'B', 'C', 'D'];
+    }
+  }, {
+    key: "multipleExternalPorts",
+    get: function get() {
+      return ['A', 'B', 'C', 'D', 'A+B', 'C+D', 'A+B+C+D'];
+    }
+  }, {
+    key: "hasInternalTiltSensorBlocks",
+    get: function get() {
+      return true;
+    }
+  }, {
+    key: "hasAdvancedBlocks",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "getBlocks",
+    value: function getBlocks(formatMessage) {
+      var blocks = [{
+        opcode: 'motorPWM',
+        text: formatMessage({
+          id: 'legobluetooth.motorPWM',
+          default: '[PORT] start motor at [POWER] % power'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          POWER: {
+            type: ArgumentType$1.NUMBER,
+            defaultValue: 100
+          }
+        }
+      }, {
+        opcode: 'motorStop',
+        text: formatMessage({
+          id: 'legobluetooth.motorStop',
+          default: '[PORT] stop motor'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, '---', {
+        opcode: 'motorRunFor',
+        text: formatMessage({
+          id: 'legobluetooth.motorRunFor',
+          default: '[PORT] run [DIRECTION] for [VALUE] [UNIT]'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          DIRECTION: {
+            type: ArgumentType$1.NUMBER,
+            menu: 'DIRECTION',
+            defaultValue: 1
+          },
+          VALUE: {
+            type: ArgumentType$1.NUMBER,
+            defaultValue: 1
+          },
+          UNIT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MOTOR_UNIT',
+            defaultValue: 'rotations'
+          }
+        }
+      }, {
+        opcode: 'motorStart',
+        text: formatMessage({
+          id: 'legobluetooth.motorStart',
+          default: '[PORT] start motor [DIRECTION]'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          DIRECTION: {
+            type: ArgumentType$1.NUMBER,
+            menu: 'DIRECTION',
+            defaultValue: 1
+          }
+        }
+      }, {
+        opcode: 'motorSetSpeed',
+        text: formatMessage({
+          id: 'legobluetooth.motorSetSpeed',
+          default: '[PORT] set speed to [SPEED] %'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          SPEED: {
+            type: ArgumentType$1.NUMBER,
+            defaultValue: 75
+          }
+        }
+      }, {
+        opcode: 'getRelativePosition',
+        text: formatMessage({
+          id: 'legobluetooth.getRelativePosition',
+          default: '[PORT] relative position'
+        }),
+        blockType: BlockType$1.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'motorResetRelativePosition',
+        text: formatMessage({
+          id: 'legobluetooth.motorResetRelativePosition',
+          default: '[PORT] reset relative position to [RELATIVE_POSITION]'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          RELATIVE_POSITION: {
+            type: ArgumentType$1.NUMBER,
+            defaultValue: 0
+          }
+        }
+      }, '---', {
+        opcode: 'getColor',
+        text: formatMessage({
+          id: 'legobluetooth.getColor',
+          default: '[PORT] color'
+        }),
+        blockType: BlockType$1.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'getDistance',
+        text: formatMessage({
+          id: 'legobluetooth.getDistance',
+          default: '[PORT] distance'
+        }),
+        blockType: BlockType$1.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'getForce',
+        text: formatMessage({
+          id: 'legobluetooth.getForce',
+          default: '[PORT] force'
+        }),
+        blockType: BlockType$1.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'getTilt',
+        text: formatMessage({
+          id: 'legobluetooth.getTilt',
+          default: '[PORT] tilt [XY]'
+        }),
+        blockType: BlockType$1.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType$1.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          },
+          XY: {
+            type: ArgumentType$1.STRING,
+            menu: 'XY',
+            defaultValue: 'x'
+          }
+        }
+      }, '---', {
+        opcode: 'setHubLEDColor',
+        text: formatMessage({
+          id: 'legobluetooth.setHubLEDColor',
+          default: 'set hub LED color to [COLOR]'
+        }),
+        blockType: BlockType$1.COMMAND,
+        arguments: {
+          COLOR: {
+            type: ArgumentType$1.NUMBER,
+            menu: 'LED_COLOR',
+            defaultValue: Color$1.BLUE
+          }
+        }
+      }];
+      if (this.hasInternalTiltSensorBlocks) {
+        blocks.push({
+          opcode: 'getHubTilt',
+          text: formatMessage({
+            id: 'legobluetooth.getHubTilt',
+            default: 'hub tilt [XYZ]'
+          }),
+          blockType: BlockType$1.REPORTER,
+          arguments: {
+            XYZ: {
+              type: ArgumentType$1.STRING,
+              menu: 'XYZ',
+              defaultValue: 'x'
+            }
+          }
+        });
+      }
+      if (this.hasAdvancedBlocks) {
+        blocks.push({
+          opcode: 'getName',
+          text: formatMessage({
+            id: 'legobluetooth.getName',
+            default: 'name'
+          }),
+          blockType: BlockType$1.REPORTER
+        });
+        blocks.push({
+          opcode: 'getFirmwareVersion',
+          text: formatMessage({
+            id: 'legobluetooth.getFirmwareVersion',
+            default: 'firmware version'
+          }),
+          blockType: BlockType$1.REPORTER
+        });
+        blocks.push({
+          opcode: 'getBatteryLevel',
+          text: formatMessage({
+            id: 'legobluetooth.getBatteryLevel',
+            default: 'battery level'
+          }),
+          blockType: BlockType$1.REPORTER
+        });
+      }
+      return blocks;
+    }
+  }, {
+    key: "getMenus",
+    value: function getMenus(formatMessage) {
+      return {
+        PORT: {
+          acceptReporters: true,
+          items: this.externalPorts
+        },
+        MULTIPLE_PORT: {
+          acceptReporters: true,
+          items: this.multipleExternalPorts
+        },
+        MOTOR_UNIT: {
+          acceptReporters: false,
+          items: [{
+            text: formatMessage({
+              id: 'legobluetooth.rotations',
+              default: 'rotations'
+            }),
+            value: 'rotations'
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.degrees',
+              default: 'degrees'
+            }),
+            value: 'degrees'
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.seconds',
+              default: 'seconds'
+            }),
+            value: 'seconds'
+          }]
+        },
+        DIRECTION: {
+          acceptReporters: false,
+          items: [{
+            text: '⬆︎',
+            value: '1'
+          }, {
+            text: '⬇',
+            value: '-1'
+          }]
+        },
+        LED_COLOR: {
+          acceptReporters: true,
+          items: [{
+            text: formatMessage({
+              id: 'legobluetooth.black',
+              default: '(0) Black'
+            }),
+            value: String(Color$1.BLACK)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.pink',
+              default: '(1) Pink'
+            }),
+            value: String(Color$1.PINK)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.purple',
+              default: '(2) Purple'
+            }),
+            value: String(Color$1.PURPLE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.blue',
+              default: '(3) Blue'
+            }),
+            value: String(Color$1.BLUE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.lightBlue',
+              default: '(4) Light blue'
+            }),
+            value: String(Color$1.LIGHT_BLUE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.lightGreen',
+              default: '(5) Light green'
+            }),
+            value: String(Color$1.LIGHT_GREEN)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.green',
+              default: '(6) Green'
+            }),
+            value: String(Color$1.GREEN)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.yellow',
+              default: '(7) Yellow'
+            }),
+            value: String(Color$1.YELLOW)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.orange',
+              default: '(8) Orange'
+            }),
+            value: String(Color$1.ORANGE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.red',
+              default: '(9) Red'
+            }),
+            value: String(Color$1.RED)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.white',
+              default: '(10) White'
+            }),
+            value: String(Color$1.WHITE)
+          }]
+        },
+        XY: {
+          acceptReporters: false,
+          items: ['x', 'y']
+        },
+        XYZ: {
+          acceptReporters: false,
+          items: ['x', 'y', 'z']
+        }
+      };
+    }
+  }, {
+    key: "_validatePorts",
+    value: function _validatePorts(text) {
+      return text.toUpperCase().replace(/[^ABCD]/g, '').split('').filter(function (x, i, self) {
+        return self.indexOf(x) === i;
+      }).sort();
+    }
+  }, {
+    key: "motorPWM",
+    value: function motorPWM(args) {
+      var _this = this;
+      var power = Cast$1.toNumber(args.POWER);
+      var ports = this._validatePorts(Cast$1.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this.externalPorts.indexOf(port);
+        return _this._peripheral.motorPWM(portId, power);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "motorStop",
+    value: function motorStop(args) {
+      var _this2 = this;
+      var ports = this._validatePorts(Cast$1.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this2.externalPorts.indexOf(port);
+        return _this2._peripheral.motorPWM(portId, 0);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "motorRunFor",
+    value: function motorRunFor(args) {
+      var direction = args.DIRECTION;
+      var value = Cast$1.toNumber(args.VALUE);
+      var unit = args.UNIT;
+      var ports = this._validatePorts(Cast$1.toString(args.PORT));
+      switch (unit) {
+        case 'rotations':
+          return this._motorRunForDegrees(ports, direction, value * 360);
+        case 'degrees':
+          return this._motorRunForDegrees(ports, direction, value);
+        case 'seconds':
+          return this._motorRunTimed(ports, direction, value);
+        default:
+          return Promise.resolve();
+      }
+    }
+  }, {
+    key: "_motorRunForDegrees",
+    value: function _motorRunForDegrees(ports, direction, degrees) {
+      var _this3 = this;
+      var promises = ports.map(function (port) {
+        var portId = _this3.externalPorts.indexOf(port);
+        return _this3._peripheral.motorRunForDegrees(portId, direction, degrees);
+      });
+      return Promise.all(promises).then(function () {});
+    }
+  }, {
+    key: "_motorRunTimed",
+    value: function _motorRunTimed(ports, direction, seconds) {
+      var _this4 = this;
+      var promises = ports.map(function (port) {
+        var portId = _this4.externalPorts.indexOf(port);
+        return _this4._peripheral.motorRunTimed(portId, direction, seconds);
+      });
+      return Promise.all(promises).then(function () {});
+    }
+  }, {
+    key: "motorStart",
+    value: function motorStart(args) {
+      var _this5 = this;
+      var direction = args.DIRECTION;
+      var ports = this._validatePorts(Cast$1.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this5.externalPorts.indexOf(port);
+        return _this5._peripheral.motorStart(portId, direction);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "motorSetSpeed",
+    value: function motorSetSpeed(args) {
+      var _this6 = this;
+      var speed = Cast$1.toNumber(args.SPEED);
+      var ports = this._validatePorts(Cast$1.toString(args.PORT));
+      ports.forEach(function (port) {
+        var portId = _this6.externalPorts.indexOf(port);
+        _this6._peripheral.motorSetSpeed(portId, speed);
+      });
+      return Promise.resolve();
+    }
+  }, {
+    key: "motorResetRelativePosition",
+    value: function motorResetRelativePosition(args) {
+      var _this7 = this;
+      var relativePosition = Cast$1.toNumber(args.RELATIVE_POSITION);
+      var ports = this._validatePorts(Cast$1.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this7.externalPorts.indexOf(port);
+        return _this7._peripheral.motorResetRelativePosition(portId, relativePosition);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "getRelativePosition",
+    value: function getRelativePosition(args) {
+      return this._getSensorValue(args, 'relativePosition', 0);
+    }
+  }, {
+    key: "getColor",
+    value: function getColor(args) {
+      return this._getSensorValue(args, 'color', -1);
+    }
+  }, {
+    key: "getDistance",
+    value: function getDistance(args) {
+      return this._getSensorValue(args, 'distance', 0);
+    }
+  }, {
+    key: "getForce",
+    value: function getForce(args) {
+      return this._getSensorValue(args, 'force', 0);
+    }
+  }, {
+    key: "getTilt",
+    value: function getTilt(args) {
+      var key = 'tilt' + args.XY.toUpperCase();
+      return this._getSensorValue(args, key, 0);
+    }
+  }, {
+    key: "_getSensorValue",
+    value: function _getSensorValue(args, key, defaultValue) {
+      var port = this._validatePorts(Cast$1.toString(args.PORT)).shift();
+      if (port) {
+        var portId = this.externalPorts.indexOf(port);
+        var value = this._peripheral.inputValue(portId, key);
+        return value != null ? value : defaultValue;
+      }
+      return defaultValue;
+    }
+  }, {
+    key: "setHubLEDColor",
+    value: function setHubLEDColor(args) {
+      var color = Cast$1.toNumber(args.COLOR);
+      return this._peripheral.setLEDColor(color).then(waitPromise);
+    }
+  }, {
+    key: "getHubTilt",
+    value: function getHubTilt(args) {
+      var key = 'tilt' + args.XYZ.toUpperCase();
+      var value = this._peripheral.internalInputValue(key);
+      return value != null ? value : 0;
+    }
+  }, {
+    key: "getName",
+    value: function getName() {
+      return this._peripheral.name ? this._peripheral.name : "";
+    }
+  }, {
+    key: "getFirmwareVersion",
+    value: function getFirmwareVersion() {
+      return this._peripheral.firmwareVersion ? this._peripheral.firmwareVersion : "";
+    }
+  }, {
+    key: "getBatteryLevel",
+    value: function getBatteryLevel() {
+      return this._peripheral.batteryLevel;
+    }
+  }, {
+    key: "setupTranslations",
+    value: function setupTranslations(formatMessage) {
+      _setupTranslations(formatMessage);
+    }
+  }]);
+  return BleBaseBlocks;
+}();
+var bleBaseBlocks = BleBaseBlocks$1;
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+var JSONRPC$1 = /*#__PURE__*/function () {
+  function JSONRPC() {
+    _classCallCheck(this, JSONRPC);
+    this._requestID = 0;
+    this._openRequests = {};
+  }
+
+  /**
+   * Make an RPC request and retrieve the result.
+   * @param {string} method - the remote method to call.
+   * @param {object} params - the parameters to pass to the remote method.
+   * @returns {Promise} - a promise for the result of the call.
+   */
+  _createClass(JSONRPC, [{
+    key: "sendRemoteRequest",
+    value: function sendRemoteRequest(method, params) {
+      var _this = this;
+      var requestID = this._requestID++;
+      var promise = new Promise(function (resolve, reject) {
+        _this._openRequests[requestID] = {
+          resolve: resolve,
+          reject: reject
+        };
+      });
+      this._sendRequest(method, params, requestID);
+      return promise;
+    }
+
+    /**
+     * Make an RPC notification with no expectation of a result or callback.
+     * @param {string} method - the remote method to call.
+     * @param {object} params - the parameters to pass to the remote method.
+     */
+  }, {
+    key: "sendRemoteNotification",
+    value: function sendRemoteNotification(method, params) {
+      this._sendRequest(method, params);
+    }
+
+    /**
+     * Handle an RPC request from remote, should return a result or Promise for result, if appropriate.
+     * @param {string} method - the method requested by the remote caller.
+     * @param {object} params - the parameters sent with the remote caller's request.
+     */
+  }, {
+    key: "didReceiveCall",
+    value: function didReceiveCall( /* method , params */
+    ) {
+      throw new Error('Must override didReceiveCall');
+    }
+  }, {
+    key: "_sendMessage",
+    value: function _sendMessage( /* jsonMessageObject */
+    ) {
+      throw new Error('Must override _sendMessage');
+    }
+  }, {
+    key: "_sendRequest",
+    value: function _sendRequest(method, params, id) {
+      var request = {
+        jsonrpc: '2.0',
+        method: method,
+        params: params
+      };
+      if (id !== null) {
+        request.id = id;
+      }
+      this._sendMessage(request);
+    }
+  }, {
+    key: "_handleMessage",
+    value: function _handleMessage(json) {
+      if (json.jsonrpc !== '2.0') {
+        throw new Error("Bad or missing JSON-RPC version in message: ".concat(json));
+      }
+      if (Object.prototype.hasOwnProperty.call(json, 'method')) {
+        this._handleRequest(json);
+      } else {
+        this._handleResponse(json);
+      }
+    }
+  }, {
+    key: "_sendResponse",
+    value: function _sendResponse(id, result, error) {
+      var response = {
+        jsonrpc: '2.0',
+        id: id
+      };
+      if (error) {
+        response.error = error;
+      } else {
+        response.result = result || null;
+      }
+      this._sendMessage(response);
+    }
+  }, {
+    key: "_handleResponse",
+    value: function _handleResponse(json) {
+      var result = json.result,
+        error = json.error,
+        id = json.id;
+      var openRequest = this._openRequests[id];
+      delete this._openRequests[id];
+      if (openRequest) {
+        if (error) {
+          openRequest.reject(error);
+        } else {
+          openRequest.resolve(result);
+        }
+      }
+    }
+  }, {
+    key: "_handleRequest",
+    value: function _handleRequest(json) {
+      var _this2 = this;
+      var method = json.method,
+        params = json.params,
+        id = json.id;
+      var rawResult = this.didReceiveCall(method, params);
+      if (id !== null && typeof id !== 'undefined') {
+        Promise.resolve(rawResult).then(function (result) {
+          _this2._sendResponse(id, result);
+        }, function (error) {
+          _this2._sendResponse(id, null, error);
+        });
+      }
+    }
+  }]);
+  return JSONRPC;
+}();
+var jsonrpc = JSONRPC$1;
+
+function _callSuper$2(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$2() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$2() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$2 = function _isNativeReflectConstruct() { return !!t; })(); }
+var JSONRPC = jsonrpc;
+var BLE$1 = /*#__PURE__*/function (_JSONRPC) {
+  _inherits(BLE, _JSONRPC);
+  /**
+   * A BLE peripheral socket object.  It handles connecting, over web sockets, to
+   * BLE peripherals, and reading and writing data to them.
+   * @param {Runtime} runtime - the Runtime for sending/receiving GUI update events.
+   * @param {string} extensionId - the id of the extension using this socket.
+   * @param {object} peripheralOptions - the list of options for peripheral discovery.
+   * @param {object} connectCallback - a callback for connection.
+   * @param {object} resetCallback - a callback for resetting extension state.
+   */
+  function BLE(runtime, extensionId, peripheralOptions, connectCallback) {
+    var _this;
+    var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+    _classCallCheck(this, BLE);
+    _this = _callSuper$2(this, BLE);
+    _this._socket = runtime.getScratchLinkSocket('BLE');
+    _this._socket.setOnOpen(_this.requestPeripheral.bind(_assertThisInitialized(_this)));
+    _this._socket.setOnClose(_this.handleDisconnectError.bind(_assertThisInitialized(_this)));
+    _this._socket.setOnError(_this._handleRequestError.bind(_assertThisInitialized(_this)));
+    _this._socket.setHandleMessage(_this._handleMessage.bind(_assertThisInitialized(_this)));
+    _this._sendMessage = _this._socket.sendMessage.bind(_this._socket);
+    _this._availablePeripherals = {};
+    _this._connectCallback = connectCallback;
+    _this._connected = false;
+    _this._characteristicDidChangeCallback = null;
+    _this._resetCallback = resetCallback;
+    _this._discoverTimeoutID = null;
+    _this._extensionId = extensionId;
+    _this._peripheralOptions = peripheralOptions;
+    _this._runtime = runtime;
+    _this._socket.open();
+    return _this;
+  }
+
+  /**
+   * Request connection to the peripheral.
+   * If the web socket is not yet open, request when the socket promise resolves.
+   */
+  _createClass(BLE, [{
+    key: "requestPeripheral",
+    value: function requestPeripheral() {
+      var _this2 = this;
+      this._availablePeripherals = {};
+      if (this._discoverTimeoutID) {
+        window.clearTimeout(this._discoverTimeoutID);
+      }
+      this._discoverTimeoutID = window.setTimeout(this._handleDiscoverTimeout.bind(this), 15000);
+      this.sendRemoteRequest('discover', this._peripheralOptions).catch(function (e) {
+        _this2._handleRequestError(e);
+      });
+    }
+
+    /**
+     * Try connecting to the input peripheral id, and then call the connect
+     * callback if connection is successful.
+     * @param {number} id - the id of the peripheral to connect to
+     */
+  }, {
+    key: "connectPeripheral",
+    value: function connectPeripheral(id) {
+      var _this3 = this;
+      this.sendRemoteRequest('connect', {
+        peripheralId: id
+      }).then(function () {
+        _this3._connected = true;
+        _this3._runtime.emit(_this3._runtime.constructor.PERIPHERAL_CONNECTED);
+        _this3._connectCallback();
+      }).catch(function (e) {
+        _this3._handleRequestError(e);
+      });
+    }
+
+    /**
+     * Close the websocket.
+     */
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      if (this._connected) {
+        this._connected = false;
+      }
+      if (this._socket.isOpen()) {
+        this._socket.close();
+      }
+      if (this._discoverTimeoutID) {
+        window.clearTimeout(this._discoverTimeoutID);
+      }
+
+      // Sets connection status icon to orange
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_DISCONNECTED);
+    }
+
+    /**
+     * @return {bool} whether the peripheral is connected.
+     */
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      return this._connected;
+    }
+
+    /**
+     * Start receiving notifications from the specified ble service.
+     * @param {number} serviceId - the ble service to read.
+     * @param {number} characteristicId - the ble characteristic to get notifications from.
+     * @param {object} onCharacteristicChanged - callback for characteristic change notifications.
+     * @return {Promise} - a promise from the remote startNotifications request.
+     */
+  }, {
+    key: "startNotifications",
+    value: function startNotifications(serviceId, characteristicId) {
+      var _this4 = this;
+      var onCharacteristicChanged = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      var params = {
+        serviceId: serviceId,
+        characteristicId: characteristicId
+      };
+      this._characteristicDidChangeCallback = onCharacteristicChanged;
+      return this.sendRemoteRequest('startNotifications', params).catch(function (e) {
+        _this4.handleDisconnectError(e);
+      });
+    }
+
+    /**
+     * Read from the specified ble service.
+     * @param {number} serviceId - the ble service to read.
+     * @param {number} characteristicId - the ble characteristic to read.
+     * @param {boolean} optStartNotifications - whether to start receiving characteristic change notifications.
+     * @param {object} onCharacteristicChanged - callback for characteristic change notifications.
+     * @return {Promise} - a promise from the remote read request.
+     */
+  }, {
+    key: "read",
+    value: function read(serviceId, characteristicId) {
+      var _this5 = this;
+      var optStartNotifications = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var onCharacteristicChanged = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+      var params = {
+        serviceId: serviceId,
+        characteristicId: characteristicId
+      };
+      if (optStartNotifications) {
+        params.startNotifications = true;
+      }
+      if (onCharacteristicChanged) {
+        this._characteristicDidChangeCallback = onCharacteristicChanged;
+      }
+      return this.sendRemoteRequest('read', params).catch(function (e) {
+        _this5.handleDisconnectError(e);
+      });
+    }
+
+    /**
+     * Write data to the specified ble service.
+     * @param {number} serviceId - the ble service to write.
+     * @param {number} characteristicId - the ble characteristic to write.
+     * @param {string} message - the message to send.
+     * @param {string} encoding - the message encoding type.
+     * @param {boolean} withResponse - if true, resolve after peripheral's response.
+     * @return {Promise} - a promise from the remote send request.
+     */
+  }, {
+    key: "write",
+    value: function write(serviceId, characteristicId, message) {
+      var _this6 = this;
+      var encoding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+      var withResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+      var params = {
+        serviceId: serviceId,
+        characteristicId: characteristicId,
+        message: message
+      };
+      if (encoding) {
+        params.encoding = encoding;
+      }
+      if (withResponse !== null) {
+        params.withResponse = withResponse;
+      }
+      return this.sendRemoteRequest('write', params).catch(function (e) {
+        _this6.handleDisconnectError(e);
+      });
+    }
+
+    /**
+     * Handle a received call from the socket.
+     * @param {string} method - a received method label.
+     * @param {object} params - a received list of parameters.
+     * @return {object} - optional return value.
+     */
+  }, {
+    key: "didReceiveCall",
+    value: function didReceiveCall(method, params) {
+      switch (method) {
+        case 'didDiscoverPeripheral':
+          this._availablePeripherals[params.peripheralId] = params;
+          this._runtime.emit(this._runtime.constructor.PERIPHERAL_LIST_UPDATE, this._availablePeripherals);
+          if (this._discoverTimeoutID) {
+            window.clearTimeout(this._discoverTimeoutID);
+          }
+          break;
+        case 'userDidPickPeripheral':
+          this._availablePeripherals[params.peripheralId] = params;
+          this._runtime.emit(this._runtime.constructor.USER_PICKED_PERIPHERAL, this._availablePeripherals);
+          if (this._discoverTimeoutID) {
+            window.clearTimeout(this._discoverTimeoutID);
+          }
+          break;
+        case 'userDidNotPickPeripheral':
+          this._runtime.emit(this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT);
+          if (this._discoverTimeoutID) {
+            window.clearTimeout(this._discoverTimeoutID);
+          }
+          break;
+        case 'characteristicDidChange':
+          if (this._characteristicDidChangeCallback) {
+            this._characteristicDidChangeCallback(params.message);
+          }
+          break;
+        case 'ping':
+          return 42;
+      }
+    }
+
+    /**
+     * Handle an error resulting from losing connection to a peripheral.
+     *
+     * This could be due to:
+     * - battery depletion
+     * - going out of bluetooth range
+     * - being powered down
+     *
+     * Disconnect the socket, and if the extension using this socket has a
+     * reset callback, call it. Finally, emit an error to the runtime.
+     */
+  }, {
+    key: "handleDisconnectError",
+    value: function handleDisconnectError( /* e */
+    ) {
+      // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+      if (!this._connected) return;
+      this.disconnect();
+      if (this._resetCallback) {
+        this._resetCallback();
+      }
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_CONNECTION_LOST_ERROR, {
+        message: "Scratch lost connection to",
+        extensionId: this._extensionId
+      });
+    }
+  }, {
+    key: "_handleRequestError",
+    value: function _handleRequestError( /* e */
+    ) {
+      // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
+        message: "Scratch lost connection to",
+        extensionId: this._extensionId
+      });
+    }
+  }, {
+    key: "_handleDiscoverTimeout",
+    value: function _handleDiscoverTimeout() {
+      if (this._discoverTimeoutID) {
+        window.clearTimeout(this._discoverTimeoutID);
+      }
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT);
+    }
+  }]);
+  return BLE;
+}(JSONRPC);
+var ble = BLE$1;
+
+var browserAtob = {exports: {}};
+
+(function (module) {
+  (function (w) {
+
+    function findBest(atobNative) {
+      // normal window
+      if ('function' === typeof atobNative) {
+        return atobNative;
+      }
+
+      // browserify (web worker)
+      if ('function' === typeof Buffer) {
+        return function atobBrowserify(a) {
+          //!! Deliberately using an API that's deprecated in node.js because
+          //!! this file is for browsers and we expect them to cope with it.
+          //!! Discussion: github.com/node-browser-compat/atob/pull/9
+          return new Buffer(a, 'base64').toString('binary');
+        };
+      }
+
+      // ios web worker with base64js
+      if ('object' === _typeof$1(w.base64js)) {
+        // bufferToBinaryString
+        // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
+        return function atobWebWorker_iOS(a) {
+          var buf = w.base64js.b64ToByteArray(a);
+          return Array.prototype.map.call(buf, function (ch) {
+            return String.fromCharCode(ch);
+          }).join('');
+        };
+      }
+      return function () {
+        // ios web worker without base64js
+        throw new Error("You're probably in an old browser or an iOS webworker." + " It might help to include beatgammit's base64-js.");
+      };
+    }
+    var atobBest = findBest(w.atob);
+    w.atob = atobBest;
+    if (module && module.exports) {
+      module.exports = atobBest;
+    }
+  })(window);
+})(browserAtob);
+
+var btoa$1 = {exports: {}};
+
+(function () {
+
+  function btoa(str) {
+    var buffer;
+    if (str instanceof Buffer) {
+      buffer = str;
+    } else {
+      buffer = Buffer.from(str.toString(), 'binary');
+    }
+    return buffer.toString('base64');
+  }
+  btoa$1.exports = btoa;
+})();
+
+var atob = browserAtob.exports;
+var btoa = btoa$1.exports;
+var Base64Util$1 = /*#__PURE__*/function () {
+  function Base64Util() {
+    _classCallCheck(this, Base64Util);
+  }
+  _createClass(Base64Util, null, [{
+    key: "base64ToUint8Array",
+    value:
+    /**
+     * Convert a base64 encoded string to a Uint8Array.
+     * @param {string} base64 - a base64 encoded string.
+     * @return {Uint8Array} - a decoded Uint8Array.
+     */
+    function base64ToUint8Array(base64) {
+      var binaryString = atob(base64);
+      var len = binaryString.length;
+      var array = new Uint8Array(len);
+      for (var i = 0; i < len; i++) {
+        array[i] = binaryString.charCodeAt(i);
+      }
+      return array;
+    }
+
+    /**
+     * Convert a Uint8Array to a base64 encoded string.
+     * @param {Uint8Array} array - the array to convert.
+     * @return {string} - the base64 encoded string.
+     */
+  }, {
+    key: "uint8ArrayToBase64",
+    value: function uint8ArrayToBase64(array) {
+      var base64 = btoa(String.fromCharCode.apply(null, array));
+      return base64;
+    }
+
+    /**
+    * Convert an array buffer to a base64 encoded string.
+    * @param {array} buffer - an array buffer to convert.
+    * @return {string} - the base64 encoded string.
+    */
+  }, {
+    key: "arrayBufferToBase64",
+    value: function arrayBufferToBase64(buffer) {
+      var binary = '';
+      var bytes = new Uint8Array(buffer);
+      var len = bytes.byteLength;
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+  }]);
+  return Base64Util;
+}();
+var base64Util = Base64Util$1;
 
 var Timer$1 = /*#__PURE__*/function () {
   function Timer() {
@@ -10717,189 +11674,829 @@ var RateLimiter$1 = /*#__PURE__*/function () {
 }();
 var rateLimiter = RateLimiter$1;
 
-var Color$1 = {
-  BLACK: 0,
-  PINK: 1,
-  PURPLE: 2,
-  BLUE: 3,
-  LIGHT_BLUE: 4,
-  LIGHT_GREEN: 5,
-  GREEN: 6,
-  YELLOW: 7,
-  ORANGE: 8,
-  RED: 9,
-  WHITE: 10,
-  NONE: -1
+var IOType$2 = {
+  SIMPLE_MEDIUM_LINEAR_MOTOR: 0x01,
+  TRAIN_MOTOR: 0x02,
+  BUTTION: 0x05,
+  LIGHT: 0x08,
+  VOLTAGE: 0x14,
+  CURRENT: 0x15,
+  PIEZO_TONE: 0x16,
+  RGB_LIGHT: 0x17,
+  TILT_SENSOR: 0x22,
+  MOTION_SENSOR: 0x23,
+  COLOR_DISTANCE_SENSOR: 0x25,
+  MEDIUM_LINEAR_MOTOR: 0x26,
+  MOVE_HUB_MOTOR: 0x27,
+  MOVE_HUB_TILT_SENSOR: 0x28,
+  DUPLO_TRAIN_BASE_MOTOR: 0x29,
+  DUPLO_TRAIN_BASE_SPEAKER: 0x2a,
+  DUPLO_TRAIN_BASE_COLOR_SENSOR: 0x2b,
+  DUPLO_TRAIN_BASE_SPEEDOMETER: 0x2c,
+  TECHNIC_LARGE_MOTOR: 0x2e,
+  TECHNIC_XL_MOTOR: 0x2f,
+  TECHNIC_MEDIUM_ANGULAR_MOTOR: 0x30,
+  TECHNIC_LARGE_ANGULAR_MOTOR: 0x31,
+  REMOTE_POWER_CONTROL_BUTTON: 0x37,
+  TECHNIC_HUB_TILT_SENSOR: 0x3b,
+  TECHNIC_COLOR_SENSOR: 0x3d,
+  TECHNIC_DISTANCE_SENSOR: 0x3e,
+  TECHNIC_FORCE_SENSOR: 0x3f,
+  TECHNIC_SMALL_ANGULAR_MOTOR: 0x41,
+  MARIO_COLOR_BARCODE_SENSOR: 0x49,
+  MARIO_PANTS: 0x4a,
+  TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY: 0x4b,
+  TECHNIC_LARGE_ANGULAR_MOTOR_GRAY: 0x4c
 };
-var color = Color$1;
+var ioType = IOType$2;
 
-var setupTranslations$1 = function setupTranslations(formatMessage) {
-  var extTranslations = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var localeSetup = formatMessage.setup();
-  var translations = {
-    'en': {
-      'legobluetooth.motorPWM': '[PORT] start motor at [POWER] % power',
-      'legobluetooth.motorStop': '[PORT] stop motor',
-      'legobluetooth.motorRunFor': '[PORT] run [DIRECTION] for [VALUE] [UNIT]',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] go [DIRECTION] to position [POSITION]',
-      'legobluetooth.motorStart': '[PORT] start motor [DIRECTION]',
-      'legobluetooth.motorSetSpeed': '[PORT] set speed to [SPEED] %',
-      'legobluetooth.getRelativePosition': '[PORT] relative position',
-      'legobluetooth.getPosition': '[PORT] position',
-      'legobluetooth.motorResetRelativePosition': '[PORT] reset relative position to [RELATIVE_POSITION]',
-      'legobluetooth.displayImageFor': 'turn on [MATRIX] for [DURATION] seconds',
-      'legobluetooth.displayImage': 'turn on [MATRIX]',
-      'legobluetooth.displayText': 'write [TEXT]',
-      'legobluetooth.displayClear': 'turn off pixels',
-      'legobluetooth.displaySetBrightness': 'set pixel brightness to [BRIGHTNESS] %',
-      'legobluetooth.displaySetPixel': 'set pixel at [X] , [Y] to [BRIGHTNESS] %',
-      'legobluetooth.centerButtonLights': 'set center button light to [COLOR]',
-      'legobluetooth.ultrasonicLightUp': '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]',
-      'legobluetooth.getColor': '[PORT] color',
-      'legobluetooth.getDistance': '[PORT] distance',
-      'legobluetooth.getForce': '[PORT] force',
-      'legobluetooth.getTilt': '[PORT] tilt [XY]',
-      'legobluetooth.setHubLEDColor': 'set hub LED color to [COLOR]',
-      'legobluetooth.getHubTilt': 'hub tilt [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] angle',
-      'legobluetooth.getName': 'name',
-      'legobluetooth.getFirmwareVersion': 'firmware version',
-      'legobluetooth.getBatteryLevel': 'battery level',
-      'legobluetooth.rotations': 'rotations',
-      'legobluetooth.degrees': 'degrees',
-      'legobluetooth.seconds': 'seconds',
-      'legobluetooth.shortestPath': 'shortest',
-      'legobluetooth.clockwise': 'clockwise',
-      'legobluetooth.counterclockwise': 'counterclockwise',
-      'legobluetooth.black': '(0) Black',
-      'legobluetooth.pink': '(1) Pink',
-      'legobluetooth.purple': '(2) Purple',
-      'legobluetooth.blue': '(3) Blue',
-      'legobluetooth.lightBlue': '(4) Light blue',
-      'legobluetooth.lightGreen': '(5) Light green',
-      'legobluetooth.green': '(6) Green',
-      'legobluetooth.yellow': '(7) Yellow',
-      'legobluetooth.orange': '(8) Orange',
-      'legobluetooth.red': '(9) Red',
-      'legobluetooth.white': '(10) White',
-      'legobluetooth.noColor': '(-1) No color',
-      'legobluetooth.pitch': 'pitch',
-      'legobluetooth.roll': 'roll',
-      'legobluetooth.yaw': 'yaw'
+var device = {};
+
+function _callSuper$1(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
+var MathUtil$2 = mathUtil;
+var IOType$1 = ioType;
+var GenericDevice = /*#__PURE__*/function () {
+  function GenericDevice(ioType) {
+    _classCallCheck(this, GenericDevice);
+    this._ioType = ioType;
+    this._inputValues = {};
+  }
+  _createClass(GenericDevice, [{
+    key: "ioType",
+    get: function get() {
+      return this._ioType;
+    }
+  }, {
+    key: "mode",
+    get: function get() {
+      switch (this._ioType) {
+        case IOType$1.MEDIUM_LINEAR_MOTOR:
+        case IOType$1.MOVE_HUB_MOTOR:
+        case IOType$1.TECHNIC_LARGE_MOTOR:
+        case IOType$1.TECHNIC_XL_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+          return 2;
+        // Relative Position
+        case IOType$1.TILT_SENSOR:
+          return 0;
+        // Tilt X, Y
+        case IOType$1.MOTION_SENSOR:
+          return 0;
+        // Distance
+        case IOType$1.COLOR_DISTANCE_SENSOR:
+          return 8;
+        // Color and Distance
+        case IOType$1.MOVE_HUB_TILT_SENSOR:
+          return 0;
+        // Tilt X, Y
+        case IOType$1.DUPLO_TRAIN_BASE_SPEAKER:
+          return 1;
+        // Sound
+        case IOType$1.DUPLO_TRAIN_BASE_COLOR_SENSOR:
+          return 1;
+        // Color
+        case IOType$1.DUPLO_TRAIN_BASE_SPEEDOMETER:
+          return 1;
+        // Driving Distance
+        case IOType$1.REMOTE_POWER_CONTROL_BUTTON:
+          return 0;
+        // Button
+        case IOType$1.TECHNIC_HUB_TILT_SENSOR:
+          return 0;
+        // Tilt X, Y, Z
+        case IOType$1.TECHNIC_COLOR_SENSOR:
+          return 0;
+        // Color
+        case IOType$1.TECHNIC_DISTANCE_SENSOR:
+          return 0;
+        // Distance
+        case IOType$1.TECHNIC_FORCE_SENSOR:
+          return 0;
+        // Force
+        case IOType$1.MARIO_COLOR_BARCODE_SENSOR:
+          return 0;
+        case IOType$1.MARIO_PANTS:
+          return 0;
+        default:
+          return null;
+      }
+    }
+  }, {
+    key: "inputValues",
+    get: function get() {
+      return this._inputValues;
+    }
+  }, {
+    key: "updateInputValues",
+    value: function updateInputValues(data) {
+      var _this = this;
+      if (data.length == 0) {
+        this._inputValues = {};
+        return;
+      }
+      var buffer = Buffer.from(data);
+      switch (this._ioType) {
+        case IOType$1.MEDIUM_LINEAR_MOTOR:
+        case IOType$1.MOVE_HUB_MOTOR:
+        case IOType$1.TECHNIC_LARGE_MOTOR:
+        case IOType$1.TECHNIC_XL_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+          this._inputValues = {
+            relativePosition: buffer.readInt32LE(0)
+          };
+          break;
+        case IOType$1.TILT_SENSOR:
+          this._inputValues = {
+            tiltX: buffer.readInt8(0),
+            tiltY: buffer.readInt8(1)
+          };
+          break;
+        case IOType$1.MOTION_SENSOR:
+          this._inputValues = {
+            distance: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.COLOR_DISTANCE_SENSOR:
+          this._inputValues = {
+            color: buffer.readInt8(0),
+            distance: buffer.readInt8(1)
+          };
+          break;
+        case IOType$1.MOVE_HUB_TILT_SENSOR:
+          this._inputValues = {
+            tiltX: buffer.readInt8(0),
+            tiltY: buffer.readInt8(1)
+          };
+          break;
+        case IOType$1.DUPLO_TRAIN_BASE_COLOR_SENSOR:
+          var value = buffer.readInt8(0);
+          if (value > -1) {
+            this._inputValues = {
+              color: value
+            };
+            setTimeout(function () {
+              _this._inputValues = {
+                color: -1
+              };
+            }, 100);
+          }
+          break;
+        case IOType$1.DUPLO_TRAIN_BASE_SPEEDOMETER:
+          this._inputValues = {
+            drivingDistance: buffer.readInt32LE(0)
+          };
+          break;
+        case IOType$1.REMOTE_POWER_CONTROL_BUTTON:
+          this._inputValues = {
+            button: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.TECHNIC_HUB_TILT_SENSOR:
+          this._inputValues = {
+            tiltX: buffer.readInt16LE(4),
+            tiltY: buffer.readInt16LE(2),
+            tiltZ: buffer.readInt16LE(0)
+          };
+          break;
+        case IOType$1.TECHNIC_COLOR_SENSOR:
+          this._inputValues = {
+            color: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.TECHNIC_DISTANCE_SENSOR:
+          this._inputValues = {
+            distance: buffer.readInt16LE(0)
+          };
+          break;
+        case IOType$1.TECHNIC_FORCE_SENSOR:
+          this._inputValues = {
+            force: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.MARIO_COLOR_BARCODE_SENSOR:
+          this._inputValues = {
+            barcode: buffer.readInt16LE(0),
+            color: buffer.readInt16LE(2)
+          };
+          break;
+        case IOType$1.MARIO_PANTS:
+          this._inputValues = {
+            pants: buffer.readInt8(0)
+          };
+          break;
+        default:
+          this._inputValues = {};
+          break;
+      }
+      this._inputValues.bytes = buffer;
+    }
+  }]);
+  return GenericDevice;
+}();
+var Motor = /*#__PURE__*/function (_GenericDevice) {
+  _inherits(Motor, _GenericDevice);
+  function Motor(ioType) {
+    var _this2;
+    _classCallCheck(this, Motor);
+    _this2 = _callSuper$1(this, Motor, [ioType]);
+    switch (ioType) {
+      case IOType$1.MEDIUM_LINEAR_MOTOR:
+      case IOType$1.MOVE_HUB_MOTOR:
+        _this2._canUseSpeed = true;
+        _this2._canUsePosition = false;
+        _this2._speed = 75;
+        break;
+      case IOType$1.TECHNIC_LARGE_MOTOR:
+      case IOType$1.TECHNIC_XL_MOTOR:
+      case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+      case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+      case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+      case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+      case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+        _this2._canUseSpeed = true;
+        _this2._canUsePosition = true;
+        _this2._speed = 75;
+        break;
+      default:
+        _this2._canUseSpeed = false;
+        _this2._canUsePosition = false;
+        _this2._speed = 0;
+    }
+    return _this2;
+  }
+  _createClass(Motor, [{
+    key: "canUseSpeed",
+    get: function get() {
+      return this._canUseSpeed;
+    }
+  }, {
+    key: "canUsePosition",
+    get: function get() {
+      return this._canUsePosition;
+    }
+  }, {
+    key: "speed",
+    get: function get() {
+      return this._speed;
     },
-    'it': {},
-    'ja': {
-      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーで回す',
-      'legobluetooth.motorStop': '[PORT] モーターを止める',
-      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] 方向に [VALUE] [UNIT] 回す',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] で位置 [POSITION] まで回す',
-      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] 方向に回す',
-      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
-      'legobluetooth.getRelativePosition': '[PORT] 相対位置',
-      'legobluetooth.getPosition': '[PORT] 位置',
-      'legobluetooth.motorResetRelativePosition': '[PORT] 相対位置を [RELATIVE_POSITION] にリセットする',
-      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] 秒間オンにする',
-      'legobluetooth.displayImage': '[MATRIX] をオンにする',
-      'legobluetooth.displayText': '[TEXT] を表示する',
-      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
-      'legobluetooth.displaySetBrightness': 'ピクセルの明るさを [BRIGHTNESS] %にする',
-      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルの明るさを [BRIGHTNESS] %にする',
-      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
-      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
-      'legobluetooth.getColor': '[PORT] 色',
-      'legobluetooth.getDistance': '[PORT] 距離',
-      'legobluetooth.getForce': '[PORT] 圧力',
-      'legobluetooth.getTilt': '[PORT] 傾き [XY]',
-      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
-      'legobluetooth.getHubTilt': 'ハブの傾き [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] 角',
-      'legobluetooth.getName': '名前',
-      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
-      'legobluetooth.getBatteryLevel': '電池残量',
-      'legobluetooth.rotations': '回転',
-      'legobluetooth.degrees': '度',
-      'legobluetooth.seconds': '秒',
-      'legobluetooth.shortestPath': '最短経路',
-      'legobluetooth.clockwise': '時計回り',
-      'legobluetooth.counterclockwise': '反時計回り',
-      'legobluetooth.black': '(0) 黒',
-      'legobluetooth.pink': '(1) ピンク',
-      'legobluetooth.purple': '(2) 紫',
-      'legobluetooth.blue': '(3) 青',
-      'legobluetooth.lightBlue': '(4) 水色',
-      'legobluetooth.lightGreen': '(5) 明るい緑',
-      'legobluetooth.green': '(6) 緑',
-      'legobluetooth.yellow': '(7) 黄色',
-      'legobluetooth.orange': '(8) オレンジ',
-      'legobluetooth.red': '(9) 赤',
-      'legobluetooth.white': '(10) 白',
-      'legobluetooth.noColor': '(-1) 色なし',
-      'legobluetooth.pitch': 'ピッチ',
-      'legobluetooth.roll': 'ロール',
-      'legobluetooth.yaw': 'ヨー'
-    },
-    'ja-Hira': {
-      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーでまわす',
-      'legobluetooth.motorStop': '[PORT] モーターをとめる',
-      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] ほうこうに [VALUE] [UNIT] まわす',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] でいち [POSITION] までまわす',
-      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] ほうこうにまわす',
-      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
-      'legobluetooth.getRelativePosition': '[PORT] そうたいいち',
-      'legobluetooth.getPosition': '[PORT] いち',
-      'legobluetooth.motorResetRelativePosition': '[PORT] そうたいいちを [RELATIVE_POSITION] にリセットする',
-      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] びょうかんオンにする',
-      'legobluetooth.displayImage': '[MATRIX] をオンにする',
-      'legobluetooth.displayText': '[TEXT] をひょうじする',
-      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
-      'legobluetooth.displaySetBrightness': 'ピクセルのあかるさを [BRIGHTNESS] %にする',
-      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルのあかるさを [BRIGHTNESS] %にする',
-      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
-      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
-      'legobluetooth.getColor': '[PORT] いろ',
-      'legobluetooth.getDistance': '[PORT] きょり',
-      'legobluetooth.getForce': '[PORT] あつりょく',
-      'legobluetooth.getTilt': '[PORT] かたむき [XY]',
-      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
-      'legobluetooth.getHubTilt': 'ハブのかたむき [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] かく',
-      'legobluetooth.getName': 'なまえ',
-      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
-      'legobluetooth.getBatteryLevel': 'でんちざんりょう',
-      'legobluetooth.rotations': 'かいてん',
-      'legobluetooth.degrees': 'ど',
-      'legobluetooth.seconds': 'びょう',
-      'legobluetooth.shortestPath': 'さいたんきょり',
-      'legobluetooth.clockwise': 'とけいまわり',
-      'legobluetooth.counterclockwise': 'はんとけいまわり',
-      'legobluetooth.black': '(0) くろ',
-      'legobluetooth.pink': '(1) ピンク',
-      'legobluetooth.purple': '(2) むらさき',
-      'legobluetooth.blue': '(3) あお',
-      'legobluetooth.lightBlue': '(4) みずいろ',
-      'legobluetooth.lightGreen': '(5) あかるいみどり',
-      'legobluetooth.green': '(6) みどり',
-      'legobluetooth.yellow': '(7) きいろ',
-      'legobluetooth.orange': '(8) オレンジ',
-      'legobluetooth.red': '(9) あか',
-      'legobluetooth.white': '(10) しろ',
-      'legobluetooth.noColor': '(-1) いろなし',
-      'legobluetooth.pitch': 'ピッチ',
-      'legobluetooth.roll': 'ロール',
-      'legobluetooth.yaw': 'ヨー'
+    set: function set(value) {
+      if (this._canUseSpeed) {
+        this._speed = MathUtil$2.clamp(value, -100, 100);
+      }
     }
-  };
-  for (var locale in translations) {
-    if (extTranslations[locale]) {
-      Object.assign(translations[locale], extTranslations[locale]);
-    }
-    if (!localeSetup.translations[locale]) {
-      localeSetup.translations[locale] = {};
-    }
-    Object.assign(localeSetup.translations[locale], translations[locale]);
+  }]);
+  return Motor;
+}(GenericDevice);
+var createDevice = function createDevice(ioType) {
+  switch (ioType) {
+    case IOType$1.SIMPLE_MEDIUM_LINEAR_MOTOR:
+    case IOType$1.TRAIN_MOTOR:
+    case IOType$1.LIGHT:
+    case IOType$1.MEDIUM_LINEAR_MOTOR:
+    case IOType$1.MOVE_HUB_MOTOR:
+    case IOType$1.DUPLO_TRAIN_BASE_MOTOR:
+    case IOType$1.TECHNIC_LARGE_MOTOR:
+    case IOType$1.TECHNIC_XL_MOTOR:
+    case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+    case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+    case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+    case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+    case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+      return new Motor(ioType);
+    default:
+      return new GenericDevice(ioType);
   }
 };
-var setupTranslations_1 = setupTranslations$1;
+device.GenericDevice = GenericDevice;
+device.Motor = Motor;
+device.createDevice = createDevice;
+
+var BLE = ble;
+var Base64Util = base64Util;
+var MathUtil$1 = mathUtil;
+var RateLimiter = rateLimiter;
+
+//const log = require('../../../util/log');
+
+var IOType = ioType;
+var Device = device;
+var _TextDecoder;
+if (typeof TextDecoder === 'undefined') {
+  _TextDecoder = null;
+} else {
+  _TextDecoder = TextDecoder;
+}
+var ServiceUUID = '00001623-1212-efde-1623-785feabcd123';
+var CharacteristicUUID = '00001624-1212-efde-1623-785feabcd123';
+var SendRateMax = 20;
+var PollingInterval = 3000;
+var MAX_INT32 = Math.pow(2, 31) - 1;
+var MIN_INT32 = Math.pow(2, 31) * -1;
+var MAX_INT16 = Math.pow(2, 15) - 1;
+var MessageType = {
+  HUB_PROPERTIES: 0x01,
+  HUB_ATTACHED_IO: 0x04,
+  GENERIC_ERROR_MESSAGES: 0x05,
+  PORT_INPUT_FORMAT_SETUP: 0x41,
+  PORT_INPUT_FORMAT_SETUP_COMBINED: 0x42,
+  PORT_VALUE: 0x45,
+  PORT_VALUE_COMBINED: 0x46,
+  PORT_OUTPUT_COMMAND: 0x81,
+  PORT_OUTPUT_COMMAND_FEEDBACK: 0x82
+};
+var HubPropertyReference = {
+  ADVERTISING_NAME: 0x01,
+  BUTTON: 0x02,
+  FW_VERSION: 0x03,
+  BATTERY_VOLTAGE: 0x06,
+  SPEAKER_VOLUME: 0x12
+};
+var HubPropertyOperation = {
+  SET: 0x01,
+  ENABLE_UPDATES: 0x02,
+  DISABLE_UPDATES: 0x03,
+  RESET: 0x04,
+  REQUEST_UPDATE: 0x05,
+  UPDATE: 0x06
+};
+var numberToInt32Array = function numberToInt32Array(number) {
+  var buffer = new ArrayBuffer(4);
+  var dataview = new DataView(buffer);
+  dataview.setInt32(0, number);
+  return [dataview.getUint8(3), dataview.getUint8(2), dataview.getUint8(1), dataview.getUint8(0)];
+};
+var numberToInt16Array = function numberToInt16Array(number) {
+  var buffer = new ArrayBuffer(2);
+  var dataview = new DataView(buffer);
+  dataview.setInt16(0, number);
+  return [dataview.getUint8(1), dataview.getUint8(0)];
+};
+var Hub$1 = /*#__PURE__*/function () {
+  function Hub(runtime, extensionId) {
+    var hubType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    _classCallCheck(this, Hub);
+    this._runtime = runtime;
+    this._extensionId = extensionId;
+    this._hubType = hubType;
+    this._name = null;
+    this._firmwareVersion = null;
+    this._batteryLevel = 0;
+    this._devices = [];
+    this._firstNotificationCallback = null;
+    this._outputCommandFeedbackCallbacks = [];
+    this._outputCommandCompletionCallbacks = [];
+    this._ble = null;
+    this._runtime.registerPeripheralExtension(extensionId, this);
+    this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
+    this._rateLimiter = new RateLimiter(SendRateMax);
+    this._pollingId = null;
+    this.reset = this.reset.bind(this);
+    this._onConnect = this._onConnect.bind(this);
+    this._onMessage = this._onMessage.bind(this);
+  }
+  _createClass(Hub, [{
+    key: "name",
+    get: function get() {
+      return this._name;
+    }
+  }, {
+    key: "firmwareVersion",
+    get: function get() {
+      return this._firmwareVersion;
+    }
+  }, {
+    key: "batteryLevel",
+    get: function get() {
+      return this._batteryLevel;
+    }
+
+    // BLE
+  }, {
+    key: "scan",
+    value: function scan() {
+      if (this._ble) {
+        this._ble.disconnect();
+      }
+      var hubTypeFilter = {
+        dataPrefix: []
+      };
+      if (this._hubType) {
+        hubTypeFilter = {
+          dataPrefix: [0x00, this._hubType],
+          mask: [0x00, 0xff]
+        };
+      }
+      this._ble = new BLE(this._runtime, this._extensionId, {
+        filters: [{
+          services: [ServiceUUID],
+          manufacturerData: {
+            0x0397: hubTypeFilter
+          }
+        }],
+        optionalServices: []
+      }, this._onConnect, this.reset);
+    }
+  }, {
+    key: "connect",
+    value: function connect(id) {
+      if (this._ble) {
+        this._ble.connectPeripheral(id);
+      }
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      if (this._ble) {
+        this._ble.disconnect();
+      }
+      this.reset();
+    }
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      var connected = false;
+      if (this._ble) {
+        connected = this._ble.isConnected();
+      }
+      return connected;
+    }
+  }, {
+    key: "_onConnect",
+    value: function _onConnect() {
+      var _this = this;
+      this._ble.startNotifications(ServiceUUID, CharacteristicUUID, this._onMessage);
+      this._firstNotificationCallback = function () {
+        _this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.ADVERTISING_NAME, HubPropertyOperation.ENABLE_UPDATES], false);
+        _this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.FW_VERSION, HubPropertyOperation.REQUEST_UPDATE]);
+      };
+      this._startPollingBatteryLevel();
+    }
+  }, {
+    key: "_onMessage",
+    value: function _onMessage(base64) {
+      var data = Base64Util.base64ToUint8Array(base64);
+      //logByteArray('<<', data);
+
+      var length = data[0];
+      if (length > 127) {
+        //log.warn(`Unsupported message length: ${length}`);
+        return;
+      }
+      var messageType = data[2];
+      switch (messageType) {
+        case MessageType.HUB_PROPERTIES:
+          {
+            var property = data[3];
+            switch (property) {
+              case HubPropertyReference.ADVERTISING_NAME:
+                if (_TextDecoder) {
+                  var uint8Array = new Uint8Array(data.slice(5));
+                  this._name = new _TextDecoder().decode(uint8Array);
+                } else {
+                  this._name = 'unsupported';
+                }
+                break;
+              case HubPropertyReference.FW_VERSION:
+                var value = data.slice(5);
+                if (value.length == 4) {
+                  var s = value.reduce(function (output, elem) {
+                    return ('0' + (elem & 0xff).toString(16)).slice(-2) + output;
+                  }, '');
+                  this._firmwareVersion = s.slice(0, 1) + '.' + s.slice(1, 2) + '.' + s.slice(2, 4) + '.' + s.slice(4);
+                }
+                break;
+              case HubPropertyReference.BATTERY_VOLTAGE:
+                this._batteryLevel = data[5];
+                break;
+            }
+            break;
+          }
+        case MessageType.HUB_ATTACHED_IO:
+          {
+            var portId = data[3];
+            var event = data[4];
+            var ioType = data[5];
+            switch (event) {
+              case 0x00:
+                // Detached I/O
+                this._dettachDevice(portId);
+                break;
+              case 0x01:
+                // Attached I/O
+                this._attachDevice(portId, ioType);
+                break;
+            }
+            break;
+          }
+        case MessageType.PORT_VALUE:
+          {
+            var _portId = data[3];
+            var device = this._devices[_portId];
+            if (device) {
+              device.updateInputValues(data.slice(4));
+              //log.debug(portId, device.inputValues);
+            }
+            break;
+          }
+        case MessageType.PORT_OUTPUT_COMMAND_FEEDBACK:
+          {
+            var _portId2 = data[3];
+            var feedback = data[4];
+            var discarded = feedback & 0x04;
+            var completed = feedback & 0x02;
+            var inProgress = feedback & 0x01;
+            if (discarded) {
+              this._clearOutputCommandCompletionCallback(_portId2);
+            }
+            if (completed) {
+              this._clearOutputCommandFeedbackCallback(_portId2);
+              this._clearOutputCommandCompletionCallback(_portId2);
+            }
+            if (inProgress) {
+              this._moveOutputCommandFeedbackCallbackToCompletionCallback(_portId2);
+            }
+            break;
+          }
+      }
+      if (this._firstNotificationCallback) {
+        this._firstNotificationCallback();
+        this._firstNotificationCallback = null;
+      }
+    }
+  }, {
+    key: "_dettachDevice",
+    value: function _dettachDevice(portId) {
+      this._devices[portId] = null;
+    }
+  }, {
+    key: "_attachDevice",
+    value: function _attachDevice(portId, ioType) {
+      var _this2 = this;
+      var device = Device.createDevice(ioType);
+      this._devices[portId] = device;
+      var mode = device.mode;
+      if (mode !== null) {
+        setTimeout(function () {
+          _this2.sendMessage(MessageType.PORT_INPUT_FORMAT_SETUP, [portId, mode, 1, 0, 0, 0, 1], false);
+        }, 100);
+      }
+    }
+  }, {
+    key: "send",
+    value: function send(data) {
+      var useLimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      if (!this.isConnected()) {
+        return Promise.resolve();
+      }
+      if (useLimiter) {
+        if (!this._rateLimiter.okayToSend()) {
+          return Promise.resolve();
+        }
+      }
+
+      //logByteArray('>>', data);
+
+      return this._ble.write(ServiceUUID, CharacteristicUUID, Base64Util.uint8ArrayToBase64(data), 'base64', true);
+    }
+  }, {
+    key: "sendMessage",
+    value: function sendMessage(messageType, payload) {
+      var useLimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+      var command = [0x00,
+      // Hub ID: Always set to 0x00 (zero)
+      messageType].concat(_toConsumableArray(payload));
+      command.unshift(command.length + 1);
+      return this.send(command, useLimiter);
+    }
+  }, {
+    key: "sendOutputCommand",
+    value: function sendOutputCommand(portId, subCommand, payload) {
+      var needsFeedback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+      var useLimiter = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+      var flag = needsFeedback ? 0x11 : 0x10;
+      return this.sendMessage(MessageType.PORT_OUTPUT_COMMAND, [portId, flag, subCommand].concat(_toConsumableArray(payload)), useLimiter);
+    }
+
+    // Reset and Stop
+  }, {
+    key: "reset",
+    value: function reset() {
+      this._name = null;
+      this._firmwareVersion = null;
+      this._batteryLevel = 0;
+      this._devices = [];
+      this._outputCommandFeedbackCallbacks = [];
+      this._outputCommandCompletionCallbacks = [];
+      this._stopPollingBatteryLevel();
+    }
+  }, {
+    key: "stopAll",
+    value: function stopAll() {
+      if (this.isConnected()) {
+        this.stopAllMotors();
+      }
+    }
+  }, {
+    key: "stopAllMotors",
+    value: function stopAllMotors() {
+      for (var _i = 0, _Object$entries = Object.entries(this._devices); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          portId = _Object$entries$_i[0],
+          device = _Object$entries$_i[1];
+        if (device instanceof Device.Motor) {
+          this.sendOutputCommand(portId, 0x51, [0x00, 0], false);
+          this._outputCommandFeedbackCallbacks[portId] = null;
+          this._outputCommandCompletionCallbacks[portId] = null;
+        }
+      }
+    }
+  }, {
+    key: "_startPollingBatteryLevel",
+    value: function _startPollingBatteryLevel() {
+      var _this3 = this;
+      this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.BATTERY_VOLTAGE, HubPropertyOperation.REQUEST_UPDATE]);
+      this._pollingId = window.setInterval(function () {
+        _this3.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.BATTERY_VOLTAGE, HubPropertyOperation.REQUEST_UPDATE]);
+      }, PollingInterval);
+    }
+  }, {
+    key: "_stopPollingBatteryLevel",
+    value: function _stopPollingBatteryLevel() {
+      if (this._pollingId) {
+        window.clearInterval(this._pollingId);
+        this._pollingId = null;
+      }
+    }
+
+    // Output Command Feedback
+  }, {
+    key: "_createOutputCommandFeedbackPromise",
+    value: function _createOutputCommandFeedbackPromise(portId) {
+      var _this4 = this;
+      return new Promise(function (resolve) {
+        _this4._outputCommandFeedbackCallbacks[portId] = resolve;
+      });
+    }
+  }, {
+    key: "_clearOutputCommandFeedbackCallback",
+    value: function _clearOutputCommandFeedbackCallback(portId) {
+      if (this._outputCommandFeedbackCallbacks[portId]) {
+        this._outputCommandFeedbackCallbacks[portId]();
+        this._outputCommandFeedbackCallbacks[portId] = null;
+      }
+    }
+  }, {
+    key: "_clearOutputCommandCompletionCallback",
+    value: function _clearOutputCommandCompletionCallback(portId) {
+      if (this._outputCommandCompletionCallbacks[portId]) {
+        this._outputCommandCompletionCallbacks[portId]();
+        this._outputCommandCompletionCallbacks[portId] = null;
+      }
+    }
+  }, {
+    key: "_moveOutputCommandFeedbackCallbackToCompletionCallback",
+    value: function _moveOutputCommandFeedbackCallbackToCompletionCallback(portId) {
+      this._outputCommandCompletionCallbacks[portId] = this._outputCommandFeedbackCallbacks[portId];
+      this._outputCommandFeedbackCallbacks[portId] = null;
+    }
+
+    // Motor
+  }, {
+    key: "getMotor",
+    value: function getMotor(portId) {
+      var device = this._devices[portId];
+      if (device instanceof Device.Motor) {
+        return device;
+      } else {
+        return null;
+      }
+    }
+  }, {
+    key: "motorPWM",
+    value: function motorPWM(portId, power) {
+      power = MathUtil$1.clamp(power, -100, 100);
+      var motor = this.getMotor(portId);
+      if (motor) {
+        return this.sendOutputCommand(portId, 0x51, [0x00, power]);
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorRunForDegrees",
+    value: function motorRunForDegrees(portId, direction, degrees) {
+      direction = direction * Math.sign(degrees);
+      degrees = MathUtil$1.clamp(Math.abs(degrees), 1, MAX_INT32);
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        var speed = motor.speed * direction;
+        return this.sendOutputCommand(portId, 0x0b, [].concat(_toConsumableArray(numberToInt32Array(degrees)), [speed, 100, 0x7f, 0x00])).then(this._createOutputCommandFeedbackPromise.bind(this, portId));
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorRunTimed",
+    value: function motorRunTimed(portId, direction, seconds) {
+      var milliseconds = MathUtil$1.clamp(seconds * 1000, 0, MAX_INT16);
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        var speed = motor.speed * direction;
+        return this.sendOutputCommand(portId, 0x09, [].concat(_toConsumableArray(numberToInt16Array(milliseconds)), [speed, 100, 0x7f, 0x00])).then(this._createOutputCommandFeedbackPromise.bind(this, portId));
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorStart",
+    value: function motorStart(portId, direction) {
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        var speed = motor.speed * direction;
+        return this.sendOutputCommand(portId, 0x07, [speed, 100, 0x00]);
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorSetSpeed",
+    value: function motorSetSpeed(portId, speed) {
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        motor.speed = speed;
+      }
+    }
+  }, {
+    key: "motorResetRelativePosition",
+    value: function motorResetRelativePosition(portId, relativePosition) {
+      relativePosition = MathUtil$1.clamp(relativePosition, MIN_INT32, MAX_INT32);
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        return this.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(numberToInt32Array(relativePosition))));
+      } else {
+        return Promise.resolve();
+      }
+    }
+
+    // Input Values
+  }, {
+    key: "inputValue",
+    value: function inputValue(portId, key) {
+      var device = this._devices[portId];
+      if (device && device.inputValues.hasOwnProperty(key)) {
+        return device.inputValues[key];
+      }
+      return null;
+    }
+  }, {
+    key: "internalInputValue",
+    value: function internalInputValue(key) {
+      for (var _i2 = 0, _Object$entries2 = Object.entries(this._devices); _i2 < _Object$entries2.length; _i2++) {
+        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+          portId = _Object$entries2$_i[0],
+          device = _Object$entries2$_i[1];
+        if (portId >= 0x32 && device.inputValues.hasOwnProperty(key)) {
+          return device.inputValues[key];
+        }
+      }
+      return null;
+    }
+
+    // Hub LED
+  }, {
+    key: "setLEDColor",
+    value: function setLEDColor(color) {
+      if (color < 0 || color > 10) {
+        color = 0;
+      }
+      var portId = this._devices.findIndex(function (device) {
+        return device && device.ioType == IOType.RGB_LIGHT;
+      });
+      if (portId != -1) {
+        return this.sendOutputCommand(portId, 0x51, [0x00, color]);
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "setVolume",
+    value: function setVolume(volume) {
+      volume = MathUtil$1.clamp(volume, 0, 100);
+      return this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.SPEAKER_VOLUME, HubPropertyOperation.SET, volume]);
+    }
+  }]);
+  return Hub;
+}();
+var hub = Hub$1;
 
 var formatMessage$1 = {exports: {}};
 
@@ -12660,399 +14257,151 @@ var plurals = {
   module.exports = namespace();
 })(formatMessage$1);
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var ArgumentType = argumentType;
 var BlockType = blockType;
 var Cast = cast;
-var BT = bt;
-var Base64Util = base64Util;
 var MathUtil = mathUtil;
-var RateLimiter = rateLimiter;
+
+// Use the common BLE/LPF2 library components
+var BleBaseBlocks = bleBaseBlocks;
+var Hub = hub;
 var Color = color;
-var setupTranslations = setupTranslations_1;
-var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
 var formatMessage = formatMessage$1.exports;
 var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeprime.mjs';
-var BTSendRateMax = 40;
-var SpikePorts = ['A', 'B', 'C', 'D', 'E', 'F'];
-var SpikeMotorStopMode = {
-  float: 0,
-  brake: 1,
-  hold: 2
-};
-var SpikeOrientation = {
-  front: 1,
-  back: 2,
-  up: 3,
-  down: 4,
-  rightside: 5,
-  leftside: 6
-};
-var SpikeMotorSetting = /*#__PURE__*/function () {
-  function SpikeMotorSetting() {
-    _classCallCheck(this, SpikeMotorSetting);
-    this._speed = 75;
-    this._stopMode = SpikeMotorStopMode.brake;
-    this._stallDetection = true;
-  }
-  _createClass(SpikeMotorSetting, [{
-    key: "speed",
-    get: function get() {
-      return this._speed;
-    },
-    set: function set(value) {
-      this._speed = MathUtil.clamp(value, -100, 100);
-    }
-  }, {
-    key: "stopMode",
-    get: function get() {
-      return this._stopMode;
-    },
-    set: function set(value) {
-      if (value < 0 || value > 2) {
-        return;
-      }
-      this._stopMode = value;
-    }
-  }, {
-    key: "stallDetection",
-    get: function get() {
-      return this._stallDetection;
-    },
-    set: function set(value) {
-      this._stallDetection = value;
-    }
-  }]);
-  return SpikeMotorSetting;
-}();
-var SpikePrime = /*#__PURE__*/function () {
-  function SpikePrime(runtime, extensionId) {
-    _classCallCheck(this, SpikePrime);
-    this._runtime = runtime;
-    this._extensionId = extensionId;
-    this._remainingText = '';
-    this._sensors = {
-      buttons: [0, 0, 0, 0],
-      angle: {
-        pitch: 0,
-        roll: 0,
-        yaw: 0
-      },
-      orientation: SpikeOrientation.front
-    };
-    this._portValues = {};
-    this._pixelBrightness = 100;
-    this._motorSettings = {
-      A: new SpikeMotorSetting(),
-      B: new SpikeMotorSetting(),
-      C: new SpikeMotorSetting(),
-      D: new SpikeMotorSetting(),
-      E: new SpikeMotorSetting(),
-      F: new SpikeMotorSetting()
-    };
-    this._bt = null;
-    this._runtime.registerPeripheralExtension(extensionId, this);
-    this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
-    this._rateLimiter = new RateLimiter(BTSendRateMax);
-    this.reset = this.reset.bind(this);
-    this._onConnect = this._onConnect.bind(this);
-    this._onMessage = this._onMessage.bind(this);
-    this._openRequests = {};
-  }
-  _createClass(SpikePrime, [{
-    key: "angle",
-    get: function get() {
-      return this._sensors.angle;
-    }
-  }, {
-    key: "orientation",
-    get: function get() {
-      return this._sensors.orientation;
-    }
-  }, {
-    key: "portValues",
-    get: function get() {
-      return this._portValues;
-    }
-  }, {
-    key: "pixelBrightness",
-    get: function get() {
-      return this._pixelBrightness;
-    },
-    set: function set(value) {
-      this._pixelBrightness = value;
-    }
-  }, {
-    key: "motorSettings",
-    get: function get() {
-      return this._motorSettings;
-    }
-  }, {
-    key: "beep",
-    value: function beep(freq, time) {
-      //console.log(`freq: ${freq}, time: ${time}`);
-    }
-  }, {
-    key: "stopAll",
-    value: function stopAll() {
-      this.stopAllMotors();
-      this.stopSound();
-    }
-  }, {
-    key: "stopSound",
-    value: function stopSound() {
-      // this.send(cmd, false); // don't use rate limiter to ensure sound stops
-    }
-  }, {
-    key: "stopAllMotors",
-    value: function stopAllMotors() {}
-  }, {
-    key: "scan",
-    value: function scan() {
-      if (this._bt) {
-        this._bt.disconnect();
-      }
-      this._bt = new BT(this._runtime, this._extensionId, {
-        majorDeviceClass: 8,
-        minorDeviceClass: 1
-      }, this._onConnect, this.reset, this._onMessage);
-    }
-  }, {
-    key: "connect",
-    value: function connect(id) {
-      if (this._bt) {
-        this._bt.connectPeripheral(id);
-      }
-    }
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      if (this._bt) {
-        this._bt.disconnect();
-      }
-      this.reset();
-    }
-  }, {
-    key: "reset",
-    value: function reset() {
-      this._remainingText = '';
-      this._sensors = {
-        buttons: [0, 0, 0, 0],
-        angle: {
-          pitch: 0,
-          roll: 0,
-          yaw: 0
-        },
-        orientation: SpikeOrientation.front
-      };
-      this._portValues = {};
-    }
-  }, {
-    key: "isConnected",
-    value: function isConnected() {
-      var connected = false;
-      if (this._bt) {
-        connected = this._bt.isConnected();
-      }
-      return connected;
-    }
-  }, {
-    key: "sendJSON",
-    value: function sendJSON(json) {
-      var _this = this;
-      var useLimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var jsonText = JSON.stringify(json);
-      //console.log('> ' + jsonText);
 
-      if (!this.isConnected()) return Promise.resolve();
-      if (useLimiter) {
-        if (!this._rateLimiter.okayToSend()) return Promise.resolve();
-      }
-      if (!json.hasOwnProperty('i')) {
-        return this._bt.sendMessage({
-          message: "".concat(jsonText, "\r")
-        });
-      }
-      var promise = new Promise(function (resolve, reject) {
-        _this._openRequests[json.i] = {
-          resolve: resolve,
-          reject: reject
-        };
-      });
-      this._bt.sendMessage({
-        message: "".concat(jsonText, "\r")
-      });
-      return promise;
-    }
-  }, {
-    key: "sendCommand",
-    value: function sendCommand(method, params) {
-      var needsResponse = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-      if (needsResponse) {
-        var id = Math.random().toString(36).slice(-4);
-        return this.sendJSON({
-          i: id,
-          m: method,
-          p: params
-        });
-      }
-      return this.sendJSON({
-        m: method,
-        p: params
-      });
-    }
-  }, {
-    key: "_onConnect",
-    value: function _onConnect() {
-      this.sendCommand('trigger_current_state', {}, false);
-    }
-  }, {
-    key: "_onMessage",
-    value: function _onMessage(params) {
-      var message = params.message;
-      var data = Base64Util.base64ToUint8Array(message);
-      var text = new TextDecoder().decode(data);
-      var responses = (this._remainingText + text).split('\r');
-      this._remainingText = responses.pop();
-      var _iterator = _createForOfIteratorHelper(responses),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var jsonText = _step.value;
-          try {
-            var json = JSON.parse(jsonText);
-            if (json.hasOwnProperty('i') || json.m !== 0) {
-              //console.log('< ' + jsonText);
-            }
-            this._parseResponse(json);
-          } catch (error) {
-            console.log('invalid JSON:', jsonText);
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    }
-  }, {
-    key: "_parseResponse",
-    value: function _parseResponse(response) {
-      if (response.hasOwnProperty('m')) {
-        switch (response.m) {
-          case 0:
-            // Hub (Ports, Acceleration, Gyro Rate, Tilt Angle, LED Matrix, Timer)
-            {
-              // Ports
-              for (var i = 0; i < 6; i++) {
-                var port = SpikePorts[i];
-                var deviceId = response.p[i][0];
-                var values = response.p[i][1];
-                switch (deviceId) {
-                  case 48:
-                  case 49:
-                    this._portValues[port] = {
-                      speed: values[0],
-                      degreesCounted: values[1],
-                      position: (values[2] + 360) % 360,
-                      power: values[3]
-                    };
-                    break;
-                  default:
-                    this._portValues[port] = {};
-                    break;
-                }
-              }
+// Device Types (from LPF2 protocol) - Support both SPIKE Prime AND Powered Up
+var DeviceType = {
+  // Powered Up Motors
+  SIMPLE_MEDIUM_LINEAR_MOTOR: 0x01,
+  TRAIN_MOTOR: 0x02,
+  MOVE_HUB_MEDIUM_LINEAR_MOTOR: 0x27,
+  // LEGO Boost Medium Linear Motor BB0893C01
+  DUPLO_TRAIN_BASE_MOTOR: 0x29,
+  // SPIKE Prime Motors  
+  TECHNIC_LARGE_MOTOR: 0x2e,
+  TECHNIC_XL_MOTOR: 0x2f,
+  TECHNIC_MEDIUM_ANGULAR_MOTOR: 0x30,
+  TECHNIC_LARGE_ANGULAR_MOTOR: 0x31,
+  TECHNIC_SMALL_ANGULAR_MOTOR: 0x41,
+  TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY: 0x4b,
+  TECHNIC_LARGE_ANGULAR_MOTOR_GRAY: 0x4c,
+  // Lights
+  LIGHT: 0x08,
+  RGB_LIGHT: 0x17,
+  // Sensors
+  MOTION_SENSOR: 0x23,
+  COLOR_DISTANCE_SENSOR: 0x25,
+  TILT_SENSOR: 0x22,
+  TECHNIC_COLOR_SENSOR: 0x3d,
+  TECHNIC_DISTANCE_SENSOR: 0x3e,
+  TECHNIC_FORCE_SENSOR: 0x3f,
+  TECHNIC_3X3_COLOR_LIGHT_MATRIX: 0x40,
+  TECHNIC_MEDIUM_HUB_TILT_SENSOR: 0x3b
+};
 
-              // Tilt Angle
-              var angle = response.p[8];
-              this._sensors.angle.yaw = angle[0];
-              this._sensors.angle.pitch = angle[1];
-              this._sensors.angle.roll = angle[2];
-            }
-            break;
-          case 1:
-            // Strage
-            break;
-          case 2:
-            // Battery
-            // {"m":2,"p":[8.316, 100]}
-            break;
-          case 3:
-            // Button
-            // {"m":3,"p":["right", 0]}
-            break;
-          case 4:
-            // Event (Orientation, Gesture)
-            if (SpikeOrientation.hasOwnProperty(response.p)) {
-              this._sensors.orientation = SpikeOrientation[response.p];
-            }
-            break;
-        }
-      }
-      if (response.hasOwnProperty('i')) {
-        var openRequest = this._openRequests[response.i];
-        delete this._openRequests[response.i];
-        if (openRequest) {
-          openRequest.resolve();
-        }
-      }
-    }
-  }]);
-  return SpikePrime;
-}();
-var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
+// Sensor Modes (from LPF2 protocol)
+var SensorMode = {
+  COLOR_SENSOR: {
+    COLOR: 0x00,
+    REFLECTIVITY: 0x01,
+    AMBIENT_LIGHT: 0x02,
+    LIGHT_SET: 0x03,
+    RGB_INTENSITY: 0x06
+  },
+  DISTANCE_SENSOR: {
+    DISTANCE: 0x00,
+    // 40mm-2500mm range
+    FAST_DISTANCE: 0x01,
+    // 50mm-320mm range  
+    LIGHT_SET: 0x05
+  },
+  FORCE_SENSOR: {
+    FORCE: 0x00,
+    // Force in Newtons
+    TOUCHED: 0x01,
+    // Boolean 0 or 1
+    TAPPED: 0x02 // Tap intensity 0-3
+  },
+  MOTOR: {
+    ROTATION: 0x02,
+    // Relative position
+    ABSOLUTE: 0x03 // Absolute position (angular motors)
+  },
+  LIGHT: {
+    BRIGHTNESS: 0x00
+  },
+  MATRIX: {
+    PIX_0: 0x02 // 3x3 matrix pixel mode
+  }
+};
+
+// Extended Color constants
+var ExtendedColor = _objectSpread(_objectSpread({}, Color), {}, {
+  NONE: 255,
+  CYAN: 5
+});
+var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
+  _inherits(Scratch3SpikePrimeBlocks, _BleBaseBlocks);
   function Scratch3SpikePrimeBlocks(runtime) {
+    var _this;
     _classCallCheck(this, Scratch3SpikePrimeBlocks);
-    this.runtime = runtime;
-    this._peripheral = new SpikePrime(this.runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID);
-    this._playNoteForPicker = this._playNoteForPicker.bind(this);
-    this.runtime.on('PLAY_NOTE', this._playNoteForPicker);
+    // The Hub ID for SPIKE Prime / Robot Inventor is 0x80 (Technic Medium Hub).
+    _this = _callSuper(this, Scratch3SpikePrimeBlocks, [new Hub(runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID, 0x80)]);
     if (runtime.formatMessage) {
-      // Replace 'formatMessage' to a formatter which is used in the runtime.
       formatMessage = runtime.formatMessage;
     }
+    _this._pixelBrightness = 100;
+
+    // Pre-defined 3x3 matrix patterns
+    _this._matrixPresets = {
+      smiley: '101010111',
+      // :) Eyes at top corners, smile at bottom
+      heart: '010111101',
+      // ♥ Classic heart shape
+      arrow: '010010111',
+      // ↑ Up arrow with tip, body and base  
+      cross: '010111010',
+      // + Plus/cross through center
+      diamond: '010101010',
+      // ◊ Diamond outline pattern
+      checkmark: '001010100' // ✓ Checkmark diagonal pattern
+    };
+    return _this;
   }
+
+  // SPIKE Prime has 6 ports (A-F), override default from BleBaseBlocks
   _createClass(Scratch3SpikePrimeBlocks, [{
+    key: "externalPorts",
+    get: function get() {
+      return ['A', 'B', 'C', 'D', 'E', 'F'];
+    }
+  }, {
+    key: "multipleExternalPorts",
+    get: function get() {
+      return ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F'];
+    }
+
+    // Enable advanced blocks (name, firmware, battery)
+  }, {
+    key: "hasAdvancedBlocks",
+    get: function get() {
+      return true;
+    }
+  }, {
     key: "getInfo",
     value: function getInfo() {
-      setupTranslations(formatMessage);
+      this.setupTranslations(formatMessage);
       return {
         id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-        name: 'SPIKE Prime (Legacy)',
-        blockIconURI: blockIconURI,
+        name: 'SPIKE Prime',
         showStatusButton: true,
-        blocks: [{
-          opcode: 'motorRunFor',
-          text: formatMessage({
-            id: 'legobluetooth.motorRunFor',
-            default: '[PORT] run [DIRECTION] for [VALUE] [UNIT]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            DIRECTION: {
-              type: ArgumentType.NUMBER,
-              menu: 'DIRECTION',
-              defaultValue: 1
-            },
-            VALUE: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 1
-            },
-            UNIT: {
-              type: ArgumentType.STRING,
-              menu: 'MOTOR_UNIT',
-              defaultValue: 'rotations'
-            }
-          }
-        }, {
+        blocks: [].concat(_toConsumableArray(_get(_getPrototypeOf(Scratch3SpikePrimeBlocks.prototype), "getBlocks", this).call(this, formatMessage)), ['---',
+        // SPIKE Prime specific motor positioning
+        {
           opcode: 'motorGoDirectionToPosition',
           text: formatMessage({
             id: 'legobluetooth.motorGoDirectionToPosition',
@@ -13076,57 +14425,6 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
             }
           }
         }, {
-          opcode: 'motorStart',
-          text: formatMessage({
-            id: 'legobluetooth.motorStart',
-            default: '[PORT] start motor [DIRECTION]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            DIRECTION: {
-              type: ArgumentType.NUMBER,
-              menu: 'DIRECTION',
-              defaultValue: 1
-            }
-          }
-        }, {
-          opcode: 'motorStop',
-          text: formatMessage({
-            id: 'legobluetooth.motorStop',
-            default: '[PORT] stop motor'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, {
-          opcode: 'motorSetSpeed',
-          text: formatMessage({
-            id: 'legobluetooth.motorSetSpeed',
-            default: '[PORT] set speed to [SPEED] %'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            SPEED: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 75
-            }
-          }
-        }, {
           opcode: 'getPosition',
           text: formatMessage({
             id: 'legobluetooth.getPosition',
@@ -13140,111 +14438,13 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
               defaultValue: 'A'
             }
           }
-        }, '---', {
-          opcode: 'displayImageFor',
+        }, '---',
+        // Powered Up Light Support
+        {
+          opcode: 'lightSetBrightness',
           text: formatMessage({
-            id: 'legobluetooth.displayImageFor',
-            default: 'turn on [MATRIX] for [DURATION] seconds'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            MATRIX: {
-              type: ArgumentType.MATRIX,
-              defaultValue: '1101111011000001000101110'
-            },
-            DURATION: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 2
-            }
-          }
-        }, {
-          opcode: 'displayImage',
-          text: formatMessage({
-            id: 'legobluetooth.displayImage',
-            default: 'turn on [MATRIX]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            MATRIX: {
-              type: ArgumentType.MATRIX,
-              defaultValue: '1101111011000001000101110'
-            }
-          }
-        }, {
-          opcode: 'displayText',
-          text: formatMessage({
-            id: 'legobluetooth.displayText',
-            default: 'write [TEXT]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            TEXT: {
-              type: ArgumentType.STRING,
-              defaultValue: 'Hello'
-            }
-          }
-        }, {
-          opcode: 'displayClear',
-          text: formatMessage({
-            id: 'legobluetooth.displayClear',
-            default: 'turn off pixels'
-          }),
-          blockType: BlockType.COMMAND
-        }, {
-          opcode: 'displaySetBrightness',
-          text: formatMessage({
-            id: 'legobluetooth.displaySetBrightness',
-            default: 'set pixel brightness to [BRIGHTNESS] %'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            BRIGHTNESS: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 75
-            }
-          }
-        }, {
-          opcode: 'displaySetPixel',
-          text: formatMessage({
-            id: 'legobluetooth.displaySetPixel',
-            default: 'set pixel at [X] , [Y] to [BRIGHTNESS] %'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            X: {
-              type: ArgumentType.STRING,
-              menu: 'COORDINATE',
-              defaultValue: '1'
-            },
-            Y: {
-              type: ArgumentType.STRING,
-              menu: 'COORDINATE',
-              defaultValue: '1'
-            },
-            BRIGHTNESS: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 100
-            }
-          }
-        }, {
-          opcode: 'centerButtonLights',
-          text: formatMessage({
-            id: 'legobluetooth.centerButtonLights',
-            default: 'set center button light to [COLOR]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            COLOR: {
-              type: ArgumentType.STRING,
-              menu: 'LED_COLOR',
-              defaultValue: 9
-            }
-          }
-        }, {
-          opcode: 'ultrasonicLightUp',
-          text: formatMessage({
-            id: 'legobluetooth.ultrasonicLightUp',
-            default: '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]'
+            id: 'legobluetooth.lightSetBrightness',
+            default: 'set [PORT] light brightness to [BRIGHTNESS] %'
           }),
           blockType: BlockType.COMMAND,
           arguments: {
@@ -13253,9 +14453,131 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
               menu: 'PORT',
               defaultValue: 'A'
             },
-            LIGHT0: {
+            BRIGHTNESS: {
               type: ArgumentType.NUMBER,
               defaultValue: 100
+            }
+          }
+        }, {
+          opcode: 'lightRampBrightness',
+          text: formatMessage({
+            id: 'legobluetooth.lightRampBrightness',
+            default: 'ramp [PORT] light from [FROM] % to [TO] % over [TIME] seconds'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            FROM: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 0
+            },
+            TO: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            },
+            TIME: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 1
+            }
+          }
+        }, '---',
+        // Comprehensive Color Sensor Blocks
+        {
+          opcode: 'whenColorDetected',
+          blockType: BlockType.HAT,
+          text: formatMessage({
+            id: 'legobluetooth.whenColorDetected',
+            default: 'when [PORT] detects [COLOR] color'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            COLOR: {
+              type: ArgumentType.NUMBER,
+              menu: 'LED_COLOR',
+              defaultValue: ExtendedColor.RED
+            }
+          }
+        }, {
+          opcode: 'isColorDetected',
+          blockType: BlockType.BOOLEAN,
+          text: formatMessage({
+            id: 'legobluetooth.isColorDetected',
+            default: '[PORT] detects [COLOR] color?'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            COLOR: {
+              type: ArgumentType.NUMBER,
+              menu: 'LED_COLOR',
+              defaultValue: ExtendedColor.RED
+            }
+          }
+        }, {
+          opcode: 'getColorValue',
+          text: formatMessage({
+            id: 'legobluetooth.getColorValue',
+            default: '[PORT] detected color'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'getColorReflection',
+          text: formatMessage({
+            id: 'legobluetooth.getColorReflection',
+            default: '[PORT] color reflection %'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'getColorAmbient',
+          text: formatMessage({
+            id: 'legobluetooth.getColorAmbient',
+            default: '[PORT] ambient light %'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'setColorLights',
+          text: formatMessage({
+            id: 'legobluetooth.setColorLights',
+            default: 'set [PORT] color sensor brightness to [LIGHT1] [LIGHT2] [LIGHT3] %'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
             },
             LIGHT1: {
               type: ArgumentType.NUMBER,
@@ -13271,19 +14593,361 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
             }
           }
         }, '---',
-        // {
-        //     opcode: 'getOrientation',
-        //     text: formatMessage({
-        //         id: 'legobluetooth.getOrientation',
-        //         default: 'orientation'
-        //     }),
-        //     blockType: BlockType.REPORTER
-        // },
+        // Comprehensive Distance Sensor Blocks
+        {
+          opcode: 'whenDistanceCondition',
+          blockType: BlockType.HAT,
+          text: formatMessage({
+            id: 'legobluetooth.whenDistanceCondition',
+            default: 'when [PORT] distance [COMPARATOR] [DISTANCE] cm'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            COMPARATOR: {
+              type: ArgumentType.STRING,
+              menu: 'COMPARATOR',
+              defaultValue: '<'
+            },
+            DISTANCE: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 10
+            }
+          }
+        }, {
+          opcode: 'isDistanceCondition',
+          blockType: BlockType.BOOLEAN,
+          text: formatMessage({
+            id: 'legobluetooth.isDistanceCondition',
+            default: '[PORT] distance [COMPARATOR] [DISTANCE] cm?'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            COMPARATOR: {
+              type: ArgumentType.STRING,
+              menu: 'COMPARATOR',
+              defaultValue: '<'
+            },
+            DISTANCE: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 10
+            }
+          }
+        }, {
+          opcode: 'getDistanceValue',
+          text: formatMessage({
+            id: 'legobluetooth.getDistanceValue',
+            default: '[PORT] distance (cm)'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'getFastDistanceValue',
+          text: formatMessage({
+            id: 'legobluetooth.getFastDistanceValue',
+            default: '[PORT] fast distance (cm)'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'setDistanceLights',
+          text: formatMessage({
+            id: 'legobluetooth.setDistanceLights',
+            default: 'set [PORT] distance sensor eyes [TOP_LEFT] [TOP_RIGHT] [BOTTOM_LEFT] [BOTTOM_RIGHT] %'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            TOP_LEFT: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            },
+            TOP_RIGHT: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            },
+            BOTTOM_LEFT: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            },
+            BOTTOM_RIGHT: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            }
+          }
+        }, '---',
+        // Force Sensor Blocks
+        {
+          opcode: 'whenForceSensorPressed',
+          blockType: BlockType.HAT,
+          text: formatMessage({
+            id: 'legobluetooth.whenForceSensorPressed',
+            default: 'when [PORT] force sensor pressed'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'isForceSensorPressed',
+          blockType: BlockType.BOOLEAN,
+          text: formatMessage({
+            id: 'legobluetooth.isForceSensorPressed',
+            default: '[PORT] force sensor pressed?'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, {
+          opcode: 'getForceSensorValue',
+          text: formatMessage({
+            id: 'legobluetooth.getForceSensorValue',
+            default: '[PORT] force (N)'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, '---',
+        // Hub 5x5 LED Matrix (built-in display)
+        {
+          opcode: 'displayImageFor',
+          text: formatMessage({
+            id: 'legobluetooth.displayImageFor',
+            default: 'show [MATRIX] on hub display for [DURATION] seconds'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            MATRIX: {
+              type: ArgumentType.MATRIX,
+              defaultValue: '1101111011000001000101110' // 25 characters for 5x5
+            },
+            DURATION: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 2
+            }
+          }
+        }, {
+          opcode: 'displayImage',
+          text: formatMessage({
+            id: 'legobluetooth.displayImage',
+            default: 'show [MATRIX] on hub display'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            MATRIX: {
+              type: ArgumentType.MATRIX,
+              defaultValue: '1101111011000001000101110' // 25 characters for 5x5
+            }
+          }
+        }, {
+          opcode: 'displayText',
+          text: formatMessage({
+            id: 'legobluetooth.displayText',
+            default: 'show text [TEXT] on hub display'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            TEXT: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Hello'
+            }
+          }
+        }, {
+          opcode: 'displayClear',
+          text: formatMessage({
+            id: 'legobluetooth.displayClear',
+            default: 'clear hub display'
+          }),
+          blockType: BlockType.COMMAND
+        }, {
+          opcode: 'displaySetPixel',
+          text: formatMessage({
+            id: 'legobluetooth.displaySetPixel',
+            default: 'set hub display pixel at x: [X] y: [Y] to brightness [BRIGHTNESS] %'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            X: {
+              type: ArgumentType.STRING,
+              menu: 'COORDINATE_5X5',
+              defaultValue: '1'
+            },
+            Y: {
+              type: ArgumentType.STRING,
+              menu: 'COORDINATE_5X5',
+              defaultValue: '1'
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            }
+          }
+        }, {
+          opcode: 'displaySetBrightness',
+          text: formatMessage({
+            id: 'legobluetooth.displaySetBrightness',
+            default: 'set hub display brightness to [BRIGHTNESS] %'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 75
+            }
+          }
+        },
+        // Hub Controls (MISSING from previous implementation!)
+        {
+          opcode: 'centerButtonLights',
+          text: formatMessage({
+            id: 'legobluetooth.centerButtonLights',
+            default: 'set center button light to [COLOR]'
+          }),
+          blockType: BlockType.COMMAND,
+          arguments: {
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'LED_COLOR',
+              defaultValue: '9'
+            }
+          }
+        }, '---',
+        // External 3x3 Color Matrix (Technic 3x3 Color Light Matrix) - Individual LED Control
+        {
+          opcode: 'setMatrixLED',
+          blockType: BlockType.COMMAND,
+          text: formatMessage({
+            id: 'legobluetooth.setMatrixLED',
+            default: 'set 3x3 matrix on port [PORT] LED [POSITION] to [COLOR] brightness [BRIGHTNESS]'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            POSITION: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_POSITION',
+              defaultValue: '5'
+            },
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_COLOR',
+              defaultValue: 'red'
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 5
+            }
+          }
+        }, {
+          opcode: 'setMatrixAll',
+          blockType: BlockType.COMMAND,
+          text: formatMessage({
+            id: 'legobluetooth.setMatrixAll',
+            default: 'set all 3x3 matrix on port [PORT] to [COLOR] brightness [BRIGHTNESS]'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_COLOR',
+              defaultValue: 'blue'
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 5
+            }
+          }
+        }, {
+          opcode: 'setMatrixPattern',
+          blockType: BlockType.COMMAND,
+          text: formatMessage({
+            id: 'legobluetooth.setMatrixPattern',
+            default: 'set 3x3 matrix on port [PORT] to [PRESET] pattern in [COLOR] brightness [BRIGHTNESS]'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            PRESET: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_PRESET',
+              defaultValue: 'smiley'
+            },
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_COLOR',
+              defaultValue: 'yellow'
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 5
+            }
+          }
+        }, {
+          opcode: 'clearMatrix',
+          blockType: BlockType.COMMAND,
+          text: formatMessage({
+            id: 'legobluetooth.clearMatrix',
+            default: 'turn off all LEDs on 3x3 matrix at port [PORT]'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, '---',
+        // Hub Angle Sensors (internal gyro/tilt)
         {
           opcode: 'getAngle',
           text: formatMessage({
             id: 'legobluetooth.getAngle',
-            default: '[AXIS] angle'
+            default: 'hub [AXIS] angle'
           }),
           blockType: BlockType.REPORTER,
           arguments: {
@@ -13293,37 +14957,12 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
               defaultValue: 'pitch'
             }
           }
-        }],
-        menus: {
-          PORT: {
+        }]),
+        menus: _objectSpread(_objectSpread({}, _get(_getPrototypeOf(Scratch3SpikePrimeBlocks.prototype), "getMenus", this).call(this, formatMessage)), {}, {
+          // Inherit standard menus
+          COORDINATE_5X5: {
             acceptReporters: true,
-            items: SpikePorts
-          },
-          MULTIPLE_PORT: {
-            acceptReporters: true,
-            items: ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F']
-          },
-          MOTOR_UNIT: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.rotations',
-                default: 'rotations'
-              }),
-              value: 'rotations'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.degrees',
-                default: 'degrees'
-              }),
-              value: 'degrees'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.seconds',
-                default: 'seconds'
-              }),
-              value: 'seconds'
-            }]
+            items: ['1', '2', '3', '4', '5']
           },
           POSITION_DIRECTION: {
             acceptReporters: false,
@@ -13342,83 +14981,9 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
             }, {
               text: formatMessage({
                 id: 'legobluetooth.counterclockwise',
-                default: 'counterclockwise'
+                default: 'counter-clockwise'
               }),
-              value: 'counterclockwise'
-            }]
-          },
-          COORDINATE: {
-            acceptReporters: true,
-            items: ['1', '2', '3', '4', '5']
-          },
-          LED_COLOR: {
-            acceptReporters: true,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.black',
-                default: '(0) Black'
-              }),
-              value: String(Color.BLACK)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.pink',
-                default: '(1) Pink'
-              }),
-              value: String(Color.PINK)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.purple',
-                default: '(2) Purple'
-              }),
-              value: String(Color.PURPLE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.blue',
-                default: '(3) Blue'
-              }),
-              value: String(Color.BLUE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.lightBlue',
-                default: '(4) Light blue'
-              }),
-              value: String(Color.LIGHT_BLUE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.lightGreen',
-                default: '(5) Light green'
-              }),
-              value: String(Color.LIGHT_GREEN)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.green',
-                default: '(6) Green'
-              }),
-              value: String(Color.GREEN)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.yellow',
-                default: '(7) Yellow'
-              }),
-              value: String(Color.YELLOW)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.orange',
-                default: '(8) Orange'
-              }),
-              value: String(Color.ORANGE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.red',
-                default: '(9) Red'
-              }),
-              value: String(Color.RED)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.white',
-                default: '(10) White'
-              }),
-              value: String(Color.WHITE)
+              value: 'counter-clockwise'
             }]
           },
           AXIS: {
@@ -13443,269 +15008,621 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
               value: 'yaw'
             }]
           },
-          DIRECTION: {
+          COMPARATOR: {
+            acceptReporters: true,
+            items: ['<', '>']
+          },
+          MATRIX_PRESET: {
             acceptReporters: false,
             items: [{
-              text: '⬆︎',
-              value: '1'
+              text: formatMessage({
+                id: 'legobluetooth.preset.smiley',
+                default: 'smiley face'
+              }),
+              value: 'smiley'
             }, {
-              text: '⬇',
-              value: '-1'
+              text: formatMessage({
+                id: 'legobluetooth.preset.heart',
+                default: 'heart'
+              }),
+              value: 'heart'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.preset.arrow',
+                default: 'arrow'
+              }),
+              value: 'arrow'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.preset.cross',
+                default: 'cross'
+              }),
+              value: 'cross'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.preset.diamond',
+                default: 'diamond'
+              }),
+              value: 'diamond'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.preset.checkmark',
+                default: 'checkmark'
+              }),
+              value: 'checkmark'
+            }]
+          },
+          MATRIX_POSITION: {
+            acceptReporters: true,
+            items: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+          },
+          MATRIX_COLOR: {
+            acceptReporters: false,
+            items: [{
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.off',
+                default: 'off'
+              }),
+              value: 'off'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.magenta',
+                default: 'magenta'
+              }),
+              value: 'magenta'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.violet',
+                default: 'violet'
+              }),
+              value: 'violet'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.blue',
+                default: 'blue'
+              }),
+              value: 'blue'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.turquoise',
+                default: 'turquoise'
+              }),
+              value: 'turquoise'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.mint',
+                default: 'mint'
+              }),
+              value: 'mint'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.green',
+                default: 'green'
+              }),
+              value: 'green'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.yellow',
+                default: 'yellow'
+              }),
+              value: 'yellow'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.orange',
+                default: 'orange'
+              }),
+              value: 'orange'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.red',
+                default: 'red'
+              }),
+              value: 'red'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.white',
+                default: 'white'
+              }),
+              value: 'white'
             }]
           }
-        }
+        })
       };
     }
-  }, {
-    key: "motorRunFor",
-    value: function motorRunFor(args) {
-      var direction = args.DIRECTION;
-      var value = Cast.toNumber(args.VALUE);
-      var unit = args.UNIT;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      switch (unit) {
-        case 'rotations':
-          return this._motorRunForDegrees(ports, direction, value * 360);
-        case 'degrees':
-          return this._motorRunForDegrees(ports, direction, value);
-        case 'seconds':
-          return this._motorRunTimed(ports, direction, value);
-        default:
-          return Promise.resolve();
-      }
-    }
-  }, {
-    key: "_motorRunForDegrees",
-    value: function _motorRunForDegrees(ports, direction, degrees) {
-      var _this2 = this;
-      var promises = ports.map(function (port) {
-        var setting = _this2._peripheral.motorSettings[port];
-        return _this2._peripheral.sendCommand('scratch.motor_run_for_degrees', {
-          port: port,
-          speed: setting.speed * direction,
-          degrees: Math.floor(degrees),
-          stop: setting.stopMode,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).then(function () {});
-    }
-  }, {
-    key: "_motorRunTimed",
-    value: function _motorRunTimed(ports, direction, seconds) {
-      var _this3 = this;
-      var promises = ports.map(function (port) {
-        var setting = _this3._peripheral.motorSettings[port];
-        return _this3._peripheral.sendCommand('scratch.motor_run_timed', {
-          port: port,
-          speed: setting.speed * direction,
-          time: Math.floor(seconds * 1000),
-          stop: setting.stopMode,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).then(function () {});
-    }
+
+    //
+    // --- MOTOR CONTROL EXTENSIONS ---
+    //
   }, {
     key: "motorGoDirectionToPosition",
     value: function motorGoDirectionToPosition(args) {
-      var _this4 = this;
+      var _this2 = this;
       var direction = args.DIRECTION;
       var position = Math.round(Cast.toNumber(args.POSITION));
       var ports = this._validatePorts(Cast.toString(args.PORT));
-      var settings = this._peripheral.motorSettings;
       var promises = ports.map(function (port) {
-        var setting = settings[port];
-        return _this4._peripheral.sendCommand('scratch.motor_go_direction_to_position', {
-          port: port,
-          direction: direction,
-          position: position,
-          speed: setting.speed,
-          stop: setting.stopMode,
-          stall: setting.stallDetection
-        });
+        var portId = _this2.externalPorts.indexOf(port);
+        if (portId === -1) return Promise.resolve();
+
+        // Check if this is an angular motor that supports absolute positioning
+        if (_this2._isAngularMotor(portId)) {
+          // Use proper LPF2 absolute positioning command (from node-poweredup)
+          var speed = 75; // Default speed
+          var normalizedPosition = _this2._normalizeAngle(position);
+
+          // LPF2 command for absolute positioning (0x0d)
+          var message = Buffer.from([0x81, portId, 0x11, 0x0d, 0x00, 0x00, 0x00, 0x00, _this2._mapSpeed(speed), 100, 1, 0x03]);
+          message.writeInt32LE(normalizedPosition, 4);
+          return _this2._peripheral.send(message);
+        } else {
+          // For linear motors, use rotateByDegrees instead
+          return _this2._motorRunForDegrees([port], direction, Math.abs(position));
+        }
       });
       return Promise.all(promises).then(function () {});
-    }
-  }, {
-    key: "motorStart",
-    value: function motorStart(args) {
-      var _this5 = this;
-      var direction = args.DIRECTION;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var settings = this._peripheral.motorSettings;
-      var promises = ports.map(function (port) {
-        var setting = settings[port];
-        return _this5._peripheral.sendCommand('scratch.motor_start', {
-          port: port,
-          speed: setting.speed * direction,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).then(function () {});
-    }
-  }, {
-    key: "motorStop",
-    value: function motorStop(args) {
-      var _this6 = this;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var settings = this._peripheral.motorSettings;
-      var promises = ports.map(function (port) {
-        var setting = settings[port];
-        return _this6._peripheral.sendCommand('scratch.motor_stop', {
-          port: port,
-          stop: setting.stopMode
-        });
-      });
-      return Promise.all(promises).then(function () {});
-    }
-  }, {
-    key: "motorSetSpeed",
-    value: function motorSetSpeed(args) {
-      var speed = Cast.toNumber(args.SPEED);
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var settings = this._peripheral.motorSettings;
-      ports.forEach(function (port) {
-        settings[port].speed = speed;
-      });
     }
   }, {
     key: "getPosition",
     value: function getPosition(args) {
-      var _this$_peripheral$por, _this$_peripheral$por2;
-      var port = Cast.toString(args.PORT).trim().toUpperCase();
-      return (_this$_peripheral$por = (_this$_peripheral$por2 = this._peripheral.portValues[port]) === null || _this$_peripheral$por2 === void 0 ? void 0 : _this$_peripheral$por2.position) !== null && _this$_peripheral$por !== void 0 ? _this$_peripheral$por : 0;
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+      if (this._isAngularMotor(portId)) {
+        // Subscribe to absolute position mode for angular motors
+        this._peripheral.subscribe(portId, DeviceType.TECHNIC_MEDIUM_ANGULAR_MOTOR, SensorMode.MOTOR.ABSOLUTE);
+        return this._peripheral.inputValue(portId, 'absolute') || 0;
+      } else {
+        // Subscribe to relative position for linear motors  
+        this._peripheral.subscribe(portId, DeviceType.MOVE_HUB_MEDIUM_LINEAR_MOTOR, SensorMode.MOTOR.ROTATION);
+        return this._peripheral.inputValue(portId, 'relativePosition') || 0;
+      }
+    }
+
+    //
+    // --- POWERED UP LIGHT SUPPORT ---
+    //
+  }, {
+    key: "lightSetBrightness",
+    value: function lightSetBrightness(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100);
+
+      // Use direct write for light brightness (mode 0x00)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x00, brightness], false);
+    }
+  }, {
+    key: "lightRampBrightness",
+    value: function lightRampBrightness(args) {
+      var _this3 = this;
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var fromBrightness = MathUtil.clamp(Cast.toNumber(args.FROM), 0, 100);
+      var toBrightness = MathUtil.clamp(Cast.toNumber(args.TO), 0, 100);
+      var timeMs = Math.max(0, Cast.toNumber(args.TIME) * 1000);
+      if (timeMs === 0) {
+        return this.lightSetBrightness({
+          PORT: args.PORT,
+          BRIGHTNESS: toBrightness
+        });
+      }
+
+      // Create ramping effect
+      return new Promise(function (resolve) {
+        var steps = Math.max(1, Math.floor(timeMs / 50)); // 20fps
+        var stepSize = (toBrightness - fromBrightness) / steps;
+        var stepTime = timeMs / steps;
+        var currentStep = 0;
+        var interval = setInterval(function () {
+          var currentBrightness = fromBrightness + stepSize * currentStep;
+          _this3.lightSetBrightness({
+            PORT: args.PORT,
+            BRIGHTNESS: currentBrightness
+          });
+          currentStep++;
+          if (currentStep > steps) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, stepTime);
+      });
+    }
+
+    //
+    // --- COMPREHENSIVE COLOR SENSOR METHODS ---
+    //
+  }, {
+    key: "whenColorDetected",
+    value: function whenColorDetected(args) {
+      return this.isColorDetected(args);
+    }
+  }, {
+    key: "isColorDetected",
+    value: function isColorDetected(args) {
+      var detectedColor = this.getColorValue(args);
+      var expectedColor = Cast.toNumber(args.COLOR);
+      return detectedColor === expectedColor;
+    }
+  }, {
+    key: "getColorValue",
+    value: function getColorValue(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+
+      // Support both SPIKE Prime and Powered Up color sensors
+      var deviceType = this._getColorSensorType(portId);
+      this._peripheral.subscribe(portId, deviceType, SensorMode.COLOR_SENSOR.COLOR);
+      return this._peripheral.inputValue(portId, 'color') || 0;
+    }
+  }, {
+    key: "getColorReflection",
+    value: function getColorReflection(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+      var deviceType = this._getColorSensorType(portId);
+      this._peripheral.subscribe(portId, deviceType, SensorMode.COLOR_SENSOR.REFLECTIVITY);
+      return this._peripheral.inputValue(portId, 'reflect') || 0;
+    }
+  }, {
+    key: "getColorAmbient",
+    value: function getColorAmbient(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+      var deviceType = this._getColorSensorType(portId);
+      this._peripheral.subscribe(portId, deviceType, SensorMode.COLOR_SENSOR.AMBIENT_LIGHT);
+      return this._peripheral.inputValue(portId, 'ambient') || 0;
+    }
+  }, {
+    key: "setColorLights",
+    value: function setColorLights(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var light1 = MathUtil.clamp(Cast.toNumber(args.LIGHT1), 0, 100);
+      var light2 = MathUtil.clamp(Cast.toNumber(args.LIGHT2), 0, 100);
+      var light3 = MathUtil.clamp(Cast.toNumber(args.LIGHT3), 0, 100);
+
+      // Set color sensor illumination (mode 0x03)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x03, light1, light2, light3], false);
+    }
+
+    //
+    // --- COMPREHENSIVE DISTANCE SENSOR METHODS ---
+    //
+  }, {
+    key: "whenDistanceCondition",
+    value: function whenDistanceCondition(args) {
+      return this.isDistanceCondition(args);
+    }
+  }, {
+    key: "isDistanceCondition",
+    value: function isDistanceCondition(args) {
+      var distance = this.getDistanceValue(args);
+      var targetDistance = Cast.toNumber(args.DISTANCE);
+      var comparator = Cast.toString(args.COMPARATOR);
+      if (comparator === '<') {
+        return distance < targetDistance;
+      } else {
+        return distance > targetDistance;
+      }
+    }
+  }, {
+    key: "getDistanceValue",
+    value: function getDistanceValue(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+
+      // Support both SPIKE Prime and Powered Up distance sensors
+      var deviceType = this._getDistanceSensorType(portId);
+      this._peripheral.subscribe(portId, deviceType, SensorMode.DISTANCE_SENSOR.DISTANCE);
+      var distanceInMM = this._peripheral.inputValue(portId, 'distance') || 0;
+
+      // Convert based on sensor type
+      if (deviceType === DeviceType.COLOR_DISTANCE_SENSOR) {
+        // Powered Up sensor returns different scale
+        return Math.round(distanceInMM * 2.54); // Convert to cm
+      } else {
+        // SPIKE Prime sensor in mm
+        return Math.round(distanceInMM / 10); // Convert mm to cm
+      }
+    }
+  }, {
+    key: "getFastDistanceValue",
+    value: function getFastDistanceValue(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+
+      // Only SPIKE Prime sensors support fast distance mode
+      this._peripheral.subscribe(portId, DeviceType.TECHNIC_DISTANCE_SENSOR, SensorMode.DISTANCE_SENSOR.FAST_DISTANCE);
+      var fastDistanceInMM = this._peripheral.inputValue(portId, 'fastDistance') || 0;
+      return Math.round(fastDistanceInMM / 10); // Convert mm to cm
+    }
+  }, {
+    key: "setDistanceLights",
+    value: function setDistanceLights(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var topLeft = MathUtil.clamp(Cast.toNumber(args.TOP_LEFT), 0, 100);
+      var topRight = MathUtil.clamp(Cast.toNumber(args.TOP_RIGHT), 0, 100);
+      var bottomLeft = MathUtil.clamp(Cast.toNumber(args.BOTTOM_LEFT), 0, 100);
+      var bottomRight = MathUtil.clamp(Cast.toNumber(args.BOTTOM_RIGHT), 0, 100);
+
+      // Set distance sensor illumination (mode 0x05)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x05, topLeft, topRight, bottomLeft, bottomRight], false);
+    }
+
+    //
+    // --- FORCE SENSOR METHODS ---
+    //
+  }, {
+    key: "whenForceSensorPressed",
+    value: function whenForceSensorPressed(args) {
+      return this.isForceSensorPressed(args);
+    }
+  }, {
+    key: "isForceSensorPressed",
+    value: function isForceSensorPressed(args) {
+      var force = this.getForceSensorValue(args);
+      return force > 0;
+    }
+  }, {
+    key: "getForceSensorValue",
+    value: function getForceSensorValue(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return 0;
+      this._peripheral.subscribe(portId, DeviceType.TECHNIC_FORCE_SENSOR, SensorMode.FORCE_SENSOR.FORCE);
+      var forceRaw = this._peripheral.inputValue(portId, 'force') || 0;
+      return Math.round(forceRaw / 10 * 100) / 100; // Convert to Newtons with 2 decimal precision
+    }
+
+    //
+    // --- 5x5 INTERNAL DISPLAY (Hub Built-in LED Matrix) ---
+    //
+  }, {
+    key: "_get5x5MatrixPayload",
+    value: function _get5x5MatrixPayload(matrixString) {
+      var brightnessPercent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._pixelBrightness;
+      var brightness = Math.round(MathUtil.clamp(brightnessPercent, 0, 100) * 9 / 100);
+      var symbol = (Cast.toString(matrixString).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
+      var image = symbol.replace(/1/g, brightness).match(/.{5}/g).join(':');
+      return image;
     }
   }, {
     key: "displayImageFor",
     value: function displayImageFor(args) {
-      var brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-      var symbol = (Cast.toString(args.MATRIX).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-      var image = symbol.replace(/1/g, brightness).match(/.{5}/g).join(':');
+      var _this4 = this;
+      var image = this._get5x5MatrixPayload(args.MATRIX);
       var duration = Cast.toNumber(args.DURATION) * 1000;
       duration = MathUtil.clamp(duration, 0, 60000);
-      return this._peripheral.sendCommand('scratch.display_image_for', {
-        image: image,
-        duration: duration
+
+      // Use internal hub display (port 50)
+      this._peripheral.sendMessage(0x81, [50, 0x11, 0x51, 0x00].concat(_toConsumableArray(Buffer.from(image, 'ascii'))));
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          _this4.displayClear().then(resolve);
+        }, duration);
       });
     }
   }, {
     key: "displayImage",
     value: function displayImage(args) {
-      var brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-      var symbol = (Cast.toString(args.MATRIX).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-      var image = symbol.replace(/1/g, brightness).match(/.{5}/g).join(':');
-      return this._peripheral.sendCommand('scratch.display_image', {
-        image: image
-      });
+      var image = this._get5x5MatrixPayload(args.MATRIX);
+      return this._peripheral.sendMessage(0x81, [50, 0x11, 0x51, 0x00].concat(_toConsumableArray(Buffer.from(image, 'ascii'))));
     }
   }, {
     key: "displayText",
     value: function displayText(args) {
       var text = Cast.toString(args.TEXT);
-      return this._peripheral.sendCommand('scratch.display_text', {
-        text: text
-      });
+      return this._peripheral.sendMessage(0x81, [50, 0x11, 0x51, 0x01].concat(_toConsumableArray(Buffer.from(text, 'ascii'))));
     }
   }, {
     key: "displayClear",
     value: function displayClear() {
-      return this._peripheral.sendCommand('scratch.display_clear', {});
+      var clearImage = '0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0';
+      return this._peripheral.sendMessage(0x81, [50, 0x11, 0x51, 0x00].concat(_toConsumableArray(Buffer.from(clearImage, 'ascii'))));
     }
   }, {
     key: "displaySetBrightness",
     value: function displaySetBrightness(args) {
       var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100);
-      this._peripheral.pixelBrightness = brightness;
+      this._pixelBrightness = brightness;
+      return Promise.resolve();
     }
   }, {
     key: "displaySetPixel",
     value: function displaySetPixel(args) {
-      var x = Cast.toNumber(args.X);
-      if (x < 1 || x > 5) {
-        return Promise.resolve();
-      }
-      var y = Cast.toNumber(args.Y);
-      if (y < 1 || y > 5) {
-        return Promise.resolve();
-      }
-      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100);
-      brightness = Math.round(9 * brightness / 100);
-      return this._peripheral.sendCommand('scratch.display_set_pixel', {
-        x: x - 1,
-        y: y - 1,
-        brightness: brightness
-      });
+      var x = Cast.toNumber(args.X) - 1;
+      var y = Cast.toNumber(args.Y) - 1;
+      if (x < 0 || x > 4 || y < 0 || y > 4) return Promise.resolve();
+      var brightness = Math.round(MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100) * 9 / 100);
+      return this._peripheral.sendMessage(0x81, [50, 0x11, 0x51, 0x02, x, y, brightness]);
     }
+
+    // Hub center button LED control (MISSING IMPLEMENTATION!)
   }, {
     key: "centerButtonLights",
     value: function centerButtonLights(args) {
       var color = Cast.toNumber(args.COLOR);
-      return this._peripheral.sendCommand('scratch.center_button_lights', {
-        color: color
-      });
+      // Set hub LED color (typically port 50 for internal LED)
+      return this._peripheral.setLEDColor(color);
+    }
+
+    //
+    // --- 3x3 EXTERNAL MATRIX (Technic 3x3 Color Light Matrix) - Individual LED Control ---
+    //
+  }, {
+    key: "setMatrixLED",
+    value: function setMatrixLED(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var position = Cast.toNumber(args.POSITION) - 1; // Convert 1-9 to 0-8
+      if (position < 0 || position > 8) return Promise.resolve();
+      var colorName = Cast.toString(args.COLOR);
+      var colorId = this._matrixColors[colorName] || 0;
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+
+      // Calculate byte value using LPF2 formula: brightness × 16 + color_id
+      var byteValue = colorId === 0 ? 0 : brightness * 16 + colorId;
+
+      // Get current matrix state or initialize with all off
+      var currentMatrix = this._getCurrentMatrixState(portId);
+      if (!currentMatrix) {
+        currentMatrix = new Array(9).fill(0);
+      }
+
+      // Update the specific LED
+      currentMatrix[position] = byteValue;
+
+      // Save the updated state
+      this._updateMatrixState(portId, currentMatrix);
+
+      // Send updated matrix to device (mode 0x02 = PIX_0)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(currentMatrix)), false);
     }
   }, {
-    key: "ultrasonicLightUp",
-    value: function ultrasonicLightUp(args) {
-      var port = Cast.toString(args.PORT).trim().toUpperCase();
-      if (!SpikePorts.includes(port)) {
-        return Promise.resolve();
-      }
-      var lights = [];
-      for (var i = 0; i < 4; i++) {
-        lights.push(MathUtil.clamp(Cast.toNumber(args["LIGHT".concat(i)]), 0, 100));
-      }
-      return this._peripheral.sendCommand('scratch.ultrasonic_light_up', {
-        port: port,
-        lights: lights
-      });
+    key: "setMatrixAll",
+    value: function setMatrixAll(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var colorName = Cast.toString(args.COLOR);
+      var colorId = this._matrixColors[colorName] || 0;
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+
+      // Calculate byte value using LPF2 formula: brightness × 16 + color_id
+      var byteValue = colorId === 0 ? 0 : brightness * 16 + colorId;
+
+      // Create array with all 9 LEDs set to same value
+      var matrixData = new Array(9).fill(byteValue);
+
+      // Save the state
+      this._updateMatrixState(portId, matrixData);
+
+      // Send to device (mode 0x02 = PIX_0)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(matrixData)), false);
     }
   }, {
-    key: "getOrientation",
-    value: function getOrientation() {
-      return this._peripheral.orientation;
+    key: "setMatrixPattern",
+    value: function setMatrixPattern(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var preset = Cast.toString(args.PRESET);
+      var pattern = this._matrixPresets[preset];
+      if (!pattern) return Promise.resolve();
+      var colorName = Cast.toString(args.COLOR);
+      var colorId = this._matrixColors[colorName] || 0;
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+
+      // Calculate byte value using LPF2 formula: brightness × 16 + color_id
+      var byteValue = colorId === 0 ? 0 : brightness * 16 + colorId;
+
+      // Convert pattern string to matrix data
+      var matrixData = [];
+      for (var i = 0; i < 9; i++) {
+        var pixelOn = pattern[i] === '1';
+        matrixData[i] = pixelOn ? byteValue : 0;
+      }
+
+      // Save the state
+      this._updateMatrixState(portId, matrixData);
+
+      // Send to device (mode 0x02 = PIX_0)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(matrixData), false);
     }
+  }, {
+    key: "clearMatrix",
+    value: function clearMatrix(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+
+      // Turn off all LEDs
+      var matrixData = new Array(9).fill(0);
+
+      // Save the cleared state
+      this._updateMatrixState(portId, matrixData);
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(matrixData)), false);
+    }
+
+    // Helper methods to track matrix state (for individual LED updates)
+  }, {
+    key: "_getCurrentMatrixState",
+    value: function _getCurrentMatrixState(portId) {
+      return this._matrixStates[portId];
+    }
+  }, {
+    key: "_updateMatrixState",
+    value: function _updateMatrixState(portId, matrixData) {
+      this._matrixStates[portId] = _toConsumableArray(matrixData);
+    }
+
+    //
+    // --- HUB ANGLE SENSORS ---
+    //
   }, {
     key: "getAngle",
     value: function getAngle(args) {
       var axis = Cast.toString(args.AXIS);
-      return this._peripheral.angle[axis];
+      // Use internal tilt sensor values
+      var value = this._peripheral.internalInputValue('tilt' + axis.toUpperCase());
+      return value != null ? value : 0;
     }
-  }, {
-    key: "_playNoteForPicker",
-    value: function _playNoteForPicker(note, category) {
-      if (category !== this.getInfo().name) return;
-      this.beep({
-        NOTE: note,
-        TIME: 0.25
-      });
-    }
-  }, {
-    key: "beep",
-    value: function beep(args) {
-      var _this7 = this;
-      var note = MathUtil.clamp(Cast.toNumber(args.NOTE), 47, 99); // valid EV3 sounds
-      var time = Cast.toNumber(args.TIME) * 1000;
-      time = MathUtil.clamp(time, 0, 3000);
-      if (time === 0) {
-        return; // don't send a beep time of 0
-      }
-      return new Promise(function (resolve) {
-        // https://en.wikipedia.org/wiki/MIDI_tuning_standard#Frequency_values
-        var freq = Math.pow(2, (note - 69 + 12) / 12) * 440;
-        _this7._peripheral.beep(freq, time);
 
-        // Run for some time even when no piezo is connected.
-        setTimeout(resolve, time);
-      });
-    }
+    //
+    // --- UTILITY METHODS ---
+    //
   }, {
     key: "_validatePorts",
     value: function _validatePorts(text) {
       return text.toUpperCase().replace(/[^ABCDEF]/g, '').split('').filter(function (x, i, self) {
         return self.indexOf(x) === i;
       }).sort();
+    }
+  }, {
+    key: "_mapSpeed",
+    value: function _mapSpeed(speed) {
+      return Math.max(-100, Math.min(100, speed));
+    }
+  }, {
+    key: "_normalizeAngle",
+    value: function _normalizeAngle(angle) {
+      angle = angle % 360;
+      if (angle < -180) angle += 360;
+      if (angle > 180) angle -= 360;
+      return angle;
+    }
+
+    // Device type detection helpers
+  }, {
+    key: "_isAngularMotor",
+    value: function _isAngularMotor(portId) {
+      var deviceType = this._peripheral.getDeviceType(portId);
+      return [DeviceType.TECHNIC_MEDIUM_ANGULAR_MOTOR, DeviceType.TECHNIC_LARGE_ANGULAR_MOTOR, DeviceType.TECHNIC_SMALL_ANGULAR_MOTOR, DeviceType.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY, DeviceType.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY].includes(deviceType);
+    }
+  }, {
+    key: "_getColorSensorType",
+    value: function _getColorSensorType(portId) {
+      var deviceType = this._peripheral.getDeviceType(portId);
+      // Return appropriate device type, default to SPIKE Prime
+      return deviceType === DeviceType.COLOR_DISTANCE_SENSOR ? DeviceType.COLOR_DISTANCE_SENSOR : DeviceType.TECHNIC_COLOR_SENSOR;
+    }
+  }, {
+    key: "_getDistanceSensorType",
+    value: function _getDistanceSensorType(portId) {
+      var deviceType = this._peripheral.getDeviceType(portId);
+      // Return appropriate device type, default to SPIKE Prime
+      return deviceType === DeviceType.COLOR_DISTANCE_SENSOR ? DeviceType.COLOR_DISTANCE_SENSOR : DeviceType.TECHNIC_DISTANCE_SENSOR;
     }
   }], [{
     key: "EXTENSION_ID",
@@ -13722,8 +15639,7 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
     }
   }]);
   return Scratch3SpikePrimeBlocks;
-}();
+}(BleBaseBlocks);
 var blockClass = Scratch3SpikePrimeBlocks;
-blockClass = Scratch3SpikePrimeBlocks;
 
 export { blockClass, entry };
