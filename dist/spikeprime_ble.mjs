@@ -14265,7 +14265,6 @@ var ArgumentType = argumentType;
 var BlockType = blockType;
 var Cast = cast;
 var MathUtil = mathUtil;
-var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
 
 // Use the common BLE/LPF2 library components
 var BleBaseBlocks = bleBaseBlocks;
@@ -14399,7 +14398,6 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
       return {
         id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
         name: 'SPIKE Prime',
-        blockIconURI: blockIconURI,
         showStatusButton: true,
         blocks: [].concat(_toConsumableArray(_get(_getPrototypeOf(Scratch3SpikePrimeBlocks.prototype), "getBlocks", this).call(this, formatMessage)), ['---',
         // SPIKE Prime specific motor positioning
@@ -15053,6 +15051,80 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
               }),
               value: 'checkmark'
             }]
+          },
+          MATRIX_POSITION: {
+            acceptReporters: true,
+            items: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+          },
+          MATRIX_COLOR: {
+            acceptReporters: false,
+            items: [{
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.off',
+                default: 'off'
+              }),
+              value: 'off'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.magenta',
+                default: 'magenta'
+              }),
+              value: 'magenta'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.violet',
+                default: 'violet'
+              }),
+              value: 'violet'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.blue',
+                default: 'blue'
+              }),
+              value: 'blue'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.turquoise',
+                default: 'turquoise'
+              }),
+              value: 'turquoise'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.mint',
+                default: 'mint'
+              }),
+              value: 'mint'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.green',
+                default: 'green'
+              }),
+              value: 'green'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.yellow',
+                default: 'yellow'
+              }),
+              value: 'yellow'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.orange',
+                default: 'orange'
+              }),
+              value: 'orange'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.red',
+                default: 'red'
+              }),
+              value: 'red'
+            }, {
+              text: formatMessage({
+                id: 'legobluetooth.matrixcolor.white',
+                default: 'white'
+              }),
+              value: 'white'
+            }]
           }
         })
       };
@@ -15385,50 +15457,88 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
     }
 
     //
-    // --- 3x3 EXTERNAL MATRIX (Technic 3x3 Color Light Matrix) ---
+    // --- 3x3 EXTERNAL MATRIX (Technic 3x3 Color Light Matrix) - Individual LED Control ---
     //
   }, {
-    key: "_parse3x3Matrix",
-    value: function _parse3x3Matrix(matrixString, brightnessPercent) {
-      var brightness = Math.round(MathUtil.clamp(brightnessPercent, 0, 100) / 10);
-      var pixels = (Cast.toString(matrixString).replace(/\D/g, '') + '0'.repeat(9)).slice(0, 9);
-      var colorArray = [];
-      var colors = [ExtendedColor.RED, ExtendedColor.ORANGE, ExtendedColor.YELLOW, ExtendedColor.GREEN, ExtendedColor.CYAN, ExtendedColor.BLUE, ExtendedColor.PURPLE, ExtendedColor.PINK, ExtendedColor.WHITE];
-      var colorIndex = 0;
-      for (var i = 0; i < 9; i++) {
-        if (pixels[i] === '1') {
-          var color = colors[colorIndex % colors.length];
-          colorArray[i] = color + (brightness << 4);
-          colorIndex++;
-        } else {
-          colorArray[i] = ExtendedColor.NONE;
-        }
-      }
-      return colorArray;
-    }
-  }, {
-    key: "setMatrix",
-    value: function setMatrix(args) {
+    key: "setMatrixLED",
+    value: function setMatrixLED(args) {
       var portName = Cast.toString(args.PORT).toUpperCase();
       var portId = this.externalPorts.indexOf(portName);
       if (portId === -1) return Promise.resolve();
-      var brightnessPercent = Cast.toNumber(args.BRIGHTNESS) || 100;
-      var matrixData = this._parse3x3Matrix(args.MATRIX, brightnessPercent);
+      var position = Cast.toNumber(args.POSITION) - 1; // Convert 1-9 to 0-8
+      if (position < 0 || position > 8) return Promise.resolve();
+      var colorName = Cast.toString(args.COLOR);
+      var colorId = this._matrixColors[colorName] || 0;
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
 
-      // Use proper LPF2 output command (mode 0x02 = PIX_0)
+      // Calculate byte value using LPF2 formula: brightness × 16 + color_id
+      var byteValue = colorId === 0 ? 0 : brightness * 16 + colorId;
+
+      // Get current matrix state or initialize with all off
+      var currentMatrix = this._getCurrentMatrixState(portId);
+      if (!currentMatrix) {
+        currentMatrix = new Array(9).fill(0);
+      }
+
+      // Update the specific LED
+      currentMatrix[position] = byteValue;
+
+      // Save the updated state
+      this._updateMatrixState(portId, currentMatrix);
+
+      // Send updated matrix to device (mode 0x02 = PIX_0)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(currentMatrix)), false);
+    }
+  }, {
+    key: "setMatrixAll",
+    value: function setMatrixAll(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
+      var colorName = Cast.toString(args.COLOR);
+      var colorId = this._matrixColors[colorName] || 0;
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+
+      // Calculate byte value using LPF2 formula: brightness × 16 + color_id
+      var byteValue = colorId === 0 ? 0 : brightness * 16 + colorId;
+
+      // Create array with all 9 LEDs set to same value
+      var matrixData = new Array(9).fill(byteValue);
+
+      // Save the state
+      this._updateMatrixState(portId, matrixData);
+
+      // Send to device (mode 0x02 = PIX_0)
       return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(matrixData)), false);
     }
   }, {
-    key: "setMatrixPreset",
-    value: function setMatrixPreset(args) {
+    key: "setMatrixPattern",
+    value: function setMatrixPattern(args) {
+      var portName = Cast.toString(args.PORT).toUpperCase();
+      var portId = this.externalPorts.indexOf(portName);
+      if (portId === -1) return Promise.resolve();
       var preset = Cast.toString(args.PRESET);
       var pattern = this._matrixPresets[preset];
       if (!pattern) return Promise.resolve();
-      return this.setMatrix({
-        PORT: args.PORT,
-        MATRIX: pattern,
-        BRIGHTNESS: 100
-      });
+      var colorName = Cast.toString(args.COLOR);
+      var colorId = this._matrixColors[colorName] || 0;
+      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+
+      // Calculate byte value using LPF2 formula: brightness × 16 + color_id
+      var byteValue = colorId === 0 ? 0 : brightness * 16 + colorId;
+
+      // Convert pattern string to matrix data
+      var matrixData = [];
+      for (var i = 0; i < 9; i++) {
+        var pixelOn = pattern[i] === '1';
+        matrixData[i] = pixelOn ? byteValue : 0;
+      }
+
+      // Save the state
+      this._updateMatrixState(portId, matrixData);
+
+      // Send to device (mode 0x02 = PIX_0)
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(matrixData), false);
     }
   }, {
     key: "clearMatrix",
@@ -15436,8 +15546,25 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
       var portName = Cast.toString(args.PORT).toUpperCase();
       var portId = this.externalPorts.indexOf(portName);
       if (portId === -1) return Promise.resolve();
-      var colorArray = new Array(9).fill(ExtendedColor.NONE);
-      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(colorArray)), false);
+
+      // Turn off all LEDs
+      var matrixData = new Array(9).fill(0);
+
+      // Save the cleared state
+      this._updateMatrixState(portId, matrixData);
+      return this._peripheral.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(matrixData)), false);
+    }
+
+    // Helper methods to track matrix state (for individual LED updates)
+  }, {
+    key: "_getCurrentMatrixState",
+    value: function _getCurrentMatrixState(portId) {
+      return this._matrixStates[portId];
+    }
+  }, {
+    key: "_updateMatrixState",
+    value: function _updateMatrixState(portId, matrixData) {
+      this._matrixStates[portId] = _toConsumableArray(matrixData);
     }
 
     //
