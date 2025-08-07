@@ -14265,6 +14265,7 @@ var ArgumentType = argumentType;
 var BlockType = blockType;
 var Cast = cast;
 var MathUtil = mathUtil;
+var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
 
 // Use the common BLE/LPF2 library components
 var BleBaseBlocks = bleBaseBlocks;
@@ -14398,6 +14399,7 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
       return {
         id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
         name: 'SPIKE Prime',
+        blockIconURI: blockIconURI,
         showStatusButton: true,
         blocks: [].concat(_toConsumableArray(_get(_getPrototypeOf(Scratch3SpikePrimeBlocks.prototype), "getBlocks", this).call(this, formatMessage)), ['---',
         // SPIKE Prime specific motor positioning
@@ -14847,13 +14849,13 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
             }
           }
         }, '---',
-        // External 3x3 Color Matrix (Technic 3x3 Color Light Matrix)
+        // External 3x3 Color Matrix (Technic 3x3 Color Light Matrix) - Individual LED Control
         {
-          opcode: 'setMatrix',
+          opcode: 'setMatrixLED',
           blockType: BlockType.COMMAND,
           text: formatMessage({
-            id: 'legobluetooth.setMatrix',
-            default: 'set 3x3 matrix on port [PORT] to [MATRIX] with brightness [BRIGHTNESS] %'
+            id: 'legobluetooth.setMatrixLED',
+            default: 'set 3x3 matrix on port [PORT] LED [POSITION] to [COLOR] at brightness [BRIGHTNESS]'
           }),
           arguments: {
             PORT: {
@@ -14861,21 +14863,50 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
               menu: 'PORT',
               defaultValue: 'A'
             },
-            MATRIX: {
-              type: ArgumentType.MATRIX,
-              defaultValue: '101010101' // 9 characters for 3x3 matrix
+            POSITION: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_POSITION',
+              defaultValue: '1'
+            },
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_COLOR',
+              defaultValue: 'red'
             },
             BRIGHTNESS: {
               type: ArgumentType.NUMBER,
-              defaultValue: 100
+              defaultValue: 5
             }
           }
         }, {
-          opcode: 'setMatrixPreset',
+          opcode: 'setMatrixAll',
           blockType: BlockType.COMMAND,
           text: formatMessage({
-            id: 'legobluetooth.setMatrixPreset',
-            default: 'set 3x3 matrix on port [PORT] to [PRESET] pattern'
+            id: 'legobluetooth.setMatrixAll',
+            default: 'set all 3x3 matrix on port [PORT] to [COLOR] at brightness [BRIGHTNESS]'
+          }),
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_COLOR',
+              defaultValue: 'blue'
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 5
+            }
+          }
+        }, {
+          opcode: 'setMatrixPattern',
+          blockType: BlockType.COMMAND,
+          text: formatMessage({
+            id: 'legobluetooth.setMatrixPattern',
+            default: 'set 3x3 matrix on port [PORT] to [PRESET] in [COLOR] at brightness [BRIGHTNESS]'
           }),
           arguments: {
             PORT: {
@@ -14887,6 +14918,15 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
               type: ArgumentType.STRING,
               menu: 'MATRIX_PRESET',
               defaultValue: 'smiley'
+            },
+            COLOR: {
+              type: ArgumentType.STRING,
+              menu: 'MATRIX_COLOR',
+              defaultValue: 'yellow'
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 5
             }
           }
         }, {
@@ -14894,7 +14934,7 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
           blockType: BlockType.COMMAND,
           text: formatMessage({
             id: 'legobluetooth.clearMatrix',
-            default: 'clear 3x3 matrix on port [PORT]'
+            default: 'turn off all LEDs on 3x3 matrix at port [PORT]'
           }),
           arguments: {
             PORT: {
