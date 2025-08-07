@@ -32,4 +32,4 @@ Bluetooth Classic (SPP)
 - LEGO Peach https://bricklife.com/scratch-gui/xcratch/legopeach.mjs
 - LEGO Education SPIKE Essential Hub https://bricklife.com/scratch-gui/xcratch/spikeessential.mjs
 - General LEGO BLE Device https://bricklife.com/scratch-gui/xcratch/legoble.mjs
-- LEGO Education SPIKE Prime Hub (v. 2 - legacy) / Robot Inventor Hub https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprime.mjs
+- LEGO Education SPIKE Prime Hub (v. 2 - legacy) / Robot Inventor Hub https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprime_legacy.mjs or (early alpha) https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprime_ble.mjs (work in progress...)
