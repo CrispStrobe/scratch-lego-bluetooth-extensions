@@ -14270,6 +14270,7 @@ var MathUtil = mathUtil;
 var BleBaseBlocks = bleBaseBlocks;
 var Hub = hub;
 var Color = color;
+var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
 var formatMessage = formatMessage$1.exports;
 var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeprime.mjs';
 
@@ -14349,8 +14350,8 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
   function Scratch3SpikePrimeBlocks(runtime) {
     var _this;
     _classCallCheck(this, Scratch3SpikePrimeBlocks);
-    // The Hub ID for SPIKE Prime / Robot Inventor is 0x80 (Technic Medium Hub).
-    _this = _callSuper(this, Scratch3SpikePrimeBlocks, [new Hub(runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID, 0x80)]);
+    // The Hub ID for SPIKE Prime / Robot Inventor is 0x81 (Technic Large Hub - 6 ports).
+    _this = _callSuper(this, Scratch3SpikePrimeBlocks, [new Hub(runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID, 0x81)]);
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
@@ -14373,16 +14374,34 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
     return _this;
   }
 
-  // SPIKE Prime has 6 ports (A-F), override default from BleBaseBlocks
+  // Dynamic port configuration based on connected hub type
   _createClass(Scratch3SpikePrimeBlocks, [{
     key: "externalPorts",
     get: function get() {
-      return ['A', 'B', 'C', 'D', 'E', 'F'];
+      // Detect connected hub type and return appropriate ports
+      var hubType = this._getConnectedHubType();
+      if (hubType === 0x80) {
+        // 4-port Technic Hub (Control+)
+        return ['A', 'B', 'C', 'D'];
+      } else if (hubType === 0x81) {
+        // 6-port SPIKE Prime / Robot Inventor Hub
+        return ['A', 'B', 'C', 'D', 'E', 'F'];
+      } else {
+        // Default to 6-port for SPIKE Prime extension
+        return ['A', 'B', 'C', 'D', 'E', 'F'];
+      }
     }
   }, {
     key: "multipleExternalPorts",
     get: function get() {
-      return ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F'];
+      var hubType = this._getConnectedHubType();
+      if (hubType === 0x80) {
+        // 4-port Technic Hub combinations
+        return ['A', 'B', 'C', 'D', 'A+B', 'C+D', 'A+B+C+D'];
+      } else {
+        // 6-port SPIKE Prime combinations  
+        return ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F'];
+      }
     }
 
     // Enable advanced blocks (name, firmware, battery)
@@ -14398,6 +14417,7 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
       return {
         id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
         name: 'SPIKE Prime',
+        blockIconURI: blockIconURI,
         showStatusButton: true,
         blocks: [].concat(_toConsumableArray(_get(_getPrototypeOf(Scratch3SpikePrimeBlocks.prototype), "getBlocks", this).call(this, formatMessage)), ['---',
         // SPIKE Prime specific motor positioning
@@ -15601,6 +15621,24 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
       if (angle < -180) angle += 360;
       if (angle > 180) angle -= 360;
       return angle;
+    }
+
+    // Hub type detection
+  }, {
+    key: "_getConnectedHubType",
+    value: function _getConnectedHubType() {
+      // Try to get hub type from peripheral
+      if (this._peripheral && this._peripheral.hubType) {
+        return this._peripheral.hubType;
+      }
+
+      // Try to get from Hub class
+      if (this._peripheral && this._peripheral._hubType) {
+        return this._peripheral._hubType;
+      }
+
+      // Default to 6-port SPIKE Prime
+      return 0x81;
     }
 
     // Device type detection helpers
