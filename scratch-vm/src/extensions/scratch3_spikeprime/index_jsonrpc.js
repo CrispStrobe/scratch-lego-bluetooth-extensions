@@ -1,305 +1,11 @@
-do we already cover all of this?
-
-When writing Python on the new LEGO MINDSTORMS and SPIKE hubs, the default methods are somewhat limited. With ‘import hub,’ you can use some hacks to access extra functions on the hub. They are undocumented, but in this article, I’m sharing what I have discovered so far. This is lengthy article full of SPIKE and MINDSTORMS Python hacks, true to the ‘Anton’s Mindstorms Hacks’ name.
-The first thing I explain is how to access the internal Inertial Motion Unit, IMU in short. The IMU reports angles, angular rates, acceleration, and position in space. This is relevant for many advanced robots. I also do some advanced button programming, including the led on the main button. The hub has some interesting status reports that I will discuss. Quickly jump to each of the topics:
-Gyro position and rates
-Gestures
-Accelerometer
-Display
-Hub status
-Onboard Sound files
-Buttons
-Motors
-Distance sensor led and reading
-Micropython libraries
-Exiting the script
-Currently I have very little information on the motor en sensor methods. They are relatively well documented inside the official apps. I found little need myself to investigate. Maybe I’ll do that in the future. I also plan to find out how to bluetooth methods work. These are harder to reverse engineer.
-When you use the hacks in this article, make sure to avoid naming conflicts. The default program template in MINDSTORMS and SPIKE defines a hub object for you. Be sure to rename it remove that line.
-# Create your objects here.
-hub = MSHub()     # <- !!! remove this or give the MSHub instance a different name !!!# Then you can safely goimport hub# Alternatively, you can access the hub object in this article through this method:from mindstorms import large_technic_hub# Now all of the hacks below are accessible through the hub object from the large technic hub# For example getting the gyro rates.
-rates = large_technic_hub.hub.motion.gyroscope()
-How to get gyro rate and angle in Python on the SPIKE or MINDSTORMS hub
-A gyroscope is a sensor that reports rotational speeds. From the continuous measurement of speeds, the SPIKE or MINDSTORMS hub can derive its rotational angle. The angle is an indirect value, and spinning the hub fast can mess that angle up.
-In Scratch and default Python, you can only get gyro angles. Using the hub object, you can also access gyro rates. This is how:
- import hub
-
- # rates in degrees per second
- yaw_rate, pitch_rate, roll_rate = hub.motion.gyroscope()# filtered, less jittery rates:
- yaw_rate, pitch_rate, roll_rate = hub.motion.gyroscope_filter()
-
- # angles in degrees
- yaw_angle, pitch_angle, roll_angle = hub.motion.position() 
-If your hub would be an airplane, the nose is where the USB port is, and the top is the 5×5 led matrix. Like an airplane, the hub can roll from side to side, pitch forward or backward, and yaw horizontally. The positive directions are clockwise for yaw, pull up for the pitch, and roll right. 
-
-Roll and pitch angles are zero when the hub rests flat on the battery. The zero positions for roll and pitch are irrespective of the hub’s position when you power it on. There is no way to reset pitch and roll zero points.
-Yaw is different. The hub sets it to 0 when it powers up. You can also reset yaw yourself. Use this command:
-import hub# Set yaw to zero
-hub.motion.reset_yaw()# Set yaw to a certain angle
-hub.motion.preset_yaw(25)
-Angle positions for roll, pitch, and yaw are clamped between -179 and 179. The hub never reports 180 or -180! So there is a 2-degree measurement gap somewhere.
-I use the gyro rate in my swinging monkey models if you’re interested in a real-world application. The models come with a well documented Python script and a Scratch/World Block program.
-Swinging Monkey – Robot Swing with 51515
-€7.50
-5.00 out of 5
-Add to cart
-
-SPIKE Prime Swing Monkey Building Instructions – PDF Download
-€10.00
-4.80 out of 5
-Add to cart
-
-Python gestures in the SPIKE or MINDSTORMS hub
-The hub recognizes five gestures. They are DOUBLETAPPED, FREEFALL, NONE, SHAKE, and TAPPED. This is how you check if any of these motions have occurred recently. You can also get the gestures via a callback. The fun thing with the callback is that it reports orientation changes too! So you will know if the hub is picked up, or has fallen over.
-import hub# Check for any new motions since you last checked.if hub.motion.was_gesture(hub.motion.DOUBLETAPPED):
-     print("Someone tapped me twice!") import hub# define methoddef my_method(args):
-     print(args)# attach it as callback. 
-hub.motion.callback(my_method)# If you tilt or tap the hub, it will now print orientations and gestures as soon as they happen."""
- leftside
-doubletapped
- back
- up
- rightside
- front
- left side
-tapped
- back
- down
- back
- left side
- back
- up
- rightside
-"""
-Accessing the accelerometer with Python in the LEGO hub
-An accelerometer measures acceleration. Really! It measures acceleration in three directions. This measurement is useful, even if your robot isn’t moving because the earth’s gravity field also creates an acceleration. If it wouldn’t, your hub would fly off horizontally into space, while you would rotate away with the earth.
-Long story short, the accelerometer tells you which direction is down. It’s what your phone uses to auto-rotate the display. Since it measures acceleration, the hub has to lay perfectly still to know precisely where down is.
-The SI unit of acceleration is m/s2. That’s the change in velocity per second. In smart devices like LEGO hubs, accelerometers are mostly used to detect where ‘down’ is. That’s why this sensor reports its values in milli-g. That is 1000th of the field of gravity. On average, the field of gravity is 9,81m/s2 on earth. If the hub is flat on its battery, the accelerometer will report (0, 1000, 0). That’s one full g in the ‘down’ direction. If you lay it on its display, it will report (0, -1000, 0)
-There are three ways to get accelerometer values:
-import hub# Stabilized, filtered values
-left_right, down_up, front_back = hub.motion.accelerometer_filter()# Jittery, raw values
-left_right, down_up, front_back = hub.motion.accelerometer() # Just the orientation
-orientation = hub.motion.orientation()# Returns a string from this list: ['up', 'down', 'leftside', 'rightside', 'front', 'back']# These strings are also available as Enums# e.g. hub.motion.UP == 'up'
-If the gravity field is at the left, down, or front side of the brick, you get positive numbers.
-The LEGO hub 5×5 display with Python matrices
-The standard method of accessing the display in python involves setting the brightness of each separate pixel. Luckily the hub objects provide a better alternative. You can access the display with the show() method. The show method takes either a string or a hub.display.Image as argument.
-If you pass a string, it shows all characters in the string with a half-second delay or so. You can also generate and pass images with the Image object. The Image object is not a PIL-like image. It is more like a string with 25 numbers and some semicolons.
-The callback returns 0 when the show() or pixel() methods have finished. It is handy if you want to wait until a complete string has been displayed.
-You can also rotate the display with the rotation() method. The rotation method takes multiples of 90 as an argument. The argument can be a negative number too. The rotation is relative, so you have to keep track of how you turned the display. It’s a little annoying that you can’t reset the rotation with rotation(0).
-You can paint individual pixels with the pixel() method. That method takes three arguments: x,y, and brightness. The brightness is a number between 0 and 9. You can use higher numbers, but the pixel doesn’t get any brighter. At the time of writing there is a bug where calling the pixel() method right after a rotation(), your screen
-Some example display scripts.
-# Create an image
-H = 9
-_ = 0
-
-smiley = [
-    [_,H,_,H,_],
-    [_,H,_,H,_],
-    [_,_,_,_,_],
-    [H,_,_,_,H],
-    [_,H,H,H,_],]def matrix_to_image(matrix):
-    # Convert an n x m matrix to a hub Image with semicolons
-    # E.g.  '09090:09090:00000:90009:09990' 
-    # With nested list comprehensions. Why? Because I can. :P
-    return hub.Image(":".join(["".join([str(n) for n in r]) for r in matrix]))
-
-smiley_img = matrix_to_image(smiley)
-
-hub.display.show(smiley_img)# Rotate the display upside down
-hub.display.rotation(-90) 
-hub.display.rotation(-90) # Paint the topleft pixel white
-hub.display.pixel(0, 0, 9) # oops! Another rotation. Watch out here. This seems bugged.# Add a callback
-hub.display.callback(lambda x:print(x)) # Show some text
-hub.display.show("Hello from Anton's Mindstorms")# This also prints a 0 in the console if you added the callback above.# The callback is handy if you want to know when the display is finally done.
-Status reports in the SPIKE or MINDSTORMS hub
-The hub has two thermometers, one on the mainboard, one on the battery. Sadly non of them measures room temperature. They are usually 2-3 degrees hotter than the room. 
-import hub# The temperature sensors return a float. 
-temp1 = hub.battery.temperature()
-temp2 = hub.temperature()
- #The hub returns a full status with 
-status = hub.status()# It returns a dictionary like this:
-status = {'gyroscope': (3, 6, -3), 
-    'position': (-16, 60, 0), 
-    'accelerometer': (-887, -4, 501), 
-    'port': {'C': [0, 0, 172, 0], 'D': [0, 0, -172, 0], 'B': [None], 'E': [0, 0, -116, 0], 'A': [20, 4, 63, 120, 129], 'F': [0, 0, 36, 0]}, 
-    'display': '09000:09900:09990:09900:09000'} # hub.supervision.info() returns a dictionary like this:
-result = {
-    'continous_current_too_high': False, 
-    'peek_current_too_high': False, 
-    'temperature_too_high': False, 
-    'continuous_current': 148, 
-    'temperature_way_too_high': False} 
-The SPIKE and MINDSTORMS hubs also monitor their electrical loads. This prevents them from bursting into flames or draining the battery with a blocked motor. 
-Battery status in Python
-I haven’t fully researched all battery methods. So far I haven’t had the need for it. The battery has these constants:
-BATTERY_BAD_BATTERY
-BATTERY_HUB_TEMPERATURE_CRITICAL_OUT_OF_RANGE BATTERY_NO_ERROR
-BATTERY_TEMPERATURE_OUT_OF_RANGE
-BATTERY_TEMPERATURE_SENSOR_FAIL
-BATTERY_VOLTAGE_TOO_LOW    
-CHARGER_STATE_CHARGING_COMPLETED
-CHARGER_STATE_CHARGING_ONGOING CHARGER_STATE_DISCHARGING
-CHARGER_STATE_FAIL
-USB_CH_PORT_CDP
-USB_CH_PORT_DCP
-USB_CH_PORT_NONE
-USB_CH_PORT_SDP
-… and these methods:
-capacity_left()
-charger_detect()
-current() # in mAh, 152 is about idle.
-info()
-temperature()
-voltage()
-Onboard Sound in the LEGO SPIKE and MINDSTORMS hubs
-You can play sound files on the hub. There’s no need to be connected to a smart device. The speaker is very weak, though, and you won’t hear much. 
-You can find the sound files on the hub like this:
-import hubimport uos
-
-list_of_sounds = uos.listdir("/sounds")
- # This returns a list like this. These are the available sounds at the time of writing.
- # ['menu_click', 'menu_fastback', 'menu_program_start', 'menu_program_stop', 'menu_shutdown', 'startup']
- # Now play a sound like this:
-hub.sound.play("/sounds/startup")
-hub.sound.play(list_of_sounds[0])# You can also generate sound with a wave and frequency. 
-frequency = 400
-duration_ms = 1000
-waveform = hub.sound.SOUND_SIN# The waveforms options are SOUND_SAWTOOTH, SOUND_SIN SOUND_SQUARE, SOUND_TRIANGLE
-
-hub.sound.beep(frequency, duration_ms, waveform) 
-Finally, there’s a callback function. I believe it reports when a sound is done playing, but I haven’t verified that.
-The MINDSTORMS and SPIKE sound files have 16bit signed integers, but use only 12 bits positive numbers. The minimum value is 0, the max value is 4096. So I ‘amplify’ 0.0625% from +/-32768. Then adjust for the middle (2048) with a dc offset of 0.0625% from max amplitude.
-I use sox to convert Wav files to files the hub can read. I then use Spiketools to transfer them. David Gilday has written a nifty way to transfer files with ubinascii. Check his PrimeCuber code to find out how.
-sox shake.wav --bits 16 --channels 1 --encoding signed-integer --endian little --rate 16000 shake.raw vol 0.0625 dcshift 0.0625 fade h 0.05 -0.05
-Buttons in Python on the LEGO SPIKE or MINDSTORMS hub
-The hub has four buttons, called center, connect, left, and right. Each of them has five methods: callback(), is_pressed(), on_change(), presses(), was_pressed(). The methods act pretty much as advertised. The callback function here is notable because it calls your function with the time for which the button was pressed. 
-import hub# Define callback in a lambda function
-hub.button.left.callback(lambda time_ms: print(time_ms))# Result# 0 <- at press# 3860 <-at release, time pressed in ms 
-Strangely enough, the led behind the main button is not accessible via the button property, but rather directly via hub.led. I used this to turn the led off for my POV clock.
-# Hack access to button led
-OFF = 0
-PINK = 1
-PURPLE = 2
-BLUE = 3
-TEAL = 4
-GREEN = 5
-LIME = 6
-YELLOW = 7
-ORANGE = 8
-RED = 9
-WHITE = 10
-GREY = 11
-
-hub.led(OFF)
-Motors in the SPIKE and MINDSTORMS hub
-The hub has a motor object on each port. If there is really a motor connected, you can use the motor methods as documented here.
-The result of the get() method depends on the mode() of the motor. The default mode is [(1,0), (2,2), (3,1), (0,0)]. I assume the first number in each tuple stands for the value (speed, pwm etc) and the second number for the format. However changing the format of the speed reading didn’t change the result for me. I tried modes (1,0), (1,1) and (1,2) and they all returned the same number. I was hoping for a way to read the speed in degrees per second instead of percent.
-I use a factor 9.3 to convert from the reported speed reading to degrees per second. It’s not super accurate, but it works most of the time.
-The preset() method is named rather weirdly. But it IS very handy! It sets the relative degrees (degrees counted) to a certain number. I use it to make sure that degrees counted has the same zero point as the absolute degrees. See the example code below.
-The default() method returns a dictionary with motor settings. I guess you can pass a similar dictionary too. I suspect not all settings are used in the actual motor contol.
-import hub# Use hub.port.[letter]# For instance, hub.port.E.motor.get() wil get you the motor state on port E
-
-speed, relative_degrees, absolute_degrees, pwm = hub.port.A.motor.get() 
-
-hub.port.A.motor.default()# Returns this:# {'pid': (0, 0, 0), 'max_power': 0, 'speed': 0, 'stall': True, # 'deceleration': 150, 'stop': 1, 'callback': None, 'acceleration': 100} # Reset relative zero like this
-motor = hub.port.A.motor
-absolute_position = motor.get()[2]if absolute_position > 180:
-    absolute_position -= 360
-motor.preset(absolute_position)# Print motor speed in different formats every second
-hub.port.A.motor.mode([(1,0),(1,1),(1,2)])
-
-hub.port.A.pwm(50)while True:
-    print(hub.port.C.motor.get())
-    wait_for_seconds(1)
-These are the motor constants:
-BUSY_MODE
-BUSY_MOTOR
-EVENT_COMPLETED
-EVENT_INTERRUPTED
-FORMAT_PCT
-FORMAT_RAW
-FORMAT_SI
-PID_POSITION
-PID_SPEED
-STOP_BRAKE
-STOP_FLOAT
-STOP_HOLD
-These are the motor methods:
-brake()
-busy()
-callback()
-default()
-float()
-hold()
-mode()
-pair()
-pid()
-preset()
-pwm()
-run_at_speed()
-run_for_degrees()
-run_for_time()
-run_to_position()
-Ultrasonic distance and LEDs with the hub.port object in Python
-If you just want a sensor reading on a certain port, you can use the get() method on the device object. It returns a list, so you have to unpack it with the zeroth item using [0]. Here’s an example.
-Using mode(5) you can control the leds on sensors that have them. Currently, that is the Distance sensor and the Color Sensor.
-Control ultrasonic sensor leds in Python
-import hub
-
-dist_sensor = hub.port.C.device# Turn on the left eye. Left is from your perspective, not the robot's
-top_left = 9 #brightness in range 0...9
-top_right = 0 
-bottom_left = 9 
-bottom_right = 0 
-dist_sensor.mode(5, bytes([top_left, top_right, bottom_left, bottom_right]))try:
-    from mindstorms.control import wait_for_secondsexcept:
-    from spike.control import wait_for_secondsdef distance():
-    # Get a distance reading in cm
-    wait_for_seconds(0.05) # This is an async wait that gives the sensor som e time to get values. You need this in a closed loop.
-    distance = dist_sensor.get()[0]
-    if distance:
-        return distance
-    else:
-        return 200print("Distance is ",distance())
-Wait, there’s more advanced Python you can access!
-The hub runs a version of Micropython. This means that you can import most of these libraries for your advanced programming needs!
-cmath – mathematical functions for complex numbers
-gc – control the garbage collector
-math – mathematical functions
-uarray – arrays of numeric data
-ubinascii – binary/ASCII conversions
-ucollections – collection and container types
-uerrno – system error codes
-uhashlib – hashing algorithms
-uheapq – heap queue algorithm
-uio – input/output streams
-ujson – JSON encoding and decoding
-uos – basic “operating system” services
-ure – simple regular expressions
-uselect – wait for events on a set of streams
-usocket – socket module
-ussl – SSL/TLS module
-ustruct – pack and unpack primitive data types
-usys – system specific functions
-utime – time related functions
-uzlib – zlib decompression
-Exiting your Python script when it ends
-Currently, Python scripts never end when you run them on the hub, even if you reach the end of the script. The only way to return to the program menu is to press the big button. I found this annoying and confusing. That’s why I end most of my scripts with a raise statement. This forces the script to stop and exit.
-raise SystemExit
-Try… and finally
-If you enjoyed this article, please contribute your findings and questions in the comments below. You could also follow me on Facebook or Instagram to keep up to date with my latest findings. Please don’t ask debugging questions.
-
-here is our new code:
-
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
 const Cast = require('../../util/cast');
 const MathUtil = require('../../util/math-util');
 const RateLimiter = require('../../util/rateLimiter.js');
-
 const setupTranslations = require('./lib/setup-translations');
 
-const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
-
+const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/BBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
 let formatMessage = require('format-message');
 let extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeprime.mjs';
 
@@ -827,7 +533,7 @@ class SpikePrime {
 
         const frame = this._protocol.pack(message);
         
-        const packetSize = this._hubInfo?.maxPacketSize || 20;
+        const packetSize = (this._hubInfo && this._hubInfo.maxPacketSize) || 20;
         
         for (let i = 0; i < frame.length; i += packetSize) {
             const chunk = frame.slice(i, Math.min(i + packetSize, frame.length));
@@ -2089,13 +1795,19 @@ class Scratch3SpikePrimeBlocks {
     getPosition(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        return portData?.absolutePosition ?? 0;
+        if (portData && typeof portData.absolutePosition !== 'undefined') {
+            return portData.absolutePosition;
+        }
+        return 0;
     }
 
     getSpeed(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        return portData?.speed ?? 0;
+        if (portData && typeof portData.speed !== 'undefined') {
+            return portData.speed;
+        }
+        return 0;
     }
 
     resetPosition(args) {
@@ -2282,7 +1994,7 @@ class Scratch3SpikePrimeBlocks {
     getDistance(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        if (portData?.type === 'distance') {
+        if (portData && portData.type === 'distance') {
             return portData.distance === -1 ? 0 : Math.round(portData.distance / 10);
         }
         return 0;
@@ -2312,7 +2024,7 @@ class Scratch3SpikePrimeBlocks {
     getColor(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        if (portData?.type === 'color') {
+        if (portData && portData.type === 'color') {
             const colorNames = ['black', 'magenta', 'purple', 'blue', 'azure', 'turquoise', 'green', 'yellow', 'orange', 'red', 'white'];
             const colorIndex = portData.color;
             return colorNames[colorIndex] || 'none';
@@ -2323,7 +2035,7 @@ class Scratch3SpikePrimeBlocks {
     getColorReflection(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        if (portData?.type === 'color') {
+        if (portData && portData.type === 'color') {
             return portData.reflection || 0;
         }
         return 0;
@@ -2332,7 +2044,7 @@ class Scratch3SpikePrimeBlocks {
     getColorAmbient(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        if (portData?.type === 'color') {
+        if (portData && portData.type === 'color') {
             return portData.ambient || 0;
         }
         return 0;
@@ -2357,7 +2069,7 @@ class Scratch3SpikePrimeBlocks {
     getForce(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        if (portData?.type === 'force') {
+        if (portData && portData.type === 'force') {
             return portData.force;
         }
         return 0;
@@ -2366,7 +2078,7 @@ class Scratch3SpikePrimeBlocks {
     isForceSensorPressed(args) {
         const port = Cast.toString(args.PORT).toUpperCase();
         const portData = this._peripheral.portValues[port];
-        if (portData?.type === 'force') {
+        if (portData && portData.type === 'force') {
             return portData.pressed;
         }
         return false;
@@ -2413,5 +2125,4 @@ class Scratch3SpikePrimeBlocks {
     }
 }
 
-exports.blockClass = Scratch3SpikePrimeBlocks;
 module.exports = Scratch3SpikePrimeBlocks;
