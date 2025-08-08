@@ -1,345 +1,78 @@
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
 const Cast = require('../../util/cast');
-const BT = require('../../io/bt');
-const Base64Util = require('../../util/base64-util');
 const MathUtil = require('../../util/math-util');
-const RateLimiter = require('../../util/rateLimiter.js');
 
+// Use the common BLE/LPF2 library components
+const BleBaseBlocks = require('./lib/ble-base-blocks');
+const Hub = require('./lib/hub');
 const Color = require('./lib/color');
-
-const setupTranslations = require('./lib/setup-translations');
-
 const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Kikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
 
 let formatMessage = require('format-message');
 let extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeprime.mjs';
 
-const BTSendRateMax = 40;
-
-const SpikePorts = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-const SpikeMotorStopMode = {
-    float: 0,
-    brake: 1,
-    hold: 2
+// Device Types (from LPF2 protocol)
+const DeviceType = {
+    // SPIKE Prime Motors  
+    TECHNIC_LARGE_MOTOR: 0x2e,
+    TECHNIC_XL_MOTOR: 0x2f,
+    TECHNIC_MEDIUM_ANGULAR_MOTOR: 0x30,
+    TECHNIC_LARGE_ANGULAR_MOTOR: 0x31,
+    TECHNIC_SMALL_ANGULAR_MOTOR: 0x41,
+    TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY: 0x4b,
+    TECHNIC_LARGE_ANGULAR_MOTOR_GRAY: 0x4c,
+    
+    // Lights
+    LIGHT: 0x08,
+    RGB_LIGHT: 0x17,
+    
+    // Sensors
+    MOTION_SENSOR: 0x23,
+    COLOR_DISTANCE_SENSOR: 0x25,
+    TILT_SENSOR: 0x22,
+    TECHNIC_COLOR_SENSOR: 0x3d,
+    TECHNIC_DISTANCE_SENSOR: 0x3e,
+    TECHNIC_FORCE_SENSOR: 0x3f,
+    TECHNIC_3X3_COLOR_LIGHT_MATRIX: 0x40,
+    TECHNIC_MEDIUM_HUB_TILT_SENSOR: 0x3b
 };
 
-const SpikeOrientation = {
-    front: 1,
-    back: 2,
-    up: 3,
-    down: 4,
-    rightside: 5,
-    leftside: 6
+// Sensor Modes (from LPF2 protocol)
+const SensorMode = {
+    COLOR_SENSOR: {
+        COLOR: 0x00,
+        REFLECTIVITY: 0x01,
+        AMBIENT_LIGHT: 0x02,
+        LIGHT_SET: 0x03,
+        RGB_INTENSITY: 0x06
+    },
+    DISTANCE_SENSOR: {
+        DISTANCE: 0x00,
+        FAST_DISTANCE: 0x01,
+        LIGHT_SET: 0x05
+    },
+    FORCE_SENSOR: {
+        FORCE: 0x00,
+        TOUCHED: 0x01,
+        TAPPED: 0x02
+    },
+    MOTOR: {
+        ROTATION: 0x02,
+        ABSOLUTE: 0x03
+    },
+    LIGHT: {
+        BRIGHTNESS: 0x00
+    },
+    MATRIX: {
+        LEVEL_OUTPUT: 0x00,
+        COLOR_OUTPUT: 0x01,
+        PIXEL_OUTPUT: 0x02,
+        TRANSITION: 0x03
+    }
 };
 
-class SpikeMotorSetting {
-
-    constructor() {
-        this._speed = 75;
-        this._stopMode = SpikeMotorStopMode.brake;
-        this._stallDetection = true;
-    }
-
-    get speed() {
-        return this._speed;
-    }
-
-    set speed(value) {
-        this._speed = MathUtil.clamp(value, -100, 100);
-    }
-
-    get stopMode() {
-        return this._stopMode;
-    }
-
-    set stopMode(value) {
-        if (value < 0 || value > 2) {
-            return;
-        }
-
-        this._stopMode = value;
-    }
-
-    get stallDetection() {
-        return this._stallDetection;
-    }
-
-    set stallDetection(value) {
-        this._stallDetection = value;
-    }
-}
-
-class SpikePrime {
-
-    constructor(runtime, extensionId) {
-        this._runtime = runtime;
-        this._extensionId = extensionId;
-
-        this._remainingText = '';
-
-        this._sensors = {
-            buttons: [0, 0, 0, 0],
-            angle: {
-                pitch: 0,
-                roll: 0,
-                yaw: 0
-            },
-            orientation: SpikeOrientation.front
-        };
-
-        this._portValues = {};
-
-        this._pixelBrightness = 100;
-
-        this._motorSettings = {
-            A: new SpikeMotorSetting(),
-            B: new SpikeMotorSetting(),
-            C: new SpikeMotorSetting(),
-            D: new SpikeMotorSetting(),
-            E: new SpikeMotorSetting(),
-            F: new SpikeMotorSetting()
-        };
-
-        this._bt = null;
-        this._runtime.registerPeripheralExtension(extensionId, this);
-        this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
-
-        this._rateLimiter = new RateLimiter(BTSendRateMax);
-
-        this.reset = this.reset.bind(this);
-        this._onConnect = this._onConnect.bind(this);
-        this._onMessage = this._onMessage.bind(this);
-
-        this._openRequests = {};
-    }
-
-    get angle() {
-        return this._sensors.angle;
-    }
-
-    get orientation() {
-        return this._sensors.orientation;
-    }
-
-    get portValues() {
-        return this._portValues;
-    }
-
-    get pixelBrightness() {
-        return this._pixelBrightness;
-    }
-
-    set pixelBrightness(value) {
-        this._pixelBrightness = value;
-    }
-
-    get motorSettings() {
-        return this._motorSettings;
-    }
-
-    beep(freq, time) {
-        //console.log(`freq: ${freq}, time: ${time}`);
-    }
-
-    stopAll() {
-        this.stopAllMotors();
-        this.stopSound();
-    }
-
-    stopSound() {
-        // this.send(cmd, false); // don't use rate limiter to ensure sound stops
-    }
-
-    stopAllMotors() {
-    }
-
-    scan() {
-        if (this._bt) {
-            this._bt.disconnect();
-        }
-        this._bt = new BT(this._runtime, this._extensionId, {
-            majorDeviceClass: 8,
-            minorDeviceClass: 1
-        }, this._onConnect, this.reset, this._onMessage);
-    }
-
-    connect(id) {
-        if (this._bt) {
-            this._bt.connectPeripheral(id);
-        }
-    }
-
-    disconnect() {
-        if (this._bt) {
-            this._bt.disconnect();
-        }
-
-        this.reset();
-    }
-
-    reset() {
-        this._remainingText = '';
-
-        this._sensors = {
-            buttons: [0, 0, 0, 0],
-            angle: {
-                pitch: 0,
-                roll: 0,
-                yaw: 0
-            },
-            orientation: SpikeOrientation.front
-        };
-
-        this._portValues = {};
-    }
-
-    isConnected() {
-        let connected = false;
-        if (this._bt) {
-            connected = this._bt.isConnected();
-        }
-        return connected;
-    }
-
-    sendJSON(json, useLimiter = false) {
-        const jsonText = JSON.stringify(json);
-        //console.log('> ' + jsonText);
-
-        if (!this.isConnected()) return Promise.resolve();
-
-        if (useLimiter) {
-            if (!this._rateLimiter.okayToSend()) return Promise.resolve();
-        }
-
-        if (!json.hasOwnProperty('i')) {
-            return this._bt.sendMessage({
-                message: `${jsonText}\r`
-            });
-        }
-
-        const promise = new Promise((resolve, reject) => {
-            this._openRequests[json.i] = { resolve, reject };
-        });
-
-        this._bt.sendMessage({
-            message: `${jsonText}\r`
-        });
-
-        return promise;
-    }
-
-    sendCommand(method, params, needsResponse = true) {
-        if (needsResponse) {
-            const id = Math.random().toString(36)
-                .slice(-4);
-
-            return this.sendJSON({
-                i: id,
-                m: method,
-                p: params
-            });
-        }
-
-        return this.sendJSON({
-            m: method,
-            p: params
-        });
-    }
-
-    _onConnect() {
-        this.sendCommand('trigger_current_state', {}, false);
-    }
-
-    _onMessage(params) {
-        const message = params.message;
-        const data = Base64Util.base64ToUint8Array(message);
-        const text = (new TextDecoder()).decode(data);
-        const responses = (this._remainingText + text).split('\r');
-        this._remainingText = responses.pop();
-
-        for (const jsonText of responses) {
-            try {
-                const json = JSON.parse(jsonText);
-                if (json.hasOwnProperty('i') || json.m !== 0) {
-                    //console.log('< ' + jsonText);
-                }
-                this._parseResponse(json);
-            } catch (error) {
-                console.log('invalid JSON:', jsonText);
-            }
-        }
-    }
-
-    _parseResponse(response) {
-        if (response.hasOwnProperty('m')) {
-            switch (response.m) {
-                case 0:
-                    // Hub (Ports, Acceleration, Gyro Rate, Tilt Angle, LED Matrix, Timer)
-                    {
-                        // Ports
-                        for (let i = 0; i < 6; i++) {
-                            const port = SpikePorts[i];
-                            const deviceId = response.p[i][0];
-                            const values = response.p[i][1];
-                            switch (deviceId) {
-                                case 48:
-                                case 49:
-                                    this._portValues[port] = {
-                                        speed: values[0],
-                                        degreesCounted: values[1],
-                                        position: (values[2] + 360) % 360,
-                                        power: values[3]
-                                    };
-                                    break;
-                                default:
-                                    this._portValues[port] = {};
-                                    break;
-                            }
-                        }
-
-                        // Tilt Angle
-                        const angle = response.p[8];
-                        this._sensors.angle.yaw = angle[0];
-                        this._sensors.angle.pitch = angle[1];
-                        this._sensors.angle.roll = angle[2];
-                    }
-                    break;
-                case 1:
-                    // Strage
-                    break;
-                case 2:
-                    // Battery
-                    // {"m":2,"p":[8.316, 100]}
-                    break;
-                case 3:
-                    // Button
-                    // {"m":3,"p":["right", 0]}
-                    break;
-                case 4:
-                    // Event (Orientation, Gesture)
-                    if (SpikeOrientation.hasOwnProperty(response.p)) {
-                        this._sensors.orientation = SpikeOrientation[response.p];
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (response.hasOwnProperty('i')) {
-            const openRequest = this._openRequests[response.i];
-            delete this._openRequests[response.i];
-
-            if (openRequest) {
-                openRequest.resolve();
-            }
-        }
-    }
-}
-
-class Scratch3SpikePrimeBlocks {
+class Scratch3SpikePrimeBlocks extends BleBaseBlocks {
 
     static get EXTENSION_ID() {
         return 'spikeprime';
@@ -354,57 +87,161 @@ class Scratch3SpikePrimeBlocks {
     }
 
     constructor(runtime) {
-        this.runtime = runtime;
-
-        this._peripheral = new SpikePrime(this.runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID);
-
-        this._playNoteForPicker = this._playNoteForPicker.bind(this);
-        this.runtime.on('PLAY_NOTE', this._playNoteForPicker);
+        const LWP3_SERVICE_UUID = '00001623-1212-efde-1623-785feabcd123';
+        super(new Hub(runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID, LWP3_SERVICE_UUID));
 
         if (runtime.formatMessage) {
-            // Replace 'formatMessage' to a formatter which is used in the runtime.
             formatMessage = runtime.formatMessage;
+        }
+
+        this._pixelBrightness = 100;
+        this._matrixStates = {};
+        this._matrixColors = {
+            off: 0, magenta: 1, violet: 2, blue: 3, turquoise: 4,
+            mint: 5, green: 6, yellow: 7, orange: 8, red: 9, white: 10
+        };
+        
+        this._matrixPresets = {
+            smiley: '101010111',
+            heart: '010111101',
+            arrow: '010010111',
+            cross: '010111010',
+            diamond: '010101010',
+            checkmark: '001010100'
+        };
+
+        this._hubType = 0x81; // Default to SPIKE Prime
+    }
+
+    // Proper LWP3 message builder with length encoding
+    _buildLwp3Message(payload) {
+        const totalLength = payload.length + 1;
+        
+        if (totalLength <= 127) {
+            return Buffer.concat([Buffer.from([totalLength]), payload]);
+        } else {
+            // Extended length encoding for messages > 127 bytes
+            const lsb = 0x80 | (totalLength & 0x7F);
+            const msb = (totalLength >> 7) & 0xFF;
+            return Buffer.concat([Buffer.from([lsb, msb]), payload]);
+        }
+    }
+
+    // Dynamic port configuration
+    get externalPorts() {
+        const hubType = this._getConnectedHubType();
+        if (hubType === 0x80) {
+            return ['A', 'B', 'C', 'D']; // 4-port Technic Hub
+        } else {
+            return ['A', 'B', 'C', 'D', 'E', 'F']; // 6-port SPIKE Prime
         }
     }
 
     getInfo() {
-        setupTranslations(formatMessage);
-
+        this.setupTranslations(formatMessage);
         return {
             id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-            name: 'SPIKE Prime (Legacy)',
+            name: 'SPIKE Prime',
             blockIconURI: blockIconURI,
             showStatusButton: true,
             blocks: [
+                // Inherit all standard motor and sensor blocks from the base class
+                ...this.getBaseBlocks(),
+                '---',
+                // Basic Hub Status (LWP3 Compatible)
                 {
-                    opcode: 'motorRunFor',
+                    opcode: 'getHubBatteryLevel',
                     text: formatMessage({
-                        id: 'legobluetooth.motorRunFor',
-                        default: '[PORT] run [DIRECTION] for [VALUE] [UNIT]'
+                        id: 'legobluetooth.getHubBatteryLevel',
+                        default: 'hub battery level (%)'
                     }),
-                    blockType: BlockType.COMMAND,
+                    blockType: BlockType.REPORTER
+                },
+                {
+                    opcode: 'getHubName',
+                    text: formatMessage({
+                        id: 'legobluetooth.getHubName',
+                        default: 'hub name'
+                    }),
+                    blockType: BlockType.REPORTER
+                },
+                {
+                    opcode: 'getHubFirmwareVersion',
+                    text: formatMessage({
+                        id: 'legobluetooth.getHubFirmwareVersion',
+                        default: 'hub firmware version'
+                    }),
+                    blockType: BlockType.REPORTER
+                },
+                '---',
+                // Basic Hub Button Controls (LWP3 Compatible)
+                {
+                    opcode: 'whenHubButtonPressed',
+                    blockType: BlockType.HAT,
+                    text: formatMessage({
+                        id: 'legobluetooth.whenHubButtonPressed',
+                        default: 'when hub [BUTTON] button pressed'
+                    }),
                     arguments: {
-                        PORT: {
+                        BUTTON: {
                             type: ArgumentType.STRING,
-                            menu: 'MULTIPLE_PORT',
-                            defaultValue: 'A'
-                        },
-                        DIRECTION: {
-                            type: ArgumentType.NUMBER,
-                            menu: 'DIRECTION',
-                            defaultValue: 1
-                        },
-                        VALUE: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 1
-                        },
-                        UNIT: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_UNIT',
-                            defaultValue: 'rotations'
+                            menu: 'HUB_BUTTON',
+                            defaultValue: 'center'
                         }
                     }
                 },
+                {
+                    opcode: 'isHubButtonPressed',
+                    blockType: BlockType.BOOLEAN,
+                    text: formatMessage({
+                        id: 'legobluetooth.isHubButtonPressed',
+                        default: 'hub [BUTTON] button pressed?'
+                    }),
+                    arguments: {
+                        BUTTON: {
+                            type: ArgumentType.STRING,
+                            menu: 'HUB_BUTTON',
+                            defaultValue: 'center'
+                        }
+                    }
+                },
+                {
+                    opcode: 'setCenterButtonLED',
+                    text: formatMessage({
+                        id: 'legobluetooth.setCenterButtonLED',
+                        default: 'set center button LED to [COLOR]'
+                    }),
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        COLOR: {
+                            type: ArgumentType.STRING,
+                            menu: 'CENTER_LED_COLOR',
+                            defaultValue: 'green'
+                        }
+                    }
+                },
+                '---',
+                // Basic Sound (LWP3 Compatible - Beep Only)
+                {
+                    opcode: 'playBeepTone',
+                    text: formatMessage({
+                        id: 'legobluetooth.playBeepTone',
+                        default: 'play beep [FREQUENCY] Hz for [DURATION] ms'
+                    }),
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        FREQUENCY: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 440
+                        },
+                        DURATION: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 1000
+                        }
+                    }
+                },
+                '---',
+                // Enhanced Motor Controls (LWP3 Compatible)
                 {
                     opcode: 'motorGoDirectionToPosition',
                     text: formatMessage({
@@ -415,7 +252,7 @@ class Scratch3SpikePrimeBlocks {
                     arguments: {
                         PORT: {
                             type: ArgumentType.STRING,
-                            menu: 'MULTIPLE_PORT',
+                            menu: 'PORT',
                             defaultValue: 'A'
                         },
                         DIRECTION: {
@@ -430,63 +267,9 @@ class Scratch3SpikePrimeBlocks {
                     }
                 },
                 {
-                    opcode: 'motorStart',
+                    opcode: 'getMotorPosition',
                     text: formatMessage({
-                        id: 'legobluetooth.motorStart',
-                        default: '[PORT] start motor [DIRECTION]'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'MULTIPLE_PORT',
-                            defaultValue: 'A'
-                        },
-                        DIRECTION: {
-                            type: ArgumentType.NUMBER,
-                            menu: 'DIRECTION',
-                            defaultValue: 1
-                        }
-                    }
-                },
-                {
-                    opcode: 'motorStop',
-                    text: formatMessage({
-                        id: 'legobluetooth.motorStop',
-                        default: '[PORT] stop motor'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'MULTIPLE_PORT',
-                            defaultValue: 'A'
-                        }
-                    }
-                },
-                {
-                    opcode: 'motorSetSpeed',
-                    text: formatMessage({
-                        id: 'legobluetooth.motorSetSpeed',
-                        default: '[PORT] set speed to [SPEED] %'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'MULTIPLE_PORT',
-                            defaultValue: 'A'
-                        },
-                        SPEED: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 75
-                        }
-                    }
-                },
-                {
-                    opcode: 'getPosition',
-                    text: formatMessage({
-                        id: 'legobluetooth.getPosition',
+                        id: 'legobluetooth.getMotorPosition',
                         default: '[PORT] position'
                     }),
                     blockType: BlockType.REPORTER,
@@ -498,30 +281,149 @@ class Scratch3SpikePrimeBlocks {
                         }
                     }
                 },
-                '---',
                 {
-                    opcode: 'displayImageFor',
+                    opcode: 'resetMotorPosition',
                     text: formatMessage({
-                        id: 'legobluetooth.displayImageFor',
-                        default: 'turn on [MATRIX] for [DURATION] seconds'
+                        id: 'legobluetooth.resetMotorPosition',
+                        default: 'reset [PORT] position to [POSITION]'
                     }),
                     blockType: BlockType.COMMAND,
                     arguments: {
-                        MATRIX: {
-                            type: ArgumentType.MATRIX,
-                            defaultValue: '1101111011000001000101110'
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
                         },
-                        DURATION: {
+                        POSITION: {
                             type: ArgumentType.NUMBER,
-                            defaultValue: 2
+                            defaultValue: 0
+                        }
+                    }
+                },
+                '---',
+                // Color Sensor Blocks (LWP3 Compatible)
+                {
+                    opcode: 'whenColorDetected',
+                    blockType: BlockType.HAT,
+                    text: formatMessage({
+                        id: 'legobluetooth.whenColorDetected',
+                        default: 'when [PORT] detects [COLOR] color'
+                    }),
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        },
+                        COLOR: {
+                            type: ArgumentType.NUMBER,
+                            menu: 'COLOR_ID',
+                            defaultValue: 9
                         }
                     }
                 },
                 {
+                    opcode: 'getColorValue',
+                    text: formatMessage({
+                        id: 'legobluetooth.getColorValue',
+                        default: '[PORT] detected color'
+                    }),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        }
+                    }
+                },
+                {
+                    opcode: 'getColorReflection',
+                    text: formatMessage({
+                        id: 'legobluetooth.getColorReflection',
+                        default: '[PORT] color reflection %'
+                    }),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        }
+                    }
+                },
+                '---',
+                // Distance Sensor Blocks (LWP3 Compatible)
+                {
+                    opcode: 'getDistanceValue',
+                    text: formatMessage({
+                        id: 'legobluetooth.getDistanceValue',
+                        default: '[PORT] distance (cm)'
+                    }),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        }
+                    }
+                },
+                {
+                    opcode: 'setDistanceLights',
+                    text: formatMessage({
+                        id: 'legobluetooth.setDistanceLights',
+                        default: 'set [PORT] distance sensor eyes [TOP_LEFT] [TOP_RIGHT] [BOTTOM_LEFT] [BOTTOM_RIGHT] %'
+                    }),
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        },
+                        TOP_LEFT: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 100
+                        },
+                        TOP_RIGHT: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 100
+                        },
+                        BOTTOM_LEFT: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 100
+                        },
+                        BOTTOM_RIGHT: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 100
+                        }
+                    }
+                },
+                '---',
+                // Force Sensor Blocks (LWP3 Compatible)
+                {
+                    opcode: 'getForceSensorValue',
+                    text: formatMessage({
+                        id: 'legobluetooth.getForceSensorValue',
+                        default: '[PORT] force (N)'
+                    }),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        }
+                    }
+                },
+                '---',
+                // Hub 5x5 LED Matrix (LWP3 Compatible)
+                {
                     opcode: 'displayImage',
                     text: formatMessage({
                         id: 'legobluetooth.displayImage',
-                        default: 'turn on [MATRIX]'
+                        default: 'show [MATRIX] on hub display'
                     }),
                     blockType: BlockType.COMMAND,
                     arguments: {
@@ -535,7 +437,7 @@ class Scratch3SpikePrimeBlocks {
                     opcode: 'displayText',
                     text: formatMessage({
                         id: 'legobluetooth.displayText',
-                        default: 'write [TEXT]'
+                        default: 'show text [TEXT] on hub display'
                     }),
                     blockType: BlockType.COMMAND,
                     arguments: {
@@ -549,115 +451,77 @@ class Scratch3SpikePrimeBlocks {
                     opcode: 'displayClear',
                     text: formatMessage({
                         id: 'legobluetooth.displayClear',
-                        default: 'turn off pixels'
+                        default: 'clear hub display'
                     }),
                     blockType: BlockType.COMMAND
                 },
+                '---',
+                // External 3x3 Color Matrix (LWP3 Compatible)
                 {
-                    opcode: 'displaySetBrightness',
-                    text: formatMessage({
-                        id: 'legobluetooth.displaySetBrightness',
-                        default: 'set pixel brightness to [BRIGHTNESS] %'
-                    }),
+                    opcode: 'setMatrixLED',
                     blockType: BlockType.COMMAND,
-                    arguments: {
-                        BRIGHTNESS: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 75
-                        }
-                    }
-                },
-                {
-                    opcode: 'displaySetPixel',
                     text: formatMessage({
-                        id: 'legobluetooth.displaySetPixel',
-                        default: 'set pixel at [X] , [Y] to [BRIGHTNESS] %'
+                        id: 'legobluetooth.setMatrixLED',
+                        default: 'set 3x3 matrix on port [PORT] LED [POSITION] to [COLOR] brightness [BRIGHTNESS]'
                     }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        X: {
-                            type: ArgumentType.STRING,
-                            menu: 'COORDINATE',
-                            defaultValue: '1'
-                        },
-                        Y: {
-                            type: ArgumentType.STRING,
-                            menu: 'COORDINATE',
-                            defaultValue: '1'
-                        },
-                        BRIGHTNESS: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 100
-                        }
-                    }
-                },
-                {
-                    opcode: 'centerButtonLights',
-                    text: formatMessage({
-                        id: 'legobluetooth.centerButtonLights',
-                        default: 'set center button light to [COLOR]'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        COLOR: {
-                            type: ArgumentType.STRING,
-                            menu: 'LED_COLOR',
-                            defaultValue: 9
-                        }
-                    }
-                },
-                {
-                    opcode: 'ultrasonicLightUp',
-                    text: formatMessage({
-                        id: 'legobluetooth.ultrasonicLightUp',
-                        default: '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]'
-                    }),
-                    blockType: BlockType.COMMAND,
                     arguments: {
                         PORT: {
                             type: ArgumentType.STRING,
                             menu: 'PORT',
                             defaultValue: 'A'
                         },
-                        LIGHT0: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 100
+                        POSITION: {
+                            type: ArgumentType.STRING,
+                            menu: 'MATRIX_POSITION',
+                            defaultValue: '5'
                         },
-                        LIGHT1: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 100
+                        COLOR: {
+                            type: ArgumentType.STRING,
+                            menu: 'MATRIX_COLOR',
+                            defaultValue: 'red'
                         },
-                        LIGHT2: {
+                        BRIGHTNESS: {
                             type: ArgumentType.NUMBER,
-                            defaultValue: 100
-                        },
-                        LIGHT3: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 100
+                            defaultValue: 5
                         }
                     }
                 },
-                '---',
-                // {
-                //     opcode: 'getOrientation',
-                //     text: formatMessage({
-                //         id: 'legobluetooth.getOrientation',
-                //         default: 'orientation'
-                //     }),
-                //     blockType: BlockType.REPORTER
-                // },
                 {
-                    opcode: 'getAngle',
+                    opcode: 'setMatrixAll',
+                    blockType: BlockType.COMMAND,
                     text: formatMessage({
-                        id: 'legobluetooth.getAngle',
-                        default: '[AXIS] angle'
+                        id: 'legobluetooth.setMatrixAll',
+                        default: 'set all 3x3 matrix on port [PORT] to [COLOR] brightness [BRIGHTNESS]'
                     }),
-                    blockType: BlockType.REPORTER,
                     arguments: {
-                        AXIS: {
+                        PORT: {
                             type: ArgumentType.STRING,
-                            menu: 'AXIS',
-                            defaultValue: 'pitch'
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        },
+                        COLOR: {
+                            type: ArgumentType.STRING,
+                            menu: 'MATRIX_COLOR',
+                            defaultValue: 'blue'
+                        },
+                        BRIGHTNESS: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 5
+                        }
+                    }
+                },
+                {
+                    opcode: 'clearMatrix',
+                    blockType: BlockType.COMMAND,
+                    text: formatMessage({
+                        id: 'legobluetooth.clearMatrix',
+                        default: 'turn off all LEDs on 3x3 matrix at port [PORT]'
+                    }),
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
                         }
                     }
                 }
@@ -665,442 +529,487 @@ class Scratch3SpikePrimeBlocks {
             menus: {
                 PORT: {
                     acceptReporters: true,
-                    items: SpikePorts
-                },
-                MULTIPLE_PORT: {
-                    acceptReporters: true,
-                    items: ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F']
-                },
-                MOTOR_UNIT: {
-                    acceptReporters: false,
-                    items: [
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.rotations',
-                                default: 'rotations'
-                            }),
-                            value: 'rotations'
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.degrees',
-                                default: 'degrees'
-                            }),
-                            value: 'degrees'
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.seconds',
-                                default: 'seconds'
-                            }),
-                            value: 'seconds'
-                        }
-                    ]
+                    items: this.externalPorts
                 },
                 POSITION_DIRECTION: {
                     acceptReporters: false,
                     items: [
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.shortestPath',
-                                default: 'shortest path'
-                            }),
-                            value: 'shortest'
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.clockwise',
-                                default: 'clockwise'
-                            }),
-                            value: 'clockwise'
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.counterclockwise',
-                                default: 'counterclockwise'
-                            }),
-                            value: 'counterclockwise'
-                        }
+                        { text: formatMessage({ id: 'legobluetooth.shortestPath', default: 'shortest path' }), value: 'shortest' },
+                        { text: formatMessage({ id: 'legobluetooth.clockwise', default: 'clockwise' }), value: 'clockwise' },
+                        { text: formatMessage({ id: 'legobluetooth.counterclockwise', default: 'counter-clockwise' }), value: 'counter-clockwise' }
                     ]
                 },
-                COORDINATE: {
-                    acceptReporters: true,
-                    items: ['1', '2', '3', '4', '5']
-                },
-                LED_COLOR: {
-                    acceptReporters: true,
-                    items: [
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.black',
-                                default: '(0) Black'
-                            }),
-                            value: String(Color.BLACK)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.pink',
-                                default: '(1) Pink'
-                            }),
-                            value: String(Color.PINK)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.purple',
-                                default: '(2) Purple'
-                            }),
-                            value: String(Color.PURPLE)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.blue',
-                                default: '(3) Blue'
-                            }),
-                            value: String(Color.BLUE)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.lightBlue',
-                                default: '(4) Light blue'
-                            }),
-                            value: String(Color.LIGHT_BLUE)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.lightGreen',
-                                default: '(5) Light green'
-                            }),
-                            value: String(Color.LIGHT_GREEN)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.green',
-                                default: '(6) Green'
-                            }),
-                            value: String(Color.GREEN)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.yellow',
-                                default: '(7) Yellow'
-                            }),
-                            value: String(Color.YELLOW)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.orange',
-                                default: '(8) Orange'
-                            }),
-                            value: String(Color.ORANGE)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.red',
-                                default: '(9) Red'
-                            }),
-                            value: String(Color.RED)
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.white',
-                                default: '(10) White'
-                            }),
-                            value: String(Color.WHITE)
-                        },
-                    ]
-                },
-                AXIS: {
+                HUB_BUTTON: {
                     acceptReporters: false,
                     items: [
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.pitch',
-                                default: 'pitch'
-                            }),
-                            value: 'pitch'
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.roll',
-                                default: 'roll'
-                            }),
-                            value: 'roll'
-                        },
-                        {
-                            text: formatMessage({
-                                id: 'legobluetooth.yaw',
-                                default: 'yaw'
-                            }),
-                            value: 'yaw'
-                        }
+                        { text: formatMessage({ id: 'legobluetooth.button.center', default: 'center' }), value: 'center' },
+                        { text: formatMessage({ id: 'legobluetooth.button.connect', default: 'connect' }), value: 'connect' }
                     ]
                 },
-                DIRECTION: {
+                CENTER_LED_COLOR: {
                     acceptReporters: false,
                     items: [
-                        {
-                            text: '⬆︎',
-                            value: '1'
-                        },
-                        {
-                            text: '⬇',
-                            value: '-1'
-                        }
+                        { text: formatMessage({ id: 'legobluetooth.centerled.off', default: 'off' }), value: 'off' },
+                        { text: formatMessage({ id: 'legobluetooth.centerled.green', default: 'green' }), value: 'green' },
+                        { text: formatMessage({ id: 'legobluetooth.centerled.red', default: 'red' }), value: 'red' },
+                        { text: formatMessage({ id: 'legobluetooth.centerled.blue', default: 'blue' }), value: 'blue' }
+                    ]
+                },
+                COLOR_ID: {
+                    acceptReporters: false,
+                    items: [
+                        { text: formatMessage({ id: 'legobluetooth.color.red', default: 'red' }), value: 9 },
+                        { text: formatMessage({ id: 'legobluetooth.color.green', default: 'green' }), value: 6 },
+                        { text: formatMessage({ id: 'legobluetooth.color.blue', default: 'blue' }), value: 3 },
+                        { text: formatMessage({ id: 'legobluetooth.color.yellow', default: 'yellow' }), value: 7 }
+                    ]
+                },
+                MATRIX_POSITION: {
+                    acceptReporters: true,
+                    items: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+                },
+                MATRIX_COLOR: {
+                    acceptReporters: false,
+                    items: [
+                        { text: formatMessage({ id: 'legobluetooth.matrixcolor.off', default: 'off' }), value: 'off' },
+                        { text: formatMessage({ id: 'legobluetooth.matrixcolor.red', default: 'red' }), value: 'red' },
+                        { text: formatMessage({ id: 'legobluetooth.matrixcolor.green', default: 'green' }), value: 'green' },
+                        { text: formatMessage({ id: 'legobluetooth.matrixcolor.blue', default: 'blue' }), value: 'blue' },
+                        { text: formatMessage({ id: 'legobluetooth.matrixcolor.yellow', default: 'yellow' }), value: 'yellow' }
                     ]
                 }
             }
         };
     }
 
-    motorRunFor(args) {
-        const direction = args.DIRECTION;
-        const value = Cast.toNumber(args.VALUE);
-        const unit = args.UNIT;
-
-        const ports = this._validatePorts(Cast.toString(args.PORT));
-
-        switch (unit) {
-            case 'rotations':
-                return this._motorRunForDegrees(ports, direction, value * 360);
-                break;
-            case 'degrees':
-                return this._motorRunForDegrees(ports, direction, value);
-                break;
-            case 'seconds':
-                return this._motorRunTimed(ports, direction, value);
-                break;
-            default:
-                return Promise.resolve();
-        }
-    }
-
-    _motorRunForDegrees(ports, direction, degrees) {
-        const promises = ports.map(port => {
-            const setting = this._peripheral.motorSettings[port];
-            return this._peripheral.sendCommand('scratch.motor_run_for_degrees', {
-                port: port,
-                speed: setting.speed * direction,
-                degrees: Math.floor(degrees),
-                stop: setting.stopMode,
-                stall: setting.stallDetection
-            });
-        });
-
-        return Promise.all(promises).then(() => { });
-    }
-
-    _motorRunTimed(ports, direction, seconds) {
-        const promises = ports.map(port => {
-            const setting = this._peripheral.motorSettings[port];
-            return this._peripheral.sendCommand('scratch.motor_run_timed', {
-                port: port,
-                speed: setting.speed * direction,
-                time: Math.floor(seconds * 1000),
-                stop: setting.stopMode,
-                stall: setting.stallDetection
-            });
-        });
-
-        return Promise.all(promises).then(() => { });
-    }
+    //
+    // --- LWP3 COMPATIBLE MOTOR CONTROL ---
+    //
 
     motorGoDirectionToPosition(args) {
         const direction = args.DIRECTION;
         const position = Math.round(Cast.toNumber(args.POSITION));
-
         const ports = this._validatePorts(Cast.toString(args.PORT));
-        const settings = this._peripheral.motorSettings;
 
         const promises = ports.map(port => {
-            const setting = settings[port];
-            return this._peripheral.sendCommand('scratch.motor_go_direction_to_position', {
-                port: port,
-                direction: direction,
-                position: position,
-                speed: setting.speed,
-                stop: setting.stopMode,
-                stall: setting.stallDetection
-            });
+            const portId = this.externalPorts.indexOf(port);
+            if (portId === -1) return Promise.resolve();
+
+            let speed = 75; // Default for 'shortest'
+            if (direction === 'clockwise') {
+                speed = 75;
+            } else if (direction === 'counter-clockwise') {
+                speed = -75;
+            }
+            
+            const maxPower = 100;
+            const endState = 0x7E; // HOLD (126)
+            const useProfile = 0x01; // Use acceleration/deceleration profiles
+
+            // Proper 13-byte command payload
+            const commandPayload = Buffer.alloc(13);
+            commandPayload.writeUInt8(0x00, 0);  // Hub ID
+            commandPayload.writeUInt8(0x81, 1);  // Port Output Command
+            commandPayload.writeUInt8(portId, 2); // Port ID
+            commandPayload.writeUInt8(0x11, 3);  // Startup/Completion Info (Execute immediately + Command feedback)
+            commandPayload.writeUInt8(0x0d, 4);  // Sub Command: GoToAbsolutePosition
+            commandPayload.writeInt32LE(position, 5); // 4 bytes: Absolute position
+            commandPayload.writeInt8(Math.abs(speed), 9); // 1 byte: Speed (always positive for this command)
+            commandPayload.writeUInt8(maxPower, 10);      // 1 byte: Max power
+            commandPayload.writeUInt8(endState, 11);      // 1 byte: End state
+            commandPayload.writeUInt8(useProfile, 12);    // 1 byte: Use profile
+
+            const finalMessage = this._buildLwp3Message(commandPayload);
+            return this._peripheral.write(finalMessage);
         });
 
-        return Promise.all(promises).then(() => { });
+        return Promise.all(promises);
     }
 
-    motorStart(args) {
-        const direction = args.DIRECTION;
+    getMotorPosition(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return 0;
 
-        const ports = this._validatePorts(Cast.toString(args.PORT));
-        const settings = this._peripheral.motorSettings;
-
-        const promises = ports.map(port => {
-            const setting = settings[port];
-            return this._peripheral.sendCommand('scratch.motor_start', {
-                port: port,
-                speed: setting.speed * direction,
-                stall: setting.stallDetection
-            });
-        });
-
-        return Promise.all(promises).then(() => { });
+        // Subscribe to motor position data
+        this._subscribeToPortValue(portId, SensorMode.MOTOR.ABSOLUTE);
+        return this._peripheral.inputValue(portId, 'position') || 0;
     }
 
-    motorStop(args) {
-        const ports = this._validatePorts(Cast.toString(args.PORT));
-        const settings = this._peripheral.motorSettings;
+    resetMotorPosition(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return Promise.resolve();
 
-        const promises = ports.map(port => {
-            const setting = settings[port];
-            return this._peripheral.sendCommand('scratch.motor_stop', {
-                port: port,
-                stop: setting.stopMode
-            });
-        });
+        const newPosition = Math.round(Cast.toNumber(args.POSITION));
 
-        return Promise.all(promises).then(() => { });
+        // Proper preset encoder command using WriteDirectModeData
+        const commandPayload = Buffer.alloc(10);
+        commandPayload.writeUInt8(0x00, 0);  // Hub ID
+        commandPayload.writeUInt8(0x81, 1);  // Port Output Command
+        commandPayload.writeUInt8(portId, 2); // Port ID
+        commandPayload.writeUInt8(0x11, 3);  // Startup/Completion Info
+        commandPayload.writeUInt8(0x51, 4);  // Sub Command: WriteDirectModeData
+        commandPayload.writeUInt8(0x02, 5);  // Mode: 2 (Position mode)
+        commandPayload.writeInt32LE(newPosition, 6); // 4 bytes: New position value
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
     }
 
-    motorSetSpeed(args) {
-        const speed = Cast.toNumber(args.SPEED);
+    //
+    // --- LWP3 COMPATIBLE SENSOR METHODS ---
+    //
 
-        const ports = this._validatePorts(Cast.toString(args.PORT));
-        const settings = this._peripheral.motorSettings;
-
-        ports.forEach(port => {
-            settings[port].speed = speed;
-        });
+    whenColorDetected(args) {
+        const detectedColor = this.getColorValue(args);
+        const expectedColor = Cast.toNumber(args.COLOR);
+        return detectedColor === expectedColor;
     }
 
-    getPosition(args) {
-        const port = Cast.toString(args.PORT).trim()
-            .toUpperCase();
+    getColorValue(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return 0;
 
-        return this._peripheral.portValues[port]?.position ?? 0;
+        this._subscribeToPortValue(portId, SensorMode.COLOR_SENSOR.COLOR);
+        return this._peripheral.inputValue(portId, 'color') || 0;
     }
 
-    displayImageFor(args) {
-        const brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-        const symbol = (Cast.toString(args.MATRIX).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-        const image = symbol.replace(/1/g, brightness).match(/.{5}/g)
-            .join(':');
-        let duration = Cast.toNumber(args.DURATION) * 1000;
-        duration = MathUtil.clamp(duration, 0, 60000);
+    getColorReflection(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return 0;
 
-        return this._peripheral.sendCommand('scratch.display_image_for', {
-            image: image,
-            duration: duration
-        });
+        this._subscribeToPortValue(portId, SensorMode.COLOR_SENSOR.REFLECTIVITY);
+        return this._peripheral.inputValue(portId, 'reflect') || 0;
     }
+
+    getDistanceValue(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return 0;
+
+        this._subscribeToPortValue(portId, SensorMode.DISTANCE_SENSOR.DISTANCE);
+        const distanceRaw = this._peripheral.inputValue(portId, 'distance') || 0;
+        return Math.round(distanceRaw / 10); // Convert mm to cm
+    }
+
+    setDistanceLights(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return Promise.resolve();
+
+        const topLeft = MathUtil.clamp(Cast.toNumber(args.TOP_LEFT), 0, 100);
+        const topRight = MathUtil.clamp(Cast.toNumber(args.TOP_RIGHT), 0, 100); 
+        const bottomLeft = MathUtil.clamp(Cast.toNumber(args.BOTTOM_LEFT), 0, 100);
+        const bottomRight = MathUtil.clamp(Cast.toNumber(args.BOTTOM_RIGHT), 0, 100);
+
+        // Set distance sensor illumination using WriteDirectModeData
+        const commandPayload = Buffer.alloc(10);
+        commandPayload.writeUInt8(0x00, 0);  // Hub ID
+        commandPayload.writeUInt8(0x81, 1);  // Port Output Command
+        commandPayload.writeUInt8(portId, 2); // Port ID
+        commandPayload.writeUInt8(0x11, 3);  // Startup/Completion Info
+        commandPayload.writeUInt8(0x51, 4);  // Sub Command: WriteDirectModeData
+        commandPayload.writeUInt8(SensorMode.DISTANCE_SENSOR.LIGHT_SET, 5); // Mode
+        commandPayload.writeUInt8(topLeft, 6);
+        commandPayload.writeUInt8(topRight, 7);
+        commandPayload.writeUInt8(bottomLeft, 8);
+        commandPayload.writeUInt8(bottomRight, 9);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
+    }
+
+    getForceSensorValue(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return 0;
+
+        this._subscribeToPortValue(portId, SensorMode.FORCE_SENSOR.FORCE);
+        const forceRaw = this._peripheral.inputValue(portId, 'force') || 0;
+        return Math.round(forceRaw / 10 * 100) / 100; // Convert to Newtons
+    }
+
+    //
+    // --- LWP3 COMPATIBLE HUB DISPLAY (5x5 Matrix) ---
+    //
 
     displayImage(args) {
-        const brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-        const symbol = (Cast.toString(args.MATRIX).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-        const image = symbol.replace(/1/g, brightness).match(/.{5}/g)
-            .join(':');
+        const imagePayload = this._get5x5MatrixPayload(args.MATRIX);
+        
+        // Use Hub Properties to control internal display
+        const commandPayload = Buffer.concat([
+            Buffer.from([
+                0x00, // Hub ID
+                0x81, // Port Output Command
+                0x32, // Internal display port (hub display)
+                0x11, // Startup/Completion Info
+                0x51, // WriteDirectModeData
+                0x00  // Mode 0: Image mode
+            ]),
+            imagePayload
+        ]);
 
-        return this._peripheral.sendCommand('scratch.display_image', {
-            image: image
-        });
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
     }
 
     displayText(args) {
         const text = Cast.toString(args.TEXT);
+        const textBytes = Buffer.from(text, 'utf8').slice(0, 20);
+        
+        const commandPayload = Buffer.concat([
+            Buffer.from([
+                0x00, // Hub ID
+                0x81, // Port Output Command
+                0x32, // Internal display port
+                0x11, // Startup/Completion Info
+                0x51, // WriteDirectModeData
+                0x01  // Mode 1: Text mode
+            ]),
+            textBytes
+        ]);
 
-        return this._peripheral.sendCommand('scratch.display_text', {
-            text: text
-        });
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
     }
 
     displayClear() {
-        return this._peripheral.sendCommand('scratch.display_clear', {});
+        const payload = Buffer.alloc(25); // 25 zero bytes
+        
+        const commandPayload = Buffer.concat([
+            Buffer.from([
+                0x00, // Hub ID
+                0x81, // Port Output Command
+                0x32, // Internal display port
+                0x11, // Startup/Completion Info
+                0x51, // WriteDirectModeData
+                0x00  // Mode 0: Image mode
+            ]),
+            payload
+        ]);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
     }
 
-    displaySetBrightness(args) {
-        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100);
+    //
+    // --- LWP3 COMPATIBLE 3x3 MATRIX CONTROL ---
+    //
 
-        this._peripheral.pixelBrightness = brightness;
-    }
+    setMatrixLED(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return Promise.resolve();
 
-    displaySetPixel(args) {
-        const x = Cast.toNumber(args.X);
-        if (x < 1 || x > 5) {
-            return Promise.resolve();
-        }
-        const y = Cast.toNumber(args.Y);
-        if (y < 1 || y > 5) {
-            return Promise.resolve();
-        }
-        let brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100);
-        brightness = Math.round(9 * brightness / 100);
+        const position = Cast.toNumber(args.POSITION) - 1; // Convert 1-9 to 0-8
+        if (position < 0 || position > 8) return Promise.resolve();
 
-        return this._peripheral.sendCommand('scratch.display_set_pixel', {
-            x: x - 1,
-            y: y - 1,
-            brightness: brightness
-        });
-    }
+        const colorName = Cast.toString(args.COLOR);
+        const colorId = this._matrixColors[colorName] || 0;
+        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
 
-    centerButtonLights(args) {
-        const color = Cast.toNumber(args.COLOR);
-
-        return this._peripheral.sendCommand('scratch.center_button_lights', {
-            color: color
-        });
-    }
-
-    ultrasonicLightUp(args) {
-        const port = Cast.toString(args.PORT).trim()
-            .toUpperCase();
-        if (!SpikePorts.includes(port)) {
-            return Promise.resolve();
+        // Get current matrix state or initialize
+        let currentMatrix = this._getCurrentMatrixState(portId);
+        if (!currentMatrix) {
+            currentMatrix = new Array(9).fill(0);
         }
 
-        const lights = [];
-        for (let i = 0; i < 4; i++) {
-            lights.push(MathUtil.clamp(Cast.toNumber(args[`LIGHT${i}`]), 0, 100));
+        // Use proper formula: (brightness << 4) | color_id
+        const byteValue = colorId === 0 ? 0 : (brightness << 4) | colorId;
+        currentMatrix[position] = byteValue;
+        this._updateMatrixState(portId, currentMatrix);
+
+        // Send using Mode 2 (Pixel Output)
+        const commandPayload = Buffer.concat([
+            Buffer.from([
+                0x00, // Hub ID
+                0x81, // Port Output Command
+                portId, // Port ID
+                0x11, // Startup/Completion Info
+                0x51, // WriteDirectModeData
+                SensorMode.MATRIX.PIXEL_OUTPUT // Mode 2: Individual pixel control
+            ]),
+            Buffer.from(currentMatrix)
+        ]);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
+    }
+
+    setMatrixAll(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return Promise.resolve();
+
+        const colorName = Cast.toString(args.COLOR);
+        const colorId = this._matrixColors[colorName] || 0;
+        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+
+        if (colorId === 0) {
+            return this.clearMatrix(args);
+        } else {
+            // Use Mode 1 (Color Output) - single color for all LEDs
+            const commandPayload = Buffer.from([
+                0x00, // Hub ID
+                0x81, // Port Output Command
+                portId, // Port ID
+                0x11, // Startup/Completion Info
+                0x51, // WriteDirectModeData
+                SensorMode.MATRIX.COLOR_OUTPUT, // Mode 1: All LEDs same color
+                colorId
+            ]);
+
+            // Update state tracking
+            const byteValue = (brightness << 4) | colorId;
+            this._updateMatrixState(portId, new Array(9).fill(byteValue));
+
+            const finalMessage = this._buildLwp3Message(commandPayload);
+            return this._peripheral.write(finalMessage);
         }
-
-        return this._peripheral.sendCommand('scratch.ultrasonic_light_up', {
-            port: port,
-            lights: lights
-        });
     }
 
-    getOrientation() {
-        return this._peripheral.orientation;
+    clearMatrix(args) {
+        const portName = Cast.toString(args.PORT).toUpperCase();
+        const portId = this.externalPorts.indexOf(portName);
+        if (portId === -1) return Promise.resolve();
+
+        // Use Mode 1 with color 0 (off)
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x81, // Port Output Command
+            portId, // Port ID
+            0x11, // Startup/Completion Info
+            0x51, // WriteDirectModeData
+            SensorMode.MATRIX.COLOR_OUTPUT, // Mode 1
+            0 // Color: off
+        ]);
+
+        this._updateMatrixState(portId, new Array(9).fill(0));
+        
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
     }
 
-    getAngle(args) {
-        const axis = Cast.toString(args.AXIS);
+    //
+    // --- LWP3 COMPATIBLE HUB FUNCTIONS ---
+    //
 
-        return this._peripheral.angle[axis];
+    getHubBatteryLevel() {
+        // Request battery level via Hub Properties
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x01, // Hub Properties
+            0x06, // Property: Battery Voltage
+            0x05  // Operation: Request Update
+        ]);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        this._peripheral.write(finalMessage);
+        
+        return this._peripheral.batteryLevel || 0;
     }
 
-    _playNoteForPicker(note, category) {
-        if (category !== this.getInfo().name) return;
-        this.beep({
-            NOTE: note,
-            TIME: 0.25
-        });
+    getHubName() {
+        // Request hub name via Hub Properties
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x01, // Hub Properties
+            0x01, // Property: Advertising Name
+            0x05  // Operation: Request Update
+        ]);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        this._peripheral.write(finalMessage);
+        
+        return this._peripheral.name || '';
     }
 
-    beep(args) {
-        const note = MathUtil.clamp(Cast.toNumber(args.NOTE), 47, 99); // valid EV3 sounds
-        let time = Cast.toNumber(args.TIME) * 1000;
-        time = MathUtil.clamp(time, 0, 3000);
+    getHubFirmwareVersion() {
+        // Request firmware version via Hub Properties
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x01, // Hub Properties
+            0x03, // Property: FW Version
+            0x05  // Operation: Request Update
+        ]);
 
-        if (time === 0) {
-            return; // don't send a beep time of 0
-        }
-
-        return new Promise(resolve => {
-            // https://en.wikipedia.org/wiki/MIDI_tuning_standard#Frequency_values
-            const freq = Math.pow(2, ((note - 69 + 12) / 12)) * 440;
-            this._peripheral.beep(freq, time);
-
-            // Run for some time even when no piezo is connected.
-            setTimeout(resolve, time);
-        });
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        this._peripheral.write(finalMessage);
+        
+        return this._peripheral.firmwareVersion || '';
     }
+
+    whenHubButtonPressed(args) {
+        return this.isHubButtonPressed(args);
+    }
+
+    isHubButtonPressed(args) {
+        const button = Cast.toString(args.BUTTON);
+        
+        // Request button state via Hub Properties
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x01, // Hub Properties
+            0x02, // Property: Button
+            0x05  // Operation: Request Update
+        ]);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        this._peripheral.write(finalMessage);
+        
+        return this._peripheral.buttonPressed === true;
+    }
+
+    setCenterButtonLED(args) {
+        const color = Cast.toString(args.COLOR);
+        
+        // Map color names to LWP3 color values
+        const colorMap = {
+            'off': 0,
+            'green': 6,
+            'red': 9,
+            'blue': 3
+        };
+        
+        const colorValue = colorMap[color] || 0;
+        
+        // Control center button LED via WriteDirectModeData
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x81, // Port Output Command
+            0x32, // Internal LED port
+            0x11, // Startup/Completion Info
+            0x51, // WriteDirectModeData
+            0x00, // Mode 0: Color mode
+            colorValue
+        ]);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
+    }
+
+    playBeepTone(args) {
+        const frequency = MathUtil.clamp(Cast.toNumber(args.FREQUENCY), 20, 20000);
+        const duration = MathUtil.clamp(Cast.toNumber(args.DURATION), 1, 10000);
+        
+        // Use Hub Actions command for beep
+        const commandPayload = Buffer.alloc(6);
+        commandPayload.writeUInt8(0x00, 0); // Hub ID
+        commandPayload.writeUInt8(0x02, 1); // Hub Actions
+        commandPayload.writeUInt8(0x03, 2); // Action: Beep
+        commandPayload.writeUInt16LE(frequency, 3);
+        commandPayload.writeUInt16LE(duration, 5);
+
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        return this._peripheral.write(finalMessage);
+    }
+
+    //
+    // --- UTILITY METHODS ---
+    //
 
     _validatePorts(text) {
         return text.toUpperCase().replace(/[^ABCDEF]/g, '')
@@ -1108,7 +1017,57 @@ class Scratch3SpikePrimeBlocks {
             .filter((x, i, self) => self.indexOf(x) === i)
             .sort();
     }
+
+    _getConnectedHubType() {
+        if (this._peripheral && this._peripheral.hubType) {
+            return this._peripheral.hubType;
+        }
+        return this._hubType;
+    }
+
+    _get5x5MatrixPayload(matrixString, brightnessPercent = this._pixelBrightness) {
+        const brightness = Math.round(MathUtil.clamp(brightnessPercent, 0, 100) * 9 / 100);
+        const symbol = (Cast.toString(matrixString).replace(/[^01]/g, '') + '0'.repeat(25)).slice(0, 25);
+        
+        const payload = [];
+        for (let i = 0; i < 25; i++) {
+            payload.push(symbol[i] === '1' ? brightness : 0);
+        }
+        return Buffer.from(payload);
+    }
+
+    _getCurrentMatrixState(portId) {
+        return this._matrixStates[portId] || null;
+    }
+
+    _updateMatrixState(portId, matrixData) {
+        this._matrixStates[portId] = [...matrixData];
+    }
+
+    _subscribeToPortValue(portId, mode) {
+        // Port Input Format Setup (Single) - Subscribe to sensor data
+        const commandPayload = Buffer.from([
+            0x00, // Hub ID
+            0x41, // Port Input Format Setup (Single)
+            portId, // Port ID
+            mode, // Mode
+            0x01, 0x00, 0x00, 0x00, // Delta Interval (1)
+            0x01 // Enable notifications
+        ]);
+        
+        const finalMessage = this._buildLwp3Message(commandPayload);
+        this._peripheral.write(finalMessage);
+    }
+
+    // Helper to get base blocks if available
+    getBaseBlocks() {
+        try {
+            return super.getBlocks ? super.getBlocks(formatMessage) : [];
+        } catch (error) {
+            console.warn('Base blocks not available:', error);
+            return [];
+        }
+    }
 }
 
-exports.blockClass = Scratch3SpikePrimeBlocks;
 module.exports = Scratch3SpikePrimeBlocks;
