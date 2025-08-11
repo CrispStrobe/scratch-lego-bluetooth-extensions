@@ -5068,7 +5068,7 @@ var b = "function" === typeof Symbol && Symbol.for,
   c = b ? Symbol.for("react.element") : 60103,
   d = b ? Symbol.for("react.portal") : 60106,
   e = b ? Symbol.for("react.fragment") : 60107,
-  f$1 = b ? Symbol.for("react.strict_mode") : 60108,
+  f = b ? Symbol.for("react.strict_mode") : 60108,
   g = b ? Symbol.for("react.profiler") : 60114,
   h = b ? Symbol.for("react.provider") : 60109,
   k = b ? Symbol.for("react.context") : 60110,
@@ -5093,7 +5093,7 @@ function z(a) {
           case m:
           case e:
           case g:
-          case f$1:
+          case f:
           case p:
             return a;
           default:
@@ -5127,7 +5127,7 @@ reactIs_production_min.Lazy = t;
 reactIs_production_min.Memo = r;
 reactIs_production_min.Portal = d;
 reactIs_production_min.Profiler = g;
-reactIs_production_min.StrictMode = f$1;
+reactIs_production_min.StrictMode = f;
 reactIs_production_min.Suspense = p;
 reactIs_production_min.isAsyncMode = function (a) {
   return A(a) || z(a) === l;
@@ -5161,13 +5161,13 @@ reactIs_production_min.isProfiler = function (a) {
   return z(a) === g;
 };
 reactIs_production_min.isStrictMode = function (a) {
-  return z(a) === f$1;
+  return z(a) === f;
 };
 reactIs_production_min.isSuspense = function (a) {
   return z(a) === p;
 };
 reactIs_production_min.isValidElementType = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f$1 || a === p || a === q || "object" === _typeof$1(a) && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
+  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === _typeof$1(a) && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
 };
 reactIs_production_min.typeOf = z;
 
@@ -6689,7 +6689,7 @@ function formatPlural(config, state, value) {
   }
   return 'other';
 }
-function formatMessage$1(config, state) {
+function formatMessage(config, state) {
   var messageDescriptor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   var values = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   var locale = config.locale,
@@ -6757,7 +6757,7 @@ function formatHTMLMessage(config, state, messageDescriptor) {
     escaped[name] = typeof value === 'string' ? escape(value) : value;
     return escaped;
   }, {});
-  return formatMessage$1(config, state, messageDescriptor, escapedValues);
+  return formatMessage(config, state, messageDescriptor, escapedValues);
 }
 var format = Object.freeze({
   formatDate: formatDate,
@@ -6765,7 +6765,7 @@ var format = Object.freeze({
   formatRelative: formatRelative,
   formatNumber: formatNumber,
   formatPlural: formatPlural,
-  formatMessage: formatMessage$1,
+  formatMessage: formatMessage,
   formatHTMLMessage: formatHTMLMessage
 });
 
@@ -7319,7 +7319,7 @@ var defaultFormatMessage = function defaultFormatMessage(descriptor, values) {
   if (process.env.NODE_ENV !== 'production') {
     console.error('[React Intl] Could not find required `intl` object. <IntlProvider> needs to exist in the component ancestry. Using default message as fallback.');
   }
-  return formatMessage$1({}, {
+  return formatMessage({}, {
     getMessageFormat: memoizeFormatConstructor(IntlMessageFormat)
   }, descriptor, values);
 };
@@ -7561,17 +7561,17 @@ var img$1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAg4AAAK9CAYAAABM5eTiA
 
 var img = "data:image/svg+xml,%3csvg height='32' width='32' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3clinearGradient id='g' gradientTransform='rotate(-90 24 10)' gradientUnits='userSpaceOnUse' x1='22.9' x2='25.1' y1='10' y2='10'%3e%3cstop offset='0' stop-color='%23fdae23'/%3e%3cstop offset='1' stop-color='%23fdca73'/%3e%3c/linearGradient%3e%3clinearGradient id='h' gradientTransform='rotate(-90 26 12)' gradientUnits='userSpaceOnUse' x1='24.9' x2='27.1' y1='12' y2='12'%3e%3cstop offset='0' stop-color='%23da4453'/%3e%3cstop offset='1' stop-color='%23e47681'/%3e%3c/linearGradient%3e%3clinearGradient id='i' gradientTransform='rotate(-90 24 14)' gradientUnits='userSpaceOnUse' x1='22.9' x2='25.1' y1='14' y2='14'%3e%3cstop offset='0' stop-color='%2327ab5f'/%3e%3cstop offset='1' stop-color='%234bd786'/%3e%3c/linearGradient%3e%3clinearGradient id='j' gradientTransform='rotate(-90 22 12)' gradientUnits='userSpaceOnUse' x1='20.9' x2='23.1' y1='12' y2='12'%3e%3cstop offset='0' stop-color='%230c85dc'/%3e%3cstop offset='1' stop-color='%2343aaf5'/%3e%3c/linearGradient%3e%3clinearGradient id='a'%3e%3cstop offset='0' stop-color='%230f1419'/%3e%3cstop offset='1' stop-color='%2322282e'/%3e%3c/linearGradient%3e%3cradialGradient id='k' cx='2' cy='20.835' gradientTransform='matrix(1.998 0 .00002 11.988 -1.996 -223.769)' gradientUnits='userSpaceOnUse' r='1.001' xlink:href='%23a'/%3e%3cradialGradient id='n' cx='3.001' cy='19.834' gradientTransform='matrix(-1.998 0 0 11.988 35.996 -211.768)' gradientUnits='userSpaceOnUse' r='1.001' xlink:href='%23a'/%3e%3clinearGradient id='b'%3e%3cstop offset='0' stop-color='%236f7881'/%3e%3cstop offset='1' stop-color='%23b0b4b8'/%3e%3c/linearGradient%3e%3clinearGradient id='c'%3e%3cstop offset='0' stop-color='%23171e25'/%3e%3cstop offset='1' stop-color='%23333c45'/%3e%3c/linearGradient%3e%3clinearGradient id='d' gradientUnits='userSpaceOnUse' x1='16' x2='16' y1='26' y2='6'%3e%3cstop offset='0' stop-color='%23535a61'/%3e%3cstop offset='.25' stop-color='%236f7881'/%3e%3cstop offset='1' stop-color='%23adb6bb'/%3e%3c/linearGradient%3e%3clinearGradient id='l' gradientUnits='userSpaceOnUse' x1='19' x2='19' xlink:href='%23b' y1='22' y2='16'/%3e%3clinearGradient id='m' gradientUnits='userSpaceOnUse' x1='19' x2='19' xlink:href='%23c' y1='21' y2='17'/%3e%3clinearGradient id='f' gradientUnits='userSpaceOnUse' x1='8' x2='8' xlink:href='%23c' y1='15' y2='9'/%3e%3clinearGradient id='e' gradientUnits='userSpaceOnUse' x1='6' x2='6' xlink:href='%23b' y1='15' y2='9'/%3e%3cpath d='M7 6c-2.761 0-5 3.358-5 7.5v.5l1 1v10l-.021.482a2.5 2.5 0 0 0 3.289-.214L10.535 21h10.93l4.267 4.268a2.5 2.5 0 0 0 3.29.212L29 25V15l1-1v-.5C30 9.358 27.761 6 25 6z' fill='url(%23d)'/%3e%3cpath d='M28 12a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4zm-16 0a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4z' fill='%236f7881'/%3e%3ccircle cx='8' cy='12' fill='url(%23e)' r='3'/%3e%3cpath d='M8 9a3 3 0 0 0-1 .174V11H5.176A3 3 0 0 0 5 12a3 3 0 0 0 .174 1H7v1.824A3 3 0 0 0 8 15a3 3 0 0 0 1-.174V13h1.824A3 3 0 0 0 11 12a3 3 0 0 0-.174-1H9V9.176A3 3 0 0 0 8 9z' fill='url(%23f)'/%3e%3cpath d='M24 8.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1A1.1 1.1 0 0 1 24 8.9z' fill='url(%23g)'/%3e%3cpath d='M26 10.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z' fill='url(%23h)'/%3e%3cpath d='M24 12.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z' fill='url(%23i)'/%3e%3cpath d='M22 10.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z' fill='url(%23j)'/%3e%3cpath d='M10.535 20l-4.267 4.268A2.5 2.5 0 0 1 3 24.496V25l-.021.482a2.5 2.5 0 0 0 3.289-.214L10.535 21h10.93l4.267 4.268a2.5 2.5 0 0 0 3.29.212L29 25v-.502a2.5 2.5 0 0 1-3.268-.23L21.465 20z' fill='%23292c2f' opacity='.2'/%3e%3cpath d='M2 14a2 4 0 0 1 2 4v4l-.002.002a2 4 0 0 1 0 .004 2 4 0 0 1-1.02 3.484 2.5 2.5 0 0 1-.98-1.984A2.5 2.5 0 0 1 2 23.465V18z' fill='url(%23k)'/%3e%3cpath d='M23 19a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3zm-8 0a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3z' fill='url(%23l)'/%3e%3cpath d='M22 19a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2zm-8 0a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z' fill='url(%23m)'/%3e%3cpath d='M30 14a2 4 0 0 0-2 4v4l.002.002a2 4 0 0 0 0 .004 2 4 0 0 0 1.02 3.484 2.5 2.5 0 0 0 .98-1.984 2.5 2.5 0 0 0-.002-.041V18z' fill='url(%23n)'/%3e%3c/svg%3e";
 
-// scratch-gui/src/lib/libraries/extensions/dualshock4/index.jsx
+// scratch-gui/src/lib/libraries/extensions/gamepad/index.jsx
 var entry = {
-  name: 'Gamepad Controller',
-  // More generic name
-  extensionId: 'dualshock4',
+  name: 'Universal Gamepad',
+  extensionId: 'gamepad',
+  // Must match the extension ID in the main file
   collaborator: 'CrispStrobe',
   iconURL: img$1,
   insetIconURL: img,
   description: /*#__PURE__*/React.createElement(FormattedMessage, {
-    defaultMessage: "Control your Scratch projects with a gamepad or controller.",
-    id: "gui.extension.dualshock4.description"
+    defaultMessage: "Control your Scratch projects with any gamepad controller - Xbox, PlayStation, Nintendo Pro, or 3rd party controllers.",
+    id: "gui.extension.gamepad.description"
   }),
   featured: true,
   disabled: false,
@@ -7634,6 +7634,12 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray$1(arr, i) || _nonIterableRest();
 }
 
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
 function toPrimitive(t, r) {
   if ("object" != _typeof$1(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
@@ -7648,27 +7654,6 @@ function toPrimitive(t, r) {
 function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
   return "symbol" == _typeof$1(i) ? i : String(i);
-}
-
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
 }
 
 function _defineProperties(target, props) {
@@ -8262,1834 +8247,61 @@ var Cast$1 = /*#__PURE__*/function () {
 }();
 var cast = Cast$1;
 
-var formatMessage = {exports: {}};
-
-var formatMessageParse = {exports: {}};
-
-(function (module, exports) {
-
-  /*::
-  export type AST = Element[]
-  export type Element = string | Placeholder
-  export type Placeholder = Plural | Styled | Typed | Simple
-  export type Plural = [ string, 'plural' | 'selectordinal', number, SubMessages ]
-  export type Styled = [ string, string, string | SubMessages ]
-  export type Typed = [ string, string ]
-  export type Simple = [ string ]
-  export type SubMessages = { [string]: AST }
-  export type Token = [ TokenType, string ]
-  export type TokenType = 'text' | 'space' | 'id' | 'type' | 'style' | 'offset' | 'number' | 'selector' | 'syntax'
-  type Context = {|
-    pattern: string,
-    index: number,
-    tagsType: ?string,
-    tokens: ?Token[]
-  |}
-  */
-  var ARG_OPN = '{';
-  var ARG_CLS = '}';
-  var ARG_SEP = ',';
-  var NUM_ARG = '#';
-  var TAG_OPN = '<';
-  var TAG_CLS = '>';
-  var TAG_END = '</';
-  var TAG_SELF_CLS = '/>';
-  var ESC = '\'';
-  var OFFSET = 'offset:';
-  var simpleTypes = ['number', 'date', 'time', 'ordinal', 'duration', 'spellout'];
-  var submTypes = ['plural', 'select', 'selectordinal'];
-
-  /**
-   * parse
-   *
-   * Turns this:
-   *  `You have { numBananas, plural,
-   *       =0 {no bananas}
-   *      one {a banana}
-   *    other {# bananas}
-   *  } for sale`
-   *
-   * into this:
-   *  [ "You have ", [ "numBananas", "plural", 0, {
-   *       "=0": [ "no bananas" ],
-   *      "one": [ "a banana" ],
-   *    "other": [ [ '#' ], " bananas" ]
-   *  } ], " for sale." ]
-   *
-   * tokens:
-   *  [
-   *    [ "text", "You have " ],
-   *    [ "syntax", "{" ],
-   *    [ "space", " " ],
-   *    [ "id", "numBananas" ],
-   *    [ "syntax", ", " ],
-   *    [ "space", " " ],
-   *    [ "type", "plural" ],
-   *    [ "syntax", "," ],
-   *    [ "space", "\n     " ],
-   *    [ "selector", "=0" ],
-   *    [ "space", " " ],
-   *    [ "syntax", "{" ],
-   *    [ "text", "no bananas" ],
-   *    [ "syntax", "}" ],
-   *    [ "space", "\n    " ],
-   *    [ "selector", "one" ],
-   *    [ "space", " " ],
-   *    [ "syntax", "{" ],
-   *    [ "text", "a banana" ],
-   *    [ "syntax", "}" ],
-   *    [ "space", "\n  " ],
-   *    [ "selector", "other" ],
-   *    [ "space", " " ],
-   *    [ "syntax", "{" ],
-   *    [ "syntax", "#" ],
-   *    [ "text", " bananas" ],
-   *    [ "syntax", "}" ],
-   *    [ "space", "\n" ],
-   *    [ "syntax", "}" ],
-   *    [ "text", " for sale." ]
-   *  ]
-   **/
-  exports = module.exports = function parse(pattern /*: string */, options /*:: ?: { tagsType?: string, tokens?: Token[] } */) /*: AST */{
-    return parseAST({
-      pattern: String(pattern),
-      index: 0,
-      tagsType: options && options.tagsType || null,
-      tokens: options && options.tokens || null
-    }, '');
-  };
-  function parseAST(current /*: Context */, parentType /*: string */) /*: AST */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var elements /*: AST */ = [];
-    var start = current.index;
-    var text = parseText(current, parentType);
-    if (text) elements.push(text);
-    if (text && current.tokens) current.tokens.push(['text', pattern.slice(start, current.index)]);
-    while (current.index < length) {
-      if (pattern[current.index] === ARG_CLS) {
-        if (!parentType) throw expected(current);
-        break;
-      }
-      if (parentType && current.tagsType && pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) break;
-      elements.push(parsePlaceholder(current));
-      start = current.index;
-      text = parseText(current, parentType);
-      if (text) elements.push(text);
-      if (text && current.tokens) current.tokens.push(['text', pattern.slice(start, current.index)]);
-    }
-    return elements;
-  }
-  function parseText(current /*: Context */, parentType /*: string */) /*: string */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var isHashSpecial = parentType === 'plural' || parentType === 'selectordinal';
-    var isAngleSpecial = !!current.tagsType;
-    var isArgStyle = parentType === '{style}';
-    var text = '';
-    while (current.index < length) {
-      var char = pattern[current.index];
-      if (char === ARG_OPN || char === ARG_CLS || isHashSpecial && char === NUM_ARG || isAngleSpecial && char === TAG_OPN || isArgStyle && isWhitespace(char.charCodeAt(0))) {
-        break;
-      } else if (char === ESC) {
-        char = pattern[++current.index];
-        if (char === ESC) {
-          // double is always 1 '
-          text += char;
-          ++current.index;
-        } else if (
-        // only when necessary
-        char === ARG_OPN || char === ARG_CLS || isHashSpecial && char === NUM_ARG || isAngleSpecial && char === TAG_OPN || isArgStyle) {
-          text += char;
-          while (++current.index < length) {
-            char = pattern[current.index];
-            if (char === ESC && pattern[current.index + 1] === ESC) {
-              // double is always 1 '
-              text += ESC;
-              ++current.index;
-            } else if (char === ESC) {
-              // end of quoted
-              ++current.index;
-              break;
-            } else {
-              text += char;
-            }
-          }
-        } else {
-          // lone ' is just a '
-          text += ESC;
-          // already incremented
-        }
-      } else {
-        text += char;
-        ++current.index;
-      }
-    }
-    return text;
-  }
-  function isWhitespace(code /*: number */) /*: boolean */{
-    return code >= 0x09 && code <= 0x0D || code === 0x20 || code === 0x85 || code === 0xA0 || code === 0x180E || code >= 0x2000 && code <= 0x200D || code === 0x2028 || code === 0x2029 || code === 0x202F || code === 0x205F || code === 0x2060 || code === 0x3000 || code === 0xFEFF;
-  }
-  function skipWhitespace(current /*: Context */) /*: void */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var start = current.index;
-    while (current.index < length && isWhitespace(pattern.charCodeAt(current.index))) {
-      ++current.index;
-    }
-    if (start < current.index && current.tokens) {
-      current.tokens.push(['space', current.pattern.slice(start, current.index)]);
-    }
-  }
-  function parsePlaceholder(current /*: Context */) /*: Placeholder */{
-    var pattern = current.pattern;
-    if (pattern[current.index] === NUM_ARG) {
-      if (current.tokens) current.tokens.push(['syntax', NUM_ARG]);
-      ++current.index; // move passed #
-      return [NUM_ARG];
-    }
-    var tag = parseTag(current);
-    if (tag) return tag;
-
-    /* istanbul ignore if should be unreachable if parseAST and parseText are right */
-    if (pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN);
-    if (current.tokens) current.tokens.push(['syntax', ARG_OPN]);
-    ++current.index; // move passed {
-    skipWhitespace(current);
-    var id = parseId(current);
-    if (!id) throw expected(current, 'placeholder id');
-    if (current.tokens) current.tokens.push(['id', id]);
-    skipWhitespace(current);
-    var char = pattern[current.index];
-    if (char === ARG_CLS) {
-      // end placeholder
-      if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-      ++current.index; // move passed }
-      return [id];
-    }
-    if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', ARG_SEP]);
-    ++current.index; // move passed ,
-    skipWhitespace(current);
-    var type = parseId(current);
-    if (!type) throw expected(current, 'placeholder type');
-    if (current.tokens) current.tokens.push(['type', type]);
-    skipWhitespace(current);
-    char = pattern[current.index];
-    if (char === ARG_CLS) {
-      // end placeholder
-      if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-      if (type === 'plural' || type === 'selectordinal' || type === 'select') {
-        throw expected(current, type + ' sub-messages');
-      }
-      ++current.index; // move passed }
-      return [id, type];
-    }
-    if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', ARG_SEP]);
-    ++current.index; // move passed ,
-    skipWhitespace(current);
-    var arg;
-    if (type === 'plural' || type === 'selectordinal') {
-      var offset = parsePluralOffset(current);
-      skipWhitespace(current);
-      arg = [id, type, offset, parseSubMessages(current, type)];
-    } else if (type === 'select') {
-      arg = [id, type, parseSubMessages(current, type)];
-    } else if (simpleTypes.indexOf(type) >= 0) {
-      arg = [id, type, parseSimpleFormat(current)];
-    } else {
-      // custom placeholder type
-      var index = current.index;
-      var format /*: string | SubMessages */ = parseSimpleFormat(current);
-      skipWhitespace(current);
-      if (pattern[current.index] === ARG_OPN) {
-        current.index = index; // rewind, since should have been submessages
-        format = parseSubMessages(current, type);
-      }
-      arg = [id, type, format];
-    }
-    skipWhitespace(current);
-    if (pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-    ++current.index; // move passed }
-    return arg;
-  }
-  function parseTag(current /*: Context */) /*: ?Placeholder */{
-    var tagsType = current.tagsType;
-    if (!tagsType || current.pattern[current.index] !== TAG_OPN) return;
-    if (current.pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) {
-      throw expected(current, null, 'closing tag without matching opening tag');
-    }
-    if (current.tokens) current.tokens.push(['syntax', TAG_OPN]);
-    ++current.index; // move passed <
-
-    var id = parseId(current, true);
-    if (!id) throw expected(current, 'placeholder id');
-    if (current.tokens) current.tokens.push(['id', id]);
-    skipWhitespace(current);
-    if (current.pattern.slice(current.index, current.index + TAG_SELF_CLS.length) === TAG_SELF_CLS) {
-      if (current.tokens) current.tokens.push(['syntax', TAG_SELF_CLS]);
-      current.index += TAG_SELF_CLS.length;
-      return [id, tagsType];
-    }
-    if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', TAG_CLS]);
-    ++current.index; // move passed >
-
-    var children = parseAST(current, tagsType);
-    var end = current.index;
-    if (current.pattern.slice(current.index, current.index + TAG_END.length) !== TAG_END) throw expected(current, TAG_END + id + TAG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', TAG_END]);
-    current.index += TAG_END.length;
-    var closeId = parseId(current, true);
-    if (closeId && current.tokens) current.tokens.push(['id', closeId]);
-    if (id !== closeId) {
-      current.index = end; // rewind for better error message
-      throw expected(current, TAG_END + id + TAG_CLS, TAG_END + closeId + TAG_CLS);
-    }
-    skipWhitespace(current);
-    if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', TAG_CLS]);
-    ++current.index; // move passed >
-
-    return [id, tagsType, {
-      children: children
-    }];
-  }
-  function parseId(current /*: Context */, isTag /*:: ?: boolean */) /*: string */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var id = '';
-    while (current.index < length) {
-      var char = pattern[current.index];
-      if (char === ARG_OPN || char === ARG_CLS || char === ARG_SEP || char === NUM_ARG || char === ESC || isWhitespace(char.charCodeAt(0)) || isTag && (char === TAG_OPN || char === TAG_CLS || char === '/')) break;
-      id += char;
-      ++current.index;
-    }
-    return id;
-  }
-  function parseSimpleFormat(current /*: Context */) /*: string */{
-    var start = current.index;
-    var style = parseText(current, '{style}');
-    if (!style) throw expected(current, 'placeholder style name');
-    if (current.tokens) current.tokens.push(['style', current.pattern.slice(start, current.index)]);
-    return style;
-  }
-  function parsePluralOffset(current /*: Context */) /*: number */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var offset = 0;
-    if (pattern.slice(current.index, current.index + OFFSET.length) === OFFSET) {
-      if (current.tokens) current.tokens.push(['offset', 'offset'], ['syntax', ':']);
-      current.index += OFFSET.length; // move passed offset:
-      skipWhitespace(current);
-      var start = current.index;
-      while (current.index < length && isDigit(pattern.charCodeAt(current.index))) {
-        ++current.index;
-      }
-      if (start === current.index) throw expected(current, 'offset number');
-      if (current.tokens) current.tokens.push(['number', pattern.slice(start, current.index)]);
-      offset = +pattern.slice(start, current.index);
-    }
-    return offset;
-  }
-  function isDigit(code /*: number */) /*: boolean */{
-    return code >= 0x30 && code <= 0x39;
-  }
-  function parseSubMessages(current /*: Context */, parentType /*: string */) /*: SubMessages */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var options /*: SubMessages */ = {};
-    while (current.index < length && pattern[current.index] !== ARG_CLS) {
-      var selector = parseId(current);
-      if (!selector) throw expected(current, 'sub-message selector');
-      if (current.tokens) current.tokens.push(['selector', selector]);
-      skipWhitespace(current);
-      options[selector] = parseSubMessage(current, parentType);
-      skipWhitespace(current);
-    }
-    if (!options.other && submTypes.indexOf(parentType) >= 0) {
-      throw expected(current, null, null, '"other" sub-message must be specified in ' + parentType);
-    }
-    return options;
-  }
-  function parseSubMessage(current /*: Context */, parentType /*: string */) /*: AST */{
-    if (current.pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN + ' to start sub-message');
-    if (current.tokens) current.tokens.push(['syntax', ARG_OPN]);
-    ++current.index; // move passed {
-    var message = parseAST(current, parentType);
-    if (current.pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS + ' to end sub-message');
-    if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-    ++current.index; // move passed }
-    return message;
-  }
-  function expected(current /*: Context */, expected /*:: ?: ?string */, found /*:: ?: ?string */, message /*:: ?: string */) {
-    var pattern = current.pattern;
-    var lines = pattern.slice(0, current.index).split(/\r?\n/);
-    var offset = current.index;
-    var line = lines.length;
-    var column = lines.slice(-1)[0].length;
-    found = found || (current.index >= pattern.length ? 'end of message pattern' : parseId(current) || pattern[current.index]);
-    if (!message) message = errorMessage(expected, found);
-    message += ' in ' + pattern.replace(/\r?\n/g, '\n');
-    return new SyntaxError(message, expected, found, offset, line, column);
-  }
-  function errorMessage(expected /*: ?string */, found /* string */) {
-    if (!expected) return 'Unexpected ' + found + ' found';
-    return 'Expected ' + expected + ' but found ' + found;
-  }
-
-  /**
-   * SyntaxError
-   *  Holds information about bad syntax found in a message pattern
-   **/
-  function SyntaxError(message /*: string */, expected /*: ?string */, found /*: ?string */, offset /*: number */, line /*: number */, column /*: number */) {
-    Error.call(this, message);
-    this.name = 'SyntaxError';
-    this.message = message;
-    this.expected = expected;
-    this.found = found;
-    this.offset = offset;
-    this.line = line;
-    this.column = column;
-  }
-  SyntaxError.prototype = Object.create(Error.prototype);
-  exports.SyntaxError = SyntaxError;
-})(formatMessageParse, formatMessageParse.exports);
-
-var formatMessageInterpret = {exports: {}};
-
-// @flow
-var LONG = 'long';
-var SHORT = 'short';
-var NARROW = 'narrow';
-var NUMERIC = 'numeric';
-var TWODIGIT = '2-digit';
-
-/**
- * formatting information
- **/
-var formatMessageFormats = {
-  number: {
-    decimal: {
-      style: 'decimal'
-    },
-    integer: {
-      style: 'decimal',
-      maximumFractionDigits: 0
-    },
-    currency: {
-      style: 'currency',
-      currency: 'USD'
-    },
-    percent: {
-      style: 'percent'
-    },
-    default: {
-      style: 'decimal'
-    }
-  },
-  date: {
-    short: {
-      month: NUMERIC,
-      day: NUMERIC,
-      year: TWODIGIT
-    },
-    medium: {
-      month: SHORT,
-      day: NUMERIC,
-      year: NUMERIC
-    },
-    long: {
-      month: LONG,
-      day: NUMERIC,
-      year: NUMERIC
-    },
-    full: {
-      month: LONG,
-      day: NUMERIC,
-      year: NUMERIC,
-      weekday: LONG
-    },
-    default: {
-      month: SHORT,
-      day: NUMERIC,
-      year: NUMERIC
-    }
-  },
-  time: {
-    short: {
-      hour: NUMERIC,
-      minute: NUMERIC
-    },
-    medium: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC
-    },
-    long: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC,
-      timeZoneName: SHORT
-    },
-    full: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC,
-      timeZoneName: SHORT
-    },
-    default: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC
-    }
-  },
-  duration: {
-    default: {
-      hours: {
-        minimumIntegerDigits: 1,
-        maximumFractionDigits: 0
-      },
-      minutes: {
-        minimumIntegerDigits: 2,
-        maximumFractionDigits: 0
-      },
-      seconds: {
-        minimumIntegerDigits: 2,
-        maximumFractionDigits: 3
-      }
-    }
-  },
-  parseNumberPattern: function parseNumberPattern(pattern /*: ?string */) {
-    if (!pattern) return;
-    var options = {};
-    var currency = pattern.match(/\b[A-Z]{3}\b/i);
-    var syms = pattern.replace(/[^¤]/g, '').length;
-    if (!syms && currency) syms = 1;
-    if (syms) {
-      options.style = 'currency';
-      options.currencyDisplay = syms === 1 ? 'symbol' : syms === 2 ? 'code' : 'name';
-      options.currency = currency ? currency[0].toUpperCase() : 'USD';
-    } else if (pattern.indexOf('%') >= 0) {
-      options.style = 'percent';
-    }
-    if (!/[@#0]/.test(pattern)) return options.style ? options : undefined;
-    options.useGrouping = pattern.indexOf(',') >= 0;
-    if (/E\+?[@#0]+/i.test(pattern) || pattern.indexOf('@') >= 0) {
-      var size = pattern.replace(/E\+?[@#0]+|[^@#0]/gi, '');
-      options.minimumSignificantDigits = Math.min(Math.max(size.replace(/[^@0]/g, '').length, 1), 21);
-      options.maximumSignificantDigits = Math.min(Math.max(size.length, 1), 21);
-    } else {
-      var parts = pattern.replace(/[^#0.]/g, '').split('.');
-      var integer = parts[0];
-      var n = integer.length - 1;
-      while (integer[n] === '0') --n;
-      options.minimumIntegerDigits = Math.min(Math.max(integer.length - 1 - n, 1), 21);
-      var fraction = parts[1] || '';
-      n = 0;
-      while (fraction[n] === '0') ++n;
-      options.minimumFractionDigits = Math.min(Math.max(n, 0), 20);
-      while (fraction[n] === '#') ++n;
-      options.maximumFractionDigits = Math.min(Math.max(n, 0), 20);
-    }
-    return options;
-  },
-  parseDatePattern: function parseDatePattern(pattern /*: ?string */) {
-    if (!pattern) return;
-    var options = {};
-    for (var i = 0; i < pattern.length;) {
-      var current = pattern[i];
-      var n = 1;
-      while (pattern[++i] === current) ++n;
-      switch (current) {
-        case 'G':
-          options.era = n === 5 ? NARROW : n === 4 ? LONG : SHORT;
-          break;
-        case 'y':
-        case 'Y':
-          options.year = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'M':
-        case 'L':
-          n = Math.min(Math.max(n - 1, 0), 4);
-          options.month = [NUMERIC, TWODIGIT, SHORT, LONG, NARROW][n];
-          break;
-        case 'E':
-        case 'e':
-        case 'c':
-          options.weekday = n === 5 ? NARROW : n === 4 ? LONG : SHORT;
-          break;
-        case 'd':
-        case 'D':
-          options.day = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'h':
-        case 'K':
-          options.hour12 = true;
-          options.hour = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'H':
-        case 'k':
-          options.hour12 = false;
-          options.hour = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'm':
-          options.minute = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 's':
-        case 'S':
-          options.second = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'z':
-        case 'Z':
-        case 'v':
-        case 'V':
-          options.timeZoneName = n === 1 ? SHORT : LONG;
-          break;
-      }
-    }
-    return Object.keys(options).length ? options : undefined;
-  }
-};
-
-// @flow
-// "lookup" algorithm http://tools.ietf.org/html/rfc4647#section-3.4
-// assumes normalized language tags, and matches in a case sensitive manner
-var lookupClosestLocale = function lookupClosestLocale(locale /*: string | string[] | void */, available /*: { [string]: any } */) /*: ?string */{
-  if (typeof locale === 'string' && available[locale]) return locale;
-  var locales = [].concat(locale || []);
-  for (var l = 0, ll = locales.length; l < ll; ++l) {
-    var current = locales[l].split('-');
-    while (current.length) {
-      var candidate = current.join('-');
-      if (available[candidate]) return candidate;
-      current.pop();
-    }
-  }
-};
-
-/*:: export type Rule = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other' */
-var zero = 'zero',
-  one = 'one',
-  two = 'two',
-  few = 'few',
-  many = 'many',
-  other = 'other';
-var f = [function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return 0 <= n && n <= 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var n = +s;
-  return i === 0 || n === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 ? zero : n === 1 ? one : n === 2 ? two : 3 <= n % 100 && n % 100 <= 10 ? few : 11 <= n % 100 && n % 100 <= 99 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return i === 1 && v === 0 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 1 && n % 100 !== 11 ? one : 2 <= n % 10 && n % 10 <= 4 && (n % 100 < 12 || 14 < n % 100) ? few : n % 10 === 0 || 5 <= n % 10 && n % 10 <= 9 || 11 <= n % 100 && n % 100 <= 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 1 && n % 100 !== 11 && n % 100 !== 71 && n % 100 !== 91 ? one : n % 10 === 2 && n % 100 !== 12 && n % 100 !== 72 && n % 100 !== 92 ? two : (3 <= n % 10 && n % 10 <= 4 || n % 10 === 9) && (n % 100 < 10 || 19 < n % 100) && (n % 100 < 70 || 79 < n % 100) && (n % 100 < 90 || 99 < n % 100) ? few : n !== 0 && n % 1000000 === 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && i % 10 === 1 && i % 100 !== 11 || f % 10 === 1 && f % 100 !== 11 ? one : v === 0 && 2 <= i % 10 && i % 10 <= 4 && (i % 100 < 12 || 14 < i % 100) || 2 <= f % 10 && f % 10 <= 4 && (f % 100 < 12 || 14 < f % 100) ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return i === 1 && v === 0 ? one : 2 <= i && i <= 4 && v === 0 ? few : v !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 ? zero : n === 1 ? one : n === 2 ? two : n === 3 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var t = +('' + s).replace(/^[^.]*.?|0+$/g, '');
-  var n = +s;
-  return n === 1 || t !== 0 && (i === 0 || i === 1) ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && i % 100 === 1 || f % 100 === 1 ? one : v === 0 && i % 100 === 2 || f % 100 === 2 ? two : v === 0 && 3 <= i % 100 && i % 100 <= 4 || 3 <= f % 100 && f % 100 <= 4 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i === 0 || i === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && (i === 1 || i === 2 || i === 3) || v === 0 && i % 10 !== 4 && i % 10 !== 6 && i % 10 !== 9 || v !== 0 && f % 10 !== 4 && f % 10 !== 6 && f % 10 !== 9 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 ? two : 3 <= n && n <= 6 ? few : 7 <= n && n <= 10 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 11 ? one : n === 2 || n === 12 ? two : 3 <= n && n <= 10 || 13 <= n && n <= 19 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return v === 0 && i % 10 === 1 ? one : v === 0 && i % 10 === 2 ? two : v === 0 && (i % 100 === 0 || i % 100 === 20 || i % 100 === 40 || i % 100 === 60 || i % 100 === 80) ? few : v !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var n = +s;
-  return i === 1 && v === 0 ? one : i === 2 && v === 0 ? two : v === 0 && (n < 0 || 10 < n) && n % 10 === 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var t = +('' + s).replace(/^[^.]*.?|0+$/g, '');
-  return t === 0 && i % 10 === 1 && i % 100 !== 11 || t !== 0 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 ? two : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 ? zero : n === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var n = +s;
-  return n === 0 ? zero : (i === 0 || i === 1) && n !== 0 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var f = +(s + '.').split('.')[1];
-  var n = +s;
-  return n % 10 === 1 && (n % 100 < 11 || 19 < n % 100) ? one : 2 <= n % 10 && n % 10 <= 9 && (n % 100 < 11 || 19 < n % 100) ? few : f !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  var n = +s;
-  return n % 10 === 0 || 11 <= n % 100 && n % 100 <= 19 || v === 2 && 11 <= f % 100 && f % 100 <= 19 ? zero : n % 10 === 1 && n % 100 !== 11 || v === 2 && f % 10 === 1 && f % 100 !== 11 || v !== 2 && f % 10 === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && i % 10 === 1 && i % 100 !== 11 || f % 10 === 1 && f % 100 !== 11 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var n = +s;
-  return i === 1 && v === 0 ? one : v !== 0 || n === 0 || n !== 1 && 1 <= n % 100 && n % 100 <= 19 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 0 || 2 <= n % 100 && n % 100 <= 10 ? few : 11 <= n % 100 && n % 100 <= 19 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return i === 1 && v === 0 ? one : v === 0 && 2 <= i % 10 && i % 10 <= 4 && (i % 100 < 12 || 14 < i % 100) ? few : v === 0 && i !== 1 && 0 <= i % 10 && i % 10 <= 1 || v === 0 && 5 <= i % 10 && i % 10 <= 9 || v === 0 && 12 <= i % 100 && i % 100 <= 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return 0 <= i && i <= 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return v === 0 && i % 10 === 1 && i % 100 !== 11 ? one : v === 0 && 2 <= i % 10 && i % 10 <= 4 && (i % 100 < 12 || 14 < i % 100) ? few : v === 0 && i % 10 === 0 || v === 0 && 5 <= i % 10 && i % 10 <= 9 || v === 0 && 11 <= i % 100 && i % 100 <= 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var n = +s;
-  return i === 0 || n === 1 ? one : 2 <= n && n <= 10 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var f = +(s + '.').split('.')[1];
-  var n = +s;
-  return n === 0 || n === 1 || i === 0 && f === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return v === 0 && i % 100 === 1 ? one : v === 0 && i % 100 === 2 ? two : v === 0 && 3 <= i % 100 && i % 100 <= 4 || v !== 0 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return 0 <= n && n <= 1 || 11 <= n && n <= 99 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 5 || n === 7 || n === 8 || n === 9 || n === 10 ? one : n === 2 || n === 3 ? two : n === 4 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i % 10 === 1 || i % 10 === 2 || i % 10 === 5 || i % 10 === 7 || i % 10 === 8 || i % 100 === 20 || i % 100 === 50 || i % 100 === 70 || i % 100 === 80 ? one : i % 10 === 3 || i % 10 === 4 || i % 1000 === 100 || i % 1000 === 200 || i % 1000 === 300 || i % 1000 === 400 || i % 1000 === 500 || i % 1000 === 600 || i % 1000 === 700 || i % 1000 === 800 || i % 1000 === 900 ? few : i === 0 || i % 10 === 6 || i % 100 === 40 || i % 100 === 60 || i % 100 === 90 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return (n % 10 === 2 || n % 10 === 3) && n % 100 !== 12 && n % 100 !== 13 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 3 ? one : n === 2 ? two : n === 4 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 || n === 7 || n === 8 || n === 9 ? zero : n === 1 ? one : n === 2 ? two : n === 3 || n === 4 ? few : n === 5 || n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 1 && n % 100 !== 11 ? one : n % 10 === 2 && n % 100 !== 12 ? two : n % 10 === 3 && n % 100 !== 13 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 11 ? one : n === 2 || n === 12 ? two : n === 3 || n === 13 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 || n === 3 ? two : n === 4 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 5 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 11 || n === 8 || n === 80 || n === 800 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i === 1 ? one : i === 0 || 2 <= i % 100 && i % 100 <= 20 || i % 100 === 40 || i % 100 === 60 || i % 100 === 80 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 6 || n % 10 === 9 || n % 10 === 0 && n !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i % 10 === 1 && i % 100 !== 11 ? one : i % 10 === 2 && i % 100 !== 12 ? two : (i % 10 === 7 || i % 10 === 8) && i % 100 !== 17 && i % 100 !== 18 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 || n === 3 ? two : n === 4 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return 1 <= n && n <= 4 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 5 || 7 <= n && n <= 9 ? one : n === 2 || n === 3 ? two : n === 4 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n % 10 === 4 && n % 100 !== 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return (n % 10 === 1 || n % 10 === 2) && n % 100 !== 11 && n % 100 !== 12 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 6 || n % 10 === 9 || n === 10 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 3 && n % 100 !== 13 ? few : other;
-}];
-var plurals = {
-  af: {
-    cardinal: f[0]
-  },
-  ak: {
-    cardinal: f[1]
-  },
-  am: {
-    cardinal: f[2]
-  },
-  ar: {
-    cardinal: f[3]
-  },
-  ars: {
-    cardinal: f[3]
-  },
-  as: {
-    cardinal: f[2],
-    ordinal: f[34]
-  },
-  asa: {
-    cardinal: f[0]
-  },
-  ast: {
-    cardinal: f[4]
-  },
-  az: {
-    cardinal: f[0],
-    ordinal: f[35]
-  },
-  be: {
-    cardinal: f[5],
-    ordinal: f[36]
-  },
-  bem: {
-    cardinal: f[0]
-  },
-  bez: {
-    cardinal: f[0]
-  },
-  bg: {
-    cardinal: f[0]
-  },
-  bh: {
-    cardinal: f[1]
-  },
-  bn: {
-    cardinal: f[2],
-    ordinal: f[34]
-  },
-  br: {
-    cardinal: f[6]
-  },
-  brx: {
-    cardinal: f[0]
-  },
-  bs: {
-    cardinal: f[7]
-  },
-  ca: {
-    cardinal: f[4],
-    ordinal: f[37]
-  },
-  ce: {
-    cardinal: f[0]
-  },
-  cgg: {
-    cardinal: f[0]
-  },
-  chr: {
-    cardinal: f[0]
-  },
-  ckb: {
-    cardinal: f[0]
-  },
-  cs: {
-    cardinal: f[8]
-  },
-  cy: {
-    cardinal: f[9],
-    ordinal: f[38]
-  },
-  da: {
-    cardinal: f[10]
-  },
-  de: {
-    cardinal: f[4]
-  },
-  dsb: {
-    cardinal: f[11]
-  },
-  dv: {
-    cardinal: f[0]
-  },
-  ee: {
-    cardinal: f[0]
-  },
-  el: {
-    cardinal: f[0]
-  },
-  en: {
-    cardinal: f[4],
-    ordinal: f[39]
-  },
-  eo: {
-    cardinal: f[0]
-  },
-  es: {
-    cardinal: f[0]
-  },
-  et: {
-    cardinal: f[4]
-  },
-  eu: {
-    cardinal: f[0]
-  },
-  fa: {
-    cardinal: f[2]
-  },
-  ff: {
-    cardinal: f[12]
-  },
-  fi: {
-    cardinal: f[4]
-  },
-  fil: {
-    cardinal: f[13],
-    ordinal: f[0]
-  },
-  fo: {
-    cardinal: f[0]
-  },
-  fr: {
-    cardinal: f[12],
-    ordinal: f[0]
-  },
-  fur: {
-    cardinal: f[0]
-  },
-  fy: {
-    cardinal: f[4]
-  },
-  ga: {
-    cardinal: f[14],
-    ordinal: f[0]
-  },
-  gd: {
-    cardinal: f[15],
-    ordinal: f[40]
-  },
-  gl: {
-    cardinal: f[4]
-  },
-  gsw: {
-    cardinal: f[0]
-  },
-  gu: {
-    cardinal: f[2],
-    ordinal: f[41]
-  },
-  guw: {
-    cardinal: f[1]
-  },
-  gv: {
-    cardinal: f[16]
-  },
-  ha: {
-    cardinal: f[0]
-  },
-  haw: {
-    cardinal: f[0]
-  },
-  he: {
-    cardinal: f[17]
-  },
-  hi: {
-    cardinal: f[2],
-    ordinal: f[41]
-  },
-  hr: {
-    cardinal: f[7]
-  },
-  hsb: {
-    cardinal: f[11]
-  },
-  hu: {
-    cardinal: f[0],
-    ordinal: f[42]
-  },
-  hy: {
-    cardinal: f[12],
-    ordinal: f[0]
-  },
-  ia: {
-    cardinal: f[4]
-  },
-  io: {
-    cardinal: f[4]
-  },
-  is: {
-    cardinal: f[18]
-  },
-  it: {
-    cardinal: f[4],
-    ordinal: f[43]
-  },
-  iu: {
-    cardinal: f[19]
-  },
-  iw: {
-    cardinal: f[17]
-  },
-  jgo: {
-    cardinal: f[0]
-  },
-  ji: {
-    cardinal: f[4]
-  },
-  jmc: {
-    cardinal: f[0]
-  },
-  ka: {
-    cardinal: f[0],
-    ordinal: f[44]
-  },
-  kab: {
-    cardinal: f[12]
-  },
-  kaj: {
-    cardinal: f[0]
-  },
-  kcg: {
-    cardinal: f[0]
-  },
-  kk: {
-    cardinal: f[0],
-    ordinal: f[45]
-  },
-  kkj: {
-    cardinal: f[0]
-  },
-  kl: {
-    cardinal: f[0]
-  },
-  kn: {
-    cardinal: f[2]
-  },
-  ks: {
-    cardinal: f[0]
-  },
-  ksb: {
-    cardinal: f[0]
-  },
-  ksh: {
-    cardinal: f[20]
-  },
-  ku: {
-    cardinal: f[0]
-  },
-  kw: {
-    cardinal: f[19]
-  },
-  ky: {
-    cardinal: f[0]
-  },
-  lag: {
-    cardinal: f[21]
-  },
-  lb: {
-    cardinal: f[0]
-  },
-  lg: {
-    cardinal: f[0]
-  },
-  ln: {
-    cardinal: f[1]
-  },
-  lt: {
-    cardinal: f[22]
-  },
-  lv: {
-    cardinal: f[23]
-  },
-  mas: {
-    cardinal: f[0]
-  },
-  mg: {
-    cardinal: f[1]
-  },
-  mgo: {
-    cardinal: f[0]
-  },
-  mk: {
-    cardinal: f[24],
-    ordinal: f[46]
-  },
-  ml: {
-    cardinal: f[0]
-  },
-  mn: {
-    cardinal: f[0]
-  },
-  mo: {
-    cardinal: f[25],
-    ordinal: f[0]
-  },
-  mr: {
-    cardinal: f[2],
-    ordinal: f[47]
-  },
-  mt: {
-    cardinal: f[26]
-  },
-  nah: {
-    cardinal: f[0]
-  },
-  naq: {
-    cardinal: f[19]
-  },
-  nb: {
-    cardinal: f[0]
-  },
-  nd: {
-    cardinal: f[0]
-  },
-  ne: {
-    cardinal: f[0],
-    ordinal: f[48]
-  },
-  nl: {
-    cardinal: f[4]
-  },
-  nn: {
-    cardinal: f[0]
-  },
-  nnh: {
-    cardinal: f[0]
-  },
-  no: {
-    cardinal: f[0]
-  },
-  nr: {
-    cardinal: f[0]
-  },
-  nso: {
-    cardinal: f[1]
-  },
-  ny: {
-    cardinal: f[0]
-  },
-  nyn: {
-    cardinal: f[0]
-  },
-  om: {
-    cardinal: f[0]
-  },
-  or: {
-    cardinal: f[0],
-    ordinal: f[49]
-  },
-  os: {
-    cardinal: f[0]
-  },
-  pa: {
-    cardinal: f[1]
-  },
-  pap: {
-    cardinal: f[0]
-  },
-  pl: {
-    cardinal: f[27]
-  },
-  prg: {
-    cardinal: f[23]
-  },
-  ps: {
-    cardinal: f[0]
-  },
-  pt: {
-    cardinal: f[28]
-  },
-  'pt-PT': {
-    cardinal: f[4]
-  },
-  rm: {
-    cardinal: f[0]
-  },
-  ro: {
-    cardinal: f[25],
-    ordinal: f[0]
-  },
-  rof: {
-    cardinal: f[0]
-  },
-  ru: {
-    cardinal: f[29]
-  },
-  rwk: {
-    cardinal: f[0]
-  },
-  saq: {
-    cardinal: f[0]
-  },
-  sc: {
-    cardinal: f[4],
-    ordinal: f[43]
-  },
-  scn: {
-    cardinal: f[4],
-    ordinal: f[43]
-  },
-  sd: {
-    cardinal: f[0]
-  },
-  sdh: {
-    cardinal: f[0]
-  },
-  se: {
-    cardinal: f[19]
-  },
-  seh: {
-    cardinal: f[0]
-  },
-  sh: {
-    cardinal: f[7]
-  },
-  shi: {
-    cardinal: f[30]
-  },
-  si: {
-    cardinal: f[31]
-  },
-  sk: {
-    cardinal: f[8]
-  },
-  sl: {
-    cardinal: f[32]
-  },
-  sma: {
-    cardinal: f[19]
-  },
-  smi: {
-    cardinal: f[19]
-  },
-  smj: {
-    cardinal: f[19]
-  },
-  smn: {
-    cardinal: f[19]
-  },
-  sms: {
-    cardinal: f[19]
-  },
-  sn: {
-    cardinal: f[0]
-  },
-  so: {
-    cardinal: f[0]
-  },
-  sq: {
-    cardinal: f[0],
-    ordinal: f[50]
-  },
-  sr: {
-    cardinal: f[7]
-  },
-  ss: {
-    cardinal: f[0]
-  },
-  ssy: {
-    cardinal: f[0]
-  },
-  st: {
-    cardinal: f[0]
-  },
-  sv: {
-    cardinal: f[4],
-    ordinal: f[51]
-  },
-  sw: {
-    cardinal: f[4]
-  },
-  syr: {
-    cardinal: f[0]
-  },
-  ta: {
-    cardinal: f[0]
-  },
-  te: {
-    cardinal: f[0]
-  },
-  teo: {
-    cardinal: f[0]
-  },
-  ti: {
-    cardinal: f[1]
-  },
-  tig: {
-    cardinal: f[0]
-  },
-  tk: {
-    cardinal: f[0],
-    ordinal: f[52]
-  },
-  tl: {
-    cardinal: f[13],
-    ordinal: f[0]
-  },
-  tn: {
-    cardinal: f[0]
-  },
-  tr: {
-    cardinal: f[0]
-  },
-  ts: {
-    cardinal: f[0]
-  },
-  tzm: {
-    cardinal: f[33]
-  },
-  ug: {
-    cardinal: f[0]
-  },
-  uk: {
-    cardinal: f[29],
-    ordinal: f[53]
-  },
-  ur: {
-    cardinal: f[4]
-  },
-  uz: {
-    cardinal: f[0]
-  },
-  ve: {
-    cardinal: f[0]
-  },
-  vo: {
-    cardinal: f[0]
-  },
-  vun: {
-    cardinal: f[0]
-  },
-  wa: {
-    cardinal: f[1]
-  },
-  wae: {
-    cardinal: f[0]
-  },
-  xh: {
-    cardinal: f[0]
-  },
-  xog: {
-    cardinal: f[0]
-  },
-  yi: {
-    cardinal: f[4]
-  },
-  zu: {
-    cardinal: f[2]
-  },
-  lo: {
-    ordinal: f[0]
-  },
-  ms: {
-    ordinal: f[0]
-  },
-  vi: {
-    ordinal: f[0]
-  }
-};
-
-(function (module, exports) {
-
-  var formats = formatMessageFormats;
-  var lookupClosestLocale$1 = lookupClosestLocale;
-  var plurals$1 = plurals;
-
-  /*::
-  import type {
-    AST,
-    SubMessages
-  } from '../format-message-parse'
-  type Locale = string
-  type Locales = Locale | Locale[]
-  type Placeholder = any[] // https://github.com/facebook/flow/issues/4050
-  export type Type = (Placeholder, Locales) => (any, ?Object) => any
-  export type Types = { [string]: Type }
-  */
-
-  exports = module.exports = function interpret(ast /*: AST */, locale /*:: ?: Locales */, types /*:: ?: Types */) /*: (args?: Object) => string */{
-    return interpretAST(ast, null, locale || 'en', types || {}, true);
-  };
-  exports.toParts = function toParts(ast /*: AST */, locale /*:: ?: Locales */, types /*:: ?: Types */) /*: (args?: Object) => any[] */{
-    return interpretAST(ast, null, locale || 'en', types || {}, false);
-  };
-  function interpretAST(elements /*: any[] */, parent /*: ?Placeholder */, locale /*: Locales */, types /*: Types */, join /*: boolean */) /*: Function */{
-    var parts = elements.map(function (element) {
-      return interpretElement(element, parent, locale, types, join);
-    });
-    if (!join) {
-      return function format(args) {
-        return parts.reduce(function (parts, part) {
-          return parts.concat(part(args));
-        }, []);
-      };
-    }
-    if (parts.length === 1) return parts[0];
-    return function format(args) {
-      var message = '';
-      for (var e = 0; e < parts.length; ++e) {
-        message += parts[e](args);
-      }
-      return message;
-    };
-  }
-  function interpretElement(element /*: Placeholder */, parent /*: ?Placeholder */, locale /*: Locales */, types /*: Types */, join /*: boolean */) /*: Function */{
-    if (typeof element === 'string') {
-      var value /*: string */ = element;
-      return function format() {
-        return value;
-      };
-    }
-    var id = element[0];
-    var type = element[1];
-    if (parent && element[0] === '#') {
-      id = parent[0];
-      var offset = parent[2];
-      var formatter = (types.number || defaults.number)([id, 'number'], locale);
-      return function format(args) {
-        return formatter(getArg(id, args) - offset, args);
-      };
-    }
-
-    // pre-process children
-    var children;
-    if (type === 'plural' || type === 'selectordinal') {
-      children = {};
-      Object.keys(element[3]).forEach(function (key) {
-        children[key] = interpretAST(element[3][key], element, locale, types, join);
-      });
-      element = [element[0], element[1], element[2], children];
-    } else if (element[2] && _typeof$1(element[2]) === 'object') {
-      children = {};
-      Object.keys(element[2]).forEach(function (key) {
-        children[key] = interpretAST(element[2][key], element, locale, types, join);
-      });
-      element = [element[0], element[1], children];
-    }
-    var getFrmt = type && (types[type] || defaults[type]);
-    if (getFrmt) {
-      var frmt = getFrmt(element, locale);
-      return function format(args) {
-        return frmt(getArg(id, args), args);
-      };
-    }
-    return join ? function format(args) {
-      return String(getArg(id, args));
-    } : function format(args) {
-      return getArg(id, args);
-    };
-  }
-  function getArg(id /*: string */, args /*: ?Object */) /*: any */{
-    if (args && id in args) return args[id];
-    var parts = id.split('.');
-    var a = args;
-    for (var i = 0, ii = parts.length; a && i < ii; ++i) {
-      a = a[parts[i]];
-    }
-    return a;
-  }
-  function interpretNumber(element /*: Placeholder */, locales /*: Locales */) {
-    var style = element[2];
-    var options = formats.number[style] || formats.parseNumberPattern(style) || formats.number.default;
-    return new Intl.NumberFormat(locales, options).format;
-  }
-  function interpretDuration(element /*: Placeholder */, locales /*: Locales */) {
-    var style = element[2];
-    var options = formats.duration[style] || formats.duration.default;
-    var fs = new Intl.NumberFormat(locales, options.seconds).format;
-    var fm = new Intl.NumberFormat(locales, options.minutes).format;
-    var fh = new Intl.NumberFormat(locales, options.hours).format;
-    var sep = /^fi$|^fi-|^da/.test(String(locales)) ? '.' : ':';
-    return function (s, args) {
-      s = +s;
-      if (!isFinite(s)) return fs(s);
-      var h = ~~(s / 60 / 60); // ~~ acts much like Math.trunc
-      var m = ~~(s / 60 % 60);
-      var dur = (h ? fh(Math.abs(h)) + sep : '') + fm(Math.abs(m)) + sep + fs(Math.abs(s % 60));
-      return s < 0 ? fh(-1).replace(fh(1), dur) : dur;
-    };
-  }
-  function interpretDateTime(element /*: Placeholder */, locales /*: Locales */) {
-    var type = element[1];
-    var style = element[2];
-    var options = formats[type][style] || formats.parseDatePattern(style) || formats[type].default;
-    return new Intl.DateTimeFormat(locales, options).format;
-  }
-  function interpretPlural(element /*: Placeholder */, locales /*: Locales */) {
-    var type = element[1];
-    var pluralType = type === 'selectordinal' ? 'ordinal' : 'cardinal';
-    var offset = element[2];
-    var children = element[3];
-    var pluralRules;
-    if (Intl.PluralRules && Intl.PluralRules.supportedLocalesOf(locales).length > 0) {
-      pluralRules = new Intl.PluralRules(locales, {
-        type: pluralType
-      });
-    } else {
-      var locale = lookupClosestLocale$1(locales, plurals$1);
-      var select = locale && plurals$1[locale][pluralType] || returnOther;
-      pluralRules = {
-        select: select
-      };
-    }
-    return function (value, args) {
-      var clause = children['=' + +value] || children[pluralRules.select(value - offset)] || children.other;
-      return clause(args);
-    };
-  }
-  function returnOther( /*:: n:number */) {
-    return 'other';
-  }
-  function interpretSelect(element /*: Placeholder */, locales /*: Locales */) {
-    var children = element[2];
-    return function (value, args) {
-      var clause = children[value] || children.other;
-      return clause(args);
-    };
-  }
-  var defaults /*: Types */ = {
-    number: interpretNumber,
-    ordinal: interpretNumber,
-    // TODO: support rbnf
-    spellout: interpretNumber,
-    // TODO: support rbnf
-    duration: interpretDuration,
-    date: interpretDateTime,
-    time: interpretDateTime,
-    plural: interpretPlural,
-    selectordinal: interpretPlural,
-    select: interpretSelect
-  };
-  exports.types = defaults;
-})(formatMessageInterpret, formatMessageInterpret.exports);
-
-(function (module, exports) {
-
-  var parse = formatMessageParse.exports;
-  var interpret = formatMessageInterpret.exports;
-  var plurals$1 = plurals;
-  var lookupClosestLocale$1 = lookupClosestLocale;
-  var origFormats = formatMessageFormats;
-
-  /*::
-  import type { Types } from 'format-message-interpret'
-  type Locale = string
-  type Locales = Locale | Locale[]
-  type Message = string | {|
-    id?: string,
-    default: string,
-    description?: string
-  |}
-  type Translations = { [string]: ?{ [string]: string | Translation } }
-  type Translation = {
-    message: string,
-    format?: (args?: Object) => string,
-    toParts?: (args?: Object) => any[],
-  }
-  type Replacement = ?string | (string, string, locales?: Locales) => ?string
-  type GenerateId = (string) => string
-  type MissingTranslation = 'ignore' | 'warning' | 'error'
-  type FormatObject = { [string]: * }
-  type Options = {
-    locale?: Locales,
-    translations?: ?Translations,
-    generateId?: GenerateId,
-    missingReplacement?: Replacement,
-    missingTranslation?: MissingTranslation,
-    formats?: {
-      number?: FormatObject,
-      date?: FormatObject,
-      time?: FormatObject
-    },
-    types?: Types
-  }
-  type Setup = {|
-    locale: Locales,
-    translations: Translations,
-    generateId: GenerateId,
-    missingReplacement: Replacement,
-    missingTranslation: MissingTranslation,
-    formats: {
-      number: FormatObject,
-      date: FormatObject,
-      time: FormatObject
-    },
-    types: Types
-  |}
-  type FormatMessage = {
-    (msg: Message, args?: Object, locales?: Locales): string,
-    rich (msg: Message, args?: Object, locales?: Locales): any[],
-    setup (opt?: Options): Setup,
-    number (value: number, style?: string, locales?: Locales): string,
-    date (value: number | Date, style?: string, locales?: Locales): string,
-    time (value: number | Date, style?: string, locales?: Locales): string,
-    select (value: any, options: Object): any,
-    custom (placeholder: any[], locales: Locales, value: any, args: Object): any,
-    plural (value: number, offset: any, options: any, locale: any): any,
-    selectordinal (value: number, offset: any, options: any, locale: any): any,
-    namespace (): FormatMessage
-  }
-  */
-
-  function assign /*:: <T: Object> */(target /*: T */, source /*: Object */) {
-    Object.keys(source).forEach(function (key) {
-      target[key] = source[key];
-    });
-    return target;
-  }
-  function namespace() /*: FormatMessage */{
-    var formats = assign({}, origFormats);
-    var currentLocales /*: Locales */ = 'en';
-    var translations /*: Translations */ = {};
-    var generateId /*: GenerateId */ = function generateId(pattern) {
-      return pattern;
-    };
-    var missingReplacement /*: Replacement */ = null;
-    var missingTranslation /*: MissingTranslation */ = 'warning';
-    var types /*: Types */ = {};
-    function formatMessage(msg /*: Message */, args /*:: ?: Object */, locales /*:: ?: Locales */) {
-      var pattern = typeof msg === 'string' ? msg : msg.default;
-      var id = _typeof$1(msg) === 'object' && msg.id || generateId(pattern);
-      var translated = translate(pattern, id, locales || currentLocales);
-      var format = translated.format || (translated.format = interpret(parse(translated.message), locales || currentLocales, types));
-      return format(args);
-    }
-    formatMessage.rich = function rich(msg /*: Message */, args /*:: ?: Object */, locales /*:: ?: Locales */) {
-      var pattern = typeof msg === 'string' ? msg : msg.default;
-      var id = _typeof$1(msg) === 'object' && msg.id || generateId(pattern);
-      var translated = translate(pattern, id, locales || currentLocales);
-      var format = translated.toParts || (translated.toParts = interpret.toParts(parse(translated.message, {
-        tagsType: tagsType
-      }), locales || currentLocales, types));
-      return format(args);
-    };
-    var tagsType = '<>';
-    function richType(node /*: any[] */, locales /*: Locales */) {
-      var style = node[2];
-      return function (fn, args) {
-        var props = _typeof$1(style) === 'object' ? mapObject(style, args) : style;
-        return typeof fn === 'function' ? fn(props) : fn;
-      };
-    }
-    types[tagsType] = richType;
-    function mapObject(object /* { [string]: (args?: Object) => any } */, args /*: ?Object */) {
-      return Object.keys(object).reduce(function (mapped, key) {
-        mapped[key] = object[key](args);
-        return mapped;
-      }, {});
-    }
-    function translate(pattern /*: string */, id /*: string */, locales /*: Locales */) /*: Translation */{
-      var locale = lookupClosestLocale$1(locales, translations) || 'en';
-      var messages = translations[locale] || (translations[locale] = {});
-      var translated = messages[id];
-      if (typeof translated === 'string') {
-        translated = messages[id] = {
-          message: translated
-        };
-      }
-      if (!translated) {
-        var message = 'Translation for "' + id + '" in "' + locale + '" is missing';
-        if (missingTranslation === 'warning') {
-          /* istanbul ignore else */
-          if (typeof console !== 'undefined') console.warn(message);
-        } else if (missingTranslation !== 'ignore') {
-          // 'error'
-          throw new Error(message);
-        }
-        var replacement = typeof missingReplacement === 'function' ? missingReplacement(pattern, id, locale) || pattern : missingReplacement || pattern;
-        translated = messages[id] = {
-          message: replacement
-        };
-      }
-      return translated;
-    }
-    formatMessage.setup = function setup(opt /*:: ?: Options */) {
-      opt = opt || {};
-      if (opt.locale) currentLocales = opt.locale;
-      if ('translations' in opt) translations = opt.translations || {};
-      if (opt.generateId) generateId = opt.generateId;
-      if ('missingReplacement' in opt) missingReplacement = opt.missingReplacement;
-      if (opt.missingTranslation) missingTranslation = opt.missingTranslation;
-      if (opt.formats) {
-        if (opt.formats.number) assign(formats.number, opt.formats.number);
-        if (opt.formats.date) assign(formats.date, opt.formats.date);
-        if (opt.formats.time) assign(formats.time, opt.formats.time);
-      }
-      if (opt.types) {
-        types = opt.types;
-        types[tagsType] = richType;
-      }
-      return {
-        locale: currentLocales,
-        translations: translations,
-        generateId: generateId,
-        missingReplacement: missingReplacement,
-        missingTranslation: missingTranslation,
-        formats: formats,
-        types: types
-      };
-    };
-    formatMessage.number = function (value /*: number */, style /*:: ?: string */, locales /*:: ?: Locales */) {
-      var options = style && formats.number[style] || formats.parseNumberPattern(style) || formats.number.default;
-      return new Intl.NumberFormat(locales || currentLocales, options).format(value);
-    };
-    formatMessage.date = function (value /*:: ?: number | Date */, style /*:: ?: string */, locales /*:: ?: Locales */) {
-      var options = style && formats.date[style] || formats.parseDatePattern(style) || formats.date.default;
-      return new Intl.DateTimeFormat(locales || currentLocales, options).format(value);
-    };
-    formatMessage.time = function (value /*:: ?: number | Date */, style /*:: ?: string */, locales /*:: ?: Locales */) {
-      var options = style && formats.time[style] || formats.parseDatePattern(style) || formats.time.default;
-      return new Intl.DateTimeFormat(locales || currentLocales, options).format(value);
-    };
-    formatMessage.select = function (value /*: any */, options /*: Object */) {
-      return options[value] || options.other;
-    };
-    formatMessage.custom = function (placeholder /*: any[] */, locales /*: Locales */, value /*: any */, args /*: Object */) {
-      if (!(placeholder[1] in types)) return value;
-      return types[placeholder[1]](placeholder, locales)(value, args);
-    };
-    formatMessage.plural = plural.bind(null, 'cardinal');
-    formatMessage.selectordinal = plural.bind(null, 'ordinal');
-    function plural(pluralType /*: 'cardinal' | 'ordinal' */, value /*: number */, offset /*: any */, options /*: any */, locale /*: any */) {
-      if (_typeof$1(offset) === 'object' && _typeof$1(options) !== 'object') {
-        // offset is optional
-        locale = options;
-        options = offset;
-        offset = 0;
-      }
-      var closest = lookupClosestLocale$1(locale || currentLocales, plurals$1);
-      var plural = closest && plurals$1[closest][pluralType] || returnOther;
-      return options['=' + +value] || options[plural(value - offset)] || options.other;
-    }
-    function returnOther( /*:: n:number */) {
-      return 'other';
-    }
-    formatMessage.namespace = namespace;
-    return formatMessage;
-  }
-  module.exports = namespace();
-})(formatMessage);
-
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var ArgumentType = argumentType;
 var BlockType = blockType;
 var Cast = cast;
-var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOwiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
+var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
 
 // Universal button mappings for different controller types
-var BUTTON_MAPPINGS = {
-  // Standard Gamepad mapping (most controllers)
-  STANDARD: {
-    0: 'A',
-    // Bottom face button
-    1: 'B',
-    // Right face button  
-    2: 'X',
-    // Left face button
-    3: 'Y',
-    // Top face button
-    4: 'LB',
-    // Left bumper
-    5: 'RB',
-    // Right bumper
-    6: 'LT',
-    // Left trigger
-    7: 'RT',
-    // Right trigger
-    8: 'SELECT',
-    // Select/Share
-    9: 'START',
-    // Start/Options
-    10: 'LS',
-    // Left stick press
-    11: 'RS',
-    // Right stick press
-    12: 'UP',
-    // D-pad up
-    13: 'DOWN',
-    // D-pad down
-    14: 'LEFT',
-    // D-pad left
-    15: 'RIGHT',
-    // D-pad right
-    16: 'HOME' // Home/PS/Xbox button
-  }
+var GAMEPAD_BUTTONS = {
+  // Use standard gamepad button indices
+  A: 0,
+  // Bottom face button (Cross on PS, A on Xbox)
+  B: 1,
+  // Right face button (Circle on PS, B on Xbox)  
+  X: 2,
+  // Left face button (Square on PS, X on Xbox)
+  Y: 3,
+  // Top face button (Triangle on PS, Y on Xbox)
+  LB: 4,
+  // Left bumper (L1)
+  RB: 5,
+  // Right bumper (R1)
+  LT: 6,
+  // Left trigger (L2)
+  RT: 7,
+  // Right trigger (R2)
+  SELECT: 8,
+  // Select/Share/Back
+  START: 9,
+  // Start/Options/Menu
+  LS: 10,
+  // Left stick press (L3)
+  RS: 11,
+  // Right stick press (R3)
+  UP: 12,
+  // D-pad up
+  DOWN: 13,
+  // D-pad down
+  LEFT: 14,
+  // D-pad left
+  RIGHT: 15,
+  // D-pad right
+  HOME: 16 // Home/PS/Xbox button
 };
-var UniversalGamepadPeripheral = /*#__PURE__*/function () {
-  function UniversalGamepadPeripheral(runtime) {
-    _classCallCheck(this, UniversalGamepadPeripheral);
-    this._runtime = runtime;
-    this.gamepads = new Map();
-    this.animationFrame = null;
-    this.currentTime = null;
+var Scratch3GamepadBlocks = /*#__PURE__*/function () {
+  function Scratch3GamepadBlocks(runtime) {
+    _classCallCheck(this, Scratch3GamepadBlocks);
+    this.runtime = runtime;
 
-    // Controller state
-    this.state = {
-      connected: false,
-      activeGamepad: null,
-      buttons: {},
-      axes: {},
-      buttonPressed: {},
-      // For edge detection
-      previousButtons: {}
-    };
+    // Controller state - using same approach as working version
+    this.activeController = null;
+    this.previousButtons = [];
 
-    // Virtual cursor for mouse simulation
+    // Virtual cursor for advanced features
     this.virtualCursor = {
       x: 0,
       y: 0,
@@ -10098,276 +8310,20 @@ var UniversalGamepadPeripheral = /*#__PURE__*/function () {
       maxY: 180,
       minY: -180
     };
-    this.handleConnect = this.handleConnect.bind(this);
-    this.handleDisconnect = this.handleDisconnect.bind(this);
-    this.update = this.update.bind(this);
-    console.log('🎮 Universal Gamepad peripheral initialized');
-    this.addEventHandlers();
+    console.log('🎮 Universal Gamepad extension initialized');
+
+    // Start the polling loop - same as working version
+    this._pollGamepads();
   }
-  _createClass(UniversalGamepadPeripheral, [{
-    key: "addEventHandlers",
-    value: function addEventHandlers() {
-      window.addEventListener('gamepadconnected', this.handleConnect);
-      window.addEventListener('gamepaddisconnected', this.handleDisconnect);
-    }
-  }, {
-    key: "removeEventHandlers",
-    value: function removeEventHandlers() {
-      window.removeEventListener('gamepadconnected', this.handleConnect);
-      window.removeEventListener('gamepaddisconnected', this.handleDisconnect);
-    }
-  }, {
-    key: "handleConnect",
-    value: function handleConnect(event) {
-      var gamepad = event.gamepad;
-      var id = this.getGamepadId(gamepad);
-      console.log("\uD83C\uDFAE Controller connected: ".concat(gamepad.id));
-      console.log("   Index: ".concat(gamepad.index));
-      console.log("   Buttons: ".concat(gamepad.buttons.length));
-      console.log("   Axes: ".concat(gamepad.axes.length));
-      this.gamepads.set(id, gamepad);
-
-      // Set as active gamepad if we don't have one
-      if (!this.state.activeGamepad) {
-        this.state.activeGamepad = id;
-        this.state.connected = true;
-      }
-
-      // Start update loop if not running
-      if (!this.animationFrame) {
-        this.animationFrame = requestAnimationFrame(this.update);
-      }
-    }
-  }, {
-    key: "handleDisconnect",
-    value: function handleDisconnect(event) {
-      var gamepad = event.gamepad;
-      var id = this.getGamepadId(gamepad);
-      console.log("\uD83C\uDFAE Controller disconnected: ".concat(gamepad.id));
-      this.gamepads.delete(id);
-
-      // If this was our active gamepad, find another or mark as disconnected
-      if (this.state.activeGamepad === id) {
-        var remaining = Array.from(this.gamepads.keys());
-        if (remaining.length > 0) {
-          this.state.activeGamepad = remaining[0];
-          console.log("\uD83C\uDFAE Switched to controller: ".concat(this.state.activeGamepad));
-        } else {
-          this.state.activeGamepad = null;
-          this.state.connected = false;
-          this._resetState();
-        }
-      }
-
-      // Stop update loop if no controllers
-      if (this.gamepads.size === 0) {
-        if (this.animationFrame) {
-          cancelAnimationFrame(this.animationFrame);
-          this.animationFrame = null;
-        }
-      }
-    }
-  }, {
-    key: "getGamepadId",
-    value: function getGamepadId(gamepad) {
-      return "".concat(gamepad.id, " (").concat(gamepad.index, ")");
-    }
-  }, {
-    key: "getCurrentGamepad",
-    value: function getCurrentGamepad() {
-      if (!this.state.activeGamepad) return null;
-
-      // Get fresh gamepad data from navigator
-      var allGamepads = navigator.getGamepads();
-      var _iterator = _createForOfIteratorHelper(allGamepads),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var gamepad = _step.value;
-          if (gamepad && this.getGamepadId(gamepad) === this.state.activeGamepad) {
-            return gamepad;
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-      return null;
-    }
-  }, {
-    key: "update",
-    value: function update(timestamp) {
-      this.animationFrame = requestAnimationFrame(this.update);
-      var gamepad = this.getCurrentGamepad();
-      if (!gamepad) return;
-
-      // Store previous button states for edge detection
-      this.state.previousButtons = _objectSpread({}, this.state.buttons);
-
-      // Update button states
-      for (var i = 0; i < gamepad.buttons.length; i++) {
-        var button = gamepad.buttons[i];
-        var buttonName = this.getButtonName(i);
-        var pressed = button.pressed;
-        this.state.buttons[buttonName] = pressed;
-
-        // Detect button press events (for HAT blocks)
-        if (pressed && !this.state.previousButtons[buttonName]) {
-          this.state.buttonPressed[buttonName] = true;
-          this._runtime.startHats('universalgamepad_whenButtonPressed', {
-            BUTTON: buttonName
-          });
-        } else {
-          this.state.buttonPressed[buttonName] = false;
-        }
-      }
-
-      // Update axis states
-      for (var _i = 0; _i < gamepad.axes.length; _i++) {
-        var axisName = this.getAxisName(_i);
-        this.state.axes[axisName] = this.normalizeAxis(gamepad.axes[_i]);
-      }
-
-      // Update virtual cursor for right stick
-      if (this.state.axes['RIGHT_X'] !== undefined && this.state.axes['RIGHT_Y'] !== undefined) {
-        var sensitivity = 3;
-        var deltaTime = timestamp - (this.currentTime || timestamp);
-        this.virtualCursor.x += this.state.axes['RIGHT_X'] * sensitivity * (deltaTime / 16);
-        this.virtualCursor.y -= this.state.axes['RIGHT_Y'] * sensitivity * (deltaTime / 16);
-
-        // Clamp to bounds
-        this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
-        this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
-      }
-      this.currentTime = timestamp;
-    }
-  }, {
-    key: "getButtonName",
-    value: function getButtonName(index) {
-      return BUTTON_MAPPINGS.STANDARD[index] || "BUTTON_".concat(index);
-    }
-  }, {
-    key: "getAxisName",
-    value: function getAxisName(index) {
-      var axisNames = ['LEFT_X', 'LEFT_Y', 'RIGHT_X', 'RIGHT_Y'];
-      return axisNames[index] || "AXIS_".concat(index);
-    }
-  }, {
-    key: "normalizeAxis",
-    value: function normalizeAxis(value) {
-      // Apply deadzone and normalize
-      var deadzone = 0.15;
-      if (Math.abs(value) < deadzone) return 0;
-
-      // Scale to full range accounting for deadzone
-      var sign = value < 0 ? -1 : 1;
-      var normalized = (Math.abs(value) - deadzone) / (1 - deadzone);
-      return sign * normalized;
-    }
-  }, {
-    key: "_resetState",
-    value: function _resetState() {
-      this.state.buttons = {};
-      this.state.axes = {};
-      this.state.buttonPressed = {};
-      this.state.previousButtons = {};
-      this.virtualCursor.x = 0;
-      this.virtualCursor.y = 0;
-    }
-
-    // Public API methods
-  }, {
-    key: "isConnected",
-    value: function isConnected() {
-      return this.state.connected;
-    }
-  }, {
-    key: "isButtonPressed",
-    value: function isButtonPressed(buttonName) {
-      return !!this.state.buttons[buttonName];
-    }
-  }, {
-    key: "getAxisValue",
-    value: function getAxisValue(axisName) {
-      return this.state.axes[axisName] || 0;
-    }
-  }, {
-    key: "getConnectedControllers",
-    value: function getConnectedControllers() {
-      var _this = this;
-      return Array.from(this.gamepads.values()).map(function (gamepad) {
-        return {
-          id: _this.getGamepadId(gamepad),
-          name: gamepad.id,
-          index: gamepad.index,
-          buttons: gamepad.buttons.length,
-          axes: gamepad.axes.length
-        };
-      });
-    }
-  }, {
-    key: "switchToController",
-    value: function switchToController(controllerId) {
-      if (this.gamepads.has(controllerId)) {
-        this.state.activeGamepad = controllerId;
-        console.log("\uD83C\uDFAE Switched to controller: ".concat(controllerId));
-        return true;
-      }
-      return false;
-    }
-  }, {
-    key: "getCursorPosition",
-    value: function getCursorPosition() {
-      return {
-        x: Math.round(this.virtualCursor.x),
-        y: Math.round(this.virtualCursor.y)
-      };
-    }
-  }, {
-    key: "vibrate",
-    value: function vibrate() {
-      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 200;
-      var weakMagnitude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.5;
-      var strongMagnitude = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.5;
-      var gamepad = this.getCurrentGamepad();
-      if (!gamepad || !gamepad.vibrationActuator) {
-        console.log('⚠️ Vibration not supported on this controller');
-        return false;
-      }
-      try {
-        gamepad.vibrationActuator.playEffect('dual-rumble', {
-          duration: duration,
-          weakMagnitude: weakMagnitude,
-          strongMagnitude: strongMagnitude
-        });
-        console.log("\uD83D\uDCF3 Vibration: ".concat(duration, "ms at ").concat(Math.round(strongMagnitude * 100), "%"));
-        return true;
-      } catch (error) {
-        console.log('⚠️ Vibration failed:', error);
-        return false;
-      }
-    }
-  }]);
-  return UniversalGamepadPeripheral;
-}();
-var Scratch3UniversalGamepadBlocks = /*#__PURE__*/function () {
-  function Scratch3UniversalGamepadBlocks(runtime) {
-    _classCallCheck(this, Scratch3UniversalGamepadBlocks);
-    this.runtime = runtime;
-    this._peripheral = new UniversalGamepadPeripheral(this.runtime);
-    if (runtime.formatMessage) {
-      runtime.formatMessage;
-    }
-  }
-  _createClass(Scratch3UniversalGamepadBlocks, [{
+  _createClass(Scratch3GamepadBlocks, [{
     key: "getInfo",
     value: function getInfo() {
       return {
-        id: Scratch3UniversalGamepadBlocks.EXTENSION_ID,
+        id: 'gamepad',
         name: 'Universal Gamepad',
         blockIconURI: blockIconURI,
-        showStatusButton: false,
+        showStatusButton: true,
+        // Show connection status
         blocks: [
         // Connection blocks
         {
@@ -10379,7 +8335,7 @@ var Scratch3UniversalGamepadBlocks = /*#__PURE__*/function () {
           text: 'controller name',
           blockType: BlockType.REPORTER
         }, '---',
-        // Button blocks
+        // Button blocks - using same pattern as working version
         {
           opcode: 'whenButtonPressed',
           text: 'when [BUTTON] pressed',
@@ -10403,7 +8359,7 @@ var Scratch3UniversalGamepadBlocks = /*#__PURE__*/function () {
             }
           }
         }, '---',
-        // Analog stick blocks
+        // Analog stick blocks - keeping better axis handling
         {
           opcode: 'getStickValue',
           text: '[STICK] stick [AXIS]',
@@ -10480,137 +8436,278 @@ var Scratch3UniversalGamepadBlocks = /*#__PURE__*/function () {
         }],
         menus: {
           BUTTONS: {
-            acceptReporters: false,
+            acceptReporters: true,
             items: ['A', 'B', 'X', 'Y', 'LB', 'RB', 'LT', 'RT', 'SELECT', 'START', 'LS', 'RS', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'HOME']
           },
           STICKS: {
-            acceptReporters: false,
+            acceptReporters: true,
             items: ['left', 'right']
           },
           AXES: {
-            acceptReporters: false,
+            acceptReporters: true,
             items: ['x', 'y']
           }
         }
       };
     }
 
-    // Block implementations
+    // Polling loop - same as working version
   }, {
-    key: "isConnected",
-    value: function isConnected() {
-      return this._peripheral.isConnected();
+    key: "_pollGamepads",
+    value: function _pollGamepads() {
+      try {
+        var gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+        this.activeController = null;
+        var _iterator = _createForOfIteratorHelper(gamepads),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var gamepad = _step.value;
+            if (gamepad) {
+              this.activeController = gamepad;
+              this._updateVirtualCursor(gamepad); // Update cursor with right stick
+              break; // Use the first available controller
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      } catch (e) {
+        console.error('Gamepad polling error:', e);
+      }
+
+      // Request the next frame
+      requestAnimationFrame(this._pollGamepads.bind(this));
     }
+
+    // Update virtual cursor using right stick - improved version
   }, {
-    key: "getControllerInfo",
-    value: function getControllerInfo() {
-      if (!this._peripheral.isConnected()) return 'No controller';
-      var gamepad = this._peripheral.getCurrentGamepad();
-      return gamepad ? gamepad.id : 'No controller';
+    key: "_updateVirtualCursor",
+    value: function _updateVirtualCursor(gamepad) {
+      if (gamepad.axes.length >= 4) {
+        var rightX = this._normalizeAxis(gamepad.axes[2]); // Right stick X
+        var rightY = this._normalizeAxis(gamepad.axes[3]); // Right stick Y
+
+        var sensitivity = 2;
+        this.virtualCursor.x += rightX * sensitivity;
+        this.virtualCursor.y -= rightY * sensitivity; // Invert Y for natural feel
+
+        // Clamp to bounds
+        this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
+        this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
+      }
     }
+
+    // Improved axis normalization with deadzone
+  }, {
+    key: "_normalizeAxis",
+    value: function _normalizeAxis(value) {
+      var deadzone = 0.15;
+      if (Math.abs(value) < deadzone) return 0;
+
+      // Scale to full range accounting for deadzone
+      var sign = value < 0 ? -1 : 1;
+      var normalized = (Math.abs(value) - deadzone) / (1 - deadzone);
+      return sign * normalized;
+    }
+
+    // Button handling - same working logic as simple version
   }, {
     key: "whenButtonPressed",
     value: function whenButtonPressed(args) {
-      // HAT blocks are triggered by the update loop
-      return true;
+      var _this$activeControlle;
+      if (!this.activeController) return false;
+      var buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
+      if (buttonIndex === undefined) return false;
+      var wasPressed = this.previousButtons[buttonIndex] || false;
+      var isPressed = ((_this$activeControlle = this.activeController.buttons[buttonIndex]) === null || _this$activeControlle === void 0 ? void 0 : _this$activeControlle.pressed) || false;
+
+      // Update the previous state for the next check
+      this.previousButtons[buttonIndex] = isPressed;
+
+      // Trigger the HAT block only on the rising edge (when it was not pressed, but now is)
+      return !wasPressed && isPressed;
     }
   }, {
     key: "isButtonPressed",
     value: function isButtonPressed(args) {
-      var buttonName = Cast.toString(args.BUTTON).toUpperCase();
-      return this._peripheral.isButtonPressed(buttonName);
+      var _this$activeControlle2;
+      if (!this.activeController) return false;
+      var buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
+      if (buttonIndex === undefined) return false;
+      var isPressed = ((_this$activeControlle2 = this.activeController.buttons[buttonIndex]) === null || _this$activeControlle2 === void 0 ? void 0 : _this$activeControlle2.pressed) || false;
+
+      // We still need to update the previous state even for boolean blocks
+      this.previousButtons[buttonIndex] = isPressed;
+      return isPressed;
     }
+
+    // Connection status
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      return !!this.activeController;
+    }
+  }, {
+    key: "getControllerInfo",
+    value: function getControllerInfo() {
+      if (!this.activeController) return 'No controller';
+      return this.activeController.id;
+    }
+
+    // Improved stick handling
   }, {
     key: "getStickValue",
     value: function getStickValue(args) {
+      if (!this.activeController) return 0;
       var stick = Cast.toString(args.STICK).toLowerCase();
       var axis = Cast.toString(args.AXIS).toLowerCase();
-      var axisName = "".concat(stick.toUpperCase(), "_").concat(axis.toUpperCase());
-      var value = this._peripheral.getAxisValue(axisName);
-      return Math.round(value * 100); // Return as percentage -100 to 100
+      var stickMap = {
+        'left': {
+          'x': 0,
+          'y': 1
+        },
+        'right': {
+          'x': 2,
+          'y': 3
+        }
+      };
+      var stickAxes = stickMap[stick];
+      if (!stickAxes) return 0;
+      var axisIndex = stickAxes[axis];
+      if (axisIndex === undefined) return 0;
+      var rawValue = this.activeController.axes[axisIndex] || 0;
+      var normalizedValue = this._normalizeAxis(rawValue);
+
+      // Scale to Scratch's -100 to 100 range
+      return Math.round(normalizedValue * 100);
     }
   }, {
     key: "getStickDirection",
     value: function getStickDirection(args) {
+      if (!this.activeController) return 0;
       var stick = Cast.toString(args.STICK).toLowerCase();
-      var xAxis = "".concat(stick.toUpperCase(), "_X");
-      var yAxis = "".concat(stick.toUpperCase(), "_Y");
-      var x = this._peripheral.getAxisValue(xAxis);
-      var y = this._peripheral.getAxisValue(yAxis);
+      var stickMap = {
+        'left': {
+          'x': 0,
+          'y': 1
+        },
+        'right': {
+          'x': 2,
+          'y': 3
+        }
+      };
+      var stickAxes = stickMap[stick];
+      if (!stickAxes) return 0;
+      var x = this._normalizeAxis(this.activeController.axes[stickAxes.x] || 0);
+      var y = this._normalizeAxis(this.activeController.axes[stickAxes.y] || 0);
 
       // Convert to degrees (0 = right, 90 = up, 180 = left, 270 = down)
       var radians = Math.atan2(-y, x);
       var degrees = (radians * 180 / Math.PI + 360) % 360;
       return Math.round(degrees);
     }
+
+    // Virtual cursor blocks
   }, {
     key: "getCursorX",
     value: function getCursorX() {
-      var pos = this._peripheral.getCursorPosition();
-      return pos.x;
+      return Math.round(this.virtualCursor.x);
     }
   }, {
     key: "getCursorY",
     value: function getCursorY() {
-      var pos = this._peripheral.getCursorPosition();
-      return pos.y;
+      return Math.round(this.virtualCursor.y);
     }
   }, {
     key: "setCursorPosition",
     value: function setCursorPosition(args) {
       var x = Cast.toNumber(args.X);
       var y = Cast.toNumber(args.Y);
-      this._peripheral.virtualCursor.x = Math.max(this._peripheral.virtualCursor.minX, Math.min(this._peripheral.virtualCursor.maxX, x));
-      this._peripheral.virtualCursor.y = Math.max(this._peripheral.virtualCursor.minY, Math.min(this._peripheral.virtualCursor.maxY, y));
+      this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, x));
+      this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, y));
     }
+
+    // Vibration support
   }, {
     key: "vibrate",
     value: function vibrate(args) {
+      if (!this.activeController) return;
       var duration = Cast.toNumber(args.DURATION);
       var intensity = Cast.toNumber(args.INTENSITY) / 100;
-      return this._peripheral.vibrate(duration, intensity, intensity);
+      if (!this.activeController.vibrationActuator) {
+        console.log('⚠️ Vibration not supported on this controller');
+        return;
+      }
+      try {
+        this.activeController.vibrationActuator.playEffect('dual-rumble', {
+          duration: duration,
+          weakMagnitude: intensity,
+          strongMagnitude: intensity
+        });
+        console.log("\uD83D\uDCF3 Vibration: ".concat(duration, "ms at ").concat(Math.round(intensity * 100), "%"));
+      } catch (error) {
+        console.log('⚠️ Vibration failed:', error);
+      }
     }
+
+    // Debug information
   }, {
     key: "showDebugInfo",
     value: function showDebugInfo() {
+      var _this = this;
       console.log('🎮 UNIVERSAL GAMEPAD DEBUG INFO');
       console.log('===============================');
       console.log('');
       console.log('🔍 Connection Status:');
-      console.log("   Connected: ".concat(this._peripheral.isConnected() ? '✅ YES' : '❌ NO'));
-      if (this._peripheral.isConnected()) {
-        var gamepad = this._peripheral.getCurrentGamepad();
-        if (gamepad) {
-          console.log("   Controller: ".concat(gamepad.id));
-          console.log("   Index: ".concat(gamepad.index));
-          console.log("   Buttons: ".concat(gamepad.buttons.length));
-          console.log("   Axes: ".concat(gamepad.axes.length));
-          console.log("   Vibration: ".concat(gamepad.vibrationActuator ? 'Supported' : 'Not supported'));
-          console.log('');
-          console.log('🎮 Current Button States:');
-          Object.entries(this._peripheral.state.buttons).forEach(function (_ref) {
-            var _ref2 = _slicedToArray(_ref, 2),
-              button = _ref2[0],
-              pressed = _ref2[1];
-            if (pressed) {
-              console.log("   ".concat(button, ": PRESSED"));
+      console.log("   Connected: ".concat(this.isConnected() ? '✅ YES' : '❌ NO'));
+      if (this.activeController) {
+        console.log("   Controller: ".concat(this.activeController.id));
+        console.log("   Index: ".concat(this.activeController.index));
+        console.log("   Buttons: ".concat(this.activeController.buttons.length));
+        console.log("   Axes: ".concat(this.activeController.axes.length));
+        console.log("   Vibration: ".concat(this.activeController.vibrationActuator ? 'Supported' : 'Not supported'));
+        console.log('');
+        console.log('🎮 Current Button States:');
+        Object.entries(GAMEPAD_BUTTONS).forEach(function (_ref) {
+          var _this$activeControlle3;
+          var _ref2 = _slicedToArray(_ref, 2),
+            name = _ref2[0],
+            index = _ref2[1];
+          if ((_this$activeControlle3 = _this.activeController.buttons[index]) !== null && _this$activeControlle3 !== void 0 && _this$activeControlle3.pressed) {
+            console.log("   ".concat(name, ": PRESSED"));
+          }
+        });
+        console.log('');
+        console.log('🕹️ Analog Stick Values:');
+        var sticks = [{
+          name: 'Left X',
+          index: 0
+        }, {
+          name: 'Left Y',
+          index: 1
+        }, {
+          name: 'Right X',
+          index: 2
+        }, {
+          name: 'Right Y',
+          index: 3
+        }];
+        sticks.forEach(function (stick) {
+          if (_this.activeController.axes[stick.index] !== undefined) {
+            var raw = _this.activeController.axes[stick.index];
+            var normalized = _this._normalizeAxis(raw);
+            if (Math.abs(normalized) > 0.01) {
+              console.log("   ".concat(stick.name, ": ").concat(normalized.toFixed(2), " (raw: ").concat(raw.toFixed(2), ")"));
             }
-          });
-          console.log('');
-          console.log('🕹️ Analog Stick Values:');
-          Object.entries(this._peripheral.state.axes).forEach(function (_ref3) {
-            var _ref4 = _slicedToArray(_ref3, 2),
-              axis = _ref4[0],
-              value = _ref4[1];
-            if (Math.abs(value) > 0.01) {
-              console.log("   ".concat(axis, ": ").concat(value.toFixed(2)));
-            }
-          });
-          console.log('');
-          console.log('🖱️ Virtual Cursor:');
-          console.log("   X: ".concat(this._peripheral.virtualCursor.x.toFixed(1)));
-          console.log("   Y: ".concat(this._peripheral.virtualCursor.y.toFixed(1)));
-        }
+          }
+        });
+        console.log('');
+        console.log('🖱️ Virtual Cursor:');
+        console.log("   X: ".concat(this.virtualCursor.x.toFixed(1)));
+        console.log("   Y: ".concat(this.virtualCursor.y.toFixed(1)));
       } else {
         console.log('');
         console.log('💡 To use a gamepad:');
@@ -10626,27 +8723,25 @@ var Scratch3UniversalGamepadBlocks = /*#__PURE__*/function () {
       }
 
       // Show all detected controllers
-      var allGamepads = navigator.getGamepads();
-      var detectedControllers = Array.from(allGamepads).filter(function (g) {
-        return g !== null;
-      });
-      if (detectedControllers.length > 0) {
-        console.log('');
-        console.log('🎮 All Detected Controllers:');
-        detectedControllers.forEach(function (gamepad) {
-          console.log("   ".concat(gamepad.index, ": ").concat(gamepad.id));
+      try {
+        var allGamepads = navigator.getGamepads();
+        var detectedControllers = Array.from(allGamepads).filter(function (g) {
+          return g !== null;
         });
+        if (detectedControllers.length > 0) {
+          console.log('');
+          console.log('🎮 All Detected Controllers:');
+          detectedControllers.forEach(function (gamepad) {
+            console.log("   ".concat(gamepad.index, ": ").concat(gamepad.id));
+          });
+        }
+      } catch (e) {
+        console.log('⚠️ Error detecting controllers:', e);
       }
     }
-  }], [{
-    key: "EXTENSION_ID",
-    get: function get() {
-      return 'universalgamepad';
-    }
   }]);
-  return Scratch3UniversalGamepadBlocks;
+  return Scratch3GamepadBlocks;
 }();
-var blockClass = Scratch3UniversalGamepadBlocks;
-blockClass = Scratch3UniversalGamepadBlocks;
+var blockClass = Scratch3GamepadBlocks;
 
 export { blockClass, entry };
