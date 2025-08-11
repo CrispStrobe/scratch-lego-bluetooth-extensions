@@ -7565,7 +7565,7 @@ var img = "data:image/svg+xml,%3csvg height='32' width='32' xmlns='http://www.w3
 var entry = {
   name: 'DualShock 4 Controller',
   extensionId: 'dualshock4',
-  collaborator: 'CrispStrobe',
+  collaborator: 'Christian Strobele',
   iconURL: img$1,
   insetIconURL: img,
   description: /*#__PURE__*/React.createElement(FormattedMessage, {
@@ -7575,6 +7575,7 @@ var entry = {
   featured: true,
   disabled: false,
   bluetoothRequired: false,
+  // We're using the Gamepad API, not direct BT
   internetConnectionRequired: false
 };
 
@@ -7701,6 +7702,10 @@ var BlockType$1 = {
 };
 var blockType = BlockType$1;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
 // scratch-vm/src/extensions/scratch3_dualshock4/index.js
 var ArgumentType = argumentType;
 var BlockType = blockType;
@@ -7708,11 +7713,10 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
   function Scratch3DualShock4Blocks(runtime) {
     _classCallCheck(this, Scratch3DualShock4Blocks);
     this.runtime = runtime;
-    this.controller = null;
     this.controllerState = null;
-
-    // Start listening for a controller
-    this._connectController();
+    this._pollInterval = null;
+    window.addEventListener('gamepadconnected', this._onGamepadConnected.bind(this));
+    window.addEventListener('gamepaddisconnected', this._onGamepadDisconnected.bind(this));
   }
   _createClass(Scratch3DualShock4Blocks, [{
     key: "getInfo",
@@ -7722,7 +7726,7 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
         name: 'DualShock 4',
         blocks: [{
           opcode: 'whenButtonPressed',
-          text: 'when [BUTTON] is pressed',
+          text: 'when [BUTTON] button is pressed',
           blockType: BlockType.HAT,
           arguments: {
             BUTTON: {
@@ -7775,20 +7779,58 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
         }
       };
     }
-
-    // Event block
+  }, {
+    key: "_onGamepadConnected",
+    value: function _onGamepadConnected(e) {
+      console.log("Gamepad connected: ".concat(e.gamepad.id));
+      // Check if a DualShock 4 is connected
+      if (e.gamepad.id.toLowerCase().includes('wireless controller')) {
+        if (!this._pollInterval) {
+          this._pollInterval = setInterval(this._pollController.bind(this), 50); // Poll every 50ms
+        }
+      }
+    }
+  }, {
+    key: "_onGamepadDisconnected",
+    value: function _onGamepadDisconnected(e) {
+      console.log("Gamepad disconnected: ".concat(e.gamepad.id));
+      if (this.controllerState && this.controllerState.index === e.gamepad.index) {
+        this.controllerState = null;
+        clearInterval(this._pollInterval);
+        this._pollInterval = null;
+      }
+    }
+  }, {
+    key: "_pollController",
+    value: function _pollController() {
+      var gamepads = navigator.getGamepads();
+      var _iterator = _createForOfIteratorHelper(gamepads),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var gamepad = _step.value;
+          if (gamepad && gamepad.id.toLowerCase().includes('wireless controller')) {
+            this.controllerState = gamepad;
+            return;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
   }, {
     key: "whenButtonPressed",
     value: function whenButtonPressed(args) {
       return this.isButtonPressed(args);
     }
-
-    // Boolean block
   }, {
     key: "isButtonPressed",
     value: function isButtonPressed(args) {
+      var _this$controllerState;
       if (!this.controllerState) return false;
-      // Button mapping from your dualshock4.json
+      // Button mapping based on the standard gamepad layout and dualshock4.json
       var buttonMap = {
         'x': 0,
         'circle': 1,
@@ -7807,15 +7849,14 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
         'dpadLeft': 14,
         'dpadRight': 15
       };
-      var buttonIndex = buttonMap[args.BUTTON];
-      return this.controllerState.buttons[buttonIndex] && this.controllerState.buttons[buttonIndex].pressed;
+      var buttonIndex = buttonMap[args.BUTTON.toLowerCase()];
+      return ((_this$controllerState = this.controllerState.buttons[buttonIndex]) === null || _this$controllerState === void 0 ? void 0 : _this$controllerState.pressed) || false;
     }
-
-    // Reporter block
   }, {
     key: "getAnalogStick",
     value: function getAnalogStick(args) {
       if (!this.controllerState) return 0;
+      // Analog stick mapping from dualshock4.json
       var stickMap = {
         'left': {
           'x': 0,
@@ -7823,51 +7864,15 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
         },
         'right': {
           'x': 2,
-          'y': 3
-        }
+          'y': 5
+        } // Note: Right stick Y-axis is often index 5 on macOS/iOS
       };
-      var stick = stickMap[args.STICK];
-      var axis = stick[args.AXIS];
+      var stick = stickMap[args.STICK.toLowerCase()];
+      var axis = stick[args.AXIS.toLowerCase()];
       var value = this.controllerState.axes[axis];
-      // Scale to -100 to 100 for Scratch
+      // Apply a small deadzone and scale to -100 to 100
+      if (Math.abs(value) < 0.1) return 0;
       return Math.round(value * 100);
-    }
-
-    // --- Internal Methods ---
-  }, {
-    key: "_connectController",
-    value: function _connectController() {
-      var _this = this;
-      window.addEventListener('gamepadconnected', function (e) {
-        console.log("Gamepad connected at index ".concat(e.gamepad.index, ": ").concat(e.gamepad.id, "."));
-        if (e.gamepad.id.toLowerCase().includes('dualshock')) {
-          _this.controller = e.gamepad;
-          if (!_this.pollInterval) {
-            _this._pollController();
-          }
-        }
-      });
-      window.addEventListener('gamepaddisconnected', function (e) {
-        console.log("Gamepad disconnected from index ".concat(e.gamepad.index, ": ").concat(e.gamepad.id, "."));
-        if (_this.controller && _this.controller.index === e.gamepad.index) {
-          _this.controller = null;
-          _this.controllerState = null;
-        }
-      });
-    }
-  }, {
-    key: "_pollController",
-    value: function _pollController() {
-      var _this2 = this;
-      if (!this.controller) return;
-
-      // Update the state
-      this.controllerState = navigator.getGamepads()[this.controller.index];
-
-      // Keep polling
-      requestAnimationFrame(function () {
-        return _this2._pollController();
-      });
     }
   }]);
   return Scratch3DualShock4Blocks;
