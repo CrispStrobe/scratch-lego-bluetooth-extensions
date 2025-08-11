@@ -210,14 +210,14 @@ var process = {
 
 var react = {exports: {}};
 
-function _typeof$1(o) {
+function _typeof$2(o) {
   "@babel/helpers - typeof";
 
-  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof$2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof$1(o);
+  }, _typeof$2(o);
 }
 
 var react_production_min = {};
@@ -336,7 +336,7 @@ function F(a, b, c) {
 }
 F.prototype.isReactComponent = {};
 F.prototype.setState = function (a, b) {
-  if ("object" !== _typeof$1(a) && "function" !== typeof a && null != a) throw Error(C(85));
+  if ("object" !== _typeof$2(a) && "function" !== typeof a && null != a) throw Error(C(85));
   this.updater.enqueueSetState(this, a, b, "setState");
 };
 F.prototype.forceUpdate = function (a) {
@@ -396,7 +396,7 @@ function N(a, b) {
   };
 }
 function O(a) {
-  return "object" === _typeof$1(a) && null !== a && a.$$typeof === p$1;
+  return "object" === _typeof$2(a) && null !== a && a.$$typeof === p$1;
 }
 function escape$1(a) {
   var b = {
@@ -436,7 +436,7 @@ function S(a) {
   10 > Q.length && Q.push(a);
 }
 function T(a, b, c, e) {
-  var d = _typeof$1(a);
+  var d = _typeof$2(a);
   if ("undefined" === d || "boolean" === d) a = null;
   var g = !1;
   if (null === a) g = !0;else switch (d) {
@@ -458,14 +458,14 @@ function T(a, b, c, e) {
     d = a[k];
     var f = b + U(d, k);
     g += T(d, f, c, e);
-  } else if (null === a || "object" !== _typeof$1(a) ? f = null : (f = B && a[B] || a["@@iterator"], f = "function" === typeof f ? f : null), "function" === typeof f) for (a = f.call(a), k = 0; !(d = a.next()).done;) d = d.value, f = b + U(d, k++), g += T(d, f, c, e);else if ("object" === d) throw c = "" + a, Error(C(31, "[object Object]" === c ? "object with keys {" + Object.keys(a).join(", ") + "}" : c, ""));
+  } else if (null === a || "object" !== _typeof$2(a) ? f = null : (f = B && a[B] || a["@@iterator"], f = "function" === typeof f ? f : null), "function" === typeof f) for (a = f.call(a), k = 0; !(d = a.next()).done;) d = d.value, f = b + U(d, k++), g += T(d, f, c, e);else if ("object" === d) throw c = "" + a, Error(C(31, "[object Object]" === c ? "object with keys {" + Object.keys(a).join(", ") + "}" : c, ""));
   return g;
 }
 function V(a, b, c) {
   return null == a ? 0 : T(a, "", b, c);
 }
 function U(a, b) {
-  return "object" === _typeof$1(a) && null !== a && null != a.key ? escape$1(a.key) : b.toString(36);
+  return "object" === _typeof$2(a) && null !== a && null != a.key ? escape$1(a.key) : b.toString(36);
 }
 function W(a, b) {
   a.func.call(a.context, b, a.count++);
@@ -703,7 +703,7 @@ function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) 
           // This is intentionally an invariant that gets caught. It's the same
           // behavior as without this statement except with a better message.
           if (typeof typeSpecs[typeSpecName] !== 'function') {
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + _typeof$1(typeSpecs[typeSpecName]) + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
+            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + _typeof$2(typeSpecs[typeSpecName]) + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
             err.name = 'Invariant Violation';
             throw err;
           }
@@ -712,7 +712,7 @@ function checkPropTypes$1(typeSpecs, values, location, componentName, getStack) 
           error = ex;
         }
         if (error && !(error instanceof Error)) {
-          printWarning$1((componentName || 'React class') + ': type specification of ' + location + ' `' + typeSpecName + '` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a ' + _typeof$1(error) + '. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).');
+          printWarning$1((componentName || 'React class') + ': type specification of ' + location + ' `' + typeSpecName + '` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a ' + _typeof$2(error) + '. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).');
         }
         if (error instanceof Error && !(error.message in loggedTypeFailures)) {
           // Only monitor this failure once because there tends to be a lot of the
@@ -768,7 +768,7 @@ if (process.env.NODE_ENV !== "production") {
     var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
     var FAUX_ITERATOR_SYMBOL = '@@iterator';
     function getIteratorFn(maybeIterable) {
-      if (maybeIterable === null || _typeof$1(maybeIterable) !== 'object') {
+      if (maybeIterable === null || _typeof$2(maybeIterable) !== 'object') {
         return null;
       }
       var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
@@ -874,7 +874,7 @@ if (process.env.NODE_ENV !== "production") {
         case REACT_SUSPENSE_LIST_TYPE:
           return 'SuspenseList';
       }
-      if (_typeof$1(type) === 'object') {
+      if (_typeof$2(type) === 'object') {
         switch (type.$$typeof) {
           case REACT_CONTEXT_TYPE:
             return 'Context.Consumer';
@@ -1128,7 +1128,7 @@ if (process.env.NODE_ENV !== "production") {
      */
 
     Component.prototype.setState = function (partialState, callback) {
-      if (!(_typeof$1(partialState) === 'object' || typeof partialState === 'function' || partialState == null)) {
+      if (!(_typeof$2(partialState) === 'object' || typeof partialState === 'function' || partialState == null)) {
         {
           throw Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");
         }
@@ -1500,7 +1500,7 @@ if (process.env.NODE_ENV !== "production") {
      */
 
     function isValidElement(object) {
-      return _typeof$1(object) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+      return _typeof$2(object) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
     }
     var SEPARATOR = '.';
     var SUBSEPARATOR = ':';
@@ -1573,7 +1573,7 @@ if (process.env.NODE_ENV !== "production") {
      */
 
     function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext) {
-      var type = _typeof$1(children);
+      var type = _typeof$2(children);
       if (type === 'undefined' || type === 'boolean') {
         // All of the above are perceived as null.
         children = null;
@@ -1682,7 +1682,7 @@ if (process.env.NODE_ENV !== "production") {
     function getComponentKey(component, index) {
       // Do some typechecking here since we call this blindly. We want to ensure
       // that we don't block potential future ES APIs.
-      if (_typeof$1(component) === 'object' && component !== null && component.key != null) {
+      if (_typeof$2(component) === 'object' && component !== null && component.key != null) {
         // Explicit key
         return escape(component.key);
       } // Implicit key determined by the index in the set
@@ -1967,7 +1967,7 @@ if (process.env.NODE_ENV !== "production") {
         if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
           error('forwardRef requires a render function but received a `memo` ' + 'component. Instead of forwardRef(memo(...)), use ' + 'memo(forwardRef(...)).');
         } else if (typeof render !== 'function') {
-          error('forwardRef requires a render function but was given %s.', render === null ? 'null' : _typeof$1(render));
+          error('forwardRef requires a render function but was given %s.', render === null ? 'null' : _typeof$2(render));
         } else {
           if (render.length !== 0 && render.length !== 2) {
             error('forwardRef render functions accept exactly two parameters: props and ref. %s', render.length === 1 ? 'Did you forget to use the ref parameter?' : 'Any additional parameter will be undefined.');
@@ -1987,12 +1987,12 @@ if (process.env.NODE_ENV !== "production") {
     function isValidElementType(type) {
       return typeof type === 'string' || typeof type === 'function' ||
       // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-      type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || _typeof$1(type) === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || _typeof$2(type) === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
     }
     function memo(type, compare) {
       {
         if (!isValidElementType(type)) {
-          error('memo: The first argument must be a component. Instead ' + 'received: %s', type === null ? 'null' : _typeof$1(type));
+          error('memo: The first argument must be a component. Instead ' + 'received: %s', type === null ? 'null' : _typeof$2(type));
         }
       }
       return {
@@ -2159,7 +2159,7 @@ if (process.env.NODE_ENV !== "production") {
      */
 
     function validateChildKeys(node, parentType) {
-      if (_typeof$1(node) !== 'object') {
+      if (_typeof$2(node) !== 'object') {
         return;
       }
       if (Array.isArray(node)) {
@@ -2208,7 +2208,7 @@ if (process.env.NODE_ENV !== "production") {
         var propTypes;
         if (typeof type === 'function') {
           propTypes = type.propTypes;
-        } else if (_typeof$1(type) === 'object' && (type.$$typeof === REACT_FORWARD_REF_TYPE ||
+        } else if (_typeof$2(type) === 'object' && (type.$$typeof === REACT_FORWARD_REF_TYPE ||
         // Note: Memo only checks outer props here.
         // Inner props are checked in the reconciler.
         type.$$typeof === REACT_MEMO_TYPE)) {
@@ -2257,7 +2257,7 @@ if (process.env.NODE_ENV !== "production") {
 
       if (!validType) {
         var info = '';
-        if (type === undefined || _typeof$1(type) === 'object' && type !== null && Object.keys(type).length === 0) {
+        if (type === undefined || _typeof$2(type) === 'object' && type !== null && Object.keys(type).length === 0) {
           info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and named imports.";
         }
         var sourceInfo = getSourceInfoErrorAddendumForProps(props);
@@ -2275,7 +2275,7 @@ if (process.env.NODE_ENV !== "production") {
           typeString = "<" + (getComponentName(type.type) || 'Unknown') + " />";
           info = ' Did you accidentally export a JSX literal instead of a component?';
         } else {
-          typeString = _typeof$1(type);
+          typeString = _typeof$2(type);
         }
         {
           error('React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
@@ -5084,7 +5084,7 @@ var b = "function" === typeof Symbol && Symbol.for,
   x = b ? Symbol.for("react.responder") : 60118,
   y = b ? Symbol.for("react.scope") : 60119;
 function z(a) {
-  if ("object" === _typeof$1(a) && null !== a) {
+  if ("object" === _typeof$2(a) && null !== a) {
     var u = a.$$typeof;
     switch (u) {
       case c:
@@ -5140,7 +5140,7 @@ reactIs_production_min.isContextProvider = function (a) {
   return z(a) === h;
 };
 reactIs_production_min.isElement = function (a) {
-  return "object" === _typeof$1(a) && null !== a && a.$$typeof === c;
+  return "object" === _typeof$2(a) && null !== a && a.$$typeof === c;
 };
 reactIs_production_min.isForwardRef = function (a) {
   return z(a) === n;
@@ -5167,7 +5167,7 @@ reactIs_production_min.isSuspense = function (a) {
   return z(a) === p;
 };
 reactIs_production_min.isValidElementType = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === _typeof$1(a) && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
+  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === _typeof$2(a) && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
 };
 reactIs_production_min.typeOf = z;
 
@@ -5202,10 +5202,10 @@ if (process.env.NODE_ENV !== "production") {
     function isValidElementType(type) {
       return typeof type === 'string' || typeof type === 'function' ||
       // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-      type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || _typeof$1(type) === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || _typeof$2(type) === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
     }
     function typeOf(object) {
-      if (_typeof$1(object) === 'object' && object !== null) {
+      if (_typeof$2(object) === 'object' && object !== null) {
         var $$typeof = object.$$typeof;
         switch ($$typeof) {
           case REACT_ELEMENT_TYPE:
@@ -5273,7 +5273,7 @@ if (process.env.NODE_ENV !== "production") {
       return typeOf(object) === REACT_PROVIDER_TYPE;
     }
     function isElement(object) {
-      return _typeof$1(object) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+      return _typeof$2(object) === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
     }
     function isForwardRef(object) {
       return typeOf(object) === REACT_FORWARD_REF_TYPE;
@@ -5485,7 +5485,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
    */
   function PropTypeError(message, data) {
     this.message = message;
-    this.data = data && _typeof$1(data) === 'object' ? data : {};
+    this.data = data && _typeof$2(data) === 'object' ? data : {};
     this.stack = '';
   }
   // Make `instanceof Error` still work for returned errors.
@@ -5745,7 +5745,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
     return createChainableTypeChecker(validate);
   }
   function isNode(propValue) {
-    switch (_typeof$1(propValue)) {
+    switch (_typeof$2(propValue)) {
       case 'number':
       case 'string':
       case 'undefined':
@@ -5813,7 +5813,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   // Equivalent of `typeof` but with special handling for array and regexp.
   function getPropType(propValue) {
-    var propType = _typeof$1(propValue);
+    var propType = _typeof$2(propValue);
     if (Array.isArray(propValue)) {
       return 'array';
     }
@@ -6001,7 +6001,7 @@ var browser = invariant;
 // -- Utilities ----------------------------------------------------------------
 function getCacheId(inputs) {
   return JSON.stringify(inputs.map(function (input) {
-    return input && _typeof$1(input) === 'object' ? orderedProps(input) : input;
+    return input && _typeof$2(input) === 'object' ? orderedProps(input) : input;
   }));
 }
 function orderedProps(obj) {
@@ -6282,10 +6282,10 @@ function hasIMFAndIRFLocaleData(locale) {
   var normalizedLocale = locale && locale.toLowerCase();
   return !!(IntlMessageFormat.__localeData__[normalizedLocale] && IntlRelativeFormat.__localeData__[normalizedLocale]);
 }
-var _typeof = typeof Symbol === "function" && _typeof$1(Symbol.iterator) === "symbol" ? function (obj) {
-  return _typeof$1(obj);
+var _typeof$1 = typeof Symbol === "function" && _typeof$2(Symbol.iterator) === "symbol" ? function (obj) {
+  return _typeof$2(obj);
 } : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof$1(obj);
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof$2(obj);
 };
 var classCallCheck = function classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -6321,7 +6321,7 @@ var _extends = Object.assign || function (target) {
 };
 var inherits = function inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + _typeof$1(superClass));
+    throw new TypeError("Super expression must either be null or a function, not " + _typeof$2(superClass));
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
@@ -6346,7 +6346,7 @@ var possibleConstructorReturn = function possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-  return call && (_typeof$1(call) === "object" || typeof call === "function") ? call : self;
+  return call && (_typeof$2(call) === "object" || typeof call === "function") ? call : self;
 };
 var toConsumableArray = function toConsumableArray(arr) {
   if (Array.isArray(arr)) {
@@ -6484,7 +6484,7 @@ function shallowEquals(objA, objB) {
   if (objA === objB) {
     return true;
   }
-  if ((typeof objA === 'undefined' ? 'undefined' : _typeof(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : _typeof(objB)) !== 'object' || objB === null) {
+  if ((typeof objA === 'undefined' ? 'undefined' : _typeof$1(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : _typeof$1(objB)) !== 'object' || objB === null) {
     return false;
   }
   var keysA = Object.keys(objA);
@@ -7575,7 +7575,7 @@ var entry = {
   featured: true,
   disabled: false,
   bluetoothRequired: false,
-  // We're using the Gamepad API, not direct BT
+  // We use the WebHID API, not direct BLE scanning.
   internetConnectionRequired: false
 };
 
@@ -7586,11 +7586,11 @@ function _classCallCheck(instance, Constructor) {
 }
 
 function toPrimitive(t, r) {
-  if ("object" != _typeof$1(t) || !t) return t;
+  if ("object" != _typeof$2(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r || "default");
-    if ("object" != _typeof$1(i)) return i;
+    if ("object" != _typeof$2(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r ? String : Number)(t);
@@ -7598,7 +7598,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
-  return "symbol" == _typeof$1(i) ? i : String(i);
+  return "symbol" == _typeof$2(i) ? i : String(i);
 }
 
 function _defineProperties(target, props) {
@@ -7702,21 +7702,1062 @@ var BlockType$1 = {
 };
 var blockType = BlockType$1;
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+var Color$1 = /*#__PURE__*/function () {
+  function Color() {
+    _classCallCheck(this, Color);
+  }
+  _createClass(Color, null, [{
+    key: "RGB_BLACK",
+    get:
+    /**
+     * @typedef {object} RGBObject - An object representing a color in RGB format.
+     * @property {number} r - the red component, in the range [0, 255].
+     * @property {number} g - the green component, in the range [0, 255].
+     * @property {number} b - the blue component, in the range [0, 255].
+     */
+
+    /**
+     * @typedef {object} HSVObject - An object representing a color in HSV format.
+     * @property {number} h - hue, in the range [0-359).
+     * @property {number} s - saturation, in the range [0,1].
+     * @property {number} v - value, in the range [0,1].
+     */
+
+    /** @type {RGBObject} */
+    function get() {
+      return {
+        r: 0,
+        g: 0,
+        b: 0
+      };
+    }
+
+    /** @type {RGBObject} */
+  }, {
+    key: "RGB_WHITE",
+    get: function get() {
+      return {
+        r: 255,
+        g: 255,
+        b: 255
+      };
+    }
+
+    /**
+     * Convert a Scratch decimal color to a hex string, #RRGGBB.
+     * @param {number} decimal RGB color as a decimal.
+     * @return {string} RGB color as #RRGGBB hex string.
+     */
+  }, {
+    key: "decimalToHex",
+    value: function decimalToHex(decimal) {
+      if (decimal < 0) {
+        decimal += 0xFFFFFF + 1;
+      }
+      var hex = Number(decimal).toString(16);
+      hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
+      return hex;
+    }
+
+    /**
+     * Convert a Scratch decimal color to an RGB color object.
+     * @param {number} decimal RGB color as decimal.
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "decimalToRgb",
+    value: function decimalToRgb(decimal) {
+      var a = decimal >> 24 & 0xFF;
+      var r = decimal >> 16 & 0xFF;
+      var g = decimal >> 8 & 0xFF;
+      var b = decimal & 0xFF;
+      return {
+        r: r,
+        g: g,
+        b: b,
+        a: a > 0 ? a : 255
+      };
+    }
+
+    /**
+     * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
+     * CC-BY-SA Tim Down:
+     * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+     * @param {!string} hex Hex representation of the color.
+     * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hexToRgb",
+    value: function hexToRgb(hex) {
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    /**
+     * Convert an RGB color object to a hex color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!string} Hex representation of the color.
+     */
+  }, {
+    key: "rgbToHex",
+    value: function rgbToHex(rgb) {
+      return Color.decimalToHex(Color.rgbToDecimal(rgb));
+    }
+
+    /**
+     * Convert an RGB color object to a Scratch decimal color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!number} Number representing the color.
+     */
+  }, {
+    key: "rgbToDecimal",
+    value: function rgbToDecimal(rgb) {
+      return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
+    }
+
+    /**
+    * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
+    * @param {!string} hex Hex representation of the color.
+    * @return {!number} Number representing the color.
+    */
+  }, {
+    key: "hexToDecimal",
+    value: function hexToDecimal(hex) {
+      return Color.rgbToDecimal(Color.hexToRgb(hex));
+    }
+
+    /**
+     * Convert an HSV color to RGB format.
+     * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hsvToRgb",
+    value: function hsvToRgb(hsv) {
+      var h = hsv.h % 360;
+      if (h < 0) h += 360;
+      var s = Math.max(0, Math.min(hsv.s, 1));
+      var v = Math.max(0, Math.min(hsv.v, 1));
+      var i = Math.floor(h / 60);
+      var f = h / 60 - i;
+      var p = v * (1 - s);
+      var q = v * (1 - s * f);
+      var t = v * (1 - s * (1 - f));
+      var r;
+      var g;
+      var b;
+      switch (i) {
+        default:
+        case 0:
+          r = v;
+          g = t;
+          b = p;
+          break;
+        case 1:
+          r = q;
+          g = v;
+          b = p;
+          break;
+        case 2:
+          r = p;
+          g = v;
+          b = t;
+          break;
+        case 3:
+          r = p;
+          g = q;
+          b = v;
+          break;
+        case 4:
+          r = t;
+          g = p;
+          b = v;
+          break;
+        case 5:
+          r = v;
+          g = p;
+          b = q;
+          break;
+      }
+      return {
+        r: Math.floor(r * 255),
+        g: Math.floor(g * 255),
+        b: Math.floor(b * 255)
+      };
+    }
+
+    /**
+     * Convert an RGB color to HSV format.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     */
+  }, {
+    key: "rgbToHsv",
+    value: function rgbToHsv(rgb) {
+      var r = rgb.r / 255;
+      var g = rgb.g / 255;
+      var b = rgb.b / 255;
+      var x = Math.min(Math.min(r, g), b);
+      var v = Math.max(Math.max(r, g), b);
+
+      // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
+      var h = 0;
+      var s = 0;
+      if (x !== v) {
+        var f = r === x ? g - b : g === x ? b - r : r - g;
+        var i = r === x ? 3 : g === x ? 5 : 1;
+        h = (i - f / (v - x)) * 60 % 360;
+        s = (v - x) / v;
+      }
+      return {
+        h: h,
+        s: s,
+        v: v
+      };
+    }
+
+    /**
+     * Linear interpolation between rgb0 and rgb1.
+     * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
+     * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
+     * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
+     * @return {RGBObject} the interpolated color.
+     */
+  }, {
+    key: "mixRgb",
+    value: function mixRgb(rgb0, rgb1, fraction1) {
+      if (fraction1 <= 0) return rgb0;
+      if (fraction1 >= 1) return rgb1;
+      var fraction0 = 1 - fraction1;
+      return {
+        r: fraction0 * rgb0.r + fraction1 * rgb1.r,
+        g: fraction0 * rgb0.g + fraction1 * rgb1.g,
+        b: fraction0 * rgb0.b + fraction1 * rgb1.b
+      };
+    }
+  }]);
+  return Color;
+}();
+var color = Color$1;
+
+var Color = color;
+
+/**
+ * @fileoverview
+ * Utilities for casting and comparing Scratch data-types.
+ * Scratch behaves slightly differently from JavaScript in many respects,
+ * and these differences should be encapsulated below.
+ * For example, in Scratch, add(1, join("hello", world")) -> 1.
+ * This is because "hello world" is cast to 0.
+ * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
+ * Use when coercing a value before computation.
+ */
+var Cast$1 = /*#__PURE__*/function () {
+  function Cast() {
+    _classCallCheck(this, Cast);
+  }
+  _createClass(Cast, null, [{
+    key: "toNumber",
+    value:
+    /**
+     * Scratch cast to number.
+     * Treats NaN as 0.
+     * In Scratch 2.0, this is captured by `interp.numArg.`
+     * @param {*} value Value to cast to number.
+     * @return {number} The Scratch-casted number value.
+     */
+    function toNumber(value) {
+      // If value is already a number we don't need to coerce it with
+      // Number().
+      if (typeof value === 'number') {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        if (Number.isNaN(value)) {
+          return 0;
+        }
+        return value;
+      }
+      var n = Number(value);
+      if (Number.isNaN(n)) {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        return 0;
+      }
+      return n;
+    }
+
+    /**
+     * Scratch cast to boolean.
+     * In Scratch 2.0, this is captured by `interp.boolArg.`
+     * Treats some string values differently from JavaScript.
+     * @param {*} value Value to cast to boolean.
+     * @return {boolean} The Scratch-casted boolean value.
+     */
+  }, {
+    key: "toBoolean",
+    value: function toBoolean(value) {
+      // Already a boolean?
+      if (typeof value === 'boolean') {
+        return value;
+      }
+      if (typeof value === 'string') {
+        // These specific strings are treated as false in Scratch.
+        if (value === '' || value === '0' || value.toLowerCase() === 'false') {
+          return false;
+        }
+        // All other strings treated as true.
+        return true;
+      }
+      // Coerce other values and numbers.
+      return Boolean(value);
+    }
+
+    /**
+     * Scratch cast to string.
+     * @param {*} value Value to cast to string.
+     * @return {string} The Scratch-casted string value.
+     */
+  }, {
+    key: "toString",
+    value: function toString(value) {
+      return String(value);
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color array to be used for the renderer.
+     * @param {*} value Value to convert to RGB color array.
+     * @return {Array.<number>} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorList",
+    value: function toRgbColorList(value) {
+      var color = Cast.toRgbColorObject(value);
+      return [color.r, color.g, color.b];
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color object to be used for the renderer.
+     * @param {*} value Value to convert to RGB color object.
+     * @return {RGBOject} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorObject",
+    value: function toRgbColorObject(value) {
+      var color;
+      if (typeof value === 'string' && value.substring(0, 1) === '#') {
+        color = Color.hexToRgb(value);
+
+        // If the color wasn't *actually* a hex color, cast to black
+        if (!color) color = {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        };
+      } else {
+        color = Color.decimalToRgb(Cast.toNumber(value));
+      }
+      return color;
+    }
+
+    /**
+     * Determine if a Scratch argument is a white space string (or null / empty).
+     * @param {*} val value to check.
+     * @return {boolean} True if the argument is all white spaces or null / empty.
+     */
+  }, {
+    key: "isWhiteSpace",
+    value: function isWhiteSpace(val) {
+      return val === null || typeof val === 'string' && val.trim().length === 0;
+    }
+
+    /**
+     * Compare two values, using Scratch cast, case-insensitive string compare, etc.
+     * In Scratch 2.0, this is captured by `interp.compare.`
+     * @param {*} v1 First value to compare.
+     * @param {*} v2 Second value to compare.
+     * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
+     */
+  }, {
+    key: "compare",
+    value: function compare(v1, v2) {
+      var n1 = Number(v1);
+      var n2 = Number(v2);
+      if (n1 === 0 && Cast.isWhiteSpace(v1)) {
+        n1 = NaN;
+      } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
+        n2 = NaN;
+      }
+      if (isNaN(n1) || isNaN(n2)) {
+        // At least one argument can't be converted to a number.
+        // Scratch compares strings as case insensitive.
+        var s1 = String(v1).toLowerCase();
+        var s2 = String(v2).toLowerCase();
+        if (s1 < s2) {
+          return -1;
+        } else if (s1 > s2) {
+          return 1;
+        }
+        return 0;
+      }
+      // Handle the special case of Infinity
+      if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
+        return 0;
+      }
+      // Compare as numbers.
+      return n1 - n2;
+    }
+
+    /**
+     * Determine if a Scratch argument number represents a round integer.
+     * @param {*} val Value to check.
+     * @return {boolean} True if number looks like an integer.
+     */
+  }, {
+    key: "isInt",
+    value: function isInt(val) {
+      // Values that are already numbers.
+      if (typeof val === 'number') {
+        if (isNaN(val)) {
+          // NaN is considered an integer.
+          return true;
+        }
+        // True if it's "round" (e.g., 2.0 and 2).
+        return val === parseInt(val, 10);
+      } else if (typeof val === 'boolean') {
+        // `True` and `false` always represent integer after Scratch cast.
+        return true;
+      } else if (typeof val === 'string') {
+        // If it contains a decimal point, don't consider it an int.
+        return val.indexOf('.') < 0;
+      }
+      return false;
+    }
+  }, {
+    key: "LIST_INVALID",
+    get: function get() {
+      return 'INVALID';
+    }
+  }, {
+    key: "LIST_ALL",
+    get: function get() {
+      return 'ALL';
+    }
+
+    /**
+     * Compute a 1-based index into a list, based on a Scratch argument.
+     * Two special cases may be returned:
+     * LIST_ALL: if the block is referring to all of the items in the list.
+     * LIST_INVALID: if the index was invalid in any way.
+     * @param {*} index Scratch arg, including 1-based numbers or special cases.
+     * @param {number} length Length of the list.
+     * @param {boolean} acceptAll Whether it should accept "all" or not.
+     * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
+     */
+  }, {
+    key: "toListIndex",
+    value: function toListIndex(index, length, acceptAll) {
+      if (typeof index !== 'number') {
+        if (index === 'all') {
+          return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
+        }
+        if (index === 'last') {
+          if (length > 0) {
+            return length;
+          }
+          return Cast.LIST_INVALID;
+        } else if (index === 'random' || index === 'any') {
+          if (length > 0) {
+            return 1 + Math.floor(Math.random() * length);
+          }
+          return Cast.LIST_INVALID;
+        }
+      }
+      index = Math.floor(Cast.toNumber(index));
+      if (index < 1 || index > length) {
+        return Cast.LIST_INVALID;
+      }
+      return index;
+    }
+  }]);
+  return Cast;
+}();
+var cast = Cast$1;
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+      args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+      _next(undefined);
+    });
+  };
+}
+
+var regeneratorRuntime$1 = {exports: {}};
+
+var _typeof = {exports: {}};
+
+(function (module) {
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }
+  module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(_typeof);
+
+(function (module) {
+  var _typeof$1 = _typeof.exports["default"];
+  function _regeneratorRuntime() {
+
+    /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+    module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
+      return e;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+    var t,
+      e = {},
+      r = Object.prototype,
+      n = r.hasOwnProperty,
+      o = Object.defineProperty || function (t, e, r) {
+        t[e] = r.value;
+      },
+      i = "function" == typeof Symbol ? Symbol : {},
+      a = i.iterator || "@@iterator",
+      c = i.asyncIterator || "@@asyncIterator",
+      u = i.toStringTag || "@@toStringTag";
+    function define(t, e, r) {
+      return Object.defineProperty(t, e, {
+        value: r,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+      }), t[e];
+    }
+    try {
+      define({}, "");
+    } catch (t) {
+      define = function define(t, e, r) {
+        return t[e] = r;
+      };
+    }
+    function wrap(t, e, r, n) {
+      var i = e && e.prototype instanceof Generator ? e : Generator,
+        a = Object.create(i.prototype),
+        c = new Context(n || []);
+      return o(a, "_invoke", {
+        value: makeInvokeMethod(t, r, c)
+      }), a;
+    }
+    function tryCatch(t, e, r) {
+      try {
+        return {
+          type: "normal",
+          arg: t.call(e, r)
+        };
+      } catch (t) {
+        return {
+          type: "throw",
+          arg: t
+        };
+      }
+    }
+    e.wrap = wrap;
+    var h = "suspendedStart",
+      l = "suspendedYield",
+      f = "executing",
+      s = "completed",
+      y = {};
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+    var p = {};
+    define(p, a, function () {
+      return this;
+    });
+    var d = Object.getPrototypeOf,
+      v = d && d(d(values([])));
+    v && v !== r && n.call(v, a) && (p = v);
+    var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+    function defineIteratorMethods(t) {
+      ["next", "throw", "return"].forEach(function (e) {
+        define(t, e, function (t) {
+          return this._invoke(e, t);
+        });
+      });
+    }
+    function AsyncIterator(t, e) {
+      function invoke(r, o, i, a) {
+        var c = tryCatch(t[r], t, o);
+        if ("throw" !== c.type) {
+          var u = c.arg,
+            h = u.value;
+          return h && "object" == _typeof$1(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+            invoke("next", t, i, a);
+          }, function (t) {
+            invoke("throw", t, i, a);
+          }) : e.resolve(h).then(function (t) {
+            u.value = t, i(u);
+          }, function (t) {
+            return invoke("throw", t, i, a);
+          });
+        }
+        a(c.arg);
+      }
+      var r;
+      o(this, "_invoke", {
+        value: function value(t, n) {
+          function callInvokeWithMethodAndArg() {
+            return new e(function (e, r) {
+              invoke(t, n, e, r);
+            });
+          }
+          return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+        }
+      });
+    }
+    function makeInvokeMethod(e, r, n) {
+      var o = h;
+      return function (i, a) {
+        if (o === f) throw new Error("Generator is already running");
+        if (o === s) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: !0
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var c = n.delegate;
+          if (c) {
+            var u = maybeInvokeDelegate(c, n);
+            if (u) {
+              if (u === y) continue;
+              return u;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (o === h) throw o = s, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = f;
+          var p = tryCatch(e, r, n);
+          if ("normal" === p.type) {
+            if (o = n.done ? s : l, p.arg === y) continue;
+            return {
+              value: p.arg,
+              done: n.done
+            };
+          }
+          "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
+        }
+      };
+    }
+    function maybeInvokeDelegate(e, r) {
+      var n = r.method,
+        o = e.iterator[n];
+      if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+      var i = tryCatch(o, e.iterator, r.arg);
+      if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+      var a = i.arg;
+      return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+    }
+    function pushTryEntry(t) {
+      var e = {
+        tryLoc: t[0]
+      };
+      1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+    }
+    function resetTryEntry(t) {
+      var e = t.completion || {};
+      e.type = "normal", delete e.arg, t.completion = e;
+    }
+    function Context(t) {
+      this.tryEntries = [{
+        tryLoc: "root"
+      }], t.forEach(pushTryEntry, this), this.reset(!0);
+    }
+    function values(e) {
+      if (e || "" === e) {
+        var r = e[a];
+        if (r) return r.call(e);
+        if ("function" == typeof e.next) return e;
+        if (!isNaN(e.length)) {
+          var o = -1,
+            i = function next() {
+              for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+              return next.value = t, next.done = !0, next;
+            };
+          return i.next = i;
+        }
+      }
+      throw new TypeError(_typeof$1(e) + " is not iterable");
+    }
+    return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+      value: GeneratorFunctionPrototype,
+      configurable: !0
+    }), o(GeneratorFunctionPrototype, "constructor", {
+      value: GeneratorFunction,
+      configurable: !0
+    }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+      var e = "function" == typeof t && t.constructor;
+      return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+    }, e.mark = function (t) {
+      return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+    }, e.awrap = function (t) {
+      return {
+        __await: t
+      };
+    }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+      return this;
+    }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+      void 0 === i && (i = Promise);
+      var a = new AsyncIterator(wrap(t, r, n, o), i);
+      return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+        return t.done ? t.value : a.next();
+      });
+    }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+      return this;
+    }), define(g, "toString", function () {
+      return "[object Generator]";
+    }), e.keys = function (t) {
+      var e = Object(t),
+        r = [];
+      for (var n in e) r.push(n);
+      return r.reverse(), function next() {
+        for (; r.length;) {
+          var t = r.pop();
+          if (t in e) return next.value = t, next.done = !1, next;
+        }
+        return next.done = !0, next;
+      };
+    }, e.values = values, Context.prototype = {
+      constructor: Context,
+      reset: function reset(e) {
+        if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+      },
+      stop: function stop() {
+        this.done = !0;
+        var t = this.tryEntries[0].completion;
+        if ("throw" === t.type) throw t.arg;
+        return this.rval;
+      },
+      dispatchException: function dispatchException(e) {
+        if (this.done) throw e;
+        var r = this;
+        function handle(n, o) {
+          return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+        }
+        for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+          var i = this.tryEntries[o],
+            a = i.completion;
+          if ("root" === i.tryLoc) return handle("end");
+          if (i.tryLoc <= this.prev) {
+            var c = n.call(i, "catchLoc"),
+              u = n.call(i, "finallyLoc");
+            if (c && u) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            } else if (c) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+            } else {
+              if (!u) throw new Error("try statement without catch or finally");
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            }
+          }
+        }
+      },
+      abrupt: function abrupt(t, e) {
+        for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+          var o = this.tryEntries[r];
+          if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+            var i = o;
+            break;
+          }
+        }
+        i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+        var a = i ? i.completion : {};
+        return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+      },
+      complete: function complete(t, e) {
+        if ("throw" === t.type) throw t.arg;
+        return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+      },
+      finish: function finish(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+        }
+      },
+      "catch": function _catch(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.tryLoc === t) {
+            var n = r.completion;
+            if ("throw" === n.type) {
+              var o = n.arg;
+              resetTryEntry(r);
+            }
+            return o;
+          }
+        }
+        throw new Error("illegal catch attempt");
+      },
+      delegateYield: function delegateYield(e, r, n) {
+        return this.delegate = {
+          iterator: values(e),
+          resultName: r,
+          nextLoc: n
+        }, "next" === this.method && (this.arg = t), y;
+      }
+    }, e;
+  }
+  module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(regeneratorRuntime$1);
+
+// TODO(Babel 8): Remove this file.
+
+var runtime = regeneratorRuntime$1.exports();
+var regenerator = runtime;
+
+// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$2(globalThis)) === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
+}
+
+// scratch-vm/src/extensions/scratch3_dualshock4/dualshock4-hid.js
+var DualShock4HID$1 = /*#__PURE__*/function () {
+  function DualShock4HID(runtime) {
+    _classCallCheck(this, DualShock4HID);
+    this.runtime = runtime;
+    this.device = null;
+    this.state = {
+      buttons: {},
+      analogSticks: {
+        left: {
+          x: 0,
+          y: 0
+        },
+        right: {
+          x: 0,
+          y: 0
+        }
+      }
+    };
+
+    // Button mapping from your dualshock4.json
+    this.buttonMap = {
+      'triangle': {
+        block: 5,
+        value: 0x80
+      },
+      'circle': {
+        block: 5,
+        value: 0x40
+      },
+      'x': {
+        block: 5,
+        value: 0x20
+      },
+      'square': {
+        block: 5,
+        value: 0x10
+      },
+      'l1': {
+        block: 6,
+        value: 0x01
+      },
+      'r1': {
+        block: 6,
+        value: 0x02
+      },
+      'l2': {
+        block: 6,
+        value: 0x04
+      },
+      'r2': {
+        block: 6,
+        value: 0x08
+      },
+      'share': {
+        block: 6,
+        value: 0x10
+      },
+      'options': {
+        block: 6,
+        value: 0x20
+      },
+      'leftStick': {
+        block: 6,
+        value: 0x40
+      },
+      'rightStick': {
+        block: 6,
+        value: 0x80
+      }
+    };
+    this.dpadMap = {
+      0: 'dpadUp',
+      1: 'dpadUpRight',
+      2: 'dpadRight',
+      3: 'dpadDownRight',
+      4: 'dpadDown',
+      5: 'dpadDownLeft',
+      6: 'dpadLeft',
+      7: 'dpadUpLeft'
+    };
+    this._onInputReport = this._onInputReport.bind(this);
+  }
+  _createClass(DualShock4HID, [{
+    key: "connect",
+    value: function () {
+      var _connect = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var devices;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (navigator.hid) {
+                _context.next = 3;
+                break;
+              }
+              alert('WebHID is not supported in this browser. Please use a browser like Chrome or Edge.');
+              return _context.abrupt("return");
+            case 3:
+              _context.prev = 3;
+              _context.next = 6;
+              return navigator.hid.requestDevice({
+                filters: [{
+                  vendorId: 1356,
+                  // From your dualshock4.json
+                  productId: 1476 // From your dualshock4.json
+                }]
+              });
+            case 6:
+              devices = _context.sent;
+              if (devices.length) {
+                _context.next = 10;
+                break;
+              }
+              console.log('No device selected.');
+              return _context.abrupt("return");
+            case 10:
+              this.device = devices[0];
+              _context.next = 13;
+              return this.device.open();
+            case 13:
+              this.device.addEventListener('inputreport', this._onInputReport);
+              console.log('DualShock 4 Connected:', this.device.productName);
+              _context.next = 20;
+              break;
+            case 17:
+              _context.prev = 17;
+              _context.t0 = _context["catch"](3);
+              console.error('Error connecting to DualShock 4:', _context.t0);
+            case 20:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this, [[3, 17]]);
+      }));
+      function connect() {
+        return _connect.apply(this, arguments);
+      }
+      return connect;
+    }()
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      return this.device && this.device.opened;
+    }
+  }, {
+    key: "_onInputReport",
+    value: function _onInputReport(event) {
+      var _this = this;
+      var data = event.data;
+      if (data.byteLength < 10) return; // Not a standard report
+
+      // --- Parse Analog Sticks ---
+      this.state.analogSticks.left.x = (data.getUint8(1) - 128) / 128;
+      this.state.analogSticks.left.y = (data.getUint8(2) - 128) / 128;
+      this.state.analogSticks.right.x = (data.getUint8(3) - 128) / 128;
+      this.state.analogSticks.right.y = (data.getUint8(4) - 128) / 128;
+
+      // --- Parse Buttons ---
+      var buttonBlock5 = data.getUint8(5);
+      var buttonBlock6 = data.getUint8(6);
+      for (var buttonName in this.buttonMap) {
+        var map = this.buttonMap[buttonName];
+        var block = map.block === 5 ? buttonBlock5 : buttonBlock6;
+        this.state.buttons[buttonName] = (block & map.value) !== 0;
+      }
+
+      // --- Parse D-Pad ---
+      var dpadValue = buttonBlock5 & 0x0F;
+      Object.values(this.dpadMap).forEach(function (dpadDir) {
+        _this.state.buttons[dpadDir] = false;
+      });
+      if (dpadValue !== 0x08) {
+        // 0x08 is the released state
+        var dpadDir = this.dpadMap[dpadValue];
+        if (dpadDir) {
+          this.state.buttons[dpadDir] = true;
+        }
+      }
+    }
+  }]);
+  return DualShock4HID;
+}();
+var dualshock4Hid = DualShock4HID$1;
 
 // scratch-vm/src/extensions/scratch3_dualshock4/index.js
 var ArgumentType = argumentType;
 var BlockType = blockType;
+var Cast = cast;
+var DualShock4HID = dualshock4Hid;
 var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
   function Scratch3DualShock4Blocks(runtime) {
     _classCallCheck(this, Scratch3DualShock4Blocks);
     this.runtime = runtime;
-    this.controllerState = null;
-    this._pollInterval = null;
-    window.addEventListener('gamepadconnected', this._onGamepadConnected.bind(this));
-    window.addEventListener('gamepaddisconnected', this._onGamepadDisconnected.bind(this));
+    this.controller = new DualShock4HID(this.runtime);
   }
   _createClass(Scratch3DualShock4Blocks, [{
     key: "getInfo",
@@ -7725,8 +8766,12 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
         id: 'dualshock4',
         name: 'DualShock 4',
         blocks: [{
+          opcode: 'connect',
+          text: 'Connect DualShock 4 Controller',
+          blockType: BlockType.COMMAND
+        }, {
           opcode: 'whenButtonPressed',
-          text: 'when [BUTTON] button is pressed',
+          text: 'when [BUTTON] is pressed',
           blockType: BlockType.HAT,
           arguments: {
             BUTTON: {
@@ -7766,7 +8811,7 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
         menus: {
           buttons: {
             acceptReporters: true,
-            items: ['x', 'circle', 'square', 'triangle', 'L1', 'R1', 'L2', 'R2', 'share', 'options', 'L3', 'R3', 'dpadUp', 'dpadDown', 'dpadLeft', 'dpadRight']
+            items: ['x', 'circle', 'square', 'triangle', 'l1', 'r1', 'l2', 'r2', 'share', 'options', 'leftStick', 'rightStick', 'dpadUp', 'dpadDown', 'dpadLeft', 'dpadRight']
           },
           sticks: {
             acceptReporters: true,
@@ -7780,45 +8825,9 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
       };
     }
   }, {
-    key: "_onGamepadConnected",
-    value: function _onGamepadConnected(e) {
-      console.log("Gamepad connected: ".concat(e.gamepad.id));
-      // Check if a DualShock 4 is connected
-      if (e.gamepad.id.toLowerCase().includes('wireless controller')) {
-        if (!this._pollInterval) {
-          this._pollInterval = setInterval(this._pollController.bind(this), 50); // Poll every 50ms
-        }
-      }
-    }
-  }, {
-    key: "_onGamepadDisconnected",
-    value: function _onGamepadDisconnected(e) {
-      console.log("Gamepad disconnected: ".concat(e.gamepad.id));
-      if (this.controllerState && this.controllerState.index === e.gamepad.index) {
-        this.controllerState = null;
-        clearInterval(this._pollInterval);
-        this._pollInterval = null;
-      }
-    }
-  }, {
-    key: "_pollController",
-    value: function _pollController() {
-      var gamepads = navigator.getGamepads();
-      var _iterator = _createForOfIteratorHelper(gamepads),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var gamepad = _step.value;
-          if (gamepad && gamepad.id.toLowerCase().includes('wireless controller')) {
-            this.controllerState = gamepad;
-            return;
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
+    key: "connect",
+    value: function connect() {
+      return this.controller.connect();
     }
   }, {
     key: "whenButtonPressed",
@@ -7828,50 +8837,18 @@ var Scratch3DualShock4Blocks = /*#__PURE__*/function () {
   }, {
     key: "isButtonPressed",
     value: function isButtonPressed(args) {
-      var _this$controllerState;
-      if (!this.controllerState) return false;
-      // Button mapping based on the standard gamepad layout and dualshock4.json
-      var buttonMap = {
-        'x': 0,
-        'circle': 1,
-        'square': 2,
-        'triangle': 3,
-        'l1': 4,
-        'r1': 5,
-        'l2': 6,
-        'r2': 7,
-        'share': 8,
-        'options': 9,
-        'L3': 10,
-        'R3': 11,
-        'dpadUp': 12,
-        'dpadDown': 13,
-        'dpadLeft': 14,
-        'dpadRight': 15
-      };
-      var buttonIndex = buttonMap[args.BUTTON.toLowerCase()];
-      return ((_this$controllerState = this.controllerState.buttons[buttonIndex]) === null || _this$controllerState === void 0 ? void 0 : _this$controllerState.pressed) || false;
+      if (!this.controller.isConnected()) return false;
+      var buttonName = Cast.toString(args.BUTTON);
+      return !!this.controller.state.buttons[buttonName];
     }
   }, {
     key: "getAnalogStick",
     value: function getAnalogStick(args) {
-      if (!this.controllerState) return 0;
-      // Analog stick mapping from dualshock4.json
-      var stickMap = {
-        'left': {
-          'x': 0,
-          'y': 1
-        },
-        'right': {
-          'x': 2,
-          'y': 5
-        } // Note: Right stick Y-axis is often index 5 on macOS/iOS
-      };
-      var stick = stickMap[args.STICK.toLowerCase()];
-      var axis = stick[args.AXIS.toLowerCase()];
-      var value = this.controllerState.axes[axis];
-      // Apply a small deadzone and scale to -100 to 100
-      if (Math.abs(value) < 0.1) return 0;
+      if (!this.controller.isConnected()) return 0;
+      var stick = Cast.toString(args.STICK);
+      var axis = Cast.toString(args.AXIS);
+      var value = this.controller.state.analogSticks[stick][axis];
+      // Scale to -100 to 100 for Scratch
       return Math.round(value * 100);
     }
   }]);
