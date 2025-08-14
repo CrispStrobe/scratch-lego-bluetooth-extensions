@@ -53,6 +53,20 @@ const Matrix3x3Colors = {
     mint: 5, green: 6, yellow: 7, orange: 8, red: 9, white: 10
 };
 
+const ColorEmojiMap = {
+    '⚫': 0,  // off
+    '🟣': 1,  // magenta
+    '🟪': 2,  // violet  
+    '🔵': 3,  // blue
+    '🔷': 4,  // turquoise
+    '🟢': 5,  // mint
+    '🟩': 6,  // green
+    '🟡': 7,  // yellow
+    '🟠': 8,  // orange
+    '🔴': 9,  // red
+    '⚪': 10  // white
+};
+
 // Display patterns as matrices
 const DisplayPatterns = {
     heart: '960000960960a60960960000960',
@@ -1088,6 +1102,52 @@ class Scratch3SpikePrimeBlocks {
                  * Features clickable grid with color picker and brightness control
                  */
                 {
+                    opcode: 'setMatrix3x3ColorGrid',
+                    text: 'set [PORT] 3x3 colors: [P1][P2][P3] [P4][P5][P6] [P7][P8][P9]',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
+                        P1: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        P2: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '⚫' },
+                        P3: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        P4: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        P5: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        P6: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        P7: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '⚫' },
+                        P8: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        P9: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '⚫' }
+                    }
+                },
+                {
+                    opcode: 'setMatrix3x3BrightnessGrid',
+                    text: 'set [PORT] 3x3 brightness: [B1][B2][B3] [B4][B5][B6] [B7][B8][B9]',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
+                        B1: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B2: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B3: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B4: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B5: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B6: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B7: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B8: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
+                        B9: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' }
+                    }
+                },
+                {
+                    opcode: 'setMatrix3x3PixelEmoji', 
+                    text: 'set [PORT] 3x3 pixel [X],[Y] to [COLOR] brightness [BRIGHTNESS]',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
+                        X: { type: ArgumentType.NUMBER, defaultValue: 2 },
+                        Y: { type: ArgumentType.NUMBER, defaultValue: 2 },
+                        COLOR: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        BRIGHTNESS: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '5' }
+                    }
+                },
+                {
                     opcode: 'setMatrix3x3Custom',
                     text: 'set [PORT] 3x3 custom pattern [PATTERN]',
                     blockType: BlockType.COMMAND,
@@ -1104,27 +1164,6 @@ class Scratch3SpikePrimeBlocks {
                     }
                 },
                 {
-                    opcode: 'setMatrix3x3Visual',
-                    text: 'set [PORT] 3x3: ╔[R1C1][R1C2][R1C3]╗ ║[R2C1][R2C2][R2C3]║ ╚[R3C1][R3C2][R3C3]╝',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'PORT',
-                            defaultValue: 'A'
-                        },
-                        R1C1: { type: ArgumentType.STRING, defaultValue: 'r8', menu: 'MATRIX_3X3_QUICK' },
-                        R1C2: { type: ArgumentType.STRING, defaultValue: '.1', menu: 'MATRIX_3X3_QUICK' },
-                        R1C3: { type: ArgumentType.STRING, defaultValue: 'r8', menu: 'MATRIX_3X3_QUICK' },
-                        R2C1: { type: ArgumentType.STRING, defaultValue: 'r6', menu: 'MATRIX_3X3_QUICK' },
-                        R2C2: { type: ArgumentType.STRING, defaultValue: 'r10', menu: 'MATRIX_3X3_QUICK' },
-                        R2C3: { type: ArgumentType.STRING, defaultValue: 'r6', menu: 'MATRIX_3X3_QUICK' },
-                        R3C1: { type: ArgumentType.STRING, defaultValue: '.1', menu: 'MATRIX_3X3_QUICK' },
-                        R3C2: { type: ArgumentType.STRING, defaultValue: 'r8', menu: 'MATRIX_3X3_QUICK' },
-                        R3C3: { type: ArgumentType.STRING, defaultValue: '.1', menu: 'MATRIX_3X3_QUICK' }
-                    }
-                },
-                {
                     opcode: 'generateMatrix3x3Code',
                     text: 'generate 3x3 code for pattern [PATTERN]',
                     blockType: BlockType.REPORTER,
@@ -1135,6 +1174,17 @@ class Scratch3SpikePrimeBlocks {
                         }
                     }
                 },
+                {
+                    opcode: 'setMatrix3x3SolidColor',
+                    text: 'set [PORT] 3x3 matrix all [COLOR] brightness [BRIGHTNESS]',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
+                        COLOR: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
+                        BRIGHTNESS: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '5' }
+                    }
+                },
+                /*
                 {
                     opcode: 'setMatrix3x3Color',
                     text: 'set [PORT] 3x3 matrix all [COLOR] brightness [BRIGHTNESS]',
@@ -1155,7 +1205,7 @@ class Scratch3SpikePrimeBlocks {
                             defaultValue: 5
                         }
                     }
-                },
+                }, 
                 {
                     opcode: 'setMatrix3x3Pixel',
                     text: 'set [PORT] 3x3 pixel [X] [Y] to [COLOR] brightness [BRIGHTNESS]',
@@ -1184,7 +1234,7 @@ class Scratch3SpikePrimeBlocks {
                             defaultValue: 5
                         }
                     }
-                },
+                }, */
                 {
                     opcode: 'setMatrix3x3Level',
                     text: 'set [PORT] 3x3 battery level to [LEVEL]',
@@ -1720,6 +1770,26 @@ class Scratch3SpikePrimeBlocks {
                 MATRIX_3X3_TRANSITION: {
                     acceptReporters: false,
                     items: ['none', 'fade', 'slide']
+                },
+                MATRIX_COLOR_EMOJI: {
+                    acceptReporters: false,
+                    items: [
+                        { text: '⚫ Off', value: '⚫' },
+                        { text: '🟣 Magenta', value: '🟣' }, 
+                        { text: '🟪 Violet', value: '🟪' },
+                        { text: '🔵 Blue', value: '🔵' },
+                        { text: '🔷 Turquoise', value: '🔷' },
+                        { text: '🟢 Mint', value: '🟢' },
+                        { text: '🟩 Green', value: '🟩' },
+                        { text: '🟡 Yellow', value: '🟡' },
+                        { text: '🟠 Orange', value: '🟠' },
+                        { text: '🔴 Red', value: '🔴' },
+                        { text: '⚪ White', value: '⚪' }
+                    ]
+                },
+                BRIGHTNESS_1_TO_10: {
+                    acceptReporters: false,
+                    items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
                 }
             }
         };
@@ -2131,7 +2201,91 @@ class Scratch3SpikePrimeBlocks {
     }
 
     // ===== 3X3 LED COLOR MATRIX IMPLEMENTATIONS =====
-    
+
+    setMatrix3x3ColorGrid(args) {
+        const port = Cast.toString(args.PORT).trim().toUpperCase();
+        
+        // Collect all 9 color emojis
+        const pixels = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'].map(pixel => {
+            const emoji = Cast.toString(args[pixel]);
+            const colorId = ColorEmojiMap[emoji] || 0;
+            // Default brightness of 5 for color-only grid
+            return 5 * 16 + colorId;
+        });
+        
+        // Convert to hex byte string
+        const byteString = pixels.map(b => `\\x${b.toString(16).padStart(2, '0')}`).join('');
+        
+        return this._peripheral.sendPythonCommand(
+            `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"${byteString}")`
+        );
+    }
+
+    setMatrix3x3BrightnessGrid(args) {
+        const port = Cast.toString(args.PORT).trim().toUpperCase();
+        
+        // Get current color state or use default red
+        const currentColorId = 9; // Default to red
+        
+        // Collect all 9 brightness values  
+        const pixels = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'].map(brightness => {
+            const brightnessValue = MathUtil.clamp(Cast.toNumber(args[brightness]), 1, 10);
+            return brightnessValue * 16 + currentColorId;
+        });
+        
+        // Convert to hex byte string
+        const byteString = pixels.map(b => `\\x${b.toString(16).padStart(2, '0')}`).join('');
+        
+        return this._peripheral.sendPythonCommand(
+            `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"${byteString}")`
+        );
+    }
+
+    setMatrix3x3PixelEmoji(args) {
+        const port = Cast.toString(args.PORT).trim().toUpperCase();
+        const x = MathUtil.clamp(Cast.toNumber(args.X) - 1, 0, 2);
+        const y = MathUtil.clamp(Cast.toNumber(args.Y) - 1, 0, 2);
+        const colorEmoji = Cast.toString(args.COLOR);
+        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+        
+        const colorId = ColorEmojiMap[colorEmoji] || 0;
+        const value = brightness * 16 + colorId;
+        const index = y * 3 + x;
+        
+        const pythonCode = `
+import hub
+matrix = hub.port.${port}.device
+matrix.mode(2)
+
+# Create array with current values (or default to off)
+current = [0x01] * 9  # Default: off with brightness 1
+current[${index}] = 0x${value.toString(16).padStart(2, '0')}
+
+# Convert to byte string and send
+byte_string = bytes(current)
+matrix.mode(2, byte_string)
+`;
+        
+        return this._peripheral.sendPythonCommand(pythonCode);
+    }
+
+    setMatrix3x3SolidColor(args) {
+        const port = Cast.toString(args.PORT).trim().toUpperCase();
+        const colorEmoji = Cast.toString(args.COLOR);
+        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
+        
+        const colorId = ColorEmojiMap[colorEmoji] || 0;
+        const value = brightness * 16 + colorId;
+        
+        // All 9 pixels same color and brightness
+        const pixels = Array(9).fill(value);
+        const byteString = pixels.map(b => `\\x${b.toString(16).padStart(2, '0')}`).join('');
+        
+        return this._peripheral.sendPythonCommand(
+            `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"${byteString}")`
+        );
+    }
+
     setMatrix3x3Visual(args) {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         
