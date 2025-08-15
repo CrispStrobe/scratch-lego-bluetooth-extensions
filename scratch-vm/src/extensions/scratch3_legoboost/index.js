@@ -1225,533 +1225,533 @@ class Scratch3BoostBlocks {
     }
 
     getInfo () {
-        setupTranslations(); // Set up translations before returning block info
-        
-        return {
-            id: Scratch3BoostBlocks.EXTENSION_ID,
-            name: formatMessageFunction({
-                id: 'gui.extension.legoboost.name', // Note: This will fallback as it's in GUI translations
-                default: 'LEGO Boost Enhanced',
-                description: 'Name for the LEGO Boost Enhanced extension'
-            }),
-            blockIconURI: iconURI,
-            showStatusButton: true,
-            blocks: [
-                // Basic motor control
-                {
-                    opcode: 'motorOnFor',
-                    text: formatMessageFunction({
-                        id: 'legoboost.motorOnFor',
-                        default: 'turn motor [MOTOR_ID] for [DURATION] seconds',
-                        description: 'turn a motor on for some time'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        DURATION: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 1
-                        }
+    setupTranslations(); // Set up translations before returning block info
+    
+    return {
+        id: Scratch3BoostBlocks.EXTENSION_ID,
+        name: formatMessageFunction({
+            id: 'gui.extension.legoboost.name', // Note: This will fallback as it's in GUI translations
+            default: 'LEGO Boost Enhanced',
+            description: 'Name for the LEGO Boost Enhanced extension'
+        }),
+        blockIconURI: iconURI,
+        showStatusButton: true,
+        blocks: [
+            // Basic motor control
+            {
+                opcode: 'motorOnFor',
+                text: formatMessageFunction({
+                    id: 'legoboost.motorOnFor',
+                    default: 'turn motor [MOTOR_ID] for [DURATION] seconds',
+                    description: 'turn a motor on for some time'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    DURATION: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 1
                     }
-                },
-                {
-                    opcode: 'motorOnForRotation',
-                    text: formatMessage({
-                        id: 'legoboost.motorOnForRotation',
-                        default: 'turn motor [MOTOR_ID] for [ROTATION] rotations',
-                        description: 'turn a motor on for rotation'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        ROTATION: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 1
-                        }
-                    }
-                },
-                {
-                    opcode: 'motorRunToPosition',
-                    text: formatMessage({
-                        id: 'legoboost.motorRunToPosition',
-                        default: 'turn motor [MOTOR_ID] to position [POSITION]',
-                        description: 'turn a motor to absolute position'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID_SINGLE',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        POSITION: {
-                            type: ArgumentType.ANGLE,
-                            defaultValue: 0
-                        }
-                    }
-                },
-                {
-                    opcode: 'motorOn',
-                    text: formatMessage({
-                        id: 'legoboost.motorOn',
-                        default: 'turn motor [MOTOR_ID] on',
-                        description: 'turn a motor on indefinitely'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        }
-                    }
-                },
-                {
-                    opcode: 'motorOff',
-                    text: formatMessage({
-                        id: 'legoboost.motorOff',
-                        default: 'turn motor [MOTOR_ID] off',
-                        description: 'turn a motor off'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        }
-                    }
-                },
-                
-                '---', // Separator
-
-                // Advanced motor control
-                {
-                    opcode: 'setMotorPower',
-                    text: formatMessage({
-                        id: 'legoboost.setMotorPower',
-                        default: 'set motor [MOTOR_ID] speed to [POWER] %',
-                        description: 'set the motor speed without turning it on'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.ALL
-                        },
-                        POWER: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 100
-                        }
-                    }
-                },
-                {
-                    opcode: 'setMotorDirection',
-                    text: formatMessage({
-                        id: 'legoboost.setMotorDirection',
-                        default: 'set motor [MOTOR_ID] direction [MOTOR_DIRECTION]',
-                        description: 'set the motor turn direction without turning it on'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        MOTOR_DIRECTION: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_DIRECTION',
-                            defaultValue: BoostMotorDirection.FORWARD
-                        }
-                    }
-                },
-                {
-                    opcode: 'setMotorStopAction',
-                    text: formatMessage({
-                        id: 'legoboost.setMotorStopAction',
-                        default: 'set motor [MOTOR_ID] stop action to [ACTION]',
-                        description: 'set how the motor stops'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        ACTION: {
-                            type: ArgumentType.STRING,
-                            menu: 'STOP_ACTION',
-                            defaultValue: 'brake'
-                        }
-                    }
-                },
-                {
-                    opcode: 'setMotorAcceleration',
-                    text: formatMessage({
-                        id: 'legoboost.setMotorAcceleration',
-                        default: 'set motor [MOTOR_ID] acceleration to [TIME] ms',
-                        description: 'set motor acceleration time'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        TIME: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 300
-                        }
-                    }
-                },
-                {
-                    opcode: 'setMotorDeceleration',
-                    text: formatMessage({
-                        id: 'legoboost.setMotorDeceleration',
-                        default: 'set motor [MOTOR_ID] deceleration to [TIME] ms',
-                        description: 'set motor deceleration time'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        TIME: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 300
-                        }
-                    }
-                },
-                {
-                    opcode: 'resetMotorPosition',
-                    text: formatMessage({
-                        id: 'legoboost.resetMotorPosition',
-                        default: 'reset motor [MOTOR_ID] position to [POSITION]',
-                        description: 'reset motor position counter'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        MOTOR_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_ID',
-                            defaultValue: BoostMotorLabel.A
-                        },
-                        POSITION: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 0
-                        }
-                    }
-                },
-                {
-                    opcode: 'getMotorPosition',
-                    text: formatMessage({
-                        id: 'legoboost.getMotorPosition',
-                        default: 'motor [MOTOR_REPORTER_ID] position',
-                        description: 'the position returned by the motor'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                        MOTOR_REPORTER_ID: {
-                            type: ArgumentType.STRING,
-                            menu: 'MOTOR_REPORTER_ID',
-                            defaultValue: BoostMotorLabel.A
-                        }
-                    }
-                },
-
-                '---', // Separator
-
-                // Color and distance sensor
-                {
-                    opcode: 'whenColor',
-                    text: formatMessage({
-                        id: 'legoboost.whenColor',
-                        default: 'when [PORT] sees [COLOR] brick',
-                        description: 'check for when color'
-                    }),
-                    blockType: BlockType.HAT,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        },
-                        COLOR: {
-                            type: ArgumentType.STRING,
-                            menu: 'COLOR',
-                            defaultValue: BoostColor.ANY
-                        }
-                    }
-                },
-                {
-                    opcode: 'seeingColor',
-                    text: formatMessage({
-                        id: 'legoboost.seeingColor',
-                        default: '[PORT] seeing [COLOR] brick?',
-                        description: 'is the color sensor seeing a certain color?'
-                    }),
-                    blockType: BlockType.BOOLEAN,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        },
-                        COLOR: {
-                            type: ArgumentType.STRING,
-                            menu: 'COLOR',
-                            defaultValue: BoostColor.ANY
-                        }
-                    }
-                },
-                {
-                    opcode: 'getDistance',
-                    text: formatMessage({
-                        id: 'legoboost.getDistance',
-                        default: '[PORT] distance (mm)',
-                        description: 'distance from color/distance sensor'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        }
-                    }
-                },
-                {
-                    opcode: 'getReflection',
-                    text: formatMessage({
-                        id: 'legoboost.getReflection',
-                        default: '[PORT] reflection (%)',
-                        description: 'reflection from color/distance sensor'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        }
-                    }
-                },
-
-                '---', // Separator
-
-                // Force sensor
-                {
-                    opcode: 'getForce',
-                    text: formatMessage({
-                        id: 'legoboost.getForce',
-                        default: '[PORT] force (N)',
-                        description: 'force from force sensor'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        }
-                    }
-                },
-                {
-                    opcode: 'isForceSensorPressed',
-                    text: formatMessage({
-                        id: 'legoboost.isForceSensorPressed',
-                        default: '[PORT] force sensor pressed?',
-                        description: 'is force sensor pressed'
-                    }),
-                    blockType: BlockType.BOOLEAN,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        }
-                    }
-                },
-                {
-                    opcode: 'whenForceSensorPressed',
-                    text: formatMessage({
-                        id: 'legoboost.whenForceSensorPressed',
-                        default: 'when [PORT] force sensor pressed',
-                        description: 'when force sensor is pressed'
-                    }),
-                    blockType: BlockType.HAT,
-                    arguments: {
-                        PORT: {
-                            type: ArgumentType.STRING,
-                            menu: 'SENSOR_PORTS',
-                            defaultValue: 'C'
-                        }
-                    }
-                },
-
-                '---', // Separator
-
-                // Tilt sensor
-                {
-                    opcode: 'whenTilted',
-                    text: formatMessage({
-                        id: 'legoboost.whenTilted',
-                        default: 'when tilted [TILT_DIRECTION_ANY]',
-                        description: 'check when tilted in a certain direction'
-                    }),
-                    func: 'isTilted',
-                    blockType: BlockType.HAT,
-                    arguments: {
-                        TILT_DIRECTION_ANY: {
-                            type: ArgumentType.STRING,
-                            menu: 'TILT_DIRECTION_ANY',
-                            defaultValue: BoostTiltDirection.ANY
-                        }
-                    }
-                },
-                {
-                    opcode: 'isTilted',
-                    text: formatMessage({
-                        id: 'legoboost.isTilted',
-                        default: 'tilted [TILT_DIRECTION_ANY]?',
-                        description: 'is the hub tilted in a direction'
-                    }),
-                    blockType: BlockType.BOOLEAN,
-                    arguments: {
-                        TILT_DIRECTION_ANY: {
-                            type: ArgumentType.STRING,
-                            menu: 'TILT_DIRECTION_ANY',
-                            defaultValue: BoostTiltDirection.ANY
-                        }
-                    }
-                },
-                {
-                    opcode: 'getTiltAngle',
-                    text: formatMessage({
-                        id: 'legoboost.getTiltAngle',
-                        default: 'tilt angle [TILT_DIRECTION]',
-                        description: 'the angle returned by the tilt sensor'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                        TILT_DIRECTION: {
-                            type: ArgumentType.STRING,
-                            menu: 'TILT_DIRECTION',
-                            defaultValue: BoostTiltDirection.UP
-                        }
-                    }
-                },
-
-                '---', // Separator
-
-                // Hub control and monitoring
-                {
-                    opcode: 'setLightHue',
-                    text: formatMessage({
-                        id: 'legoboost.setLightHue',
-                        default: 'set light color to [HUE]',
-                        description: 'set the LED color'
-                    }),
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        HUE: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 50
-                        }
-                    }
-                },
-                {
-                    opcode: 'shutdown',
-                    text: formatMessage({
-                        id: 'legoboost.shutdown',
-                        default: 'shutdown hub',
-                        description: 'turn off the hub'
-                    }),
-                    blockType: BlockType.COMMAND
-                },
-                {
-                    opcode: 'whenButtonPressed',
-                    text: formatMessage({
-                        id: 'legoboost.whenButtonPressed',
-                        default: 'when hub button pressed',
-                        description: 'when the hub button is pressed'
-                    }),
-                    blockType: BlockType.HAT
-                },
-                {
-                    opcode: 'isButtonPressed',
-                    text: formatMessage({
-                        id: 'legoboost.isButtonPressed',
-                        default: 'hub button pressed?',
-                        description: 'is the hub button pressed'
-                    }),
-                    blockType: BlockType.BOOLEAN
-                },
-                {
-                    opcode: 'getBatteryLevel',
-                    text: formatMessage({
-                        id: 'legoboost.getBatteryLevel',
-                        default: 'battery level (%)',
-                        description: 'the hub battery level'
-                    }),
-                    blockType: BlockType.REPORTER
-                },
-                {
-                    opcode: 'getFirmwareVersion',
-                    text: formatMessage({
-                        id: 'legoboost.getFirmwareVersion',
-                        default: 'firmware version',
-                        description: 'the hub firmware version'
-                    }),
-                    blockType: BlockType.REPORTER
-                },
-                {
-                    opcode: 'getRSSI',
-                    text: formatMessage({
-                        id: 'legoboost.getRSSI',
-                        default: 'Bluetooth signal strength',
-                        description: 'the Bluetooth signal strength'
-                    }),
-                    blockType: BlockType.REPORTER
-                },
-
-                '---', // Separator
-
-                // Hub alerts
-                {
-                    opcode: 'whenBatteryLow',
-                    text: formatMessage({
-                        id: 'legoboost.whenBatteryLow',
-                        default: 'when battery is low',
-                        description: 'when the battery voltage is low'
-                    }),
-                    blockType: BlockType.HAT
-                },
-                {
-                    opcode: 'whenMotorOverloaded',
-                    text: formatMessage({
-                        id: 'legoboost.whenMotorOverloaded',
-                        default: 'when motor overloaded',
-                        description: 'when a motor is drawing too much current'
-                    }),
-                    blockType: BlockType.HAT
                 }
-            ],
-            menus: {
+            },
+            {
+                opcode: 'motorOnForRotation',
+                text: formatMessageFunction({  
+                    id: 'legoboost.motorOnForRotation',
+                    default: 'turn motor [MOTOR_ID] for [ROTATION] rotations',
+                    description: 'turn a motor on for rotation'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    ROTATION: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 1
+                    }
+                }
+            },
+            {
+                opcode: 'motorRunToPosition',
+                text: formatMessageFunction({  
+                    id: 'legoboost.motorRunToPosition',
+                    default: 'turn motor [MOTOR_ID] to position [POSITION]',
+                    description: 'turn a motor to absolute position'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID_SINGLE',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    POSITION: {
+                        type: ArgumentType.ANGLE,
+                        defaultValue: 0
+                    }
+                }
+            },
+            {
+                opcode: 'motorOn',
+                text: formatMessageFunction({  
+                    id: 'legoboost.motorOn',
+                    default: 'turn motor [MOTOR_ID] on',
+                    description: 'turn a motor on indefinitely'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    }
+                }
+            },
+            {
+                opcode: 'motorOff',
+                text: formatMessageFunction({  
+                    id: 'legoboost.motorOff',
+                    default: 'turn motor [MOTOR_ID] off',
+                    description: 'turn a motor off'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    }
+                }
+            },
+            
+            '---', // Separator
+
+            // Advanced motor control
+            {
+                opcode: 'setMotorPower',
+                text: formatMessageFunction({  
+                    id: 'legoboost.setMotorPower',
+                    default: 'set motor [MOTOR_ID] speed to [POWER] %',
+                    description: 'set the motor speed without turning it on'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.ALL
+                    },
+                    POWER: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 100
+                    }
+                }
+            },
+            {
+                opcode: 'setMotorDirection',
+                text: formatMessageFunction({  
+                    id: 'legoboost.setMotorDirection',
+                    default: 'set motor [MOTOR_ID] direction [MOTOR_DIRECTION]',
+                    description: 'set the motor turn direction without turning it on'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    MOTOR_DIRECTION: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_DIRECTION',
+                        defaultValue: BoostMotorDirection.FORWARD
+                    }
+                }
+            },
+            {
+                opcode: 'setMotorStopAction',
+                text: formatMessageFunction({  
+                    id: 'legoboost.setMotorStopAction',
+                    default: 'set motor [MOTOR_ID] stop action to [ACTION]',
+                    description: 'set how the motor stops'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    ACTION: {
+                        type: ArgumentType.STRING,
+                        menu: 'STOP_ACTION',
+                        defaultValue: 'brake'
+                    }
+                }
+            },
+            {
+                opcode: 'setMotorAcceleration',
+                text: formatMessageFunction({  
+                    id: 'legoboost.setMotorAcceleration',
+                    default: 'set motor [MOTOR_ID] acceleration to [TIME] ms',
+                    description: 'set motor acceleration time'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    TIME: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 300
+                    }
+                }
+            },
+            {
+                opcode: 'setMotorDeceleration',
+                text: formatMessageFunction({  
+                    id: 'legoboost.setMotorDeceleration',
+                    default: 'set motor [MOTOR_ID] deceleration to [TIME] ms',
+                    description: 'set motor deceleration time'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    TIME: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 300
+                    }
+                }
+            },
+            {
+                opcode: 'resetMotorPosition',
+                text: formatMessageFunction({  
+                    id: 'legoboost.resetMotorPosition',
+                    default: 'reset motor [MOTOR_ID] position to [POSITION]',
+                    description: 'reset motor position counter'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    MOTOR_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_ID',
+                        defaultValue: BoostMotorLabel.A
+                    },
+                    POSITION: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 0
+                    }
+                }
+            },
+            {
+                opcode: 'getMotorPosition',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getMotorPosition',
+                    default: 'motor [MOTOR_REPORTER_ID] position',
+                    description: 'the position returned by the motor'
+                }),
+                blockType: BlockType.REPORTER,
+                arguments: {
+                    MOTOR_REPORTER_ID: {
+                        type: ArgumentType.STRING,
+                        menu: 'MOTOR_REPORTER_ID',
+                        defaultValue: BoostMotorLabel.A
+                    }
+                }
+            },
+
+            '---', // Separator
+
+            // Color and distance sensor
+            {
+                opcode: 'whenColor',
+                text: formatMessageFunction({  
+                    id: 'legoboost.whenColor',
+                    default: 'when [PORT] sees [COLOR] brick',
+                    description: 'check for when color'
+                }),
+                blockType: BlockType.HAT,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    },
+                    COLOR: {
+                        type: ArgumentType.STRING,
+                        menu: 'COLOR',
+                        defaultValue: BoostColor.ANY
+                    }
+                }
+            },
+            {
+                opcode: 'seeingColor',
+                text: formatMessageFunction({  
+                    id: 'legoboost.seeingColor',
+                    default: '[PORT] seeing [COLOR] brick?',
+                    description: 'is the color sensor seeing a certain color?'
+                }),
+                blockType: BlockType.BOOLEAN,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    },
+                    COLOR: {
+                        type: ArgumentType.STRING,
+                        menu: 'COLOR',
+                        defaultValue: BoostColor.ANY
+                    }
+                }
+            },
+            {
+                opcode: 'getDistance',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getDistance',
+                    default: '[PORT] distance (mm)',
+                    description: 'distance from color/distance sensor'
+                }),
+                blockType: BlockType.REPORTER,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    }
+                }
+            },
+            {
+                opcode: 'getReflection',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getReflection',
+                    default: '[PORT] reflection (%)',
+                    description: 'reflection from color/distance sensor'
+                }),
+                blockType: BlockType.REPORTER,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    }
+                }
+            },
+
+            '---', // Separator
+
+            // Force sensor
+            {
+                opcode: 'getForce',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getForce',
+                    default: '[PORT] force (N)',
+                    description: 'force from force sensor'
+                }),
+                blockType: BlockType.REPORTER,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    }
+                }
+            },
+            {
+                opcode: 'isForceSensorPressed',
+                text: formatMessageFunction({  
+                    id: 'legoboost.isForceSensorPressed',
+                    default: '[PORT] force sensor pressed?',
+                    description: 'is force sensor pressed'
+                }),
+                blockType: BlockType.BOOLEAN,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    }
+                }
+            },
+            {
+                opcode: 'whenForceSensorPressed',
+                text: formatMessageFunction({  
+                    id: 'legoboost.whenForceSensorPressed',
+                    default: 'when [PORT] force sensor pressed',
+                    description: 'when force sensor is pressed'
+                }),
+                blockType: BlockType.HAT,
+                arguments: {
+                    PORT: {
+                        type: ArgumentType.STRING,
+                        menu: 'SENSOR_PORTS',
+                        defaultValue: 'C'
+                    }
+                }
+            },
+
+            '---', // Separator
+
+            // Tilt sensor
+            {
+                opcode: 'whenTilted',
+                text: formatMessageFunction({  
+                    id: 'legoboost.whenTilted',
+                    default: 'when tilted [TILT_DIRECTION_ANY]',
+                    description: 'check when tilted in a certain direction'
+                }),
+                func: 'isTilted',
+                blockType: BlockType.HAT,
+                arguments: {
+                    TILT_DIRECTION_ANY: {
+                        type: ArgumentType.STRING,
+                        menu: 'TILT_DIRECTION_ANY',
+                        defaultValue: BoostTiltDirection.ANY
+                    }
+                }
+            },
+            {
+                opcode: 'isTilted',
+                text: formatMessageFunction({  
+                    id: 'legoboost.isTilted',
+                    default: 'tilted [TILT_DIRECTION_ANY]?',
+                    description: 'is the hub tilted in a direction'
+                }),
+                blockType: BlockType.BOOLEAN,
+                arguments: {
+                    TILT_DIRECTION_ANY: {
+                        type: ArgumentType.STRING,
+                        menu: 'TILT_DIRECTION_ANY',
+                        defaultValue: BoostTiltDirection.ANY
+                    }
+                }
+            },
+            {
+                opcode: 'getTiltAngle',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getTiltAngle',
+                    default: 'tilt angle [TILT_DIRECTION]',
+                    description: 'the angle returned by the tilt sensor'
+                }),
+                blockType: BlockType.REPORTER,
+                arguments: {
+                    TILT_DIRECTION: {
+                        type: ArgumentType.STRING,
+                        menu: 'TILT_DIRECTION',
+                        defaultValue: BoostTiltDirection.UP
+                    }
+                }
+            },
+
+            '---', // Separator
+
+            // Hub control and monitoring
+            {
+                opcode: 'setLightHue',
+                text: formatMessageFunction({  
+                    id: 'legoboost.setLightHue',
+                    default: 'set light color to [HUE]',
+                    description: 'set the LED color'
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    HUE: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 50
+                    }
+                }
+            },
+            {
+                opcode: 'shutdown',
+                text: formatMessageFunction({  
+                    id: 'legoboost.shutdown',
+                    default: 'shutdown hub',
+                    description: 'turn off the hub'
+                }),
+                blockType: BlockType.COMMAND
+            },
+            {
+                opcode: 'whenButtonPressed',
+                text: formatMessageFunction({  
+                    id: 'legoboost.whenButtonPressed',
+                    default: 'when hub button pressed',
+                    description: 'when the hub button is pressed'
+                }),
+                blockType: BlockType.HAT
+            },
+            {
+                opcode: 'isButtonPressed',
+                text: formatMessageFunction({  
+                    id: 'legoboost.isButtonPressed',
+                    default: 'hub button pressed?',
+                    description: 'is the hub button pressed'
+                }),
+                blockType: BlockType.BOOLEAN
+            },
+            {
+                opcode: 'getBatteryLevel',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getBatteryLevel',
+                    default: 'battery level (%)',
+                    description: 'the hub battery level'
+                }),
+                blockType: BlockType.REPORTER
+            },
+            {
+                opcode: 'getFirmwareVersion',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getFirmwareVersion',
+                    default: 'firmware version',
+                    description: 'the hub firmware version'
+                }),
+                blockType: BlockType.REPORTER
+            },
+            {
+                opcode: 'getRSSI',
+                text: formatMessageFunction({  
+                    id: 'legoboost.getRSSI',
+                    default: 'Bluetooth signal strength',
+                    description: 'the Bluetooth signal strength'
+                }),
+                blockType: BlockType.REPORTER
+            },
+
+            '---', // Separator
+
+            // Hub alerts
+            {
+                opcode: 'whenBatteryLow',
+                text: formatMessageFunction({  
+                    id: 'legoboost.whenBatteryLow',
+                    default: 'when battery is low',
+                    description: 'when the battery voltage is low'
+                }),
+                blockType: BlockType.HAT
+            },
+            {
+                opcode: 'whenMotorOverloaded',
+                text: formatMessageFunction({  
+                    id: 'legoboost.whenMotorOverloaded',
+                    default: 'when motor overloaded',
+                    description: 'when a motor is drawing too much current'
+                }),
+                blockType: BlockType.HAT
+            }
+        ],
+        menus: {
                 MOTOR_ID: {
                     acceptReporters: true,
                     items: [
@@ -1794,7 +1794,7 @@ class Scratch3BoostBlocks {
                     acceptReporters: true,
                     items: [
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.stopAction.float',
                                 default: 'float',
                                 description: 'motor stop action'
@@ -1802,7 +1802,7 @@ class Scratch3BoostBlocks {
                             value: 'float'
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.stopAction.brake',
                                 default: 'brake',
                                 description: 'motor stop action'
@@ -1810,7 +1810,7 @@ class Scratch3BoostBlocks {
                             value: 'brake'
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.stopAction.hold',
                                 default: 'hold',
                                 description: 'motor stop action'
@@ -1823,7 +1823,7 @@ class Scratch3BoostBlocks {
                     acceptReporters: true,
                     items: [
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.motorDirection.forward',
                                 default: 'this way',
                                 description: 'label for forward element in motor direction menu'
@@ -1831,7 +1831,7 @@ class Scratch3BoostBlocks {
                             value: BoostMotorDirection.FORWARD
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.motorDirection.backward',
                                 default: 'that way',
                                 description: 'label for backward element in motor direction menu'
@@ -1839,7 +1839,7 @@ class Scratch3BoostBlocks {
                             value: BoostMotorDirection.BACKWARD
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.motorDirection.reverse',
                                 default: 'reverse',
                                 description: 'label for reverse element in motor direction menu'
@@ -1852,7 +1852,7 @@ class Scratch3BoostBlocks {
                     acceptReporters: true,
                     items: [
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.up',
                                 default: 'up',
                                 description: 'label for up element in tilt direction menu'
@@ -1860,7 +1860,7 @@ class Scratch3BoostBlocks {
                             value: BoostTiltDirection.UP
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.down',
                                 default: 'down',
                                 description: 'label for down element in tilt direction menu'
@@ -1868,7 +1868,7 @@ class Scratch3BoostBlocks {
                             value: BoostTiltDirection.DOWN
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.left',
                                 default: 'left',
                                 description: 'label for left element in tilt direction menu'
@@ -1876,7 +1876,7 @@ class Scratch3BoostBlocks {
                             value: BoostTiltDirection.LEFT
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.right',
                                 default: 'right',
                                 description: 'label for right element in tilt direction menu'
@@ -1889,35 +1889,35 @@ class Scratch3BoostBlocks {
                     acceptReporters: true,
                     items: [
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.up',
                                 default: 'up'
                             }),
                             value: BoostTiltDirection.UP
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.down',
                                 default: 'down'
                             }),
                             value: BoostTiltDirection.DOWN
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.left',
                                 default: 'left'
                             }),
                             value: BoostTiltDirection.LEFT
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.right',
                                 default: 'right'
                             }),
                             value: BoostTiltDirection.RIGHT
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.tiltDirection.any',
                                 default: 'any',
                                 description: 'label for any element in tilt direction menu'
@@ -1930,7 +1930,7 @@ class Scratch3BoostBlocks {
                     acceptReporters: true,
                     items: [
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.red',
                                 default: 'red',
                                 description: 'the color red'
@@ -1938,7 +1938,7 @@ class Scratch3BoostBlocks {
                             value: BoostColor.RED
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.blue',
                                 default: 'blue',
                                 description: 'the color blue'
@@ -1946,7 +1946,7 @@ class Scratch3BoostBlocks {
                             value: BoostColor.BLUE
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.green',
                                 default: 'green',
                                 description: 'the color green'
@@ -1954,7 +1954,7 @@ class Scratch3BoostBlocks {
                             value: BoostColor.GREEN
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.yellow',
                                 default: 'yellow',
                                 description: 'the color yellow'
@@ -1962,7 +1962,7 @@ class Scratch3BoostBlocks {
                             value: BoostColor.YELLOW
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.white',
                                 default: 'white',
                                 description: 'the color white'
@@ -1970,7 +1970,7 @@ class Scratch3BoostBlocks {
                             value: BoostColor.WHITE
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.black',
                                 default: 'black',
                                 description: 'the color black'
@@ -1978,7 +1978,7 @@ class Scratch3BoostBlocks {
                             value: BoostColor.BLACK
                         },
                         {
-                            text: formatMessage({
+                            text: formatMessageFunction({
                                 id: 'legoboost.color.any',
                                 default: 'any color',
                                 description: 'any color'
