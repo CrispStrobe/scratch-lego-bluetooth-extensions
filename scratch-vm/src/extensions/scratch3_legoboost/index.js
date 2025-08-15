@@ -8,6 +8,7 @@ const Base64Util = require('../../util/base64-util');
 const MathUtil = require('../../util/math-util');
 const RateLimiter = require('../../util/rateLimiter.js');
 const log = require('../../util/log');
+const translations = require('./translations.json'); // Import VM translations
 
 /**
  * LEGO Boost Enhanced Extension
@@ -19,9 +20,27 @@ const log = require('../../util/log');
  * - SPIKE Prime Force Sensor compatibility
  * - Advanced hub monitoring and control
  * - Proper LEGO Wireless Protocol 3.0.00 compliance
+ * - Full multilingual support (English, German, French)
  * 
  * Protocol documentation: https://lego.github.io/lego-ble-wireless-protocol-docs/
  */
+
+let formatMessageFunction = messageData => messageData.defaultMessage;
+
+// This is a simplified setup that works with this older extension style
+const setupTranslations = () => {
+    try {
+        const localeSetup = formatMessageFunction.setup();
+        if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+            Object.assign(
+                localeSetup.translations[localeSetup.locale],
+                translations[localeSetup.locale]
+            );
+        }
+    } catch (e) {
+        // Fails silently, which is fine.
+    }
+};
 
 // ============================================================================
 // CONSTANTS AND CONFIGURATION
@@ -1198,19 +1217,30 @@ class Scratch3BoostBlocks {
     constructor (runtime) {
         this.runtime = runtime;
         this._peripheral = new Boost(this.runtime, Scratch3BoostBlocks.EXTENSION_ID);
+        
+        // Set up formatting function for multilingual support
+        if (runtime.formatMessage) {
+            formatMessageFunction = runtime.formatMessage;
+        }
     }
 
     getInfo () {
+        setupTranslations(); // Set up translations before returning block info
+        
         return {
             id: Scratch3BoostBlocks.EXTENSION_ID,
-            name: 'legoboost Enhanced',
+            name: formatMessageFunction({
+                id: 'gui.extension.legoboost.name', // Note: This will fallback as it's in GUI translations
+                default: 'LEGO Boost Enhanced',
+                description: 'Name for the LEGO Boost Enhanced extension'
+            }),
             blockIconURI: iconURI,
             showStatusButton: true,
             blocks: [
                 // Basic motor control
                 {
                     opcode: 'motorOnFor',
-                    text: formatMessage({
+                    text: formatMessageFunction({
                         id: 'legoboost.motorOnFor',
                         default: 'turn motor [MOTOR_ID] for [DURATION] seconds',
                         description: 'turn a motor on for some time'

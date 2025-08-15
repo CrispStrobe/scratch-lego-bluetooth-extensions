@@ -1,0 +1,17 @@
+{
+  "en": {
+    "gui.extension.legoboost.name": "LEGO Boost Hub Extended",
+    "gui.extension.legoboost.description": "Extended extension for LEGO Boost Hub with advanced motor control, multi-sensor support, and enhanced hub monitoring.",
+    "gui.extension.legoboost.connectingMessage": "Connecting to LEGO Boost Hub..."
+  },
+  "de": {
+    "gui.extension.legoboost.name": "LEGO Boost Hub Erweitert",
+    "gui.extension.legoboost.description": "Erweiterte Erweiterung für LEGO Boost Hub mit verbesserter Motorsteuerung, Multi-Sensor-Unterstützung und erweiterte Hub-Überwachung.",
+    "gui.extension.legoboost.connectingMessage": "Verbinde mit LEGO Boost Hub..."
+  },
+  "fr": {
+    "gui.extension.legoboost.name": "LEGO Boost Hub Étendu",
+    "gui.extension.legoboost.description": "Extension étendue pour LEGO Boost Hub avec contrôle moteur avancé, support multi-capteurs et surveillance améliorée du hub.",
+    "gui.extension.legoboost.connectingMessage": "Connexion au LEGO Boost Hub..."
+  }
+}

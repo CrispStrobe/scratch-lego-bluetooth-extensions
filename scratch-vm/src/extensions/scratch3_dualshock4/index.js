@@ -1,8 +1,25 @@
-const ArgumentType = require('../../extension-support/argument-type');
-const BlockType = require('../../extension-support/block-type');
-const Cast = require('../../util/cast');
+import ArgumentType from '../../extension-support/argument-type';
+import BlockType from '../../extension-support/block-type';
+import Cast from '../../util/cast';
+import translations from './translations.json';
 
 const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
+
+let formatMessage = messageData => messageData.defaultMessage;
+
+const setupTranslations = () => {
+    try {
+        const localeSetup = formatMessage.setup();
+        if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+            Object.assign(
+                localeSetup.translations[localeSetup.locale],
+                translations[localeSetup.locale]
+            );
+        }
+    } catch (e) {
+        // Fails silently, which is fine.
+    }
+};
 
 // Universal button mappings for different controller types
 const GAMEPAD_BUTTONS = {
@@ -29,242 +46,184 @@ const GAMEPAD_BUTTONS = {
 class Scratch3GamepadBlocks {
     constructor(runtime) {
         this.runtime = runtime;
-        
-        // Controller state - using same approach as working version
+        if (runtime.formatMessage) {
+            formatMessage = runtime.formatMessage;
+        }
+
         this.activeController = null;
         this.previousButtons = [];
-        
-        // Virtual cursor for advanced features
-        this.virtualCursor = {
-            x: 0,
-            y: 0,
-            maxX: 240,
-            minX: -240,
-            maxY: 180,
-            minY: -180
-        };
+        this.virtualCursor = { x: 0, y: 0, maxX: 240, minX: -240, maxY: 180, minY: -180 };
 
-        console.log('🎮 Universal Gamepad extension initialized');
-        
-        // Start the polling loop - same as working version
-        this._pollGamepads();
+        this.runtime.on('PROJECT_RUN_START', () => {
+            this._startPolling();
+        });
+        this.runtime.on('PROJECT_STOP_ALL', () => {
+            this._stopPolling();
+        });
     }
 
     getInfo() {
+        setupTranslations();
         return {
             id: 'gamepad',
-            name: 'Universal Gamepad',
+            name: formatMessage({id: 'gamepad.name', default: 'Universal Gamepad'}),
             blockIconURI: blockIconURI,
-            showStatusButton: true, // Show connection status
+            showStatusButton: true,
             blocks: [
-                // Connection blocks
                 {
                     opcode: 'isConnected',
-                    text: 'gamepad connected?',
+                    text: formatMessage({id: 'gamepad.isConnected', default: 'gamepad connected?'}),
                     blockType: BlockType.BOOLEAN
                 },
-
                 {
                     opcode: 'getControllerInfo',
-                    text: 'controller name',
+                    text: formatMessage({id: 'gamepad.getControllerInfo', default: 'controller name'}),
                     blockType: BlockType.REPORTER
                 },
-
                 '---',
-
-                // Button blocks - using same pattern as working version
                 {
                     opcode: 'whenButtonPressed',
-                    text: 'when [BUTTON] pressed',
+                    text: formatMessage({id: 'gamepad.whenButtonPressed', default: 'when [BUTTON] pressed'}),
                     blockType: BlockType.HAT,
                     arguments: {
-                        BUTTON: {
-                            type: ArgumentType.STRING,
-                            menu: 'BUTTONS',
-                            defaultValue: 'A'
-                        }
+                        BUTTON: { type: ArgumentType.STRING, menu: 'BUTTONS', defaultValue: 'A' }
                     }
                 },
-
                 {
                     opcode: 'isButtonPressed',
-                    text: '[BUTTON] pressed?',
+                    text: formatMessage({id: 'gamepad.isButtonPressed', default: '[BUTTON] pressed?'}),
                     blockType: BlockType.BOOLEAN,
                     arguments: {
-                        BUTTON: {
-                            type: ArgumentType.STRING,
-                            menu: 'BUTTONS',
-                            defaultValue: 'A'
-                        }
+                        BUTTON: { type: ArgumentType.STRING, menu: 'BUTTONS', defaultValue: 'A' }
                     }
                 },
-
                 '---',
-
-                // Analog stick blocks - keeping better axis handling
                 {
                     opcode: 'getStickValue',
-                    text: '[STICK] stick [AXIS]',
+                    text: formatMessage({id: 'gamepad.getStickValue', default: '[STICK] stick [AXIS]'}),
                     blockType: BlockType.REPORTER,
                     arguments: {
-                        STICK: {
-                            type: ArgumentType.STRING,
-                            menu: 'STICKS',
-                            defaultValue: 'left'
-                        },
-                        AXIS: {
-                            type: ArgumentType.STRING,
-                            menu: 'AXES',
-                            defaultValue: 'x'
-                        }
+                        STICK: { type: ArgumentType.STRING, menu: 'STICKS', defaultValue: 'left' },
+                        AXIS: { type: ArgumentType.STRING, menu: 'AXES', defaultValue: 'x' }
                     }
                 },
-
                 {
                     opcode: 'getStickDirection',
-                    text: '[STICK] stick direction',
+                    text: formatMessage({id: 'gamepad.getStickDirection', default: '[STICK] stick direction'}),
                     blockType: BlockType.REPORTER,
                     arguments: {
-                        STICK: {
-                            type: ArgumentType.STRING,
-                            menu: 'STICKS',
-                            defaultValue: 'left'
-                        }
+                        STICK: { type: ArgumentType.STRING, menu: 'STICKS', defaultValue: 'left' }
                     }
                 },
-
                 '---',
-
-                // Virtual cursor blocks
                 {
                     opcode: 'getCursorX',
-                    text: 'cursor x',
+                    text: formatMessage({id: 'gamepad.getCursorX', default: 'cursor x'}),
                     blockType: BlockType.REPORTER
                 },
-
                 {
                     opcode: 'getCursorY',
-                    text: 'cursor y', 
+                    text: formatMessage({id: 'gamepad.getCursorY', default: 'cursor y'}),
                     blockType: BlockType.REPORTER
                 },
-
                 {
                     opcode: 'setCursorPosition',
-                    text: 'set cursor to x: [X] y: [Y]',
+                    text: formatMessage({id: 'gamepad.setCursorPosition', default: 'set cursor to x: [X] y: [Y]'}),
                     blockType: BlockType.COMMAND,
                     arguments: {
-                        X: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 0
-                        },
-                        Y: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 0
-                        }
+                        X: { type: ArgumentType.NUMBER, defaultValue: 0 },
+                        Y: { type: ArgumentType.NUMBER, defaultValue: 0 }
                     }
                 },
-
                 '---',
-
-                // Vibration blocks
                 {
                     opcode: 'vibrate',
-                    text: 'vibrate for [DURATION] ms at [INTENSITY]%',
+                    text: formatMessage({id: 'gamepad.vibrate', default: 'vibrate for [DURATION] ms at [INTENSITY]%'}),
                     blockType: BlockType.COMMAND,
                     arguments: {
-                        DURATION: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 200
-                        },
-                        INTENSITY: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: 50
-                        }
+                        DURATION: { type: ArgumentType.NUMBER, defaultValue: 200 },
+                        INTENSITY: { type: ArgumentType.NUMBER, defaultValue: 50 }
                     }
                 },
-
                 '---',
-
-                // Debug blocks
                 {
                     opcode: 'showDebugInfo',
-                    text: 'show gamepad debug info',
+                    text: formatMessage({id: 'gamepad.showDebugInfo', default: 'show gamepad debug info'}),
                     blockType: BlockType.COMMAND
                 }
             ],
             menus: {
                 BUTTONS: {
                     acceptReporters: true,
-                    items: [
-                        'A', 'B', 'X', 'Y',
-                        'LB', 'RB', 'LT', 'RT',
-                        'SELECT', 'START', 'LS', 'RS',
-                        'UP', 'DOWN', 'LEFT', 'RIGHT',
-                        'HOME'
-                    ]
+                    items: Object.keys(GAMEPAD_BUTTONS).map(key => ({
+                        text: formatMessage({id: `gamepad.buttons.${key}`, default: key}),
+                        value: key
+                    }))
                 },
                 STICKS: {
                     acceptReporters: true,
-                    items: ['left', 'right']
+                    items: [
+                        {text: formatMessage({id: 'gamepad.sticks.left', default: 'left'}), value: 'left'},
+                        {text: formatMessage({id: 'gamepad.sticks.right', default: 'right'}), value: 'right'}
+                    ]
                 },
                 AXES: {
                     acceptReporters: true,
-                    items: ['x', 'y']
+                    items: [
+                        {text: formatMessage({id: 'gamepad.axes.x', default: 'x-axis'}), value: 'x'},
+                        {text: formatMessage({id: 'gamepad.axes.y', default: 'y-axis'}), value: 'y'}
+                    ]
                 }
             }
         };
     }
 
-    // Polling loop - same as working version
+    _startPolling() {
+        if (this._pollInterval) return;
+        this._pollInterval = setInterval(() => this._pollGamepads(), 16); // ~60 FPS
+    }
+    
+    _stopPolling() {
+        if (!this._pollInterval) return;
+        clearInterval(this._pollInterval);
+        this._pollInterval = null;
+    }
+
     _pollGamepads() {
         try {
             const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
-            this.activeController = null;
-            for (const gamepad of gamepads) {
-                if (gamepad) {
-                    this.activeController = gamepad;
-                    this._updateVirtualCursor(gamepad); // Update cursor with right stick
-                    break; // Use the first available controller
-                }
+            const firstActive = Array.from(gamepads).find(g => g);
+            if (firstActive) {
+                this.activeController = firstActive;
+                this._updateVirtualCursor(this.activeController);
+            } else {
+                this.activeController = null;
             }
         } catch (e) {
-            console.error('Gamepad polling error:', e);
+            this.activeController = null;
         }
-        
-        // Request the next frame
-        requestAnimationFrame(this._pollGamepads.bind(this));
     }
-
-    // Update virtual cursor using right stick - improved version
+    
     _updateVirtualCursor(gamepad) {
-        if (gamepad.axes.length >= 4) {
-            const rightX = this._normalizeAxis(gamepad.axes[2]); // Right stick X
-            const rightY = this._normalizeAxis(gamepad.axes[3]); // Right stick Y
-            
-            const sensitivity = 2;
-            this.virtualCursor.x += rightX * sensitivity;
-            this.virtualCursor.y -= rightY * sensitivity; // Invert Y for natural feel
-            
-            // Clamp to bounds
-            this.virtualCursor.x = Math.max(this.virtualCursor.minX, 
-                Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
-            this.virtualCursor.y = Math.max(this.virtualCursor.minY, 
-                Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
-        }
-    }
+        if (!gamepad) return;
 
-    // Improved axis normalization with deadzone
-    _normalizeAxis(value) {
-        const deadzone = 0.15;
-        if (Math.abs(value) < deadzone) return 0;
+        const leftX = this._normalizeAxis(gamepad.axes[0] || 0);
+        const leftY = this._normalizeAxis(gamepad.axes[1] || 0);
         
-        // Scale to full range accounting for deadzone
-        const sign = value < 0 ? -1 : 1;
-        const normalized = (Math.abs(value) - deadzone) / (1 - deadzone);
-        return sign * normalized;
+        const speed = 5; // Adjust speed as needed
+        this.virtualCursor.x += leftX * speed;
+        this.virtualCursor.y -= leftY * speed; // Y is often inverted
+
+        this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
+        this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
+    }
+    
+    _normalizeAxis(value) {
+        const deadzone = 0.1;
+        if (Math.abs(value) < deadzone) return 0;
+        return (value - Math.sign(value) * deadzone) / (1 - deadzone);
     }
 
-    // Button handling - same working logic as simple version
     whenButtonPressed(args) {
         if (!this.activeController) return false;
         
@@ -274,10 +233,8 @@ class Scratch3GamepadBlocks {
         const wasPressed = this.previousButtons[buttonIndex] || false;
         const isPressed = this.activeController.buttons[buttonIndex]?.pressed || false;
 
-        // Update the previous state for the next check
         this.previousButtons[buttonIndex] = isPressed;
 
-        // Trigger the HAT block only on the rising edge (when it was not pressed, but now is)
         return !wasPressed && isPressed;
     }
 
@@ -288,14 +245,10 @@ class Scratch3GamepadBlocks {
         if (buttonIndex === undefined) return false;
 
         const isPressed = this.activeController.buttons[buttonIndex]?.pressed || false;
-        
-        // We still need to update the previous state even for boolean blocks
         this.previousButtons[buttonIndex] = isPressed;
-
         return isPressed;
     }
 
-    // Connection status
     isConnected() {
         return !!this.activeController;
     }
@@ -305,17 +258,13 @@ class Scratch3GamepadBlocks {
         return this.activeController.id;
     }
 
-    // Improved stick handling
     getStickValue(args) {
         if (!this.activeController) return 0;
         
         const stick = Cast.toString(args.STICK).toLowerCase();
         const axis = Cast.toString(args.AXIS).toLowerCase();
         
-        const stickMap = {
-            'left': { 'x': 0, 'y': 1 },
-            'right': { 'x': 2, 'y': 3 }
-        };
+        const stickMap = { 'left': { 'x': 0, 'y': 1 }, 'right': { 'x': 2, 'y': 3 } };
 
         const stickAxes = stickMap[stick];
         if (!stickAxes) return 0;
@@ -326,7 +275,6 @@ class Scratch3GamepadBlocks {
         const rawValue = this.activeController.axes[axisIndex] || 0;
         const normalizedValue = this._normalizeAxis(rawValue);
         
-        // Scale to Scratch's -100 to 100 range
         return Math.round(normalizedValue * 100);
     }
 
@@ -335,25 +283,22 @@ class Scratch3GamepadBlocks {
         
         const stick = Cast.toString(args.STICK).toLowerCase();
         
-        const stickMap = {
-            'left': { 'x': 0, 'y': 1 },
-            'right': { 'x': 2, 'y': 3 }
-        };
-
+        const stickMap = { 'left': { 'x': 0, 'y': 1 }, 'right': { 'x': 2, 'y': 3 } };
         const stickAxes = stickMap[stick];
         if (!stickAxes) return 0;
 
         const x = this._normalizeAxis(this.activeController.axes[stickAxes.x] || 0);
         const y = this._normalizeAxis(this.activeController.axes[stickAxes.y] || 0);
         
-        // Convert to degrees (0 = right, 90 = up, 180 = left, 270 = down)
+        if (x === 0 && y === 0) return 90; // Default to pointing up
+
         const radians = Math.atan2(-y, x);
-        const degrees = (radians * 180 / Math.PI + 360) % 360;
+        let degrees = radians * 180 / Math.PI;
+        degrees = (degrees + 360) % 360;
         
         return Math.round(degrees);
     }
 
-    // Virtual cursor blocks
     getCursorX() {
         return Math.round(this.virtualCursor.x);
     }
@@ -366,110 +311,43 @@ class Scratch3GamepadBlocks {
         const x = Cast.toNumber(args.X);
         const y = Cast.toNumber(args.Y);
         
-        this.virtualCursor.x = Math.max(this.virtualCursor.minX,
-            Math.min(this.virtualCursor.maxX, x));
-        this.virtualCursor.y = Math.max(this.virtualCursor.minY,
-            Math.min(this.virtualCursor.maxY, y));
+        this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, x));
+        this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, y));
     }
 
-    // Vibration support
     vibrate(args) {
         if (!this.activeController) return;
         
         const duration = Cast.toNumber(args.DURATION);
         const intensity = Cast.toNumber(args.INTENSITY) / 100;
         
-        if (!this.activeController.vibrationActuator) {
-            console.log('⚠️ Vibration not supported on this controller');
+        const actuator = this.activeController.vibrationActuator;
+        if (!actuator) {
+            console.log('Vibration not supported on this controller');
             return;
         }
 
         try {
-            this.activeController.vibrationActuator.playEffect('dual-rumble', {
+            actuator.playEffect('dual-rumble', {
                 duration: duration,
                 weakMagnitude: intensity,
                 strongMagnitude: intensity
             });
-            console.log(`📳 Vibration: ${duration}ms at ${Math.round(intensity*100)}%`);
         } catch (error) {
-            console.log('⚠️ Vibration failed:', error);
+            console.log('Vibration failed:', error);
         }
     }
 
-    // Debug information
     showDebugInfo() {
-        console.log('🎮 UNIVERSAL GAMEPAD DEBUG INFO');
-        console.log('===============================');
-        console.log('');
-        console.log('🔍 Connection Status:');
-        console.log(`   Connected: ${this.isConnected() ? '✅ YES' : '❌ NO'}`);
+        console.log('--- UNIVERSAL GAMEPAD DEBUG INFO ---');
+        console.log(`Connected: ${this.isConnected() ? `YES (${this.activeController.id})` : 'NO'}`);
         
         if (this.activeController) {
-            console.log(`   Controller: ${this.activeController.id}`);
-            console.log(`   Index: ${this.activeController.index}`);
-            console.log(`   Buttons: ${this.activeController.buttons.length}`);
-            console.log(`   Axes: ${this.activeController.axes.length}`);
-            console.log(`   Vibration: ${this.activeController.vibrationActuator ? 'Supported' : 'Not supported'}`);
-            
-            console.log('');
-            console.log('🎮 Current Button States:');
-            Object.entries(GAMEPAD_BUTTONS).forEach(([name, index]) => {
-                if (this.activeController.buttons[index]?.pressed) {
-                    console.log(`   ${name}: PRESSED`);
-                }
-            });
-            
-            console.log('');
-            console.log('🕹️ Analog Stick Values:');
-            const sticks = [
-                { name: 'Left X', index: 0 },
-                { name: 'Left Y', index: 1 },
-                { name: 'Right X', index: 2 },
-                { name: 'Right Y', index: 3 }
-            ];
-            
-            sticks.forEach(stick => {
-                if (this.activeController.axes[stick.index] !== undefined) {
-                    const raw = this.activeController.axes[stick.index];
-                    const normalized = this._normalizeAxis(raw);
-                    if (Math.abs(normalized) > 0.01) {
-                        console.log(`   ${stick.name}: ${normalized.toFixed(2)} (raw: ${raw.toFixed(2)})`);
-                    }
-                }
-            });
-            
-            console.log('');
-            console.log('🖱️ Virtual Cursor:');
-            console.log(`   X: ${this.virtualCursor.x.toFixed(1)}`);
-            console.log(`   Y: ${this.virtualCursor.y.toFixed(1)}`);
+            console.log('Buttons:', this.activeController.buttons.map((b, i) => `${i}:${b.pressed ? 'P' : 'R'}`).join(' '));
+            console.log('Axes:', this.activeController.axes.map(a => a.toFixed(2)).join(', '));
+            console.log(`Cursor: x=${this.virtualCursor.x.toFixed(1)}, y=${this.virtualCursor.y.toFixed(1)}`);
         } else {
-            console.log('');
-            console.log('💡 To use a gamepad:');
-            console.log('   1. Connect any USB or Bluetooth controller');
-            console.log('   2. Press any button to activate it');
-            console.log('   3. Use the gamepad blocks in your project');
-            console.log('');
-            console.log('✅ Supported Controllers:');
-            console.log('   • Xbox controllers (wired/wireless)');
-            console.log('   • PlayStation controllers (DualShock, DualSense)');
-            console.log('   • Nintendo Pro Controller');
-            console.log('   • Most 3rd party USB/Bluetooth gamepads');
-        }
-
-        // Show all detected controllers
-        try {
-            const allGamepads = navigator.getGamepads();
-            const detectedControllers = Array.from(allGamepads).filter(g => g !== null);
-            
-            if (detectedControllers.length > 0) {
-                console.log('');
-                console.log('🎮 All Detected Controllers:');
-                detectedControllers.forEach(gamepad => {
-                    console.log(`   ${gamepad.index}: ${gamepad.id}`);
-                });
-            }
-        } catch (e) {
-            console.log('⚠️ Error detecting controllers:', e);
+            console.log('Connect a controller and press a button to begin.');
         }
     }
 }
