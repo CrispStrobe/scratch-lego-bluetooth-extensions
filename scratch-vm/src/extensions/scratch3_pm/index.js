@@ -1,8 +1,8 @@
-import BlockType from '../../extension-support/block-type';
-import ArgumentType from '../../extension-support/argument-type';
-import Cast from '../../util/cast';
-import MathUtil from '../../util/math-util';
-import translations from './translations.json'; // This now works!
+const BlockType = require('../../extension-support/block-type');
+const ArgumentType = require('../../extension-support/argument-type');
+const Cast = require('../../util/cast');
+const MathUtil = require('../../util/math-util');
+const translations = require('./translations.json');
 
 let formatMessage = messageData => messageData.defaultMessage;
 
@@ -538,4 +538,5 @@ class Scratch3PMBlocks {
     }
 }
 
+exports.blockClass = Scratch3GamepadBlocks;
 module.exports = Scratch3PMBlocks;
