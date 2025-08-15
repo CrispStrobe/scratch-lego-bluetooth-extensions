@@ -1,122 +1,134 @@
 /**
- * Register an extension in the local Scratch
+ * Register an extension in the local Scratch environment.
+ * This script is designed to be robust, cross-platform, and idempotent.
+ * It handles existing files/symlinks by overwriting them and will fall back
+ * to copying if creating a symbolic link fails.
  */
 
 const path = require('path');
 const fs = require('fs');
-const { execSync } = require('child_process')
+const { execSync } = require('child_process');
 
+/**
+ * A robust, cross-platform function to recursively copy a directory.
+ * It ensures the destination is clean before copying.
+ * @param {string} source - The source directory path.
+ * @param {string} destination - The destination directory path.
+ */
+function copyDirRobust(source, destination) {
+    try {
+        // Ensure the source directory exists before attempting to copy.
+        if (!fs.existsSync(source)) {
+            console.error(`Source directory does not exist: ${source}`);
+            return;
+        }
+
+        // Clean the destination path completely before copying.
+        // This handles both existing directories and symbolic links.
+        fs.rmSync(destination, { recursive: true, force: true });
+
+        // Use Node's modern, built-in recursive copy function.
+        fs.cpSync(source, destination, { recursive: true });
+        console.log(`Copied directory: ${source} -> ${destination}`);
+    } catch (error) {
+        console.error(`Failed to copy directory from ${source} to ${destination}.`);
+        console.error(error);
+        // In a build script, it's often best to exit on failure.
+        process.exit(1);
+    }
+}
+
+/**
+ * Attempts to create a symbolic link, but gracefully falls back to copying if it fails.
+ * This is crucial for environments like Windows where creating symlinks can require special permissions.
+ * @param {string} target - The original directory to link to.
+ * @param {string} linkPath - The path where the symbolic link should be created.
+ */
+function makeSymbolicLinkOrCopy(target, linkPath) {
+    try {
+        // First, ensure the target for the link actually exists.
+        if (!fs.existsSync(target)) {
+            console.error(`Target for symlink does not exist: ${target}`);
+            return;
+        }
+        // Clean the destination path to prevent errors.
+        fs.rmSync(linkPath, { recursive: true, force: true });
+
+        // Attempt to create the symbolic link.
+        fs.symlinkSync(target, linkPath, 'dir');
+        console.log(`Created link: ${linkPath} -> ${target}`);
+    } catch (error) {
+        console.warn(`WARN: Failed to create symbolic link from ${linkPath} to ${target}.`);
+        console.warn(`WARN: Error was: ${error.message}`);
+        console.warn('WARN: Falling back to copying the directory instead.');
+        
+        // If symlinking fails, fall back to a robust copy.
+        copyDirRobust(target, linkPath);
+    }
+}
+
+/**
+ * Parses command-line arguments into a key-value object.
+ * Supports flags (-f), long args (--foo=bar), and long flags (--foo).
+ */
 function getArgs() {
     const args = {};
-    process.argv
-        .slice(2, process.argv.length)
-        .forEach(arg => {
-            if (arg.slice(0, 2) === '--') {
-                // long arg
-                const longArg = arg.split('=');
-                const longArgFlag = longArg[0].slice(2, longArg[0].length);
-                const longArgValue = longArg.length > 1 ? longArg[1] : true;
-                args[longArgFlag] = longArgValue;
-            }
-            else if (arg[0] === '-') {
-                // flags
-                const flags = arg.slice(1, arg.length).split('');
-                flags.forEach(flag => {
-                    args[flag] = true;
-                });
-            }
-        });
+    process.argv.slice(2).forEach(arg => {
+        if (arg.slice(0, 2) === '--') {
+            const [key, value] = arg.slice(2).split('=');
+            args[key] = value === undefined ? true : value;
+        } else if (arg[0] === '-') {
+            arg.slice(1).split('').forEach(flag => {
+                args[flag] = true;
+            });
+        }
+    });
     return args;
 }
 
+// --- Main Script Execution ---
+
 const args = getArgs();
 
-// Make symbolic link
-function makeSymbolickLink(to, from) {
-    try {
-        const stats = fs.lstatSync(from);
-        if (stats.isSymbolicLink()) {
-            if (fs.readlinkSync(from) === to) {
-                console.log(`Already exists link: ${from} -> ${fs.readlinkSync(from)}`);
-                return;
-            }
-            fs.unlink(from);
-        } else {
-            if (process.platform === 'win32') {
-                execSync(`rd /s /q ${from}`);
-            } else {
-                execSync(`rm -r ${from}`);
-                // fs.renameSync(from, `${from}~`);
-            }
-        }
-    } catch (err) {
-        // File not esists.
-    }
-    fs.symlinkSync(to, from);
-    console.log(`Make link: ${from} -> ${fs.readlinkSync(from)}`);
-}
-
-// Copy directory after delete old one.
-function copyDir(from, to) {
-    try {
-        const stats = fs.lstatSync(to);
-        if (stats.isSymbolicLink()) {
-            fs.unlinkSync(to);
-        } else {
-            if (process.platform === 'win32') {
-                execSync(`rd /s /q ${to}`);
-            } else {
-                execSync(`rm -r ${to}`);
-                // fs.renameSync(to, `${to}~`);
-            }
-        }
-    } catch (err) {
-        // File not esists.
-    }
-    if (process.platform === 'win32') {
-        execSync(`xcopy ${from} ${to} /I /Y`);
-    } else {
-        execSync(`mkdir -p ${to} && cp -r ${path.join(from, '*')} ${to}`);
-    }
-
-    console.log(`copy dir ${from} -> ${to}`);
-}
-
 if (!args['id']) {
-    process.stderr.write('"--id <extensionID>" is not set\n');
+    console.error('Error: "--id <extensionID>" is a required argument.');
     process.exit(1);
-} 
+}
 
 const ExtId = args['id'];
+const ExtDirName = args['dir'] || ExtId;
 
-const ExtDirName = args['dir'] ?
-    args['dir'] :
-    ExtId;
+// Resolve all necessary paths
+const Cwd = process.cwd();
+const GuiRoot = args['gui'] ? path.resolve(Cwd, args['gui']) : path.resolve(Cwd, '../scratch-gui');
+const VmRoot = args['vm'] ? path.resolve(Cwd, args['vm']) : path.resolve(GuiRoot, './node_modules/scratch-vm');
 
-const GuiRoot = args['gui'] ?
-    path.resolve(process.cwd(), args['gui']) :
-    path.resolve(process.cwd(), '../scratch-gui');
-const VmRoot = args['vm'] ?
-    path.resolve(process.cwd(), args['vm']) :
-    path.resolve(GuiRoot, './node_modules/scratch-vm');
-
-const ExtBlockPath = args['block'] ?
-    path.resolve(process.cwd(), args['block']) :
-    path.resolve(process.cwd(), './src/block');
-
-const ExtEntryPath = args['entry'] ?
-    path.resolve(process.cwd(), args['entry']) :
-    path.resolve(process.cwd(), './src/entry');
+const ExtBlockPath = args['block'] ? path.resolve(Cwd, args['block']) : path.resolve(Cwd, './src/block');
+const ExtEntryPath = args['entry'] ? path.resolve(Cwd, args['entry']) : path.resolve(Cwd, './src/entry');
 
 const VmExtDirPath = path.resolve(VmRoot, `src/extensions/scratch3_${ExtDirName}`);
 const GuiExtDirPath = path.resolve(GuiRoot, `src/lib/libraries/extensions/${ExtDirName}`);
 
+// Decide whether to link or copy based on the --link flag
+if (args['link']) {
+    console.log('Attempting to create symbolic links...');
+    makeSymbolicLinkOrCopy(ExtBlockPath, VmExtDirPath);
+    makeSymbolicLinkOrCopy(ExtEntryPath, GuiExtDirPath);
+} else {
+    console.log('Copying extension files...');
+    copyDirRobust(ExtBlockPath, VmExtDirPath);
+    copyDirRobust(ExtEntryPath, GuiExtDirPath);
+}
+
+// --- The rest of the script remains largely the same, modifying config files ---
+
 const EntryFile = path.resolve(GuiExtDirPath, './index.jsx');
 const BlockFile = path.resolve(VmExtDirPath, './index.js');
-
 const VmExtManagerFile = path.resolve(VmRoot, './src/extension-support/extension-manager.js');
 const VmVirtualMachineFile = path.resolve(VmRoot, './src/virtual-machine.js');
 const GuiExtIndexFile = path.resolve(GuiRoot, './src/lib/libraries/extensions/index.jsx');
+
+// (The following sections for patching and modifying configs are unchanged)
 
 // Applay patch if it was not Xcratch
 if (args['base'] === 'LLK') {
@@ -128,18 +140,6 @@ if (args['base'] === 'LLK') {
     } catch (err) {
         console.error(err);
     }
-}
-
-if (args['link']) {
-    // Make symbolic link in scratch-vm. 
-    makeSymbolickLink(ExtBlockPath, VmExtDirPath);
-    // Make symbolic link in scratch-gui. 
-    makeSymbolickLink(ExtEntryPath, GuiExtDirPath);
-} else {
-    // Copy block dir to scratch-vm. 
-    copyDir(ExtBlockPath, VmExtDirPath);
-    // Copy entry dir in scratch-gui. 
-    copyDir(ExtEntryPath, GuiExtDirPath);
 }
 
 // Replace URL in entry and block code.
