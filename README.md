@@ -38,3 +38,4 @@ Bluetooth Classic (SPP)
 
 also (not LEGO but useful):
 - Gamepad (universal controller support): https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/gamepad.mjs
+- Planet Maths (from CodePM by https://www.ac-grenoble.fr/maths): https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/planetemaths.mjs
