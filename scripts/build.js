@@ -3,7 +3,8 @@
 
 /**
  * Build a module from the code using a local Scratch environment.
- * This script is designed to be robust, with clear logging and path validation.
+ * This script is designed to be robust, with clear logging, path validation,
+ * and proper CommonJS to ES Module conversion.
  */
 const path = require('path');
 const fs = require('fs-extra');
@@ -73,7 +74,6 @@ async function build() {
 
     fs.ensureDirSync(outputDir);
 
-    // Define temporary working directories for the build process
     const blockWorkingDir = path.resolve(VmRoot, `src/extensions/_${moduleName}`);
     const entryWorkingDir = path.resolve(GuiRoot, `src/lib/libraries/extensions/_${moduleName}`);
     const blockFile = path.resolve(blockWorkingDir, 'index.js');
@@ -82,34 +82,18 @@ async function build() {
 
     logStep('2/5: PREPARING SOURCE FILES FOR BUILD');
     try {
-        // Copy sources to temporary working directories. `dereference` is important for symlinks.
         fs.copySync(extSrcDir, blockWorkingDir, { dereference: true });
         fs.copySync(entrySrcDir, entryWorkingDir);
-        console.log('Copied source files to temporary working directories:');
-        console.log(`  - ${blockWorkingDir}`);
-        console.log(`  - ${entryWorkingDir}`);
+        console.log('Copied source files to temporary working directories.');
     } catch (error) {
         console.error('🔴 ERROR: Failed to copy source files.');
         throw error;
     }
     
-    logStep('3/5: TRANSFORMING SOURCE CODE');
+    logStep('3/5: TRANSFORMING SOURCE CODE (if necessary)');
     try {
         let blockCode = fs.readFileSync(blockFile, 'utf-8');
         let entryCode = fs.readFileSync(entryFile, 'utf-8');
-
-        // Inline translations.json if it exists
-        const translationsFile = path.resolve(blockWorkingDir, './translations.json');
-        if (fs.existsSync(translationsFile)) {
-            const translationsContent = fs.readFileSync(translationsFile, 'utf-8');
-            const translationsCode = `const translations = ${translationsContent};`;
-            blockCode = blockCode.replace(/const\s+translations\s*=\s*require\(['"]\.\/translations\.json['"]\);?/, translationsCode);
-            console.log('Inlined translations.json content.');
-        }
-
-        // Transform `module.exports = ...` to `exports.blockClass = ...` for Rollup compatibility
-        blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'exports.blockClass = $1;');
-        console.log('Transformed module.exports statement.');
 
         // Replace URL placeholders if provided
         if (options['url']) {
@@ -119,7 +103,6 @@ async function build() {
             blockCode = blockCode.replace(/let\s+extensionURL\s+=\s+[^;]+;/gm, `let extensionURL = '${url}';`);
         }
 
-        // Write transformed code back to the working files
         fs.writeFileSync(blockFile, blockCode);
         fs.writeFileSync(entryFile, entryCode);
         console.log('✅ Source code transformations complete.');
@@ -136,7 +119,11 @@ async function build() {
                 multi(),
                 json(),
                 importImage(),
-                commonjs(),
+                // ** THIS IS THE KEY FIX **
+                // Configure the commonjs plugin to correctly handle various module export styles.
+                commonjs({
+                    transformMixedEsModules: true,
+                }),
                 nodeGlobals(),
                 nodePolifills(),
                 nodeResolve({
@@ -173,7 +160,6 @@ async function build() {
     };
 
     try {
-        // Change directory to ensure Rollup resolves dependencies correctly relative to the project root
         process.chdir(path.resolve(__dirname, '../'));
         const bundle = await rollup.rollup(rollupOptions.inputOptions);
         await bundle.write(rollupOptions.outputOptions);
