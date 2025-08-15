@@ -6,16 +6,43 @@ const translations = require('./translations.json');
 const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
 
 // Robust fallback formatMessage that actually uses translations
-let currentLocale = 'en';
+// Detect browser locale automatically
+let currentLocale = (function() {
+    // Try multiple ways to detect locale
+    const browserLocale = 
+        navigator.language ||           // Most browsers
+        navigator.userLanguage ||       // IE
+        navigator.browserLanguage ||    // Old browsers
+        'en';                          // Fallback
+    
+    // Extract just the language part (de-DE -> de)
+    const lang = browserLocale.split('-')[0].toLowerCase();
+    
+    // Check if we have translations for this language
+    if (translations[lang]) {
+        console.log('Auto-detected locale:', lang, 'from browser locale:', browserLocale);
+        return lang;
+    }
+    
+    console.log('Browser locale', browserLocale, 'not available, using English');
+    return 'en';
+})();
 
 let formatMessage = function(messageData, args) {
+    console.log('formatMessage called with:', messageData, 'args:', args);
+    console.log('Current locale:', currentLocale);
+    console.log('Available translations:', Object.keys(translations));
+    console.log('translations object:', translations); // Show the full object
+    
     // Handle string input
     if (typeof messageData === 'string') {
+        console.log('String input, returning as-is:', messageData);
         return messageData;
     }
     
     // Handle null/undefined
     if (!messageData) {
+        console.log('Null/undefined input, returning Missing text');
         return 'Missing text';
     }
     
@@ -23,32 +50,58 @@ let formatMessage = function(messageData, args) {
     if (typeof messageData === 'object') {
         let message;
         
+        console.log('Object input, ID:', messageData.id);
+        console.log('Translations for current locale exist:', !!(translations[currentLocale]));
+        
+        if (translations[currentLocale]) {
+            console.log('Available translation keys for', currentLocale + ':', Object.keys(translations[currentLocale]));
+            console.log('Looking for key:', messageData.id);
+            console.log('Key exists:', !!(translations[currentLocale][messageData.id]));
+            if (translations[currentLocale][messageData.id]) {
+                console.log('Found translation:', translations[currentLocale][messageData.id]);
+            }
+        }
+        
         // Try to get translation first
         if (messageData.id && translations[currentLocale] && translations[currentLocale][messageData.id]) {
             message = translations[currentLocale][messageData.id];
+            console.log('✅ Found translation for', messageData.id, ':', message);
         } else {
             // Fall back to defaultMessage, then default, then id
             message = messageData.defaultMessage || messageData.default || messageData.id || 'Missing text';
+            console.log('❌ No translation found, using fallback:', message);
+            console.log('Fallback sources - defaultMessage:', messageData.defaultMessage, 'default:', messageData.default, 'id:', messageData.id);
         }
         
         // Simple placeholder replacement: [KEY] -> args.KEY
         if (args && typeof message === 'string') {
+            const originalMessage = message;
             message = message.replace(/\[([^\]]+)\]/g, (match, key) => {
-                return args.hasOwnProperty(key) ? String(args[key]) : match;
+                const replacement = args.hasOwnProperty(key) ? String(args[key]) : match;
+                console.log('Placeholder replacement:', match, '->', replacement);
+                return replacement;
             });
+            if (originalMessage !== message) {
+                console.log('Message after placeholder replacement:', message);
+            }
         }
         
+        console.log('🎯 Final message returned:', message);
         return message;
     }
     
+    console.log('Unknown input type, returning Missing text');
     return 'Missing text';
 };
 
 // Add setup function to the fallback formatMessage
 formatMessage.setup = function(options) {
+    console.log('formatMessage.setup called with:', options);
     if (options && options.locale) {
+        console.log('Setting locale from', currentLocale, 'to', options.locale);
         currentLocale = options.locale;
     }
+    console.log('Setup complete. Current locale:', currentLocale);
     return {
         locale: currentLocale,
         translations: translations
@@ -57,15 +110,28 @@ formatMessage.setup = function(options) {
 
 // Setup translations function - tries to work with format-message if available
 const setupTranslations = () => {
+    console.log('setupTranslations called');
+    console.log('formatMessage.setup exists:', typeof formatMessage.setup);
+    
     try {
         const localeSetup = formatMessage.setup();
+        console.log('formatMessage.setup() returned:', localeSetup);
+        
         if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+            console.log('Trying to assign translations for locale:', localeSetup.locale);
+            console.log('Available translation locales:', Object.keys(translations));
+            console.log('Translation keys to assign:', translations[localeSetup.locale] ? Object.keys(translations[localeSetup.locale]) : 'none');
+            
             Object.assign(
                 localeSetup.translations[localeSetup.locale],
                 translations[localeSetup.locale]
             );
+            console.log('Translations assigned successfully');
+        } else {
+            console.log('No translation setup possible - localeSetup:', localeSetup);
         }
     } catch (e) {
+        console.log('setupTranslations failed with error:', e);
         // Fails silently, which is fine.
     }
 };
@@ -96,6 +162,12 @@ class Scratch3GamepadBlocks {
     constructor(runtime) {
         this.runtime = runtime;
         
+        console.log('🚀 Gamepad extension constructor called');
+        console.log('🌍 Browser locale detection:', navigator.language, navigator.userLanguage, navigator.browserLanguage);
+        console.log('🎯 Selected locale:', currentLocale);
+        console.log('📚 Available translation locales:', Object.keys(translations));
+        console.log('🔧 translations object structure:', translations);
+        
         // Test if runtime.formatMessage works properly before using it
         if (runtime.formatMessage) {
             try {
@@ -103,15 +175,15 @@ class Scratch3GamepadBlocks {
                 // If it returns the ID instead of defaultMessage, it's broken
                 if (testResult === 'test' || (testResult && testResult.includes('test'))) {
                     formatMessage = runtime.formatMessage;
-                    console.log('Using runtime.formatMessage');
+                    console.log('✅ Using runtime.formatMessage');
                 } else {
-                    console.log('runtime.formatMessage is broken (returns IDs), using fallback');
+                    console.log('❌ runtime.formatMessage is broken (returns IDs), using fallback');
                 }
             } catch (e) {
-                console.log('runtime.formatMessage test failed, using fallback');
+                console.log('❌ runtime.formatMessage test failed, using fallback');
             }
         } else {
-            console.log('No runtime.formatMessage available, using fallback');
+            console.log('⚠️ No runtime.formatMessage available, using fallback');
         }
 
         this.activeController = null;
@@ -127,7 +199,20 @@ class Scratch3GamepadBlocks {
     }
 
     getInfo() {
+        console.log('=== getInfo() called ===');
         setupTranslations();
+        
+        // Test German translation access
+        console.log('Testing German locale access...');
+        console.log('German translations available:', !!(translations.de));
+        if (translations.de) {
+            console.log('German translation for gamepad.name:', translations.de['gamepad.name']);
+        }
+        
+        // To test German, you can manually set locale (remove this after testing):
+        // currentLocale = 'de';
+        // console.log('Manually set locale to German for testing');
+        
         return {
             id: 'gamepad',
             name: formatMessage({id: 'gamepad.name', defaultMessage: 'Universal Gamepad'}),
@@ -214,6 +299,14 @@ class Scratch3GamepadBlocks {
                     opcode: 'showDebugInfo',
                     text: formatMessage({id: 'gamepad.showDebugInfo', defaultMessage: 'show gamepad debug info'}),
                     blockType: BlockType.COMMAND
+                },
+                {
+                    opcode: 'setLocale',
+                    text: formatMessage({id: 'gamepad.setLocale', defaultMessage: 'set language to [LOCALE]'}),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        LOCALE: { type: ArgumentType.STRING, menu: 'LOCALES', defaultValue: 'en' }
+                    }
                 }
             ],
             menus: {
@@ -236,6 +329,13 @@ class Scratch3GamepadBlocks {
                     items: [
                         {text: formatMessage({id: 'gamepad.axes.x', defaultMessage: 'x-axis'}), value: 'x'},
                         {text: formatMessage({id: 'gamepad.axes.y', defaultMessage: 'y-axis'}), value: 'y'}
+                    ]
+                },
+                LOCALES: {
+                    acceptReporters: true,
+                    items: [
+                        {text: 'English', value: 'en'},
+                        {text: 'Deutsch', value: 'de'}
                     ]
                 }
             }
@@ -406,13 +506,38 @@ class Scratch3GamepadBlocks {
         console.log('--- UNIVERSAL GAMEPAD DEBUG INFO ---');
         console.log(`Connected: ${this.isConnected() ? `YES (${this.activeController.id})` : 'NO'}`);
         
+        // Add translation debug info
+        console.log('--- TRANSLATION DEBUG INFO ---');
+        console.log('Current locale:', currentLocale);
+        console.log('Available translation locales:', Object.keys(translations));
+        console.log('formatMessage type:', typeof formatMessage);
+        console.log('formatMessage.setup exists:', typeof formatMessage.setup);
+        
+        // Test translation lookup
+        const testMessage = formatMessage({id: 'gamepad.name', defaultMessage: 'Universal Gamepad'});
+        console.log('Test message result:', testMessage);
+        
         if (this.activeController) {
+            console.log('--- CONTROLLER INFO ---');
             console.log('Buttons:', this.activeController.buttons.map((b, i) => `${i}:${b.pressed ? 'P' : 'R'}`).join(' '));
             console.log('Axes:', this.activeController.axes.map(a => a.toFixed(2)).join(', '));
             console.log(`Cursor: x=${this.virtualCursor.x.toFixed(1)}, y=${this.virtualCursor.y.toFixed(1)}`);
         } else {
             console.log('Connect a controller and press a button to begin.');
         }
+    }
+    
+    // Test method to change locale (for debugging)
+    setLocale(args) {
+        const locale = Cast.toString(args.LOCALE);
+        console.log('Setting locale from', currentLocale, 'to', locale);
+        currentLocale = locale;
+        
+        // Test the new locale
+        const testMessage = formatMessage({id: 'gamepad.name', defaultMessage: 'Universal Gamepad'});
+        console.log('Test message with new locale:', testMessage);
+        
+        return `Locale set to ${locale}. Test message: ${testMessage}`;
     }
 }
 
