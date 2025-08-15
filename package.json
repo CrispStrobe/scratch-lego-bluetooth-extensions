@@ -16,7 +16,7 @@
     "register:legoluigi": "node ./scripts/register.js --link -C --id=\"legoluigi\" --block=\"./scratch-vm/src/extensions/scratch3_legoluigi\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legoluigi\" --gui=\"../scratch-gui\"",
     "register:legopeach": "node ./scripts/register.js --link -C --id=\"legopeach\" --block=\"./scratch-vm/src/extensions/scratch3_legopeach\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legopeach\" --gui=\"../scratch-gui\"",
     "register:spikeprime": "node ./scripts/register.js -C --id=\"spikeprime\" --block=\"./scratch-vm/src/extensions/scratch3_spikeprime\" --entry=\"./scratch-gui/src/lib/libraries/extensions/spikeprime\" --gui=\"../scratch-gui\"",
-    "register:dualshock4": "node ./scripts/register.js -C --id=\"dualshock4\" --block=\"./scratch-vm/src/extensions/scratch3_dualshock4\" --entry=\"./scratch-gui/src/lib/libraries/extensions/dualshock4\" --gui=\"../scratch-gui\"",
+    "register:gamepad": "node ./scripts/register.js -C --id=\"dualshock4\" --block=\"./scratch-vm/src/extensions/scratch3_dualshock4\" --entry=\"./scratch-gui/src/lib/libraries/extensions/dualshock4\" --gui=\"../scratch-gui\"",
     "build": "npm run build:legoble && npm run build:spikeessential && npm run build:legoremote && npm run build:controlplus && npm run build:poweredup && npm run build:duplotrain && npm run build:legopeach && npm run build:legoluigi && npm run build:legomario && npm run build:spikeprime && npm run build:dualshock4",
     "build:pm": "node ./scripts/build.js --module=\"planetemaths\" --block=\"scratch-vm/src/extensions/scratch3_pm\" --entry=\"scratch-gui/src/lib/libraries/extensions/pm\" --gui=\"../scratch-gui\"",
     "build:legoble": "node ./scripts/build.js --module=\"legoble\" --block=\"scratch-vm/src/extensions/scratch3_legoble\" --entry=\"scratch-gui/src/lib/libraries/extensions/legoble\" --gui=\"../scratch-gui\"",
@@ -30,7 +30,7 @@
     "build:legoluigi": "node ./scripts/build.js --module=\"legoluigi\" --block=\"scratch-vm/src/extensions/scratch3_legoluigi\" --entry=\"scratch-gui/src/lib/libraries/extensions/legoluigi\" --gui=\"../scratch-gui\"",
     "build:legopeach": "node ./scripts/build.js --module=\"legopeach\" --block=\"scratch-vm/src/extensions/scratch3_legopeach\" --entry=\"scratch-gui/src/lib/libraries/extensions/legopeach\" --gui=\"../scratch-gui\"",
     "build:spikeprime": "node ./scripts/build.js --module=\"spikeprime\" --block=\"scratch-vm/src/extensions/scratch3_spikeprime\" --entry=\"scratch-gui/src/lib/libraries/extensions/spikeprime\" --gui=\"../scratch-gui\"",
-    "build:dualshock4": "node ./scripts/build.js --module=\"dualshock4\" --block=\"scratch-vm/src/extensions/scratch3_dualshock4\" --entry=\"scratch-gui/src/lib/libraries/extensions/dualshock4\" --gui=\"../scratch-gui\"",
+    "build:gamepad": "node ./scripts/build.js --module=\"dualshock4\" --block=\"scratch-vm/src/extensions/scratch3_dualshock4\" --entry=\"scratch-gui/src/lib/libraries/extensions/dualshock4\" --gui=\"../scratch-gui\"",
     "start": "cd ../scratch-gui && npm run start"
   },
   "repository": {

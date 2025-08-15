@@ -161,41 +161,25 @@ async function build() {
     console.log(`Block: file = ${blockFile}`);
     let blockCode = fs.readFileSync(blockFile, 'utf-8');
     
-    if (options['debug']) {
-        console.log('\n--- TRANSFORMING BLOCK CODE ---');
-        console.log('Original Code (first 250 chars):');
-        console.log(blockCode.substring(0, 250) + '...');
-    }
-    
-    // --- HANDLE translations.json ---
+    // --- Step 1: Handle translations.json BEFORE other transformations ---
     const translationsFile = path.resolve(blockWorkingDir, './translations.json');
-    const translationsCode = `const translations = ${fs.readFileSync(translationsFile, 'utf-8')};`;
-    blockCode = blockCode.replace(/import\s+translations\s+from\s+['"]\.\/translations\.json['"];?/gm, translationsCode);
-    blockCode = blockCode.replace(/const\s+translations\s*=\s*require\(['"]\.\/translations\.js['"]\);?/gm, translationsCode);
-
-    // Convert require statements to import statements
-    const newBlockCode = blockCode.replace(/const\s+(\w+)\s*=\s*require\(['"]([^'"]+)['"]\);?/gm, 'import $1 from \'$2\';');
-    if (options['debug'] && newBlockCode !== blockCode) {
-        console.log('\nStep 1: Converted require() to import...');
-        blockCode = newBlockCode;
-    }
-    
-    // Convert module.exports to proper ES module export
-    const finalBlockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'export { $1 as blockClass };');
-    if (options['debug'] && finalBlockCode !== blockCode) {
-        console.log('Step 2: Converted module.exports to export...');
-        blockCode = finalBlockCode;
-    } else {
-        blockCode = finalBlockCode; // Ensure the final code is always assigned
+    if (fs.existsSync(translationsFile)) {
+        const translationsContent = fs.readFileSync(translationsFile, 'utf-8');
+        const translationsCode = `const translations = ${translationsContent};`;
+        // Find and replace the specific require statement for translations.json
+        blockCode = blockCode.replace(
+            /const\s+translations\s*=\s*require\(['"]\.\/translations\.json['"]\);?/,
+            translationsCode
+        );
     }
 
-    if (options['debug']) {
-        console.log('\nFinal Transformed Code (first 250 chars):');
-        console.log(blockCode.substring(0, 250) + '...');
-        console.log('--- END TRANSFORMATION ---\n');
-    }
+    // --- Step 2: Use the ORIGINAL script's logic for exports ---
+    // This is the key line from the original script. It prepares the file for the commonjs plugin.
+    blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'exports.blockClass = $1;');
     
     fs.writeFileSync(blockFile, blockCode);
+
+    // --- The rest of the script remains the same ---
 
     // Replace URL in entry and block code.
     if (options['url']) {
@@ -209,34 +193,17 @@ async function build() {
         console.log(`Entry: extensionURL = ${url}`);
 
         // Replace URL in block
+        blockCode = fs.readFileSync(blockFile, 'utf-8'); // Re-read the file after previous changes
         blockCode = blockCode.replace(/let\s+extensionURL\s+=\s+[^;]+;/gm, `let extensionURL = '${url}';`);
         fs.writeFileSync(blockFile, blockCode);
         console.log(`Block: extensionURL = ${url}`);
     }
 
-
     // Build module.
     console.log('\nstart to build module ...');
-    process.chdir(path.resolve(__dirname, '../')); // This need to use @babel/preset-env etc. in the local node_modules.
+    process.chdir(path.resolve(__dirname, '../'));
     const bundle = await rollup.rollup(rollupOptions.inputOptions);
-    if (options['debug']) {
-        console.log('\n--- ROLLUP DEBUG INFO ---');
-        console.log('Content files bundled:');
-        bundle.watchFiles.forEach(fileName => console.log(`  - ${path.basename(fileName)}`)); // an array of file names this bundle depends on
-        console.log('--- END ROLLUP INFO ---\n');
-        
-        // show contents of the module - this part is already good
-        bundle.generate(rollupOptions.outputOptions)
-            .then(res => {
-                for (const chunkOrAsset of res.output) {
-                    if (chunkOrAsset.type === 'asset') {
-                        console.log('Asset', chunkOrAsset);
-                    } else {
-                        console.log('Chunk', chunkOrAsset.modules);
-                    }
-                }
-            })
-    }
+    
     // write the bundle to disk
     await bundle.write(rollupOptions.outputOptions);
     console.log(`\n✅ Success to build module: ${moduleFile}`);

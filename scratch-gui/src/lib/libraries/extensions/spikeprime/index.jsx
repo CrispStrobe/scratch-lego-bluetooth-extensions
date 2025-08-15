@@ -1,38 +1,55 @@
-import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import translations from './translations.json';
 import spikeprimeIconURL from './spikeprime.png';
 import spikeprimeInsetIconURL from './spikeprime-small.svg';
 import spikeprimeConnectionIconURL from './spikeprime-illustration.svg';
 import spikeprimeConnectionSmallIconURL from './spikeprime-small.svg';
 
+/**
+ * @param {object} messageData - data for format-message
+ * @returns {string} - translated message for the current locale
+ */
+let formatMessage = messageData => messageData.defaultMessage;
+
 const entry = {
-    name: 'LEGO Education SPIKE Prime',  // Removed "(Legacy)" since this is the new implementation
+    get name () {
+        return formatMessage({
+            id: 'gui.extension.spikeprime.name',
+            default: 'LEGO Education SPIKE Prime',
+            description: 'Name for the SPIKE Prime extension'
+        });
+    },
     extensionId: 'spikeprime',
-    collaborator: 'CrispStrobe',  // with acknowledgments and big thanks towards bricklife
+    collaborator: 'CrispStrobe',
     iconURL: spikeprimeIconURL,
     insetIconURL: spikeprimeInsetIconURL,
-    description: (
-        <FormattedMessage
-            defaultMessage="Build with SPIKE Prime, Robot Inventor, and Powered Up devices. Supports motors, sensors, lights, and displays."
-            id="gui.extension.spikeprime.description"  // Updated to reflect comprehensive support
-        />
-    ),
+    get description () {
+        return formatMessage({
+            id: 'gui.extension.spikeprime.description',
+            default: 'Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with bluetooth classic). Supports motors, sensors, lights, and displays.',
+            description: 'Description for the SPIKE Prime extension'
+        });
+    },
     featured: true,
     disabled: false,
     bluetoothRequired: true,
-    internetConnectionRequired: false,  // Changed from true - BLE extensions don't typically need internet
+    internetConnectionRequired: false,
     launchPeripheralConnectionFlow: true,
-    useAutoScan: true,  // Changed to true for better UX - auto-scan for SPIKE Prime hubs
+    useAutoScan: true,
     connectionIconURL: spikeprimeConnectionIconURL,
     connectionSmallIconURL: spikeprimeConnectionSmallIconURL,
-    connectingMessage: (
-        <FormattedMessage
-            defaultMessage="Connecting to SPIKE Prime..."
-            id="gui.extension.spikeprime.connectingMessage"  // Fixed - was pointing to boost
-        />
-    ),
-    helpLink: 'https://education.lego.com/'  // Fixed - was pointing to boost help
+    get connectingMessage () {
+        return formatMessage({
+            id: 'gui.extension.spikeprime.connectingMessage',
+            default: 'Connecting to SPIKE Prime (over bluetooth classic SPP)...',
+            description: 'Message shown when connecting to SPIKE Prime'
+        });
+    },
+    helpLink: 'https://education.lego.com/',
+    setFormatMessage: formatter => {
+        formatMessage = formatter;
+    },
+    translationMap: translations
 };
 
-export {entry}; // loadable-extension needs this line.
+export {entry}; // For loadable-extension
 export default entry;
