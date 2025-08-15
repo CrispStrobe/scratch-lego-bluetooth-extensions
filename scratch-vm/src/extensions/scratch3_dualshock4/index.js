@@ -1,115 +1,133 @@
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
 const Cast = require('../../util/cast');
+const translations = require('./translations.json');
 
 const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
 
-// Create our own complete formatMessage implementation
-// This is inspired by the actual format-message library
+// Robust fallback formatMessage that actually uses translations
 let currentLocale = 'en';
-let translations = {};
 
-// Our complete formatMessage function
-function createFormatMessage() {
-    return function formatMessage(messageData, args, locales) {
-        // Handle string input
-        if (typeof messageData === 'string') {
-            return messageData;
-        }
-        
-        // Handle object input
-        if (typeof messageData === 'object') {
-            const pattern = messageData.default || messageData.defaultMessage;
-            const id = messageData.id;
-            
-            if (!pattern) {
-                return id || 'Missing text';
-            }
-            
-            // Try to get translation
-            const locale = locales || currentLocale;
-            const translated = getTranslation(id, locale, pattern);
-            
-            // Simple placeholder replacement for args
-            if (args && translated) {
-                return replacePlaceholders(translated, args);
-            }
-            
-            return translated;
-        }
-        
-        return 'Missing text';
-    };
-}
-
-function getTranslation(id, locale, defaultMessage) {
-    if (translations[locale] && translations[locale][id]) {
-        return translations[locale][id];
+let formatMessage = function(messageData, args) {
+    // Handle string input
+    if (typeof messageData === 'string') {
+        return messageData;
     }
-    return defaultMessage || id || 'Missing text';
-}
-
-function replacePlaceholders(message, args) {
-    if (!args || typeof message !== 'string') return message;
     
-    return message.replace(/\[([^\]]+)\]/g, (match, key) => {
-        return args[key] !== undefined ? args[key] : match;
-    });
-}
+    // Handle null/undefined
+    if (!messageData) {
+        return 'Missing text';
+    }
+    
+    // Handle object input
+    if (typeof messageData === 'object') {
+        let message;
+        
+        // Try to get translation first
+        if (messageData.id && translations[currentLocale] && translations[currentLocale][messageData.id]) {
+            message = translations[currentLocale][messageData.id];
+        } else {
+            // Fall back to defaultMessage, then default, then id
+            message = messageData.defaultMessage || messageData.default || messageData.id || 'Missing text';
+        }
+        
+        // Simple placeholder replacement: [KEY] -> args.KEY
+        if (args && typeof message === 'string') {
+            message = message.replace(/\[([^\]]+)\]/g, (match, key) => {
+                return args.hasOwnProperty(key) ? String(args[key]) : match;
+            });
+        }
+        
+        return message;
+    }
+    
+    return 'Missing text';
+};
 
-// Create our formatMessage instance
-let formatMessage = createFormatMessage();
-
-// Setup function to configure translations
-function setupTranslations(options = {}) {
-    if (options.locale) {
+// Add setup function to the fallback formatMessage
+formatMessage.setup = function(options) {
+    if (options && options.locale) {
         currentLocale = options.locale;
     }
-    if (options.translations) {
-        translations = options.translations;
+    return {
+        locale: currentLocale,
+        translations: translations
+    };
+};
+
+// Setup translations function - tries to work with format-message if available
+const setupTranslations = () => {
+    try {
+        const localeSetup = formatMessage.setup();
+        if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+            Object.assign(
+                localeSetup.translations[localeSetup.locale],
+                translations[localeSetup.locale]
+            );
+        }
+    } catch (e) {
+        // Fails silently, which is fine.
     }
-    if (options.formatMessage) {
-        // If a working formatMessage is provided, use it
-        formatMessage = options.formatMessage;
-    }
-}
+};
 
 // Universal button mappings for different controller types
 const GAMEPAD_BUTTONS = {
-    A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5, LT: 6, RT: 7,
-    SELECT: 8, START: 9, LS: 10, RS: 11, UP: 12, DOWN: 13, LEFT: 14, RIGHT: 15, HOME: 16
+    // Use standard gamepad button indices
+    A: 0,      // Bottom face button (Cross on PS, A on Xbox)
+    B: 1,      // Right face button (Circle on PS, B on Xbox)  
+    X: 2,      // Left face button (Square on PS, X on Xbox)
+    Y: 3,      // Top face button (Triangle on PS, Y on Xbox)
+    LB: 4,     // Left bumper (L1)
+    RB: 5,     // Right bumper (R1)
+    LT: 6,     // Left trigger (L2)
+    RT: 7,     // Right trigger (R2)
+    SELECT: 8, // Select/Share/Back
+    START: 9,  // Start/Options/Menu
+    LS: 10,    // Left stick press (L3)
+    RS: 11,    // Right stick press (R3)
+    UP: 12,    // D-pad up
+    DOWN: 13,  // D-pad down
+    LEFT: 14,  // D-pad left
+    RIGHT: 15, // D-pad right
+    HOME: 16   // Home/PS/Xbox button
 };
 
 class Scratch3GamepadBlocks {
     constructor(runtime) {
         this.runtime = runtime;
         
-        // Try to detect if runtime.formatMessage works properly
+        // Test if runtime.formatMessage works properly before using it
         if (runtime.formatMessage) {
             try {
                 const testResult = runtime.formatMessage({id: 'test', defaultMessage: 'test'});
-                if (testResult && testResult !== 'test' && !testResult.includes('test')) {
-                    // runtime.formatMessage is broken (returns IDs), don't use it
-                    console.log('Detected broken runtime.formatMessage, using fallback');
-                } else {
-                    // runtime.formatMessage seems to work, use it
+                // If it returns the ID instead of defaultMessage, it's broken
+                if (testResult === 'test' || (testResult && testResult.includes('test'))) {
                     formatMessage = runtime.formatMessage;
                     console.log('Using runtime.formatMessage');
+                } else {
+                    console.log('runtime.formatMessage is broken (returns IDs), using fallback');
                 }
             } catch (e) {
-                console.log('runtime.formatMessage failed test, using fallback');
+                console.log('runtime.formatMessage test failed, using fallback');
             }
+        } else {
+            console.log('No runtime.formatMessage available, using fallback');
         }
-        
+
         this.activeController = null;
         this.previousButtons = [];
         this.virtualCursor = { x: 0, y: 0, maxX: 240, minX: -240, maxY: 180, minY: -180 };
 
-        this.runtime.on('PROJECT_RUN_START', () => this._startPolling());
-        this.runtime.on('PROJECT_STOP_ALL', () => this._stopPolling());
+        this.runtime.on('PROJECT_RUN_START', () => {
+            this._startPolling();
+        });
+        this.runtime.on('PROJECT_STOP_ALL', () => {
+            this._stopPolling();
+        });
     }
 
     getInfo() {
+        setupTranslations();
         return {
             id: 'gamepad',
             name: formatMessage({id: 'gamepad.name', defaultMessage: 'Universal Gamepad'}),
@@ -224,11 +242,9 @@ class Scratch3GamepadBlocks {
         };
     }
 
-    // ... rest of the methods remain the same as before ...
-    
     _startPolling() {
         if (this._pollInterval) return;
-        this._pollInterval = setInterval(() => this._pollGamepads(), 16);
+        this._pollInterval = setInterval(() => this._pollGamepads(), 16); // ~60 FPS
     }
     
     _stopPolling() {
@@ -254,11 +270,14 @@ class Scratch3GamepadBlocks {
     
     _updateVirtualCursor(gamepad) {
         if (!gamepad) return;
+
         const leftX = this._normalizeAxis(gamepad.axes[0] || 0);
         const leftY = this._normalizeAxis(gamepad.axes[1] || 0);
-        const speed = 5;
+        
+        const speed = 5; // Adjust speed as needed
         this.virtualCursor.x += leftX * speed;
-        this.virtualCursor.y -= leftY * speed;
+        this.virtualCursor.y -= leftY * speed; // Y is often inverted
+
         this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
         this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
     }
@@ -271,18 +290,24 @@ class Scratch3GamepadBlocks {
 
     whenButtonPressed(args) {
         if (!this.activeController) return false;
+        
         const buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
         if (buttonIndex === undefined) return false;
+
         const wasPressed = this.previousButtons[buttonIndex] || false;
         const isPressed = this.activeController.buttons[buttonIndex]?.pressed || false;
+
         this.previousButtons[buttonIndex] = isPressed;
+
         return !wasPressed && isPressed;
     }
 
     isButtonPressed(args) {
         if (!this.activeController) return false;
+        
         const buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
         if (buttonIndex === undefined) return false;
+
         const isPressed = this.activeController.buttons[buttonIndex]?.pressed || false;
         this.previousButtons[buttonIndex] = isPressed;
         return isPressed;
@@ -299,30 +324,42 @@ class Scratch3GamepadBlocks {
 
     getStickValue(args) {
         if (!this.activeController) return 0;
+        
         const stick = Cast.toString(args.STICK).toLowerCase();
         const axis = Cast.toString(args.AXIS).toLowerCase();
+        
         const stickMap = { 'left': { 'x': 0, 'y': 1 }, 'right': { 'x': 2, 'y': 3 } };
+
         const stickAxes = stickMap[stick];
         if (!stickAxes) return 0;
+
         const axisIndex = stickAxes[axis];
         if (axisIndex === undefined) return 0;
+
         const rawValue = this.activeController.axes[axisIndex] || 0;
         const normalizedValue = this._normalizeAxis(rawValue);
+        
         return Math.round(normalizedValue * 100);
     }
 
     getStickDirection(args) {
         if (!this.activeController) return 0;
+        
         const stick = Cast.toString(args.STICK).toLowerCase();
+        
         const stickMap = { 'left': { 'x': 0, 'y': 1 }, 'right': { 'x': 2, 'y': 3 } };
         const stickAxes = stickMap[stick];
         if (!stickAxes) return 0;
+
         const x = this._normalizeAxis(this.activeController.axes[stickAxes.x] || 0);
         const y = this._normalizeAxis(this.activeController.axes[stickAxes.y] || 0);
-        if (x === 0 && y === 0) return 90;
+        
+        if (x === 0 && y === 0) return 90; // Default to pointing up
+
         const radians = Math.atan2(-y, x);
         let degrees = radians * 180 / Math.PI;
         degrees = (degrees + 360) % 360;
+        
         return Math.round(degrees);
     }
 
@@ -337,19 +374,23 @@ class Scratch3GamepadBlocks {
     setCursorPosition(args) {
         const x = Cast.toNumber(args.X);
         const y = Cast.toNumber(args.Y);
+        
         this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, x));
         this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, y));
     }
 
     vibrate(args) {
         if (!this.activeController) return;
+        
         const duration = Cast.toNumber(args.DURATION);
         const intensity = Cast.toNumber(args.INTENSITY) / 100;
+        
         const actuator = this.activeController.vibrationActuator;
         if (!actuator) {
             console.log('Vibration not supported on this controller');
             return;
         }
+
         try {
             actuator.playEffect('dual-rumble', {
                 duration: duration,
@@ -364,6 +405,7 @@ class Scratch3GamepadBlocks {
     showDebugInfo() {
         console.log('--- UNIVERSAL GAMEPAD DEBUG INFO ---');
         console.log(`Connected: ${this.isConnected() ? `YES (${this.activeController.id})` : 'NO'}`);
+        
         if (this.activeController) {
             console.log('Buttons:', this.activeController.buttons.map((b, i) => `${i}:${b.pressed ? 'P' : 'R'}`).join(' '));
             console.log('Axes:', this.activeController.axes.map(a => a.toFixed(2)).join(', '));

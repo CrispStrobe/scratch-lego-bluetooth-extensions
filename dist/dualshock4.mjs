@@ -8199,77 +8199,175 @@ var cast = Cast$1;
 var ArgumentType = argumentType;
 var BlockType = blockType;
 var Cast = cast;
+var translations = {
+  "en": {
+    "gamepad.name": "Universal Gamepad",
+    "gamepad.isConnected": "gamepad connected?",
+    "gamepad.getControllerInfo": "controller name",
+    "gamepad.whenButtonPressed": "when [BUTTON] pressed",
+    "gamepad.isButtonPressed": "[BUTTON] pressed?",
+    "gamepad.getStickValue": "[STICK] stick [AXIS]",
+    "gamepad.getStickDirection": "[STICK] stick direction",
+    "gamepad.getCursorX": "cursor x",
+    "gamepad.getCursorY": "cursor y",
+    "gamepad.setCursorPosition": "set cursor to x: [X] y: [Y]",
+    "gamepad.vibrate": "vibrate for [DURATION] ms at [INTENSITY]%",
+    "gamepad.showDebugInfo": "show gamepad debug info",
+    "gamepad.buttons.A": "A",
+    "gamepad.buttons.B": "B",
+    "gamepad.buttons.X": "X",
+    "gamepad.buttons.Y": "Y",
+    "gamepad.buttons.LB": "LB",
+    "gamepad.buttons.RB": "RB",
+    "gamepad.buttons.LT": "LT",
+    "gamepad.buttons.RT": "RT",
+    "gamepad.buttons.SELECT": "Select",
+    "gamepad.buttons.START": "Start",
+    "gamepad.buttons.LS": "Left Stick",
+    "gamepad.buttons.RS": "Right Stick",
+    "gamepad.buttons.UP": "Up",
+    "gamepad.buttons.DOWN": "Down",
+    "gamepad.buttons.LEFT": "Left",
+    "gamepad.buttons.RIGHT": "Right",
+    "gamepad.buttons.HOME": "Home",
+    "gamepad.sticks.left": "left",
+    "gamepad.sticks.right": "right",
+    "gamepad.axes.x": "x-axis",
+    "gamepad.axes.y": "y-axis"
+  },
+  "de": {
+    "gamepad.name": "Universal-Gamepad",
+    "gamepad.isConnected": "Gamepad verbunden?",
+    "gamepad.getControllerInfo": "Controller-Name",
+    "gamepad.whenButtonPressed": "wenn Taste [BUTTON] gedrückt",
+    "gamepad.isButtonPressed": "Taste [BUTTON] gedrückt?",
+    "gamepad.getStickValue": "[STICK] Stick [AXIS]",
+    "gamepad.getStickDirection": "[STICK] Stick Richtung",
+    "gamepad.getCursorX": "Cursor x",
+    "gamepad.getCursorY": "Cursor y",
+    "gamepad.setCursorPosition": "Setze Cursor auf x: [X] y: [Y]",
+    "gamepad.vibrate": "Vibriere für [DURATION] ms bei [INTENSITY]%",
+    "gamepad.showDebugInfo": "Gamepad-Debuginformationen anzeigen",
+    "gamepad.buttons.A": "A",
+    "gamepad.buttons.B": "B",
+    "gamepad.buttons.X": "X",
+    "gamepad.buttons.Y": "Y",
+    "gamepad.buttons.LB": "LB",
+    "gamepad.buttons.RB": "RB",
+    "gamepad.buttons.LT": "LT",
+    "gamepad.buttons.RT": "RT",
+    "gamepad.buttons.SELECT": "Select",
+    "gamepad.buttons.START": "Start",
+    "gamepad.buttons.LS": "Linker Stick",
+    "gamepad.buttons.RS": "Rechter Stick",
+    "gamepad.buttons.UP": "Oben",
+    "gamepad.buttons.DOWN": "Unten",
+    "gamepad.buttons.LEFT": "Links",
+    "gamepad.buttons.RIGHT": "Rechts",
+    "gamepad.buttons.HOME": "Home",
+    "gamepad.sticks.left": "linker",
+    "gamepad.sticks.right": "rechter",
+    "gamepad.axes.x": "x-Achse",
+    "gamepad.axes.y": "y-Achse"
+  }
+};
 var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
 
-// Create our own complete formatMessage implementation
-// This is inspired by the actual format-message library
+// Robust fallback formatMessage that actually uses translations
 var currentLocale = 'en';
-var translations = {};
-
-// Our complete formatMessage function
-function createFormatMessage() {
-  return function formatMessage(messageData, args, locales) {
-    // Handle string input
-    if (typeof messageData === 'string') {
-      return messageData;
-    }
-
-    // Handle object input
-    if (_typeof$1(messageData) === 'object') {
-      var pattern = messageData.default || messageData.defaultMessage;
-      var id = messageData.id;
-      if (!pattern) {
-        return id || 'Missing text';
-      }
-
-      // Try to get translation
-      var locale = locales || currentLocale;
-      var translated = getTranslation(id, locale, pattern);
-
-      // Simple placeholder replacement for args
-      if (args && translated) {
-        return replacePlaceholders(translated, args);
-      }
-      return translated;
-    }
-    return 'Missing text';
-  };
-}
-function getTranslation(id, locale, defaultMessage) {
-  if (translations[locale] && translations[locale][id]) {
-    return translations[locale][id];
+var formatMessage = function formatMessage(messageData, args) {
+  // Handle string input
+  if (typeof messageData === 'string') {
+    return messageData;
   }
-  return defaultMessage || id || 'Missing text';
-}
-function replacePlaceholders(message, args) {
-  if (!args || typeof message !== 'string') return message;
-  return message.replace(/\[([^\]]+)\]/g, function (match, key) {
-    return args[key] !== undefined ? args[key] : match;
-  });
-}
 
-// Create our formatMessage instance
-var formatMessage = createFormatMessage();
+  // Handle null/undefined
+  if (!messageData) {
+    return 'Missing text';
+  }
+
+  // Handle object input
+  if (_typeof$1(messageData) === 'object') {
+    var message;
+
+    // Try to get translation first
+    if (messageData.id && translations[currentLocale] && translations[currentLocale][messageData.id]) {
+      message = translations[currentLocale][messageData.id];
+    } else {
+      // Fall back to defaultMessage, then default, then id
+      message = messageData.defaultMessage || messageData.default || messageData.id || 'Missing text';
+    }
+
+    // Simple placeholder replacement: [KEY] -> args.KEY
+    if (args && typeof message === 'string') {
+      message = message.replace(/\[([^\]]+)\]/g, function (match, key) {
+        return args.hasOwnProperty(key) ? String(args[key]) : match;
+      });
+    }
+    return message;
+  }
+  return 'Missing text';
+};
+
+// Add setup function to the fallback formatMessage
+formatMessage.setup = function (options) {
+  if (options && options.locale) {
+    currentLocale = options.locale;
+  }
+  return {
+    locale: currentLocale,
+    translations: translations
+  };
+};
+
+// Setup translations function - tries to work with format-message if available
+var setupTranslations = function setupTranslations() {
+  try {
+    var localeSetup = formatMessage.setup();
+    if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+      Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
+    }
+  } catch (e) {
+    // Fails silently, which is fine.
+  }
+};
 
 // Universal button mappings for different controller types
 var GAMEPAD_BUTTONS = {
+  // Use standard gamepad button indices
   A: 0,
+  // Bottom face button (Cross on PS, A on Xbox)
   B: 1,
+  // Right face button (Circle on PS, B on Xbox)  
   X: 2,
+  // Left face button (Square on PS, X on Xbox)
   Y: 3,
+  // Top face button (Triangle on PS, Y on Xbox)
   LB: 4,
+  // Left bumper (L1)
   RB: 5,
+  // Right bumper (R1)
   LT: 6,
+  // Left trigger (L2)
   RT: 7,
+  // Right trigger (R2)
   SELECT: 8,
+  // Select/Share/Back
   START: 9,
+  // Start/Options/Menu
   LS: 10,
+  // Left stick press (L3)
   RS: 11,
+  // Right stick press (R3)
   UP: 12,
+  // D-pad up
   DOWN: 13,
+  // D-pad down
   LEFT: 14,
+  // D-pad left
   RIGHT: 15,
-  HOME: 16
+  // D-pad right
+  HOME: 16 // Home/PS/Xbox button
 };
 var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   function Scratch3GamepadBlocks(runtime) {
@@ -8277,24 +8375,25 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
     _classCallCheck(this, Scratch3GamepadBlocks);
     this.runtime = runtime;
 
-    // Try to detect if runtime.formatMessage works properly
+    // Test if runtime.formatMessage works properly before using it
     if (runtime.formatMessage) {
       try {
         var testResult = runtime.formatMessage({
           id: 'test',
           defaultMessage: 'test'
         });
-        if (testResult && testResult !== 'test' && !testResult.includes('test')) {
-          // runtime.formatMessage is broken (returns IDs), don't use it
-          console.log('Detected broken runtime.formatMessage, using fallback');
-        } else {
-          // runtime.formatMessage seems to work, use it
+        // If it returns the ID instead of defaultMessage, it's broken
+        if (testResult === 'test' || testResult && testResult.includes('test')) {
           formatMessage = runtime.formatMessage;
           console.log('Using runtime.formatMessage');
+        } else {
+          console.log('runtime.formatMessage is broken (returns IDs), using fallback');
         }
       } catch (e) {
-        console.log('runtime.formatMessage failed test, using fallback');
+        console.log('runtime.formatMessage test failed, using fallback');
       }
+    } else {
+      console.log('No runtime.formatMessage available, using fallback');
     }
     this.activeController = null;
     this.previousButtons = [];
@@ -8307,15 +8406,16 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       minY: -180
     };
     this.runtime.on('PROJECT_RUN_START', function () {
-      return _this._startPolling();
+      _this._startPolling();
     });
     this.runtime.on('PROJECT_STOP_ALL', function () {
-      return _this._stopPolling();
+      _this._stopPolling();
     });
   }
   _createClass(Scratch3GamepadBlocks, [{
     key: "getInfo",
     value: function getInfo() {
+      setupTranslations();
       return {
         id: 'gamepad',
         name: formatMessage({
@@ -8503,8 +8603,6 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
         }
       };
     }
-
-    // ... rest of the methods remain the same as before ...
   }, {
     key: "_startPolling",
     value: function _startPolling() {
@@ -8512,7 +8610,7 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       if (this._pollInterval) return;
       this._pollInterval = setInterval(function () {
         return _this2._pollGamepads();
-      }, 16);
+      }, 16); // ~60 FPS
     }
   }, {
     key: "_stopPolling",
@@ -8545,9 +8643,10 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       if (!gamepad) return;
       var leftX = this._normalizeAxis(gamepad.axes[0] || 0);
       var leftY = this._normalizeAxis(gamepad.axes[1] || 0);
-      var speed = 5;
+      var speed = 5; // Adjust speed as needed
       this.virtualCursor.x += leftX * speed;
-      this.virtualCursor.y -= leftY * speed;
+      this.virtualCursor.y -= leftY * speed; // Y is often inverted
+
       this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
       this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
     }
@@ -8635,7 +8734,8 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       if (!stickAxes) return 0;
       var x = this._normalizeAxis(this.activeController.axes[stickAxes.x] || 0);
       var y = this._normalizeAxis(this.activeController.axes[stickAxes.y] || 0);
-      if (x === 0 && y === 0) return 90;
+      if (x === 0 && y === 0) return 90; // Default to pointing up
+
       var radians = Math.atan2(-y, x);
       var degrees = radians * 180 / Math.PI;
       degrees = (degrees + 360) % 360;
