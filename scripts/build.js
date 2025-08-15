@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
 /**
- * Build a module from the code using a local Scratch
+ * Build a module from the code using a local Scratch environment.
+ * This script is designed to be robust, with clear logging and path validation.
  */
-const projectJson = require('../package.json');
 const path = require('path');
 const fs = require('fs-extra');
 const commandLineArgs = require('command-line-args');
@@ -18,204 +18,185 @@ const importImage = require('@rollup/plugin-image');
 const multi = require('@rollup/plugin-multi-entry');
 const json = require('@rollup/plugin-json');
 
+// --- Helper for structured logging ---
+const logStep = (message) => {
+    console.log(`\n🔵 --- ${message} ---`);
+};
+
+// --- Command-line option definitions ---
 const optionDefinitions = [
-    {
-        name: 'version',
-        alias: 'V',
-        type: Boolean
-    },
-    {
-        name: 'module',
-        type: String
-    },
-    {
-        name: 'url',
-        type: String
-    },
-    {
-        name: 'block',
-        type: String,
-        defaultValue: path.resolve(process.cwd(), './src/vm/extensions/block')
-    },
-    {
-        name: 'entry',
-        type: String,
-        defaultValue: path.resolve(process.cwd(), './src/gui/lib/libraries/extensions/entry')
-    },
-    {
-        name: 'vm',
-        type:String
-    },
-    {
-        name: 'gui',
-        type:String,
-        defaultValue: path.resolve(process.cwd(), '../scratch-gui')
-    },
-    {
-        name: 'output',
-        type:String,
-        defaultValue: path.resolve(process.cwd(), './dist')
-    },
-    {
-        name: 'moduleDirectories',
-        type:String,
-        multiple: true,
-        defaultValue: []
-    },
-    {
-        name: 'debug',
-        type:Boolean
-    }
+    { name: 'module', type: String },
+    { name: 'url', type: String },
+    { name: 'block', type: String },
+    { name: 'entry', type: String },
+    { name: 'vm', type: String },
+    { name: 'gui', type: String, defaultValue: path.resolve(process.cwd(), '../scratch-gui') },
+    { name: 'output', type: String, defaultValue: path.resolve(process.cwd(), './dist') },
+    { name: 'moduleDirectories', type: String, multiple: true, defaultValue: [] }
 ];
 
-// Read options
 const options = commandLineArgs(optionDefinitions);
-if (options['version']) {
-    process.stdout.write(`v${projectJson.version}\n`);
-    process.exit(0);
-}
+
 if (!options['module']) {
-    throw('set --module <module name>');
-}
-const moduleName = options['module'];
-const extSrcDir = path.resolve(process.cwd(), options['block']);
-const entrySrcDir = path.resolve(process.cwd(), options['entry']);
-const GuiRoot = path.resolve(process.cwd(), options['gui']);
-console.log(`gui = ${GuiRoot}`);
-const VmRoot = options['vm'] ?
-    path.resolve(process.cwd(), options['vm']):
-    path.resolve(GuiRoot, './node_modules/scratch-vm');
-console.log(`vm = ${VmRoot}`);
-const outputDir = path.resolve(process.cwd(), options['output']);
-console.log(`output = ${outputDir}`);
-fs.ensureDirSync(outputDir);
-
-const blockWorkingDir = path.resolve(VmRoot, `src/extensions/_${moduleName}`);
-const blockFile = path.resolve(blockWorkingDir, 'index.js');
-
-const entryWorkingDir = path.resolve(GuiRoot, `src/lib/libraries/extensions/_${moduleName}`);
-const entryFile = path.resolve(entryWorkingDir, 'index.jsx');
-
-const moduleFile = path.resolve(outputDir, `${moduleName}.mjs`);
-
-const rollupOptions = {
-    inputOptions: {
-        input: [entryFile, blockFile],
-        plugins: [
-            multi(),
-            json(),
-            importImage(),
-            commonjs(),
-            nodeGlobals(),
-            nodePolifills(),
-            nodeResolve({
-                browser: true,
-                preferBuiltins: true,
-                moduleDirectories: [
-                    ...options['moduleDirectories'],
-                    path.resolve(process.cwd(), './node_modules'),
-                    path.resolve(__dirname, '../node_modules'),
-                    'node_modules'
-                ]
-            }),
-            babel({
-                babelrc: false,
-                presets: [
-                    ['@babel/preset-env',
-                        {
-                            "modules": false,
-                            targets: {
-                                browsers: [
-                                    'last 3 versions',
-                                    'Safari >= 8',
-                                    'iOS >= 8']
-                            }
-                        }
-                    ],
-                    '@babel/preset-react'
-                ],
-                babelHelpers: 'runtime',
-                plugins: [
-                    '@babel/plugin-transform-react-jsx',
-                    ["@babel/plugin-transform-runtime",
-                        { "regenerator": true }]
-                ]
-            }),
-        ]
-    },
-    outputOptions: {
-        file: moduleFile,
-        format: 'es',
-    }
+    console.error('🔴 ERROR: The --module <module_name> argument is required.');
+    process.exit(1);
 }
 
+// --- Main build function ---
 async function build() {
-    // Copy module sources
-    fs.copySync(extSrcDir, blockWorkingDir, { dereference: true });
-    fs.copySync(entrySrcDir, entryWorkingDir);
-    console.log('\ncopy source to working dir');
-    console.log(blockWorkingDir);
-    console.log(entryWorkingDir);
+    logStep(`1/5: RESOLVING PATHS for module: "${options.module}"`);
 
-    const blockFile = path.resolve(blockWorkingDir, './index.js');
-    console.log(`Block: file = ${blockFile}`);
-    let blockCode = fs.readFileSync(blockFile, 'utf-8');
-    
-    // --- Step 1: Handle translations.json BEFORE other transformations ---
-    const translationsFile = path.resolve(blockWorkingDir, './translations.json');
-    if (fs.existsSync(translationsFile)) {
-        const translationsContent = fs.readFileSync(translationsFile, 'utf-8');
-        const translationsCode = `const translations = ${translationsContent};`;
-        // Find and replace the specific require statement for translations.json
-        blockCode = blockCode.replace(
-            /const\s+translations\s*=\s*require\(['"]\.\/translations\.json['"]\);?/,
-            translationsCode
-        );
+    const moduleName = options['module'];
+    const GuiRoot = path.resolve(process.cwd(), options['gui']);
+    const VmRoot = options['vm'] ? path.resolve(process.cwd(), options['vm']) : path.resolve(GuiRoot, './node_modules/scratch-vm');
+    const outputDir = path.resolve(process.cwd(), options['output']);
+    const extSrcDir = path.resolve(process.cwd(), options['block']);
+    const entrySrcDir = path.resolve(process.cwd(), options['entry']);
+
+    // --- Path Validation ---
+    const pathsToValidate = {
+        'GUI Root (--gui)': GuiRoot,
+        'VM Root (--vm)': VmRoot,
+        'Extension Block Source (--block)': extSrcDir,
+        'Extension Entry Source (--entry)': entrySrcDir,
+    };
+
+    for (const [name, dirPath] of Object.entries(pathsToValidate)) {
+        console.log(`Checking for ${name} at: ${dirPath}`);
+        if (!fs.existsSync(dirPath)) {
+            console.error(`🔴 ERROR: Required directory not found! ${name} is missing.`);
+            console.error(`🔴 Path does not exist: ${dirPath}`);
+            process.exit(1);
+        }
     }
+    console.log('✅ All required paths found.');
 
-    // --- Step 2: Use the ORIGINAL script's logic for exports ---
-    // This is the key line from the original script. It prepares the file for the commonjs plugin.
-    blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'exports.blockClass = $1;');
+    fs.ensureDirSync(outputDir);
+
+    // Define temporary working directories for the build process
+    const blockWorkingDir = path.resolve(VmRoot, `src/extensions/_${moduleName}`);
+    const entryWorkingDir = path.resolve(GuiRoot, `src/lib/libraries/extensions/_${moduleName}`);
+    const blockFile = path.resolve(blockWorkingDir, 'index.js');
+    const entryFile = path.resolve(entryWorkingDir, 'index.jsx');
+    const moduleFile = path.resolve(outputDir, `${moduleName}.mjs`);
+
+    logStep('2/5: PREPARING SOURCE FILES FOR BUILD');
+    try {
+        // Copy sources to temporary working directories. `dereference` is important for symlinks.
+        fs.copySync(extSrcDir, blockWorkingDir, { dereference: true });
+        fs.copySync(entrySrcDir, entryWorkingDir);
+        console.log('Copied source files to temporary working directories:');
+        console.log(`  - ${blockWorkingDir}`);
+        console.log(`  - ${entryWorkingDir}`);
+    } catch (error) {
+        console.error('🔴 ERROR: Failed to copy source files.');
+        throw error;
+    }
     
-    fs.writeFileSync(blockFile, blockCode);
-
-    // --- The rest of the script remains the same ---
-
-    // Replace URL in entry and block code.
-    if (options['url']) {
-        const url = options['url'];
-        // Replace URL in entry
-        const entryFile = path.resolve(entryWorkingDir, './index.jsx');
-        console.log(`Entry: file = ${entryFile}`);
+    logStep('3/5: TRANSFORMING SOURCE CODE');
+    try {
+        let blockCode = fs.readFileSync(blockFile, 'utf-8');
         let entryCode = fs.readFileSync(entryFile, 'utf-8');
-        entryCode = entryCode.replace(/extensionURL:\s*[^,]+,/gm, `extensionURL: '${url}',`);
-        fs.writeFileSync(entryFile, entryCode);
-        console.log(`Entry: extensionURL = ${url}`);
 
-        // Replace URL in block
-        blockCode = fs.readFileSync(blockFile, 'utf-8'); // Re-read the file after previous changes
-        blockCode = blockCode.replace(/let\s+extensionURL\s+=\s+[^;]+;/gm, `let extensionURL = '${url}';`);
+        // Inline translations.json if it exists
+        const translationsFile = path.resolve(blockWorkingDir, './translations.json');
+        if (fs.existsSync(translationsFile)) {
+            const translationsContent = fs.readFileSync(translationsFile, 'utf-8');
+            const translationsCode = `const translations = ${translationsContent};`;
+            blockCode = blockCode.replace(/const\s+translations\s*=\s*require\(['"]\.\/translations\.json['"]\);?/, translationsCode);
+            console.log('Inlined translations.json content.');
+        }
+
+        // Transform `module.exports = ...` to `exports.blockClass = ...` for Rollup compatibility
+        blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'exports.blockClass = $1;');
+        console.log('Transformed module.exports statement.');
+
+        // Replace URL placeholders if provided
+        if (options['url']) {
+            const url = options['url'];
+            console.log(`Replacing extensionURL with: ${url}`);
+            entryCode = entryCode.replace(/extensionURL:\s*[^,]+,/gm, `extensionURL: '${url}',`);
+            blockCode = blockCode.replace(/let\s+extensionURL\s+=\s+[^;]+;/gm, `let extensionURL = '${url}';`);
+        }
+
+        // Write transformed code back to the working files
         fs.writeFileSync(blockFile, blockCode);
-        console.log(`Block: extensionURL = ${url}`);
+        fs.writeFileSync(entryFile, entryCode);
+        console.log('✅ Source code transformations complete.');
+    } catch (error) {
+        console.error('🔴 ERROR: Failed during source code transformation.');
+        throw error;
     }
 
-    // Build module.
-    console.log('\nstart to build module ...');
-    process.chdir(path.resolve(__dirname, '../'));
-    const bundle = await rollup.rollup(rollupOptions.inputOptions);
-    
-    // write the bundle to disk
-    await bundle.write(rollupOptions.outputOptions);
-    console.log(`\n✅ Success to build module: ${moduleFile}`);
+    logStep('4/5: BUILDING MODULE WITH ROLLUP');
+    const rollupOptions = {
+        inputOptions: {
+            input: [entryFile, blockFile],
+            plugins: [
+                multi(),
+                json(),
+                importImage(),
+                commonjs(),
+                nodeGlobals(),
+                nodePolifills(),
+                nodeResolve({
+                    browser: true,
+                    preferBuiltins: true,
+                    moduleDirectories: [
+                        ...options['moduleDirectories'],
+                        path.resolve(process.cwd(), './node_modules'),
+                        path.resolve(__dirname, '../node_modules'),
+                        'node_modules'
+                    ]
+                }),
+                babel({
+                    babelrc: false,
+                    presets: [
+                        ['@babel/preset-env', {
+                            "modules": false,
+                            targets: { browsers: ['last 3 versions', 'Safari >= 8', 'iOS >= 8'] }
+                        }],
+                        '@babel/preset-react'
+                    ],
+                    babelHelpers: 'runtime',
+                    plugins: [
+                        '@babel/plugin-transform-react-jsx',
+                        ["@babel/plugin-transform-runtime", { "regenerator": true }]
+                    ]
+                }),
+            ]
+        },
+        outputOptions: {
+            file: moduleFile,
+            format: 'es',
+        }
+    };
 
-    // Clean up
-    fs.removeSync(blockWorkingDir);
-    fs.removeSync(entryWorkingDir);
-    console.log('\nworking dir removed');
+    try {
+        // Change directory to ensure Rollup resolves dependencies correctly relative to the project root
+        process.chdir(path.resolve(__dirname, '../'));
+        const bundle = await rollup.rollup(rollupOptions.inputOptions);
+        await bundle.write(rollupOptions.outputOptions);
+        console.log(`✅ Successfully built module: ${moduleFile}`);
+    } catch (error) {
+        console.error('🔴 ERROR: Rollup build failed.');
+        throw error;
+    }
+
+    logStep('5/5: CLEANING UP');
+    try {
+        fs.removeSync(blockWorkingDir);
+        fs.removeSync(entryWorkingDir);
+        console.log('✅ Removed temporary working directories.');
+    } catch (error) {
+        console.warn('⚠️  Warning: Failed to clean up temporary directories.');
+        console.warn(error.message);
+    }
 }
 
-try {
-    build();
-} catch (err) {
-    console.error(err)
-}
+// --- Run the build ---
+build().catch(err => {
+    console.error('\n🔴 BUILD FAILED WITH AN UNHANDLED ERROR:');
+    console.error(err);
+    process.exit(1);
+});
