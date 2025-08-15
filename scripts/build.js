@@ -166,6 +166,12 @@ async function build() {
         console.log('Original Code (first 250 chars):');
         console.log(blockCode.substring(0, 250) + '...');
     }
+    
+    // --- HANDLE translations.json ---
+    const translationsFile = path.resolve(blockWorkingDir, './translations.json');
+    const translationsCode = `const translations = ${fs.readFileSync(translationsFile, 'utf-8')};`;
+    blockCode = blockCode.replace(/import\s+translations\s+from\s+['"]\.\/translations\.json['"];?/gm, translationsCode);
+    blockCode = blockCode.replace(/const\s+translations\s*=\s*require\(['"]\.\/translations\.js['"]\);?/gm, translationsCode);
 
     // Convert require statements to import statements
     const newBlockCode = blockCode.replace(/const\s+(\w+)\s*=\s*require\(['"]([^'"]+)['"]\);?/gm, 'import $1 from \'$2\';');
