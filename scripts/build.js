@@ -119,7 +119,6 @@ async function build() {
                 multi(),
                 json(),
                 importImage(),
-                // ** THIS IS THE KEY FIX **
                 // Configure the commonjs plugin to correctly handle various module export styles.
                 commonjs({
                     transformMixedEsModules: true,
