@@ -90,7 +90,7 @@ async function build() {
         throw error;
     }
     
-    logStep('3/5: TRANSFORMING SOURCE CODE (if necessary)');
+    logStep('3/5: TRANSFORMING SOURCE CODE');
     try {
         let blockCode = fs.readFileSync(blockFile, 'utf-8');
         let entryCode = fs.readFileSync(entryFile, 'utf-8');
@@ -102,6 +102,12 @@ async function build() {
             entryCode = entryCode.replace(/extensionURL:\s*[^,]+,/gm, `extensionURL: '${url}',`);
             blockCode = blockCode.replace(/let\s+extensionURL\s+=\s+[^;]+;/gm, `let extensionURL = '${url}';`);
         }
+
+        // ** THIS IS THE CRITICAL FIX **
+        // Manually transform `module.exports` before Rollup runs.
+        // This handles cases where the main input file is a CommonJS module.
+        blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'export default $1;');
+        console.log('Transformed module.exports to export default.');
 
         fs.writeFileSync(blockFile, blockCode);
         fs.writeFileSync(entryFile, entryCode);
@@ -119,7 +125,6 @@ async function build() {
                 multi(),
                 json(),
                 importImage(),
-                // Configure the commonjs plugin to correctly handle various module export styles.
                 commonjs({
                     transformMixedEsModules: true,
                 }),
