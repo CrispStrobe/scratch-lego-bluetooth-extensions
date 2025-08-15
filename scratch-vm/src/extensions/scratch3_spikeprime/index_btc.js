@@ -6,9 +6,8 @@ const BT = require('../../io/bt');
 // note: This extension supports LEGO Education SPIKE Prime Hub / Robot Inventor Hub
 // with v. 2 firmware (legacy), which usese bluetooth classic (not ble)!
 // you can switch firmwares by running *upgrade* from spike prime app (then you must use another extension which supports ble), 
-// or *downgrade* from mindstorms app or https://spikelegacy.legoeducation.com/hubdowngrade/#step-1
+// or downgrade from mindstorms app or https://spikelegacy.legoeducation.com/hubdowngrade/#step-1
 // so that you can use *this* (bluetooth classic) extension here
-// or you can use dfu-utils to exchange firmware: https://github.com/gpdaniels/spike-prime/
 
 const Base64Util = require('../../util/base64-util');
 const MathUtil = require('../../util/math-util');
@@ -53,46 +52,32 @@ const Matrix3x3Colors = {
     mint: 5, green: 6, yellow: 7, orange: 8, red: 9, white: 10
 };
 
-const ColorEmojiMap = {
-    '⚫': 0,  // off
-    '🟣': 1,  // magenta
-    '🟪': 2,  // violet  
-    '🔵': 3,  // blue
-    '🔷': 4,  // turquoise
-    '🟢': 5,  // mint
-    '🟩': 6,  // green
-    '🟡': 7,  // yellow
-    '🟠': 8,  // orange
-    '🔴': 9,  // red
-    '⚪': 10  // white
-};
-
 // Display patterns as matrices
 const DisplayPatterns = {
-    heart: '960000960960a60960960000960',
-    smile: '760076000078000076000760',
-    sad: '760076000087600076000760',
-    angry: '970079000087600079000970',
-    surprised: '760076000999900076000760',
-    wink: '760070000078000076000760',
-    arrow_up: '060060060686060606000000',
-    arrow_down: '000060606068606060606000',
-    arrow_left: '000060068006000060000000',
-    arrow_right: '000600000680600060000000',
-    check: '000000080000806080000000',
-    x: '970000970000090000970000970',
-    square: '979797900009900099000979797',
-    triangle: '060060606996999999600000',
-    diamond: '060060606906906060000600',
-    plus: '060000600999996060000600',
-    minus: '000000000999999000000000',
-    dot: '000000000000a00000000000000',
-    frame: '979797900009900099000979797',
-    spiral: '979797060000900009000979797'
+    heart: '0990009999099909990900000',
+    smile: '0000009009000000900090009',
+    sad: '0000009009000009000909990',
+    angry: '9000900900000000900090009',
+    surprised: '0000009999099999900000000',
+    wink: '0000000009000000900090009',
+    arrow_up: '0090009990999990009000900',
+    arrow_down: '0090000900009099909990009',
+    arrow_left: '0000000900099909990009000',
+    arrow_right: '0000090000999000990900000',
+    check: '0000000009000900090009990',
+    x: '9000909090009000909090009',
+    square: '9999990009900099000999999',
+    triangle: '0090009090909099999990000',
+    diamond: '0090009090909090909000900',
+    plus: '0090000900999990090000900',
+    minus: '0000000000999990000000000',
+    dot: '0000000000009000000000000',
+    frame: '9999990009900099000999999',
+    spiral: '9999090000900009000099999'
 };
 
 // Gestures
-const aGestures = {
+const  aGestures = {
     DOUBLETAPPED: 'DOUBLETAPPED',
     FREEFALL: 'FREEFALL', 
     NONE: 'NONE',
@@ -172,16 +157,6 @@ class SpikePrime {
             F: new SpikeMotorSetting()
         };
 
-        // Movement motor pair and timer functionality
-        this._movementMotors = ['A', 'B'];
-        this._timer = { start: Date.now(), current: 0 };
-        this._volume = 100;
-
-        // REPL functionality
-        this._replHistory = [];
-        this._replVariables = {};
-        this._replOutput = '';
-
         this._bt = null;
         this._runtime.registerPeripheralExtension(extensionId, this);
         this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
@@ -196,11 +171,6 @@ class SpikePrime {
         
         this._pythonAvailable = false;
         this._sensorLoopRunning = false;
-
-        // Update timer every 10ms
-        setInterval(() => {
-            this._timer.current = (Date.now() - this._timer.start) / 1000;
-        }, 10);
     }
 
     // Getters
@@ -218,11 +188,6 @@ class SpikePrime {
     get temperature() { return this._sensors.temperature; }
     get hubTemp() { return this._sensors.hubTemp; }
     get gestures() { return this._sensors.gestures; }
-    get movementMotors() { return this._movementMotors; }
-    get timer() { return this._timer.current; }
-    get volume() { return this._volume; }
-    get replOutput() { return this._replOutput; }
-    get replHistory() { return this._replHistory; }
 
     beep(freq, time) {
         //console.log(`freq: ${freq}, time: ${time}`);
@@ -289,13 +254,6 @@ class SpikePrime {
         this._portValues = {};
         this._pythonAvailable = false;
         this._sensorLoopRunning = false;
-        
-        // Reset timer and REPL
-        this._timer.start = Date.now();
-        this._timer.current = 0;
-        this._replOutput = '';
-        this._replHistory = [];
-        this._replVariables = {};
     }
 
     isConnected() {
@@ -340,31 +298,9 @@ class SpikePrime {
         return this.sendJSON({ m: method, p: params });
     }
 
-    // Send raw Python code to the REPL
+    // CORRECTED: Send raw Python code to the REPL
     sendPythonCommand(pythonCode) {
         return this.sendRaw(`${pythonCode}\r\n`);
-    }
-
-    // REPL-specific command that captures output
-    sendReplCommand(pythonCode) {
-        this._replHistory.push(pythonCode);
-        if (this._replHistory.length > 50) {
-            this._replHistory.shift(); // Keep only last 50 commands
-        }
-        
-        // Wrap command to capture output
-        const wrappedCode = `
-try:
-    _result = eval("${pythonCode.replace(/"/g, '\\"')}")
-    if _result is not None:
-        print(f">>> {_result}")
-    else:
-        exec("${pythonCode.replace(/"/g, '\\"')}")
-        print(">>> Command executed")
-except Exception as e:
-    print(f">>> Error: {e}")
-`;
-        return this.sendPythonCommand(wrappedCode);
     }
 
     _onConnect() {
@@ -379,7 +315,7 @@ except Exception as e:
         }, 250); // Delay to allow the hub to switch to REPL mode
     }
 
-    // Start continuous sensor monitoring
+    // CORRECTED: Start continuous sensor monitoring
     _initializeContinuousSensorMonitoring() {
         if (!this._pythonAvailable || this._sensorLoopRunning) return;
 
@@ -499,13 +435,6 @@ continuous_sensor_loop()
                     this._pythonAvailable = true;
                     console.log('Python REPL is available on hub.');
                     this._initializeContinuousSensorMonitoring();
-                }
-            } else if (dataText.startsWith('>>>')) {
-                // NEW: Capture REPL output
-                this._replOutput += dataText + '\n';
-                // Keep only last 1000 characters to prevent memory issues
-                if (this._replOutput.length > 1000) {
-                    this._replOutput = this._replOutput.substring(this._replOutput.length - 1000);
                 }
             }
         } catch (error) {
@@ -657,9 +586,6 @@ class Scratch3SpikePrimeBlocks {
         return 'spikeprime';
     }
 
-    // Static flag to ensure registration only happens once.
-    static fieldRegistered = false;
-
     static get extensionURL() {
         return extensionURL;
     }
@@ -669,7 +595,6 @@ class Scratch3SpikePrimeBlocks {
     }
 
     constructor(runtime) {
-
         this.runtime = runtime;
         this._peripheral = new SpikePrime(this.runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID);
 
@@ -690,60 +615,7 @@ class Scratch3SpikePrimeBlocks {
             blockIconURI: blockIconURI,
             showStatusButton: true,
             blocks: [
-                // ===== MOVEMENT CONTROLS (NEW) =====
-                {
-                    opcode: 'setMovementMotors',
-                    text: 'set movement motors [PORT_A] and [PORT_B]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT_A: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        PORT_B: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'B' }
-                    }
-                },
-                {
-                    opcode: 'moveForward',
-                    text: 'move [DIRECTION] for [VALUE] [UNIT]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        DIRECTION: { type: ArgumentType.STRING, menu: 'MOVE_DIRECTION', defaultValue: 'forward' },
-                        VALUE: { type: ArgumentType.NUMBER, defaultValue: 10 },
-                        UNIT: { type: ArgumentType.STRING, menu: 'MOVE_UNIT', defaultValue: 'cm' }
-                    }
-                },
-                {
-                    opcode: 'steer',
-                    text: 'start steering [STEERING]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        STEERING: { type: ArgumentType.NUMBER, defaultValue: 50 }
-                    }
-                },
-                {
-                    opcode: 'startTank',
-                    text: 'start tank drive left [LEFT_SPEED] right [RIGHT_SPEED]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        LEFT_SPEED: { type: ArgumentType.NUMBER, defaultValue: 50 },
-                        RIGHT_SPEED: { type: ArgumentType.NUMBER, defaultValue: 50 }
-                    }
-                },
-                {
-                    opcode: 'setMovementSpeed',
-                    text: 'set movement speed to [SPEED]%',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        SPEED: { type: ArgumentType.NUMBER, defaultValue: 50 }
-                    }
-                },
-                {
-                    opcode: 'stopMovement',
-                    text: 'stop movement',
-                    blockType: BlockType.COMMAND
-                },
-                
-                '---',
-                
-                // ===== MOTOR CONTROL =====
+                // ===== MOTOR CONTROL (HIGH CONFIDENCE) =====
                 {
                     opcode: 'motorRunFor',
                     text: formatMessage({
@@ -771,15 +643,6 @@ class Scratch3SpikePrimeBlocks {
                             menu: 'MOTOR_UNIT',
                             defaultValue: 'rotations'
                         }
-                    }
-                },
-                {
-                    opcode: 'motorRunToPosition',
-                    text: '[PORT] run to position [POSITION] degrees',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'C' },
-                        POSITION: { type: ArgumentType.ANGLE, defaultValue: 0 }
                     }
                 },
                 {
@@ -834,15 +697,6 @@ class Scratch3SpikePrimeBlocks {
                             type: ArgumentType.NUMBER,
                             defaultValue: 75
                         }
-                    }
-                },
-                {
-                    opcode: 'motorSetStopAction',
-                    text: '[PORT] set stop action to [ACTION]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        ACTION: { type: ArgumentType.STRING, menu: 'STOP_ACTION', defaultValue: 'brake' }
                     }
                 },
                 {
@@ -917,7 +771,7 @@ class Scratch3SpikePrimeBlocks {
                 
                 '---',
                 
-                // ===== DISPLAY CONTROL =====
+                // ===== DISPLAY CONTROL (HIGH CONFIDENCE) =====
                 {
                     opcode: 'displayText',
                     text: formatMessage({
@@ -1095,58 +949,7 @@ class Scratch3SpikePrimeBlocks {
                 
                 '---',
                 
-                // ===== 3X3 LED COLOR MATRIX =====
-
-                /**
-                 * Interactive 3x3 LED matrix pattern designer block
-                 * Features clickable grid with color picker and brightness control
-                 */
-                {
-                    opcode: 'setMatrix3x3ColorGrid',
-                    text: 'set [PORT] 3x3 colors: [P1][P2][P3] [P4][P5][P6] [P7][P8][P9]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        P1: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        P2: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '⚫' },
-                        P3: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        P4: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        P5: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        P6: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        P7: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '⚫' },
-                        P8: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        P9: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '⚫' }
-                    }
-                },
-                {
-                    opcode: 'setMatrix3x3BrightnessGrid',
-                    text: 'set [PORT] 3x3 brightness: [B1][B2][B3] [B4][B5][B6] [B7][B8][B9]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        B1: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B2: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B3: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B4: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B5: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B6: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B7: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B8: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' },
-                        B9: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '8' }
-                    }
-                },
-                {
-                    opcode: 'setMatrix3x3PixelEmoji', 
-                    text: 'set [PORT] 3x3 pixel [X],[Y] to [COLOR] brightness [BRIGHTNESS]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        X: { type: ArgumentType.NUMBER, defaultValue: 2 },
-                        Y: { type: ArgumentType.NUMBER, defaultValue: 2 },
-                        COLOR: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        BRIGHTNESS: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '5' }
-                    }
-                },
+                // ===== 3X3 LED COLOR MATRIX (HIGH CONFIDENCE - DOCUMENTED) =====
                 {
                     opcode: 'setMatrix3x3Custom',
                     text: 'set [PORT] 3x3 custom pattern [PATTERN]',
@@ -1164,6 +967,27 @@ class Scratch3SpikePrimeBlocks {
                     }
                 },
                 {
+                    opcode: 'setMatrix3x3Visual',
+                    text: 'set [PORT] 3x3: ╔[R1C1][R1C2][R1C3]╗ ║[R2C1][R2C2][R2C3]║ ╚[R3C1][R3C2][R3C3]╝',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        PORT: {
+                            type: ArgumentType.STRING,
+                            menu: 'PORT',
+                            defaultValue: 'A'
+                        },
+                        R1C1: { type: ArgumentType.STRING, defaultValue: 'r8', menu: 'MATRIX_3X3_QUICK' },
+                        R1C2: { type: ArgumentType.STRING, defaultValue: '.1', menu: 'MATRIX_3X3_QUICK' },
+                        R1C3: { type: ArgumentType.STRING, defaultValue: 'r8', menu: 'MATRIX_3X3_QUICK' },
+                        R2C1: { type: ArgumentType.STRING, defaultValue: 'r6', menu: 'MATRIX_3X3_QUICK' },
+                        R2C2: { type: ArgumentType.STRING, defaultValue: 'r10', menu: 'MATRIX_3X3_QUICK' },
+                        R2C3: { type: ArgumentType.STRING, defaultValue: 'r6', menu: 'MATRIX_3X3_QUICK' },
+                        R3C1: { type: ArgumentType.STRING, defaultValue: '.1', menu: 'MATRIX_3X3_QUICK' },
+                        R3C2: { type: ArgumentType.STRING, defaultValue: 'r8', menu: 'MATRIX_3X3_QUICK' },
+                        R3C3: { type: ArgumentType.STRING, defaultValue: '.1', menu: 'MATRIX_3X3_QUICK' }
+                    }
+                },
+                {
                     opcode: 'generateMatrix3x3Code',
                     text: 'generate 3x3 code for pattern [PATTERN]',
                     blockType: BlockType.REPORTER,
@@ -1175,16 +999,17 @@ class Scratch3SpikePrimeBlocks {
                     }
                 },
                 {
-                    opcode: 'setMatrix3x3SolidColor',
-                    text: 'set [PORT] 3x3 matrix all [COLOR] brightness [BRIGHTNESS]',
-                    blockType: BlockType.COMMAND,
+                    opcode: 'matrix3x3Help',
+                    text: '3x3 pattern help: [INFO]',
+                    blockType: BlockType.REPORTER,
                     arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        COLOR: { type: ArgumentType.STRING, menu: 'MATRIX_COLOR_EMOJI', defaultValue: '🔴' },
-                        BRIGHTNESS: { type: ArgumentType.STRING, menu: 'BRIGHTNESS_1_TO_10', defaultValue: '5' }
+                        INFO: {
+                            type: ArgumentType.STRING,
+                            menu: 'MATRIX_3X3_HELP',
+                            defaultValue: 'colors'
+                        }
                     }
                 },
-                /*
                 {
                     opcode: 'setMatrix3x3Color',
                     text: 'set [PORT] 3x3 matrix all [COLOR] brightness [BRIGHTNESS]',
@@ -1205,7 +1030,7 @@ class Scratch3SpikePrimeBlocks {
                             defaultValue: 5
                         }
                     }
-                }, 
+                },
                 {
                     opcode: 'setMatrix3x3Pixel',
                     text: 'set [PORT] 3x3 pixel [X] [Y] to [COLOR] brightness [BRIGHTNESS]',
@@ -1234,7 +1059,7 @@ class Scratch3SpikePrimeBlocks {
                             defaultValue: 5
                         }
                     }
-                }, */
+                },
                 {
                     opcode: 'setMatrix3x3Level',
                     text: 'set [PORT] 3x3 battery level to [LEVEL]',
@@ -1345,15 +1170,6 @@ class Scratch3SpikePrimeBlocks {
                     }
                 },
                 {
-                    opcode: 'playNote',
-                    text: 'play note [NOTE] for [SECS] seconds',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        NOTE: { type: ArgumentType.NOTE, defaultValue: 60 },
-                        SECS: { type: ArgumentType.NUMBER, defaultValue: 0.5 }
-                    }
-                },
-                {
                     opcode: 'playWaveBeep',
                     text: 'beep [WAVEFORM] [FREQUENCY] Hz for [DURATION] ms',
                     blockType: BlockType.COMMAND,
@@ -1371,14 +1187,6 @@ class Scratch3SpikePrimeBlocks {
                             type: ArgumentType.NUMBER,
                             defaultValue: 500
                         }
-                    }
-                },
-                {
-                    opcode: 'setVolume',
-                    text: 'set volume to [VOLUME]%',
-                    blockType: BlockType.COMMAND,
-                    arguments: { 
-                        VOLUME: { type: ArgumentType.NUMBER, defaultValue: 100 } 
                     }
                 },
                 {
@@ -1404,20 +1212,6 @@ class Scratch3SpikePrimeBlocks {
                     opcode: 'getHubTemperature',
                     text: 'hub temperature',
                     blockType: BlockType.REPORTER
-                },
-                
-                '---',
-                
-                // ===== TIMER FUNCTIONALITY (NEW) =====
-                {
-                    opcode: 'getTimer',
-                    text: 'timer',
-                    blockType: BlockType.REPORTER
-                },
-                {
-                    opcode: 'resetTimer',
-                    text: 'reset timer',
-                    blockType: BlockType.COMMAND
                 },
                 
                 '---',
@@ -1524,35 +1318,6 @@ class Scratch3SpikePrimeBlocks {
                     }
                 },
                 
-                // ===== EVENT-BASED SENSOR BLOCKS (NEW) =====
-                {
-                    opcode: 'whenColor',
-                    blockType: BlockType.HAT,
-                    text: 'when [PORT] sees [COLOR]',
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        COLOR: { type: ArgumentType.STRING, menu: 'COLOR', defaultValue: 'red' }
-                    }
-                },
-                {
-                    opcode: 'isColor',
-                    blockType: BlockType.BOOLEAN,
-                    text: '[PORT] sees [COLOR]?',
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        COLOR: { type: ArgumentType.STRING, menu: 'COLOR', defaultValue: 'red' }
-                    }
-                },
-                {
-                    opcode: 'whenForceSensor',
-                    blockType: BlockType.HAT,
-                    text: 'when [PORT] is [STATE]',
-                    arguments: {
-                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
-                        STATE: { type: ArgumentType.STRING, menu: 'FORCE_STATE', defaultValue: 'pressed' }
-                    }
-                },
-                
                 '---',
                 
                 // ===== BUTTON ENHANCEMENTS =====
@@ -1577,42 +1342,6 @@ class Scratch3SpikePrimeBlocks {
                             type: ArgumentType.STRING,
                             menu: 'BUTTON',
                             defaultValue: 'center'
-                        }
-                    }
-                },
-                
-                '---',
-                
-                // ===== PYTHON REPL (NEW) =====
-                {
-                    opcode: 'runReplCommand',
-                    text: 'run Python REPL: [CODE]',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        CODE: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'print("Hello REPL!")'
-                        }
-                    }
-                },
-                {
-                    opcode: 'getReplOutput',
-                    text: 'REPL output',
-                    blockType: BlockType.REPORTER
-                },
-                {
-                    opcode: 'clearReplOutput',
-                    text: 'clear REPL output',
-                    blockType: BlockType.COMMAND
-                },
-                {
-                    opcode: 'getReplHistory',
-                    text: 'REPL command [INDEX]',
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                        INDEX: {
-                            type: ArgumentType.NUMBER,
-                            defaultValue: -1
                         }
                     }
                 },
@@ -1707,156 +1436,12 @@ class Scratch3SpikePrimeBlocks {
                 BUTTON: {
                     acceptReporters: false,
                     items: ['left', 'center', 'right', 'connect']
-                },
-                // NEW MENUS
-                MOVE_DIRECTION: {
-                    acceptReporters: false,
-                    items: ['forward', 'backward']
-                },
-                MOVE_UNIT: {
-                    acceptReporters: false,
-                    items: ['cm', 'in', 'rotations', 'degrees', 'seconds']
-                },
-                STOP_ACTION: {
-                    acceptReporters: false,
-                    items: ['coast', 'brake', 'hold']
-                },
-                COLOR: {
-                    acceptReporters: true,
-                    items: ['red', 'green', 'blue', 'yellow', 'cyan', 'magenta', 'white', 'black']
-                },
-                FORCE_STATE: {
-                    acceptReporters: false,
-                    items: ['pressed', 'hard pressed', 'released']
-                },
-                MATRIX_PRESET: {
-                    acceptReporters: false,
-                    items: [
-                        { text: '❤️ Heart', value: 'heart' },
-                        { text: '😊 Smile', value: 'smile' },
-                        { text: '😢 Sad', value: 'sad' },
-                        { text: '😠 Angry', value: 'angry' },
-                        { text: '😮 Surprised', value: 'surprised' },
-                        { text: '😉 Wink', value: 'wink' },
-                        { text: '⬆️ Arrow Up', value: 'arrow_up' },
-                        { text: '⬇️ Arrow Down', value: 'arrow_down' },
-                        { text: '⬅️ Arrow Left', value: 'arrow_left' },
-                        { text: '➡️ Arrow Right', value: 'arrow_right' },
-                        { text: '✅ Check', value: 'check' },
-                        { text: '❌ X', value: 'x' },
-                        { text: '⚫ Dot', value: 'dot' },
-                        { text: '🔲 Frame', value: 'frame' },
-                        { text: '🌀 Spiral', value: 'spiral' }
-                    ]
-                },
-                MATRIX_3X3_QUICK: {
-                    acceptReporters: false,
-                    items: [
-                        '.1', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'r10',
-                        'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'g10',
-                        'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'b10',
-                        'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'y10',
-                        'w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w7', 'w8', 'w9', 'w10'
-                    ]
-                },
-                MATRIX_3X3_COLOR: {
-                    acceptReporters: false,
-                    items: Object.keys(Matrix3x3Colors)
-                },
-                MATRIX_3X3_HELP: {
-                    acceptReporters: false,
-                    items: ['colors', 'format', 'brightness', 'heart']
-                },
-                MATRIX_3X3_TRANSITION: {
-                    acceptReporters: false,
-                    items: ['none', 'fade', 'slide']
-                },
-                MATRIX_COLOR_EMOJI: {
-                    acceptReporters: false,
-                    items: [
-                        { text: '⚫ Off', value: '⚫' },
-                        { text: '🟣 Magenta', value: '🟣' }, 
-                        { text: '🟪 Violet', value: '🟪' },
-                        { text: '🔵 Blue', value: '🔵' },
-                        { text: '🔷 Turquoise', value: '🔷' },
-                        { text: '🟢 Mint', value: '🟢' },
-                        { text: '🟩 Green', value: '🟩' },
-                        { text: '🟡 Yellow', value: '🟡' },
-                        { text: '🟠 Orange', value: '🟠' },
-                        { text: '🔴 Red', value: '🔴' },
-                        { text: '⚪ White', value: '⚪' }
-                    ]
-                },
-                BRIGHTNESS_1_TO_10: {
-                    acceptReporters: false,
-                    items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
                 }
             }
         };
     }
 
-    // ===== MOVEMENT IMPLEMENTATIONS (NEW) =====
-    setMovementMotors(args) {
-        this._peripheral._movementMotors = [
-            Cast.toString(args.PORT_A).trim().toUpperCase(),
-            Cast.toString(args.PORT_B).trim().toUpperCase()
-        ];
-        const [portA, portB] = this._peripheral._movementMotors;
-        return this._peripheral.sendPythonCommand(`from spike import MotorPair; motors = MotorPair('${portA}', '${portB}')`);
-    }
-
-    moveForward(args) {
-        const direction = Cast.toString(args.DIRECTION);
-        const value = Cast.toNumber(args.VALUE);
-        const unit = Cast.toString(args.UNIT);
-        const [portA, portB] = this._peripheral._movementMotors;
-        const speed = this._peripheral.motorSettings[portA].speed;
-        const dirMultiplier = (direction === 'forward') ? 1 : -1;
-        
-        if (unit === 'cm') {
-            // Approximate conversion: 1 rotation = 17.6 cm for standard SPIKE wheels
-            const rotations = value / 17.6;
-            return this._peripheral.sendPythonCommand(`motors.move(${rotations * dirMultiplier}, 'rotations', speed=${speed})`);
-        } else if (unit === 'in') {
-            const rotations = value / 6.93; // 1 rotation ≈ 6.93 inches
-            return this._peripheral.sendPythonCommand(`motors.move(${rotations * dirMultiplier}, 'rotations', speed=${speed})`);
-        } else {
-            return this._peripheral.sendPythonCommand(`motors.move(${value * dirMultiplier}, '${unit}', speed=${speed})`);
-        }
-    }
-
-    steer(args) {
-        const steering = Cast.toNumber(args.STEERING);
-        const [portA] = this._peripheral._movementMotors;
-        const speed = this._peripheral.motorSettings[portA].speed;
-        return this._peripheral.sendPythonCommand(`motors.start(${steering}, speed=${speed})`);
-    }
-    
-    startTank(args) {
-        const leftSpeed = Cast.toNumber(args.LEFT_SPEED);
-        const rightSpeed = Cast.toNumber(args.RIGHT_SPEED);
-        return this._peripheral.sendPythonCommand(`motors.start_tank(${leftSpeed}, ${rightSpeed})`);
-    }
-
-    setMovementSpeed(args) {
-        const speed = Cast.toNumber(args.SPEED);
-        const [portA, portB] = this._peripheral._movementMotors;
-        this._peripheral.motorSettings[portA].speed = speed;
-        this._peripheral.motorSettings[portB].speed = speed;
-        return this._peripheral.sendPythonCommand(`motors.set_default_speed(${speed})`);
-    }
-
-    stopMovement() {
-        return this._peripheral.sendPythonCommand('motors.stop()');
-    }
-
-    // ===== MOTOR IMPLEMENTATIONS =====
-    
-    /**
-     * Run motor(s) for specified amount in specified unit
-     * @param {object} args - Block arguments
-     * @returns {Promise} Command execution promise
-     */
+    // ===== MOTOR IMPLEMENTATIONS (HIGH CONFIDENCE) =====
     motorRunFor(args) {
         const direction = args.DIRECTION;
         const value = Cast.toNumber(args.VALUE);
@@ -1875,20 +1460,6 @@ class Scratch3SpikePrimeBlocks {
         }
     }
 
-    motorRunToPosition(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        const position = Cast.toNumber(args.POSITION);
-        const speed = this._peripheral.motorSettings[port].speed;
-        return this._peripheral.sendPythonCommand(`hub.port.${port}.motor.run_to_position(${position}, speed=${speed})`);
-    }
-
-    /**
-     * Run motors for specific number of degrees
-     * @param {Array} ports - Array of port letters
-     * @param {number} direction - Direction multiplier (1 or -1)
-     * @param {number} degrees - Degrees to rotate
-     * @returns {Promise} Command execution promise
-     */
     _motorRunForDegrees(ports, direction, degrees) {
         const promises = ports.map(port => {
             const setting = this._peripheral.motorSettings[port];
@@ -1902,23 +1473,16 @@ class Scratch3SpikePrimeBlocks {
                 stall: setting.stallDetection
             });
             
-            const altCommand = this._peripheral.sendPythonCommand(
+            const aCommand = this._peripheral.sendPythonCommand(
                 `import hub; hub.port.${port}.motor.run_for_degrees(${Math.floor(degrees)}, ${setting.speed * direction})`
             );
             
-            return standardCommand.catch(() => altCommand);
+            return standardCommand.catch(() => aCommand);
         });
         
         return Promise.all(promises).then(() => { });
     }
 
-    /**
-     * Run motors for specific time duration
-     * @param {Array} ports - Array of port letters
-     * @param {number} direction - Direction multiplier (1 or -1)  
-     * @param {number} seconds - Time in seconds
-     * @returns {Promise} Command execution promise
-     */
     _motorRunTimed(ports, direction, seconds) {
         const promises = ports.map(port => {
             const setting = this._peripheral.motorSettings[port];
@@ -1931,11 +1495,11 @@ class Scratch3SpikePrimeBlocks {
                 stall: setting.stallDetection
             });
             
-            const altCommand = this._peripheral.sendPythonCommand(
+            const  aCommand = this._peripheral.sendPythonCommand(
                 `import hub; hub.port.${port}.motor.run_for_time(${Math.floor(seconds * 1000)}, ${setting.speed * direction})`
             );
             
-            return standardCommand.catch(() => altCommand);
+            return standardCommand.catch(() =>  aCommand);
         });
         
         return Promise.all(promises).then(() => { });
@@ -1954,11 +1518,11 @@ class Scratch3SpikePrimeBlocks {
                 stall: setting.stallDetection
             });
             
-            const altCommand = this._peripheral.sendPythonCommand(
+            const  aCommand = this._peripheral.sendPythonCommand(
                 `import hub; hub.port.${port}.motor.pwm(${Math.round(setting.speed * direction)})`
             );
             
-            return standardCommand.catch(() => altCommand);
+            return standardCommand.catch(() =>  aCommand);
         });
         
         return Promise.all(promises).then(() => { });
@@ -1975,11 +1539,11 @@ class Scratch3SpikePrimeBlocks {
                 stop: setting.stopMode
             });
             
-            const altCommand = this._peripheral.sendPythonCommand(
+            const  aCommand = this._peripheral.sendPythonCommand(
                 `import hub; hub.port.${port}.motor.stop()`
             );
             
-            return standardCommand.catch(() => altCommand);
+            return standardCommand.catch(() =>  aCommand);
         });
         
         return Promise.all(promises).then(() => { });
@@ -1994,27 +1558,19 @@ class Scratch3SpikePrimeBlocks {
         });
     }
 
-    motorSetStopAction(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        const action = Cast.toString(args.ACTION);
-        const stopModeMap = {coast: 0, brake: 1, hold: 2};
-        this._peripheral.motorSettings[port].stopMode = stopModeMap[action] || 1;
-        return this._peripheral.sendPythonCommand(`hub.port.${port}.motor.set_stop_action('${action}')`);
-    }
-
     getPosition(args) {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         return this._peripheral.portValues[port]?.position ?? 0;
     }
 
-    // ===== MOTOR ENHANCEMENTS (FIXED - HIGH CONFIDENCE) =====
+    // =====  MOTOR ENHANCEMENTS (FIXED - HIGH CONFIDENCE) =====
     getRelativePosition(args) {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         
         // FIXED: Return data from continuous sensor loop, not stale local variable
-        const altData = this._peripheral._sensors.motorPositions[port];
-        if (altData) {
-            return altData.relativePosition;
+        const  aData = this._peripheral._sensors.motorPositions[port];
+        if ( aData) {
+            return  aData.relativePosition;
         }
         
         // Fallback to standard data
@@ -2025,9 +1581,9 @@ class Scratch3SpikePrimeBlocks {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         
         // FIXED: Return data from continuous sensor loop
-        const altData = this._peripheral._sensors.motorPositions[port];
-        if (altData) {
-            return altData.absolutePosition;
+        const  aData = this._peripheral._sensors.motorPositions[port];
+        if ( aData) {
+            return  aData.absolutePosition;
         }
         
         // Fallback to standard data
@@ -2038,10 +1594,10 @@ class Scratch3SpikePrimeBlocks {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         
         // FIXED: Use speed data directly, not conversion
-        const altData = this._peripheral._sensors.motorPositions[port];
-        if (altData) {
-            // alt data is already in the correct format
-            return Math.round(altData.speed * 9.3); // Convert to deg/s using alt factor
+        const  aData = this._peripheral._sensors.motorPositions[port];
+        if ( aData) {
+            //  data is already in the correct format
+            return Math.round( aData.speed * 9.3); // Convert to deg/s using  factor
         }
         
         // Fallback to standard data with conversion
@@ -2053,35 +1609,24 @@ class Scratch3SpikePrimeBlocks {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         const position = Cast.toNumber(args.POSITION);
         
-        // Use alt preset method
+        // Use  preset method
         return this._peripheral.sendPythonCommand(
             `import hub; hub.port.${port}.motor.preset(${position})`
         );
     }
 
-    // ===== DISPLAY IMPLEMENTATIONS =====
-    
-    /**
-     * Display text on hub's 5x5 LED matrix
-     * @param {object} args - Block arguments
-     * @returns {Promise} Command execution promise  
-     */
+    // ===== DISPLAY IMPLEMENTATIONS (HIGH CONFIDENCE) =====
     displayText(args) {
         const text = Cast.toString(args.TEXT);
         
         const standardCommand = this._peripheral.sendCommand('scratch.display_text', { text: text });
-        const altCommand = this._peripheral.sendPythonCommand(
+        const  aCommand = this._peripheral.sendPythonCommand(
             `import hub; hub.display.show("${text.replace(/"/g, '\\"')}")`
         );
         
-        return standardCommand.catch(() => altCommand);
+        return standardCommand.catch(() =>  aCommand);
     }
 
-    /**
-     * Display custom 5x5 image pattern on hub
-     * @param {object} args - Block arguments
-     * @returns {Promise} Command execution promise
-     */
     displayImage(args) {
         const matrix = Cast.toString(args.MATRIX);
         
@@ -2092,13 +1637,13 @@ class Scratch3SpikePrimeBlocks {
 
         const standardCommand = this._peripheral.sendCommand('scratch.display_image', { image: image });
         
-        // alt extended approach  
-        const altImage = symbol.replace(/1/g, '9').replace(/0/g, '_').match(/.{5}/g).join(':');
-        const altCommand = this._peripheral.sendPythonCommand(
-            `import hub; hub.display.show(hub.Image("${altImage}"))`
+        //  extended approach  
+        const  aImage = symbol.replace(/1/g, '9').replace(/0/g, '_').match(/.{5}/g).join(':');
+        const  aCommand = this._peripheral.sendPythonCommand(
+            `import hub; hub.display.show(hub.Image("${ aImage}"))`
         );
         
-        return standardCommand.catch(() => altCommand);
+        return standardCommand.catch(() =>  aCommand);
     }
 
     displayPattern(args) {
@@ -2113,9 +1658,9 @@ class Scratch3SpikePrimeBlocks {
 
     displayClear() {
         const standardCommand = this._peripheral.sendCommand('scratch.display_clear', {});
-        const altCommand = this._peripheral.sendPythonCommand('import hub; hub.display.show(" ")');
+        const  aCommand = this._peripheral.sendPythonCommand('import hub; hub.display.show(" ")');
         
-        return standardCommand.catch(() => altCommand);
+        return standardCommand.catch(() =>  aCommand);
     }
 
     setPixel(args) {
@@ -2129,17 +1674,17 @@ class Scratch3SpikePrimeBlocks {
             x: x, y: y, brightness: Math.round(brightness * 9 / 100)
         });
         
-        const altCommand = this._peripheral.sendPythonCommand(
+        const  aCommand = this._peripheral.sendPythonCommand(
             `import hub; hub.display.pixel(${x}, ${y}, ${Math.round(brightness * 9 / 100)})`
         );
         
-        return standardCommand.catch(() => altCommand);
+        return standardCommand.catch(() =>  aCommand);
     }
 
     rotateDisplay(args) {
         const angle = Cast.toString(args.ANGLE);
         
-        // alt rotation method
+        //  rotation method
         return this._peripheral.sendPythonCommand(
             `import hub; hub.display.rotation(${angle})`
         );
@@ -2153,14 +1698,14 @@ class Scratch3SpikePrimeBlocks {
             color: colorValue
         });
         
-        const altCommand = this._peripheral.sendPythonCommand(
+        const  aCommand = this._peripheral.sendPythonCommand(
             `import hub; hub.led(${colorValue})`
         );
         
-        return standardCommand.catch(() => altCommand);
+        return standardCommand.catch(() =>  aCommand);
     }
 
-    // ===== IMU & GYRO =====
+    // =====  IMU & GYRO =====
     getAngle(args) {
         const axis = Cast.toString(args.AXIS);
         return this._peripheral.angle[axis] || 0;
@@ -2191,7 +1736,6 @@ class Scratch3SpikePrimeBlocks {
     }
 
     resetYaw() {
-        this._peripheral._timer.start = Date.now(); // Also reset timer as convenience
         return this._peripheral.sendPythonCommand('import hub; hub.motion.reset_yaw()');
     }
 
@@ -2200,92 +1744,8 @@ class Scratch3SpikePrimeBlocks {
         return this._peripheral.sendPythonCommand(`import hub; hub.motion.preset_yaw(${angle})`);
     }
 
-    // ===== 3X3 LED COLOR MATRIX IMPLEMENTATIONS =====
-
-    setMatrix3x3ColorGrid(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        
-        // Collect all 9 color emojis
-        const pixels = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9'].map(pixel => {
-            const emoji = Cast.toString(args[pixel]);
-            const colorId = ColorEmojiMap[emoji] || 0;
-            // Default brightness of 5 for color-only grid
-            return 5 * 16 + colorId;
-        });
-        
-        // Convert to hex byte string
-        const byteString = pixels.map(b => `\\x${b.toString(16).padStart(2, '0')}`).join('');
-        
-        return this._peripheral.sendPythonCommand(
-            `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"${byteString}")`
-        );
-    }
-
-    setMatrix3x3BrightnessGrid(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        
-        // Get current color state or use default red
-        const currentColorId = 9; // Default to red
-        
-        // Collect all 9 brightness values  
-        const pixels = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9'].map(brightness => {
-            const brightnessValue = MathUtil.clamp(Cast.toNumber(args[brightness]), 1, 10);
-            return brightnessValue * 16 + currentColorId;
-        });
-        
-        // Convert to hex byte string
-        const byteString = pixels.map(b => `\\x${b.toString(16).padStart(2, '0')}`).join('');
-        
-        return this._peripheral.sendPythonCommand(
-            `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"${byteString}")`
-        );
-    }
-
-    setMatrix3x3PixelEmoji(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        const x = MathUtil.clamp(Cast.toNumber(args.X) - 1, 0, 2);
-        const y = MathUtil.clamp(Cast.toNumber(args.Y) - 1, 0, 2);
-        const colorEmoji = Cast.toString(args.COLOR);
-        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
-        
-        const colorId = ColorEmojiMap[colorEmoji] || 0;
-        const value = brightness * 16 + colorId;
-        const index = y * 3 + x;
-        
-        const pythonCode = `
-import hub
-matrix = hub.port.${port}.device
-matrix.mode(2)
-
-# Create array with current values (or default to off)
-current = [0x01] * 9  # Default: off with brightness 1
-current[${index}] = 0x${value.toString(16).padStart(2, '0')}
-
-# Convert to byte string and send
-byte_string = bytes(current)
-matrix.mode(2, byte_string)
-`;
-        
-        return this._peripheral.sendPythonCommand(pythonCode);
-    }
-
-    setMatrix3x3SolidColor(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        const colorEmoji = Cast.toString(args.COLOR);
-        const brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 1, 10);
-        
-        const colorId = ColorEmojiMap[colorEmoji] || 0;
-        const value = brightness * 16 + colorId;
-        
-        // All 9 pixels same color and brightness
-        const pixels = Array(9).fill(value);
-        const byteString = pixels.map(b => `\\x${b.toString(16).padStart(2, '0')}`).join('');
-        
-        return this._peripheral.sendPythonCommand(
-            `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"${byteString}")`
-        );
-    }
-
+    // ===== 3X3 LED COLOR MATRIX IMPLEMENTATIONS (HIGH CONFIDENCE - DOCUMENTED) =====
+    
     setMatrix3x3Visual(args) {
         const port = Cast.toString(args.PORT).trim().toUpperCase();
         
@@ -2400,6 +1860,23 @@ matrix.mode(2, byte_string)
             return this._peripheral.sendPythonCommand(
                 `import hub; matrix = hub.port.${port}.device; matrix.mode(2); matrix.mode(2, b"\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01")`
             );
+        }
+    }
+    
+    matrix3x3Help(args) {
+        const info = Cast.toString(args.INFO);
+        
+        switch (info) {
+            case 'colors':
+                return '.(off) m(magenta) v(violet) b(blue) t(turquoise) n(mint) g(green) y(yellow) o(orange) r(red) w(white)';
+            case 'format':
+                return 'Format: r8 g6 b4\\ny7 w9 o5\\nm3 v2 .1 (3 rows of 3 pixels each)';
+            case 'brightness':
+                return 'Brightness: 1(dim) to 10(bright)';
+            case 'heart':
+                return 'r9 .1 r9\\nr6 r10 r6\\n.1 r8 .1';
+            default:
+                return 'Use color letter + brightness number for each pixel';
         }
     }
     
@@ -2599,19 +2076,11 @@ matrix.mode(2, byte_string)
             frequency: frequency, duration: duration
         });
         
-        const altCommand = this._peripheral.sendPythonCommand(
+        const  aCommand = this._peripheral.sendPythonCommand(
             `import hub; hub.sound.beep(${frequency}, ${duration}, hub.sound.SOUND_SIN)`
         );
         
-        return standardCommand.catch(() => altCommand);
-    }
-
-    playNote(args) {
-        const note = Cast.toNumber(args.NOTE);
-        const secs = Cast.toNumber(args.SECS);
-        const freq = this._noteToFrequency(note);
-        const volume = this._peripheral.volume / 100;
-        return this._peripheral.sendPythonCommand(`hub.sound.beep(${Math.round(freq)}, ${Math.round(secs * 1000)}, hub.sound.SOUND_SIN, ${volume})`);
+        return standardCommand.catch(() =>  aCommand);
     }
 
     playWaveBeep(args) {
@@ -2625,12 +2094,6 @@ matrix.mode(2, byte_string)
         return this._peripheral.sendPythonCommand(
             `import hub; hub.sound.beep(${frequency}, ${duration}, ${waveformCode})`
         );
-    }
-
-    setVolume(args) {
-        const volume = Cast.toNumber(args.VOLUME);
-        this._peripheral._volume = MathUtil.clamp(volume, 0, 100);
-        return this._peripheral.sendPythonCommand(`hub.sound.volume(${volume})`);
     }
 
     stopSound() {
@@ -2651,16 +2114,6 @@ matrix.mode(2, byte_string)
     getHubTemperature() {
         // FIXED: Return data from continuous sensor loop
         return this._peripheral.hubTemp || 25;
-    }
-
-    // ===== TIMER FUNCTIONALITY (NEW) =====
-    getTimer() {
-        return this._peripheral.timer;
-    }
-
-    resetTimer() {
-        this._peripheral._timer.start = Date.now();
-        this._peripheral._timer.current = 0;
     }
 
     // ===== SENSOR IMPLEMENTATIONS (HIGH CONFIDENCE) =====
@@ -2732,37 +2185,6 @@ matrix.mode(2, byte_string)
         return false;
     }
 
-    // ===== EVENT-BASED SENSOR BLOCKS (NEW) =====
-    whenColor(args) { 
-        return this.isColor(args); 
-    }
-    
-    isColor(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        const color = Cast.toString(args.COLOR);
-        const portData = this._peripheral.portValues[port];
-        if (portData && portData.type === 'color') {
-            const colorNames = ['black', 'magenta', 'purple', 'blue', 'azure', 'turquoise', 'green', 'yellow', 'orange', 'red', 'white'];
-            return colorNames[portData.color] === color;
-        }
-        return false;
-    }
-
-    whenForceSensor(args) {
-        const port = Cast.toString(args.PORT).trim().toUpperCase();
-        const state = Cast.toString(args.STATE);
-        const portData = this._peripheral.portValues[port];
-
-        if (portData && portData.type === 'force') {
-            switch (state) {
-                case 'pressed': return portData.pressed;
-                case 'hard pressed': return portData.force > 8; // Force in Newtons for "hard pressed"
-                case 'released': return !portData.pressed;
-            }
-        }
-        return false;
-    }
-
     // ===== BUTTON IMPLEMENTATIONS (HIGH CONFIDENCE) =====
     isButtonPressed(args) {
         const button = Cast.toString(args.BUTTON);
@@ -2776,32 +2198,6 @@ matrix.mode(2, byte_string)
 
     whenButtonPressed(args) {
         return this.isButtonPressed(args);
-    }
-
-    // ===== PYTHON REPL FUNCTIONALITY (NEW) =====
-    runReplCommand(args) {
-        const code = Cast.toString(args.CODE);
-        return this._peripheral.sendReplCommand(code);
-    }
-
-    getReplOutput() {
-        return this._peripheral.replOutput || '';
-    }
-
-    clearReplOutput() {
-        this._peripheral._replOutput = '';
-    }
-
-    getReplHistory(args) {
-        const index = Cast.toNumber(args.INDEX);
-        const history = this._peripheral.replHistory;
-        
-        if (index === -1) {
-            return history[history.length - 1] || '';
-        } else if (index >= 0 && index < history.length) {
-            return history[index] || '';
-        }
-        return '';
     }
 
     // ===== PYTHON COMMANDS (HIGH CONFIDENCE) =====
@@ -2822,11 +2218,6 @@ matrix.mode(2, byte_string)
     }
 
     // ===== UTILITY METHODS =====
-    /**
-     * Handle note playing for sound picker integration
-     * @param {object} note - Note data
-     * @param {string} category - Extension category
-     */
     _playNoteForPicker(note, category) {
         if (category !== this.getInfo().name) return;
         this.playBeep({ FREQUENCY: this._noteToFrequency(note), DURATION: 250 });
@@ -2836,11 +2227,6 @@ matrix.mode(2, byte_string)
         return Math.pow(2, ((note - 69 + 12) / 12)) * 440;
     }
 
-    /**
-     * Validate and parse port specification string
-     * @param {string} text - Port specification (e.g., "A", "A+B", "A+B+C+D+E+F")
-     * @returns {Array} Array of valid port letters
-     */
     _validatePorts(text) {
         return text.toUpperCase().replace(/[^ABCDEF]/g, '')
             .split('')

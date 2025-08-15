@@ -1,0 +1,14 @@
+{
+  "en": {
+    "gui.extension.planetemaths.name": "Maths Planet",
+    "gui.extension.planetemaths.description": "Use mathematics tools."
+  },
+  "de": {
+    "gui.extension.planetemaths.name": "Mathe-Planet",
+    "gui.extension.planetemaths.description": "Verwende mathematische Werkzeuge."
+  },
+  "fr": {
+    "gui.extension.planetemaths.name": "Planète Maths",
+    "gui.extension.planetemaths.description": "Utiliser des outils mathématiques."
+  }
+}
