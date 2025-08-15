@@ -52,6 +52,8 @@
   },
   "homepage": "https://github.com/bricklife/scratch-lego-bluetooth-extensions",
   "devDependencies": {
+    "fs-extra": "^11.2.0",
+    "rimraf": "^5.0.5",
     "xcratch-build": "github:bricklife/xcratch-build#lego-bluetooth-extensions"
   }
 }
