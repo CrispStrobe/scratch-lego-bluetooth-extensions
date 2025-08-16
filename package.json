@@ -55,7 +55,6 @@
   },
   "homepage": "https://github.com/CrispStrobe/scratch-lego-bluetooth-extensions",
   "devDependencies": {
-    "fs-extra": "^11.3.1",
     "rimraf": "^5.0.5"
   },
   "dependencies": {
