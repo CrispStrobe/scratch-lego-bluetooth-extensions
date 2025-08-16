@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Scratch 3.0 extensions for LEGO Bluetooth and BLE devices",
   "scripts": {
-    "register": "npm run register:legoble && npm run register:spikeessential && npm run register:legoremote && npm run register:controlplus && npm run register:poweredup && npm run register:duplotrain && npm run register:legopeach && npm run register:legoluigi && npm run register:legomario && npm run register:spikeprime && npm run register:dualshock4",
+    "register": "npm run register:legoble && npm run register:spikeessential && npm run register:legoremote && npm run register:controlplus && npm run register:poweredup && npm run register:duplotrain && npm run register:legopeach && npm run register:legoluigi && npm run register:legomario && npm run register:spikeprimeble && npm run register:spikeprimebtc && npm run register:dualshock4 && npm run register:pm",
     "register:pm": "node ./scripts/register.js -C --id=\"planetemaths\" --block=\"./scratch-vm/src/extensions/scratch3_pm\" --entry=\"./scratch-gui/src/lib/libraries/extensions/pm\" --gui=\"../scratch-gui\"",
     "register:legoboost": "node ./scripts/register.js -C --id=\"legoboost\" --block=\"./scratch-vm/src/extensions/scratch3_legoboost\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legoboost\" --gui=\"../scratch-gui\"",
     "register:legoble": "node ./scripts/register.js -C --id=\"legoble\" --block=\"./scratch-vm/src/extensions/scratch3_legoble\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legoble\" --gui=\"../scratch-gui\"",
@@ -15,9 +15,10 @@
     "register:legomario": "node ./scripts/register.js --link -C --id=\"legomario\" --block=\"./scratch-vm/src/extensions/scratch3_legomario\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legomario\" --gui=\"../scratch-gui\"",
     "register:legoluigi": "node ./scripts/register.js --link -C --id=\"legoluigi\" --block=\"./scratch-vm/src/extensions/scratch3_legoluigi\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legoluigi\" --gui=\"../scratch-gui\"",
     "register:legopeach": "node ./scripts/register.js --link -C --id=\"legopeach\" --block=\"./scratch-vm/src/extensions/scratch3_legopeach\" --entry=\"./scratch-gui/src/lib/libraries/extensions/legopeach\" --gui=\"../scratch-gui\"",
-    "register:spikeprime": "node ./scripts/register.js -C --id=\"spikeprime\" --block=\"./scratch-vm/src/extensions/scratch3_spikeprime\" --entry=\"./scratch-gui/src/lib/libraries/extensions/spikeprime\" --gui=\"../scratch-gui\"",
+    "register:spikeprimeble": "node ./scripts/register.js -C --id=\"spikeprimeble\" --block=\"./scratch-vm/src/extensions/scratch3_spikeprime_ble\" --entry=\"./scratch-gui/src/lib/libraries/extensions/spikeprimeble\" --gui=\"../scratch-gui\"",
+    "register:spikeprimebtc": "node ./scripts/register.js -C --id=\"spikeprimebtc\" --block=\"./scratch-vm/src/extensions/scratch3_spikeprime_btc\" --entry=\"./scratch-gui/src/lib/libraries/extensions/spikeprimebtc\" --gui=\"../scratch-gui\"",
     "register:dualshock4": "node ./scripts/register.js -C --id=\"dualshock4\" --block=\"./scratch-vm/src/extensions/scratch3_dualshock4\" --entry=\"./scratch-gui/src/lib/libraries/extensions/dualshock4\" --gui=\"../scratch-gui\"",
-    "build": "npm run build:legoble && npm run build:spikeessential && npm run build:legoremote && npm run build:controlplus && npm run build:poweredup && npm run build:duplotrain && npm run build:legopeach && npm run build:legoluigi && npm run build:legomario && npm run build:spikeprime && npm run build:dualshock4",
+    "build": "npm run build:legoble && npm run build:spikeessential && npm run build:legoremote && npm run build:controlplus && npm run build:poweredup && npm run build:duplotrain && npm run build:legopeach && npm run build:legoluigi && npm run build:legomario && npm run build:spikeprimebtc && npm run build:spikeprimeble && npm run build:dualshock4 && npm run build:pm",
     "build:pm": "node ./scripts/build.js --module=\"planetemaths\" --block=\"scratch-vm/src/extensions/scratch3_pm\" --entry=\"scratch-gui/src/lib/libraries/extensions/pm\" --gui=\"../scratch-gui\"",
     "build:legoble": "node ./scripts/build.js --module=\"legoble\" --block=\"scratch-vm/src/extensions/scratch3_legoble\" --entry=\"scratch-gui/src/lib/libraries/extensions/legoble\" --gui=\"../scratch-gui\"",
     "build:legoboost": "node ./scripts/build.js --module=\"legoboost\" --block=\"scratch-vm/src/extensions/scratch3_legoboost\" --entry=\"scratch-gui/src/lib/libraries/extensions/legoboost\" --gui=\"../scratch-gui\"",
@@ -29,13 +30,14 @@
     "build:legomario": "node ./scripts/build.js --module=\"legomario\" --block=\"scratch-vm/src/extensions/scratch3_legomario\" --entry=\"scratch-gui/src/lib/libraries/extensions/legomario\" --gui=\"../scratch-gui\"",
     "build:legoluigi": "node ./scripts/build.js --module=\"legoluigi\" --block=\"scratch-vm/src/extensions/scratch3_legoluigi\" --entry=\"scratch-gui/src/lib/libraries/extensions/legoluigi\" --gui=\"../scratch-gui\"",
     "build:legopeach": "node ./scripts/build.js --module=\"legopeach\" --block=\"scratch-vm/src/extensions/scratch3_legopeach\" --entry=\"scratch-gui/src/lib/libraries/extensions/legopeach\" --gui=\"../scratch-gui\"",
-    "build:spikeprime": "node ./scripts/build.js --module=\"spikeprime\" --block=\"scratch-vm/src/extensions/scratch3_spikeprime\" --entry=\"scratch-gui/src/lib/libraries/extensions/spikeprime\" --gui=\"../scratch-gui\"",
+    "build:spikeprimeble": "node ./scripts/build.js --module=\"spikeprimeble\" --block=\"scratch-vm/src/extensions/scratch3_spikeprime_ble\" --entry=\"scratch-gui/src/lib/libraries/extensions/spikeprimeble\" --gui=\"../scratch-gui\"",
+    "build:spikeprimebtc": "node ./scripts/build.js --module=\"spikeprimebtc\" --block=\"scratch-vm/src/extensions/scratch3_spikeprime_btc\" --entry=\"scratch-gui/src/lib/libraries/extensions/spikeprimebtc\" --gui=\"../scratch-gui\"",
     "build:dualshock4": "node ./scripts/build.js --module=\"dualshock4\" --block=\"scratch-vm/src/extensions/scratch3_dualshock4\" --entry=\"scratch-gui/src/lib/libraries/extensions/dualshock4\" --gui=\"../scratch-gui\"",
     "start": "cd ../scratch-gui && npm run start"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bricklife/scratch-lego-bluetooth-extensions.git"
+    "url": "git+https://github.com/CrispStrobe/scratch-lego-bluetooth-extensions.git"
   },
   "keywords": [
     "scratch",
@@ -43,17 +45,17 @@
     "bluetooth",
     "ble",
     "dualshock",
-    "gamepad"
+    "gamepad",
+    "math"
   ],
-  "author": "Shinichiro Oba",
+  "author": "CrispStrobe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bricklife/scratch-lego-bluetooth-extensions/issues"
+    "url": "https://github.com/CrispStrobe/scratch-lego-bluetooth-extensions/issues"
   },
-  "homepage": "https://github.com/bricklife/scratch-lego-bluetooth-extensions",
+  "homepage": "https://github.com/CrispStrobe/scratch-lego-bluetooth-extensions",
   "devDependencies": {
     "fs-extra": "^11.2.0",
-    "rimraf": "^5.0.5",
-    "xcratch-build": "github:bricklife/xcratch-build#lego-bluetooth-extensions"
+    "rimraf": "^5.0.5"
   }
 }

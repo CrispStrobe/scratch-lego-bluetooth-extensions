@@ -8273,70 +8273,208 @@ var translations = {
 };
 var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
 
-// Robust fallback formatMessage that actually uses translations
-// Detect browser locale automatically
-var currentLocale = function () {
-  // Try multiple ways to detect locale
-  var browserLocale = navigator.language ||
-  // Most browsers
-  navigator.userLanguage ||
-  // IE
-  navigator.browserLanguage ||
-  // Old browsers
-  'en'; // Fallback
+// Global variables for locale management
+var currentLocale = 'en'; // Start with fallback
+var runtimeRef = null; // Store runtime reference for locale detection
 
-  // Extract just the language part (de-DE -> de)
-  var lang = browserLocale.split('-')[0].toLowerCase();
+// Enhanced locale detection that tries multiple methods
+function detectLocale(runtime) {
+  console.log('🔍 === ENHANCED LOCALE DETECTION START ===');
+  var detectionMethods = [];
+  var detectedLocale = 'en'; // fallback
 
-  // Check if we have translations for this language
-  if (translations[lang]) {
-    console.log('Auto-detected locale:', lang, 'from browser locale:', browserLocale);
-    return lang;
+  // Method 1: Check if runtime has locale information
+  if (runtime) {
+    console.log('🎯 Method 1: Checking runtime object...');
+    console.log('📊 Runtime keys:', Object.keys(runtime));
+
+    // Check various possible runtime properties for locale
+    var possibleLocaleProps = ['locale', 'language', 'currentLocale', 'selectedLocale', 'userLocale', 'interfaceLanguage', 'lang'];
+    for (var i = 0; i < possibleLocaleProps.length; i++) {
+      var prop = possibleLocaleProps[i];
+      if (runtime[prop]) {
+        console.log('✅ Found runtime.' + prop + ':', runtime[prop]);
+        detectionMethods.push('runtime.' + prop + ': ' + runtime[prop]);
+        detectedLocale = runtime[prop];
+        break;
+      }
+    }
+
+    // Check runtime.formatMessage for locale info
+    if (runtime.formatMessage) {
+      console.log('🔧 Method 1.1: Testing runtime.formatMessage...');
+      try {
+        // Try to get locale info from formatMessage setup
+        if (typeof runtime.formatMessage.setup === 'function') {
+          var setup = runtime.formatMessage.setup();
+          console.log('📋 formatMessage.setup() result:', setup);
+          if (setup && setup.locale) {
+            console.log('✅ Found formatMessage locale: ' + setup.locale);
+            detectionMethods.push('formatMessage.setup().locale: ' + setup.locale);
+            detectedLocale = setup.locale;
+          }
+        }
+      } catch (e) {
+        console.log('❌ formatMessage.setup() failed:', e);
+      }
+    }
+
+    // Check runtime.vm for locale
+    if (runtime.vm) {
+      console.log('🔧 Method 1.2: Checking runtime.vm...');
+      console.log('📊 runtime.vm keys:', Object.keys(runtime.vm));
+      var vmLocaleProps = ['locale', 'language', 'currentLocale'];
+      for (var j = 0; j < vmLocaleProps.length; j++) {
+        var vmProp = vmLocaleProps[j];
+        if (runtime.vm[vmProp]) {
+          console.log('✅ Found runtime.vm.' + vmProp + ':', runtime.vm[vmProp]);
+          detectionMethods.push('runtime.vm.' + vmProp + ': ' + runtime.vm[vmProp]);
+          detectedLocale = runtime.vm[vmProp];
+          break;
+        }
+      }
+    }
   }
-  console.log('Browser locale', browserLocale, 'not available, using English');
-  return 'en';
-}();
+
+  // Method 2: Check global Scratch objects
+  console.log('🌐 Method 2: Checking global objects...');
+  if (typeof window !== 'undefined') {
+    var globalChecks = ['window.ScratchBlocks', 'window.Scratch', 'window.vm', 'window.Blockly', 'window.scratchConfig'];
+    for (var k = 0; k < globalChecks.length; k++) {
+      var check = globalChecks[k];
+      try {
+        var obj;
+        if (check === 'window.ScratchBlocks') obj = window.ScratchBlocks;else if (check === 'window.Scratch') obj = window.Scratch;else if (check === 'window.vm') obj = window.vm;else if (check === 'window.Blockly') obj = window.Blockly;else if (check === 'window.scratchConfig') obj = window.scratchConfig;
+        if (obj) {
+          var objKeys = Object.keys(obj);
+          console.log('📋 Found ' + check + ':', objKeys.slice(0, 10)); // First 10 keys
+
+          // Check for locale properties
+          var localeProps = ['locale', 'language', 'currentLocale', 'lang'];
+          for (var l = 0; l < localeProps.length; l++) {
+            var prop = localeProps[l];
+            if (obj[prop]) {
+              console.log('✅ Found ' + check + '.' + prop + ':', obj[prop]);
+              detectionMethods.push(check + '.' + prop + ': ' + obj[prop]);
+              detectedLocale = obj[prop];
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        console.log('❌ ' + check + ' not available:', e.message);
+      }
+    }
+  }
+
+  // Method 3: Check document/DOM for locale hints
+  console.log('📄 Method 3: Checking DOM for locale hints...');
+  if (typeof document !== 'undefined') {
+    // Check html lang attribute
+    var htmlLang = document.documentElement.lang;
+    if (htmlLang) {
+      console.log('✅ Found document.documentElement.lang: ' + htmlLang);
+      detectionMethods.push('document.documentElement.lang: ' + htmlLang);
+      detectedLocale = htmlLang.split('-')[0]; // Extract language part
+    }
+
+    // Check for Scratch-specific DOM elements with locale info
+    var metaElements = document.querySelectorAll('meta[name*="locale"], meta[name*="language"]');
+    for (var m = 0; m < metaElements.length; m++) {
+      var meta = metaElements[m];
+      console.log('✅ Found meta element:', meta.name, '=', meta.content);
+      detectionMethods.push('meta[' + meta.name + ']: ' + meta.content);
+      detectedLocale = meta.content.split('-')[0];
+    }
+  }
+
+  // Method 4: Check for stored preferences
+  console.log('💾 Method 4: Checking stored preferences...');
+  if (typeof localStorage !== 'undefined') {
+    var storageKeys = ['scratch-locale', 'scratch-language', 'locale', 'language', 'scratch-gui-locale', 'scratchLanguage'];
+    for (var n = 0; n < storageKeys.length; n++) {
+      var key = storageKeys[n];
+      try {
+        var value = localStorage.getItem(key);
+        if (value) {
+          console.log('✅ Found localStorage.' + key + ': ' + value);
+          detectionMethods.push('localStorage.' + key + ': ' + value);
+          detectedLocale = value.split('-')[0];
+          break;
+        }
+      } catch (e) {
+        console.log('❌ localStorage.' + key + ' check failed:', e.message);
+      }
+    }
+  }
+
+  // Method 5: Browser locale as final fallback
+  console.log('🌍 Method 5: Browser locale fallback...');
+  var browserLocale = navigator.language || navigator.userLanguage || navigator.browserLanguage || 'en';
+  console.log('🌍 Browser locale: ' + browserLocale);
+  detectionMethods.push('navigator.language: ' + browserLocale);
+
+  // If no other method worked, use browser locale
+  if (detectedLocale === 'en' && browserLocale !== 'en') {
+    detectedLocale = browserLocale.split('-')[0];
+  }
+
+  // Validate detected locale
+  var normalizedLocale = detectedLocale.split('-')[0].toLowerCase();
+  var isSupported = translations.hasOwnProperty(normalizedLocale);
+  console.log('📊 === LOCALE DETECTION SUMMARY ===');
+  console.log('🔍 Detection methods tried:', detectionMethods);
+  console.log('🎯 Raw detected locale:', detectedLocale);
+  console.log('🔄 Normalized locale:', normalizedLocale);
+  console.log('✅ Locale supported:', isSupported);
+  console.log('📚 Available locales:', Object.keys(translations));
+  var finalLocale = isSupported ? normalizedLocale : 'en';
+  console.log('🏁 Final locale:', finalLocale);
+  console.log('🔍 === ENHANCED LOCALE DETECTION END ===');
+  return finalLocale;
+}
+
+// Robust fallback formatMessage that uses detected locale
 var formatMessage = function formatMessage(messageData, args) {
-  console.log('formatMessage called with:', messageData, 'args:', args);
-  console.log('Current locale:', currentLocale);
-  console.log('Available translations:', Object.keys(translations));
-  console.log('translations object:', translations); // Show the full object
+  console.log('💬 formatMessage called with:', messageData, 'args:', args);
+  console.log('🌐 Current locale:', currentLocale);
+  console.log('📚 Available translations:', Object.keys(translations));
 
   // Handle string input
   if (typeof messageData === 'string') {
-    console.log('String input, returning as-is:', messageData);
+    console.log('📝 String input, returning as-is:', messageData);
     return messageData;
   }
 
   // Handle null/undefined
   if (!messageData) {
-    console.log('Null/undefined input, returning Missing text');
+    console.log('❌ Null/undefined input, returning Missing text');
     return 'Missing text';
   }
 
   // Handle object input
   if (_typeof$1(messageData) === 'object') {
     var message;
-    console.log('Object input, ID:', messageData.id);
-    console.log('Translations for current locale exist:', !!translations[currentLocale]);
+    console.log('🎯 Object input, ID:', messageData.id);
+    console.log('✅ Translations for current locale exist:', !!translations[currentLocale]);
     if (translations[currentLocale]) {
-      console.log('Available translation keys for', currentLocale + ':', Object.keys(translations[currentLocale]));
-      console.log('Looking for key:', messageData.id);
-      console.log('Key exists:', !!translations[currentLocale][messageData.id]);
+      console.log('📋 Available translation keys for ' + currentLocale + ':', Object.keys(translations[currentLocale]));
+      console.log('🔍 Looking for key:', messageData.id);
+      console.log('✅ Key exists:', !!translations[currentLocale][messageData.id]);
       if (translations[currentLocale][messageData.id]) {
-        console.log('Found translation:', translations[currentLocale][messageData.id]);
+        console.log('💡 Found translation:', translations[currentLocale][messageData.id]);
       }
     }
 
     // Try to get translation first
     if (messageData.id && translations[currentLocale] && translations[currentLocale][messageData.id]) {
       message = translations[currentLocale][messageData.id];
-      console.log('✅ Found translation for', messageData.id, ':', message);
+      console.log('✅ Found translation for ' + messageData.id + ' :', message);
     } else {
       // Fall back to defaultMessage, then default, then id
       message = messageData.defaultMessage || messageData.default || messageData.id || 'Missing text';
       console.log('❌ No translation found, using fallback:', message);
-      console.log('Fallback sources - defaultMessage:', messageData.defaultMessage, 'default:', messageData.default, 'id:', messageData.id);
+      console.log('🔄 Fallback sources - defaultMessage:', messageData.defaultMessage, 'default:', messageData.default, 'id:', messageData.id);
     }
 
     // Simple placeholder replacement: [KEY] -> args.KEY
@@ -8344,54 +8482,76 @@ var formatMessage = function formatMessage(messageData, args) {
       var originalMessage = message;
       message = message.replace(/\[([^\]]+)\]/g, function (match, key) {
         var replacement = args.hasOwnProperty(key) ? String(args[key]) : match;
-        console.log('Placeholder replacement:', match, '->', replacement);
+        console.log('🔄 Placeholder replacement:', match, '->', replacement);
         return replacement;
       });
       if (originalMessage !== message) {
-        console.log('Message after placeholder replacement:', message);
+        console.log('📝 Message after placeholder replacement:', message);
       }
     }
     console.log('🎯 Final message returned:', message);
     return message;
   }
-  console.log('Unknown input type, returning Missing text');
+  console.log('❌ Unknown input type, returning Missing text');
   return 'Missing text';
 };
 
-// Add setup function to the fallback formatMessage
+// Enhanced setup function for the fallback formatMessage
 formatMessage.setup = function (options) {
-  console.log('formatMessage.setup called with:', options);
+  console.log('⚙️ formatMessage.setup called with:', options);
+
+  // Re-detect locale if runtime is available
+  if (runtimeRef) {
+    console.log('🔄 Re-detecting locale with runtime...');
+    currentLocale = detectLocale(runtimeRef);
+  }
   if (options && options.locale) {
-    console.log('Setting locale from', currentLocale, 'to', options.locale);
+    console.log('🔧 Setting locale from options:', currentLocale, '->', options.locale);
     currentLocale = options.locale;
   }
-  console.log('Setup complete. Current locale:', currentLocale);
+  console.log('✅ Setup complete. Current locale:', currentLocale);
   return {
     locale: currentLocale,
     translations: translations
   };
 };
 
-// Setup translations function - tries to work with format-message if available
+// Enhanced setup translations function
 var setupTranslations = function setupTranslations() {
-  console.log('setupTranslations called');
-  console.log('formatMessage.setup exists:', _typeof$1(formatMessage.setup));
+  console.log('🔧 === SETUP TRANSLATIONS START ===');
+  console.log('📊 Current locale before setup:', currentLocale);
+  console.log('🛠 formatMessage.setup exists:', _typeof$1(formatMessage.setup));
   try {
+    // Re-detect locale if we have runtime reference
+    if (runtimeRef) {
+      console.log('🔄 Re-detecting locale during setup...');
+      var newLocale = detectLocale(runtimeRef);
+      if (newLocale !== currentLocale) {
+        console.log('🔄 Locale changed from ' + currentLocale + ' to ' + newLocale);
+        currentLocale = newLocale;
+      }
+    }
     var localeSetup = formatMessage.setup();
-    console.log('formatMessage.setup() returned:', localeSetup);
+    console.log('📋 formatMessage.setup() returned:', localeSetup);
     if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
-      console.log('Trying to assign translations for locale:', localeSetup.locale);
-      console.log('Available translation locales:', Object.keys(translations));
-      console.log('Translation keys to assign:', translations[localeSetup.locale] ? Object.keys(translations[localeSetup.locale]) : 'none');
-      Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
-      console.log('Translations assigned successfully');
+      console.log('🎯 Trying to assign translations for locale:', localeSetup.locale);
+      console.log('📚 Available translation locales:', Object.keys(translations));
+      if (translations[localeSetup.locale]) {
+        console.log('📝 Translation keys to assign:', Object.keys(translations[localeSetup.locale]));
+        Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
+        console.log('✅ Translations assigned successfully');
+      } else {
+        console.log('❌ No translations available for locale:', localeSetup.locale);
+      }
     } else {
-      console.log('No translation setup possible - localeSetup:', localeSetup);
+      console.log('❌ No translation setup possible - localeSetup:', localeSetup);
     }
   } catch (e) {
-    console.log('setupTranslations failed with error:', e);
+    console.log('❌ setupTranslations failed with error:', e);
     // Fails silently, which is fine.
   }
+  console.log('📊 Final locale after setup:', currentLocale);
+  console.log('🔧 === SETUP TRANSLATIONS END ===');
 };
 
 // Universal button mappings for different controller types
@@ -8433,34 +8593,59 @@ var GAMEPAD_BUTTONS = {
 };
 var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   function Scratch3GamepadBlocks(runtime) {
-    var _this = this;
     _classCallCheck(this, Scratch3GamepadBlocks);
     this.runtime = runtime;
-    console.log('🚀 Gamepad extension constructor called');
-    console.log('🌍 Browser locale detection:', navigator.language, navigator.userLanguage, navigator.browserLanguage);
-    console.log('🎯 Selected locale:', currentLocale);
-    console.log('📚 Available translation locales:', Object.keys(translations));
-    console.log('🔧 translations object structure:', translations);
+    runtimeRef = runtime; // Store global reference for locale detection
+
+    console.log('🚀 === GAMEPAD EXTENSION CONSTRUCTOR START ===');
+    console.log('📊 Runtime object keys:', Object.keys(runtime));
+    console.log('🔧 Runtime.formatMessage available:', !!runtime.formatMessage);
+
+    // Enhanced locale detection
+    currentLocale = detectLocale(runtime);
 
     // Test if runtime.formatMessage works properly before using it
     if (runtime.formatMessage) {
+      console.log('🧪 Testing runtime.formatMessage...');
       try {
         var testResult = runtime.formatMessage({
           id: 'test',
           defaultMessage: 'test'
         });
+        console.log('🧪 Test result:', testResult);
+
         // If it returns the ID instead of defaultMessage, it's broken
-        if (testResult === 'test' || testResult && testResult.includes('test')) {
+        if (testResult === 'test' || testResult && testResult.indexOf('test') !== -1) {
           formatMessage = runtime.formatMessage;
           console.log('✅ Using runtime.formatMessage');
+
+          // Try to get locale from runtime.formatMessage
+          if (typeof runtime.formatMessage.setup === 'function') {
+            try {
+              var setup = runtime.formatMessage.setup();
+              if (setup && setup.locale) {
+                console.log('🎯 Got locale from runtime.formatMessage:', setup.locale);
+                currentLocale = setup.locale;
+              }
+            } catch (e) {
+              console.log('❌ Could not get locale from runtime.formatMessage:', e);
+            }
+          }
         } else {
           console.log('❌ runtime.formatMessage is broken (returns IDs), using fallback');
         }
       } catch (e) {
-        console.log('❌ runtime.formatMessage test failed, using fallback');
+        console.log('❌ runtime.formatMessage test failed, using fallback:', e);
       }
     } else {
       console.log('⚠️ No runtime.formatMessage available, using fallback');
+    }
+    console.log('🏁 Final locale selected:', currentLocale);
+    console.log('📚 Available translations:', Object.keys(translations));
+    if (translations[currentLocale]) {
+      console.log('✅ Translations available for ' + currentLocale + ':', Object.keys(translations[currentLocale]).length, 'keys');
+    } else {
+      console.log('❌ No translations available for ' + currentLocale + ', using English fallback');
     }
     this.activeController = null;
     this.previousButtons = [];
@@ -8472,30 +8657,38 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       maxY: 180,
       minY: -180
     };
+    var self = this;
     this.runtime.on('PROJECT_RUN_START', function () {
-      _this._startPolling();
+      self._startPolling();
     });
     this.runtime.on('PROJECT_STOP_ALL', function () {
-      _this._stopPolling();
+      self._stopPolling();
     });
+    console.log('🚀 === GAMEPAD EXTENSION CONSTRUCTOR END ===');
   }
   _createClass(Scratch3GamepadBlocks, [{
     key: "getInfo",
     value: function getInfo() {
-      console.log('=== getInfo() called ===');
+      console.log('📋 === getInfo() called ===');
+      console.log('🌐 Current locale at getInfo:', currentLocale);
       setupTranslations();
 
-      // Test German translation access
-      console.log('Testing German locale access...');
-      console.log('German translations available:', !!translations.de);
-      if (translations.de) {
-        console.log('German translation for gamepad.name:', translations.de['gamepad.name']);
+      // Test current locale translations
+      console.log('🧪 Testing current locale translations...');
+      if (translations[currentLocale]) {
+        var keys = Object.keys(translations[currentLocale]);
+        console.log('✅ ' + currentLocale + ' translations available:', keys.slice(0, 5).concat(['...']));
+        console.log('🎯 gamepad.name in ' + currentLocale + ':', translations[currentLocale]['gamepad.name']);
+      } else {
+        console.log('❌ No ' + currentLocale + ' translations available');
       }
 
-      // To test German, you can manually set locale (remove this after testing):
-      // currentLocale = 'de';
-      // console.log('Manually set locale to German for testing');
-
+      // Test formatMessage with current settings
+      var testName = formatMessage({
+        id: 'gamepad.name',
+        defaultMessage: 'Universal Gamepad'
+      });
+      console.log('🧪 Test formatMessage result for gamepad.name:', testName);
       return {
         id: 'gamepad',
         name: formatMessage({
@@ -8648,6 +8841,13 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
               defaultValue: 'en'
             }
           }
+        }, {
+          opcode: 'forceLocaleDetection',
+          text: formatMessage({
+            id: 'gamepad.forceLocaleDetection',
+            defaultMessage: 'force locale detection'
+          }),
+          blockType: BlockType.REPORTER
         }],
         menus: {
           BUTTONS: {
@@ -8655,7 +8855,7 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
             items: Object.keys(GAMEPAD_BUTTONS).map(function (key) {
               return {
                 text: formatMessage({
-                  id: "gamepad.buttons.".concat(key),
+                  id: 'gamepad.buttons.' + key,
                   defaultMessage: key
                 }),
                 value: key
@@ -8710,10 +8910,10 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   }, {
     key: "_startPolling",
     value: function _startPolling() {
-      var _this2 = this;
       if (this._pollInterval) return;
+      var self = this;
       this._pollInterval = setInterval(function () {
-        return _this2._pollGamepads();
+        self._pollGamepads();
       }, 16); // ~60 FPS
     }
   }, {
@@ -8764,23 +8964,21 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   }, {
     key: "whenButtonPressed",
     value: function whenButtonPressed(args) {
-      var _this$activeControlle;
       if (!this.activeController) return false;
       var buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
       if (buttonIndex === undefined) return false;
       var wasPressed = this.previousButtons[buttonIndex] || false;
-      var isPressed = ((_this$activeControlle = this.activeController.buttons[buttonIndex]) === null || _this$activeControlle === void 0 ? void 0 : _this$activeControlle.pressed) || false;
+      var isPressed = this.activeController.buttons[buttonIndex] && this.activeController.buttons[buttonIndex].pressed || false;
       this.previousButtons[buttonIndex] = isPressed;
       return !wasPressed && isPressed;
     }
   }, {
     key: "isButtonPressed",
     value: function isButtonPressed(args) {
-      var _this$activeControlle2;
       if (!this.activeController) return false;
       var buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
       if (buttonIndex === undefined) return false;
-      var isPressed = ((_this$activeControlle2 = this.activeController.buttons[buttonIndex]) === null || _this$activeControlle2 === void 0 ? void 0 : _this$activeControlle2.pressed) || false;
+      var isPressed = this.activeController.buttons[buttonIndex] && this.activeController.buttons[buttonIndex].pressed || false;
       this.previousButtons[buttonIndex] = isPressed;
       return isPressed;
     }
@@ -8887,42 +9085,63 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   }, {
     key: "showDebugInfo",
     value: function showDebugInfo() {
-      console.log('--- UNIVERSAL GAMEPAD DEBUG INFO ---');
-      console.log("Connected: ".concat(this.isConnected() ? "YES (".concat(this.activeController.id, ")") : 'NO'));
+      console.log('🔧 === UNIVERSAL GAMEPAD DEBUG INFO ===');
+      console.log('🎮 Connected: ' + (this.isConnected() ? 'YES (' + this.activeController.id + ')' : 'NO'));
 
-      // Add translation debug info
-      console.log('--- TRANSLATION DEBUG INFO ---');
-      console.log('Current locale:', currentLocale);
-      console.log('Available translation locales:', Object.keys(translations));
-      console.log('formatMessage type:', _typeof$1(formatMessage));
-      console.log('formatMessage.setup exists:', _typeof$1(formatMessage.setup));
+      // Enhanced translation debug info
+      console.log('🌐 === TRANSLATION DEBUG INFO ===');
+      console.log('📍 Current locale:', currentLocale);
+      console.log('📚 Available translation locales:', Object.keys(translations));
+      console.log('🔧 formatMessage type:', _typeof$1(formatMessage));
+      console.log('⚙️ formatMessage.setup exists:', _typeof$1(formatMessage.setup));
+      console.log('🗄 runtimeRef available:', !!runtimeRef);
 
       // Test translation lookup
       var testMessage = formatMessage({
         id: 'gamepad.name',
         defaultMessage: 'Universal Gamepad'
       });
-      console.log('Test message result:', testMessage);
+      console.log('🧪 Test message result:', testMessage);
       if (this.activeController) {
-        console.log('--- CONTROLLER INFO ---');
-        console.log('Buttons:', this.activeController.buttons.map(function (b, i) {
-          return "".concat(i, ":").concat(b.pressed ? 'P' : 'R');
-        }).join(' '));
-        console.log('Axes:', this.activeController.axes.map(function (a) {
+        console.log('🎮 === CONTROLLER INFO ===');
+        var buttonStates = this.activeController.buttons.map(function (b, i) {
+          return i + ':' + (b.pressed ? 'P' : 'R');
+        }).join(' ');
+        console.log('🔘 Buttons:', buttonStates);
+        var axisValues = this.activeController.axes.map(function (a) {
           return a.toFixed(2);
-        }).join(', '));
-        console.log("Cursor: x=".concat(this.virtualCursor.x.toFixed(1), ", y=").concat(this.virtualCursor.y.toFixed(1)));
+        }).join(', ');
+        console.log('📊 Axes:', axisValues);
+        console.log('🖱 Cursor: x=' + this.virtualCursor.x.toFixed(1) + ', y=' + this.virtualCursor.y.toFixed(1));
       } else {
-        console.log('Connect a controller and press a button to begin.');
+        console.log('⚠️ Connect a controller and press a button to begin.');
+      }
+
+      // Runtime inspection
+      if (runtimeRef) {
+        console.log('🔧 === RUNTIME DEBUG INFO ===');
+        console.log('📊 Runtime keys:', Object.keys(runtimeRef));
+        if (runtimeRef.formatMessage) {
+          console.log('💬 Runtime.formatMessage available');
+          if (typeof runtimeRef.formatMessage.setup === 'function') {
+            try {
+              var setup = runtimeRef.formatMessage.setup();
+              console.log('⚙️ Runtime formatMessage setup:', setup);
+            } catch (e) {
+              console.log('❌ Runtime formatMessage setup failed:', e);
+            }
+          }
+        }
       }
     }
 
-    // Test method to change locale (for debugging)
+    // Enhanced locale setting method
   }, {
     key: "setLocale",
     value: function setLocale(args) {
       var locale = Cast.toString(args.LOCALE);
-      console.log('Setting locale from', currentLocale, 'to', locale);
+      console.log('🔄 Setting locale from ' + currentLocale + ' to ' + locale);
+      var oldLocale = currentLocale;
       currentLocale = locale;
 
       // Test the new locale
@@ -8930,8 +9149,26 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
         id: 'gamepad.name',
         defaultMessage: 'Universal Gamepad'
       });
-      console.log('Test message with new locale:', testMessage);
-      return "Locale set to ".concat(locale, ". Test message: ").concat(testMessage);
+      console.log('🧪 Test message with new locale:', testMessage);
+
+      // Verify translation exists
+      var hasTranslations = translations.hasOwnProperty(locale);
+      console.log('📚 Translations available for ' + locale + ':', hasTranslations);
+      return 'Locale: ' + oldLocale + ' → ' + locale + '. Has translations: ' + hasTranslations + '. Test: ' + testMessage;
+    }
+
+    // New method to force locale re-detection
+  }, {
+    key: "forceLocaleDetection",
+    value: function forceLocaleDetection() {
+      console.log('🔄 === FORCE LOCALE DETECTION ===');
+      var oldLocale = currentLocale;
+      currentLocale = detectLocale(runtimeRef);
+      var testMessage = formatMessage({
+        id: 'gamepad.name',
+        defaultMessage: 'Universal Gamepad'
+      });
+      return 'Detected: ' + oldLocale + ' → ' + currentLocale + '. Test: ' + testMessage;
     }
   }]);
   return Scratch3GamepadBlocks;
