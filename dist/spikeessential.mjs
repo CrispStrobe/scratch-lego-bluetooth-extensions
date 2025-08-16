@@ -1,4 +1,8 @@
-var global$1 = typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
+var global$2 = (typeof global !== "undefined" ? global :
+  typeof self !== "undefined" ? self :
+  typeof window !== "undefined" ? window : {});
+
+var global$1 = typeof global$2 !== "undefined" ? global$2 : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
 
 // shim for using process in browser
 // based off https://github.com/defunctzombie/node-process/blob/master/browser.js
@@ -4477,7 +4481,7 @@ Object.defineProperty(es5, "__esModule", {
 // Purposely using the same implementation as the Intl.js `Intl` polyfill.
 // Copyright 2013 Andy Earnshaw, MIT License
 var hop = Object.prototype.hasOwnProperty;
-var toString = Object.prototype.toString;
+var toString$1 = Object.prototype.toString;
 var realDefineProp = function () {
   try {
     return !!Object.defineProperty({}, 'a', {});
@@ -4520,10 +4524,10 @@ var arrIndexOf = Array.prototype.indexOf || function (search, fromIndex) {
   return -1;
 };
 es5.arrIndexOf = arrIndexOf;
-var isArray = Array.isArray || function (obj) {
-  return toString.call(obj) === '[object Array]';
+var isArray$1 = Array.isArray || function (obj) {
+  return toString$1.call(obj) === '[object Array]';
 };
-es5.isArray = isArray;
+es5.isArray = isArray$1;
 var dateNow = Date.now || function () {
   return new Date().getTime();
 };
@@ -7559,39 +7563,38 @@ addLocaleData(defaultLocaleData);
 
 addLocaleData(allLocaleData);
 
-var img$2 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/4EcMAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAACWKADAAQAAAABAAABdAAAAAAO8RAJAAAU8ElEQVR4Ae3YQW5cOQxFUVfDq/H+t2JvpxrIMBN9wY8BJZ6epaEw+ocaXNTr/f3x/vAfAQIECBAgQIBATOC/2CSDCBAgQIAAAQIE/ggILA+BAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECnwgIEPgHAl/vf/CPBP+Jn1dw2IBR9jtgyT6RwJ6AX7D2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBR4vb8/3stTDhAgQIAAAQIECDwW8AvWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBD6fHXOKQFjg6x0eWDzu5/W7f8D3/s6v+m/b757wtPe8p+M0gT8CfsHyEAgQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFjg9f7+eIdnGkeAAAECBAgQGC3gF6zR6/fxBAgQIECAQIWAwKpQNZMAAQIECBAYLSCwRq/fxxMgQIAAAQIVAgKrQtVMAgQIECBAYLSAwBq9fh9PgAABAgQIVAgIrApVMwkQIECAAIHRAgJr9Pp9PAECBAgQIFAhILAqVM0kQIAAAQIERgsIrNHr9/EECBAgQIBAhYDAqlA1kwABAgQIEBgtILBGr9/HEyBAgAABAhUCAqtC1UwCBAgQIEBgtIDAGr1+H0+AAAECBAhUCAisClUzCRAgQIAAgdECAmv0+n08AQIECBAgUCHwWTHUTAJLga/38kirAz+v313H9/7Or/pv2++e8LT3vKfjNIE/An7B8hAIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBY4PX+/niHZxpHgAABAgQIEBgt4Bes0ev38QQIECBAgECFgMCqUDWTAAECBAgQGC0gsEav38cTIECAAAECFQICq0LVTAIECBAgQGC0gMAavX4fT4AAAQIECFQICKwKVTMJECBAgACB0QICa/T6fTwBAgQIECBQISCwKlTNJECAAAECBEYLCKzR6/fxBAgQIECAQIWAwKpQNZMAAQIECBAYLSCwRq/fxxMgQIAAAQIVAgKrQtVMAgQIECBAYLSAwBq9fh9PgAABAgQIVAgIrApVMwkQIECAAIHRAgJr9Pp9PAECBAgQIFAh8Fkx1EwCBP4S+Hr/9T+a//Hn9bsL+t7f+VX/7d/ut/p+5hO4QMAvWBcs0ScQIECAAAECvQQEVq99uA0BAgQIECBwgYDAumCJPoEAAQIECBDoJSCweu3DbQgQIECAAIELBATWBUv0CQQIECBAgEAvAYHVax9uQ4AAAQIECFwgILAuWKJPIECAAAECBHoJCKxe+3AbAgQIECBA4AIBgXXBEn0CAQIECBAg0EtAYPXah9sQIECAAAECFwgIrAuW6BMIECBAgACBXgICq9c+3IYAAQIECBC4QEBgXbBEn0CAAAECBAj0EhBYvfbhNgQIECBAgMAFAgLrgiX6BAIECBAgQKCXgMDqtQ+3IUCAAAECBC4QEFgXLNEnECBAgAABAr0EBFavfbgNAQIECBAgcIGAwLpgiT6BAAECBAgQ6CUgsHrtw20IECBAgACBCwQE1gVL9AkECBAgQIBALwGB1WsfbkOAAAECBAhcICCwLliiTyBAgAABAgR6CQisXvtwGwIECBAgQOACAYF1wRJ9AgECBAgQINBLQGD12ofbECBAgAABAhcICKwLlugTCBAgQIAAgV4CAqvXPtyGAAECBAgQuEBAYF2wRJ9AgAABAgQI9BIQWL324TYECBAgQIDABQIC64Il+gQCBAgQIECgl4DA6rUPtyFAgAABAgQuEBBYFyzRJxAgQIAAAQK9BARWr324DQECBAgQIHCBgMC6YIk+gQABAgQIEOglILB67cNtCBAgQIAAgQsEBNYFS/QJBAgQIECAQC8BgdVrH25DgAABAgQIXCAgsC5Yok8gQIAAAQIEegkIrF77cBsCBAgQIEDgAgGBdcESfQIBAgQIECDQS0Bg9dqH2xAgQIAAAQIXCAisC5boEwgQIECAAIFeAq/398e715XchgABAgQIECBwtoBfsM7en9sTIECAAAECDQUEVsOluBIBAgQIECBwtoDAOnt/bk+AAAECBAg0FBBYDZfiSgQIECBAgMDZAgLr7P25PQECBAgQINBQQGA1XIorESBAgAABAmcLCKyz9+f2BAgQIECAQEMBgdVwKa5EgAABAgQInC0gsM7en9sTIECAAAECDQUEVsOluBIBAgQIECBwtoDAOnt/bk+AAAECBAg0FBBYDZfiSgQIECBAgMDZAgLr7P25PQECBAgQINBQQGA1XIorESBAgAABAmcLCKyz9+f2BAgQIECAQEOBz4Z3ciUCBE4X+Hqf9QU/r7Pu67YECLQX8AtW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCn6dd2H0JEDhA4Od1wCVdkQABAnUCfsGqszWZAAECBAgQGCogsIYu3mcTIECAAAECdQICq87WZAIECBAgQGCogMAaunifTYAAAQIECNQJCKw6W5MJECBAgACBoQICa+jifTYBAgQIECBQJyCw6mxNJkCAAAECBIYKCKyhi/fZBAgQIECAQJ2AwKqzNZkAAQIECBAYKiCwhi7eZxMgQIAAAQJ1AgKrztZkAgQIECBAYKiAwBq6eJ9NgAABAgQI1AkIrDpbkwkQIECAAIGhAgJr6OJ9NgECBAgQIFAnILDqbE0mQIAAAQIEhgoIrKGL99kECBAgQIBAnYDAqrM1mQABAgQIEBgqILCGLt5nEyBAgAABAnUCAqvO1mQCBAgQIEBgqIDAGrp4n02AAAECBAjUCQisOluTCRAgQIAAgaECAmvo4n02AQIECBAgUCcgsOpsTSZAgAABAgSGCgisoYv32QQIECBAgECdgMCqszWZAAECBAgQGCogsIYu3mcTIECAAAECdQICq87WZAIECBAgQGCogMAaunifTYAAAQIECNQJCKw6W5MJECBAgACBoQICa+jifTYBAgQIECBQJyCw6mxNJkCAAAECBIYKCKyhi/fZBAgQIECAQJ2AwKqzNZkAAQIECBAYKiCwhi7eZxMgQIAAAQJ1AgKrztZkAgQIECBAYKiAwBq6eJ9NgAABAgQI1AkIrDpbkwkQIECAAIGhAgJr6OJ9NgECBAgQIFAnILDqbE0mQIAAAQIEhgoIrKGL99kECBAgQIBAnYDAqrM1mQABAgQIEBgqILCGLt5nEyBAgAABAnUCAqvO1mQCBAgQIEBgqMD/dCwx5rhX9OkAAAAASUVORK5CYII=";
+var img$3 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/4EcMAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAACWKADAAQAAAABAAABdAAAAAAtOTIzAAASe0lEQVR4Ae3WsQ0AIAwEMWD/9ZgnSMxwpTPAF1aK23PXLEeAAAECBAgQIJAJnGzJEAECBAgQIECAwBcQWB6BAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEBAYPkBAgQIECBAgEAsILBiUHMECBAgQIAAAYHlBwgQIECAAAECsYDAikHNESBAgAABAgQElh8gQIAAAQIECMQCAisGNUeAAAECBAgQEFh+gAABAgQIECAQCwisGNQcAQIECBAgQEBg+QECBAgQIECAQCwgsGJQcwQIECBAgAABgeUHCBAgQIAAAQKxgMCKQc0RIECAAAECBASWHyBAgAABAgQIxAICKwY1R4AAAQIECBAQWH6AAAECBAgQIBALCKwY1BwBAgQIECBAQGD5AQIECBAgQIBALCCwYlBzBAgQIECAAAGB5QcIECBAgAABArGAwIpBzREgQIAAAQIEBJYfIECAAAECBAjEAgIrBjVHgAABAgQIEBBYfoAAAQIECBAgEAsIrBjUHAECBAgQIEDgAXlfBbv4BCYKAAAAAElFTkSuQmCC";
 
-var img$1 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='40px' height='40px' viewBox='0 0 40 40' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-small%3c/title%3e %3cg id='spikeprime-small' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3crect id='body' stroke='%237C87A5' fill='white' x='9.5' y='4.5' width='21' height='31' rx='1.5'%3e%3c/rect%3e %3cg id='matrix' transform='translate(13.000000%2c 12.000000)' fill='%23FFD500'%3e %3crect id='d' x='6' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy' x='9' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-3' x='6' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-2' x='9' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-11' x='0' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-10' x='3' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-9' x='0' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-8' x='3' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-15' x='12' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-14' x='3' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-13' x='12' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-12' x='6' y='12' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-16' x='3' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-17' x='9' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-5' x='6' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-4' x='9' y='9' width='2' height='2'%3e%3c/rect%3e %3c/g%3e %3ccircle id='Oval' stroke='%234C97FF' cx='26.5' cy='8.5' r='1.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' cx='20' cy='31' r='2.5'%3e%3c/circle%3e %3c/g%3e%3c/svg%3e";
+var img$2 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='40px' height='40px' viewBox='0 0 40 40' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeessential-small%3c/title%3e %3cg id='spikeessential-small' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3crect id='body' stroke='%237C87A5' fill='white' x='5.5' y='9.5' width='29' height='21' rx='2'%3e%3c/rect%3e %3crect id='button' stroke='%237C87A5' fill='white' x='17.5' y='21.5' width='5' height='5' rx='0.5'%3e%3c/rect%3e %3cpolyline id='Path' stroke='%233D79CC' fill='%234C97FF' transform='translate(20.000000%2c 28.750000) scale(1%2c -1) translate(-20.000000%2c -28.750000) ' points='21 27.5 21 30 19 30 19 27.5'%3e%3c/polyline%3e %3c/g%3e%3c/svg%3e";
 
-var img = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='79px' height='123px' viewBox='0 0 79 123' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-illustration%3c/title%3e %3cg id='spikeprime-illustration' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3cg id='Group' transform='translate(1.000000%2c 1.000000)'%3e %3crect id='Rectangle' stroke='%237C87A5' fill='white' x='0' y='0' width='77' height='121' rx='5.5'%3e%3c/rect%3e %3ccircle id='Oval' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-3' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-5' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3cpath d='M16.5%2c99 C13.4624339%2c99 11%2c101.462434 11%2c104.5 C11%2c107.537566 13.4624339%2c110 16.5%2c110 C38.5%2c110 38.5%2c110 60.5%2c110 C63.5375661%2c110 66%2c107.537566 66%2c104.5 C66%2c101.462434 63.5375661%2c99 60.5%2c99 C38.5%2c99 38.5%2c99 16.5%2c99 Z' id='Path' stroke='%237C87A5' stroke-width='0.5'%3e%3c/path%3e %3ccircle id='Center-Button' stroke='%237C87A5' stroke-width='1.5' fill='white' cx='38.5' cy='104.5' r='10.5'%3e%3c/circle%3e %3ccircle id='Bluetooth' stroke='%234C97FF' stroke-width='1.5' cx='60.5' cy='16.5' r='6.5'%3e%3c/circle%3e %3cg id='matrix' transform='translate(12.000000%2c 34.000000)' fill='%23FFD500'%3e %3crect id='Rectangle-Copy-24' x='0' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-26' x='11' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-25' x='11' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-29' x='22' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-28' x='33' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-27' x='33' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-31' x='44' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-42' x='0' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-40' x='11' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-39' x='11' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-38' x='22' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-37' x='22' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-36' x='33' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-35' x='33' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-34' x='44' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-45' x='22' y='44' width='9' height='9'%3e%3c/rect%3e %3c/g%3e %3c/g%3e %3c/g%3e%3c/svg%3e";
+var img$1 = "data:image/svg+xml,%3csvg width='204' height='72' viewBox='0 0 204 72' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='none' fill-rule='evenodd'%3e%3cpath stroke='%237C87A5' fill='white' fill-rule='nonzero' stroke-linecap='round' stroke-linejoin='round' d='M100 24h100v40H100z'/%3e%3cpath d='M76 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M73.3 4v4H76V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M76 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M64 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M61.3 4v4H64V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M64 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M52 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M49.3 4v4H52V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M52 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M40 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M37.3 4v4H40V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M40 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M28 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M25.3 4v4H28V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M28 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M16 8H8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M13.3 4v4H16V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M16 8H8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M172 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M169.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M172 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M160 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M157.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M160 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M148 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M145.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M148 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M136 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M133.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M136 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M124 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M121.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M124 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M112 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M109.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M112 8h-8V5c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M198 8H6a2 2 0 0 0-2 2v14h196V10a2 2 0 0 0-2-2z' stroke='%237C87A5' fill='white' fill-rule='nonzero' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg stroke-linecap='round' stroke-linejoin='round'%3e%3cpath stroke='%237C87A5' fill='%23E6E7E8' fill-rule='nonzero' d='M100 20h-2v-2H82v2h-2V10h20z'/%3e%3cpath stroke='%237C87A5' fill='%237C87A5' fill-rule='nonzero' d='M82 12.1h16V18H82z'/%3e%3cpath d='M84 17v-1M86 17v-1M90 17v-1M94 17v-1M88 17v-1M92 17v-1M96 17v-1' stroke='%23E6E7E8'/%3e%3c/g%3e%3cg%3e%3cpath d='M196 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M193.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M196 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cpath d='M200 24H4v-4h190a2 2 0 0 0 2-2V8h2a2 2 0 0 1 2 2v14z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg%3e%3cpath d='M184 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M181.3 4v4h2.7V4.7c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M184 8h-8V5c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M76 24h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M73.3 20v4H76v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M76 24h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M64 24h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M61.3 20v4H64v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M64 24h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M124 44h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M121.3 40v4h2.7v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M124 44h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M112 44h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M109.3 40v4h2.7v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M112 44h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M52 24h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M49.3 20v4H52v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M52 24h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M40 24h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M37.3 20v4H40v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M40 24h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M28 24h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M25.3 20v4H28v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M28 24h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg%3e%3cpath d='M16 24H8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M13.3 20v4H16v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M16 24H8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cpath d='M100 68H6a2 2 0 0 1-2-2v-2h84v-4h12v8z' stroke='%237C87A5' fill='%23E6E7E8' fill-rule='nonzero' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath stroke='%237C87A5' fill='%23E6E7E8' fill-rule='nonzero' stroke-linecap='round' stroke-linejoin='round' d='M4 36v28h84V44H64l-12-8zM100 68h98a2 2 0 0 0 2-2v-2H100v4z'/%3e%3cpath d='M200 24v42a2 2 0 0 1-2 2h-98V24h4v14c0 1.1.9 2 2 2h24a2 2 0 0 1 2 2v16c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V42c0-1.1.9-2 2-2h48a2 2 0 0 0 2-2V24h4z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M100 24H4v12h48l12 8h24v16h38a2 2 0 0 0 2-2V46a2 2 0 0 0-2-2h-26V24z' stroke='%237C87A5' fill='white' fill-rule='nonzero' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg transform='translate(12 44)'%3e%3ccircle fill='%23CC4C23' fill-rule='nonzero' cx='6' cy='6' r='6'/%3e%3ccircle stroke='%23231F20' stroke-width='2' opacity='.1' stroke-linecap='round' stroke-linejoin='round' cx='6' cy='6' r='6'/%3e%3cpath d='M8 6H4M6 8V4' stroke='%23414042' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cg transform='translate(109 46)'%3e%3ccircle stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round' cx='4.9' cy='5.4' r='4.6'/%3e%3ccircle fill='%237C87A5' fill-rule='nonzero' cx='4.9' cy='5.4' r='3.3'/%3e%3ccircle stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round' cx='4.9' cy='5.4' r='4.6'/%3e%3c/g%3e%3cg%3e%3cpath d='M149 44h50c.5 0 1 .5 1 1v14c0 .6-.5 1-1 1h-50a1 1 0 0 1-1-1V45c0-.5.5-1 1-1z' stroke='%237C87A5' fill='white' fill-rule='nonzero' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M200 44v15c0 .6-.5 1-1 1h-50a1 1 0 0 1-1-1v-3h45a3 3 0 0 0 3-3v-9h4z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M196 44h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M193.3 40v4h2.7v-3.3c0-.4-.4-.7-1-.7h-1.8z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M196 44h-8v-3c0-.6.5-1 1-1h6c.6 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M160 44h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M157.3 40v4h2.7v-3.3c0-.4-.4-.7-1-.7h-1.7z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M160 44h-8v-3c0-.6.5-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M184 44h-8v-3c0-.6.4-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M181.3 40v4h2.7v-3.3c0-.4-.4-.7-1-.7h-1.8z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M184 44h-8v-3c0-.6.4-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M172 44h-8v-3c0-.6.4-1 1-1h6c.5 0 1 .5 1 1v3z' fill='white' fill-rule='nonzero'/%3e%3cpath d='M169.3 40v4h2.7v-3.3c0-.4-.4-.7-1-.7h-1.8z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M172 44h-8v-3c0-.6.4-1 1-1h6c.5 0 1 .5 1 1v3z' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg transform='translate(157 46)'%3e%3ccircle stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round' cx='4.8' cy='5.4' r='4.6'/%3e%3ccircle fill='%237C87A5' fill-rule='nonzero' cx='4.8' cy='5.4' r='3.3'/%3e%3ccircle stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round' cx='4.8' cy='5.4' r='4.6'/%3e%3c/g%3e%3cg transform='translate(169 46)'%3e%3ccircle stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round' cx='5' cy='5.4' r='4.6'/%3e%3ccircle fill='%237C87A5' fill-rule='nonzero' cx='5' cy='5.4' r='3.3'/%3e%3ccircle stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round' cx='5' cy='5.4' r='4.6'/%3e%3c/g%3e%3cg transform='translate(181 46)'%3e%3ccircle stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round' cx='5.2' cy='5.4' r='4.6'/%3e%3ccircle fill='%237C87A5' fill-rule='nonzero' cx='5.2' cy='5.4' r='3.3'/%3e%3ccircle stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round' cx='5.2' cy='5.4' r='4.6'/%3e%3c/g%3e%3c/g%3e%3cpath d='M100 68H6a2 2 0 0 1-2-2v-2h84v-4h12v8zM128 46v12a2 2 0 0 1-2 2H88v-4h34a2 2 0 0 0 2-2V44h2a2 2 0 0 1 2 2zM87 43H64l-12-8H4v2h48l12 8h24v-1c0-.5-.5-1-1-1z' stroke='%23231F20' fill='%23231F20' fill-rule='nonzero' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3c/svg%3e";
+
+var img = "data:image/svg+xml,%3csvg width='204' height='92' viewBox='0 0 204 92' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cstyle%3e%40-webkit-keyframes wiggle%7b0%25%7btransform:translate(0%2c-10px)%7dto%7btransform:translate(0%2c0)%7d%7d%40keyframes wiggle%7b0%25%7btransform:translate(0%2c-10px)%7dto%7btransform:translate(0%2c0)%7d%7d%3c/style%3e%3cdefs%3e%3cpath d='M66.5 45c-.7 0-1.3-.2-1.7-.7l-9.1-8.8c-.7-.7-.9-1.7-.5-2.6.4-.8 1.2-1.4 2.2-1.4H61l1.7-12.2a4 4 0 0 1 4.5-3.3 4 4 0 0 1 3.3 3.3l1.8 12.2h3.3c1 0 2 .6 2.3 1.5.4.9.2 1.8-.5 2.5l-9.1 8.8c-.5.5-1 .7-1.7.7z' id='path-1'/%3e%3cfilter x='-15.2%25' y='-12.1%25' width='130.4%25' height='124.1%25' filterUnits='objectBoundingBox' id='filter-2'%3e%3cfeMorphology radius='1.5' operator='dilate' in='SourceAlpha' result='shadowSpreadOuter1'/%3e%3cfeOffset in='shadowSpreadOuter1' result='shadowOffsetOuter1'/%3e%3cfeComposite in='shadowOffsetOuter1' in2='SourceAlpha' operator='out' result='shadowOffsetOuter1'/%3e%3cfeColorMatrix values='0 0 0 0 0.298039216 0 0 0 0 0.592156863 0 0 0 0 1 0 0 0 0.25 0' in='shadowOffsetOuter1'/%3e%3c/filter%3e%3c/defs%3e%3cg id='boost-button-illustration' fill='none' fill-rule='evenodd'%3e%3cg id='boost-top' transform='translate(4 4)' fill-rule='nonzero'%3e%3cpath d='M94 84H2a2 2 0 0 1-2-2V68h96v14a2 2 0 0 1-2 2z' id='Path' stroke='%237C87A5' fill='white' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath id='Rectangle' stroke='%237C87A5' fill='white' stroke-linecap='round' stroke-linejoin='round' transform='rotate(-90 98 42)' d='M72-56h52v196H72z'/%3e%3cg id='Group' transform='translate(54 34)'%3e%3cg opacity='.1' fill='%23231F20'%3e%3cpath d='M4 15a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H4z' id='Path'/%3e%3cpath d='M12 2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h8zm0-2H4a4 4 0 0 0-4 4v8a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4z' id='Shape'/%3e%3c/g%3e%3cpath d='M2 4v8c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z' id='Path' stroke='%23389438' fill='%2346B946' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/g%3e%3cpath id='Rectangle' stroke='%23231F20' fill='%23231F20' opacity='.1' stroke-linecap='round' stroke-linejoin='round' transform='rotate(-90 86 42)' d='M84 32h4v20h-4z'/%3e%3cg id='Group' transform='translate(76 16)' opacity='.5' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M4 10H2a2 2 0 0 1-2-2V0h20v8a2 2 0 0 1-2 2h-2' id='Path' fill='white'/%3e%3cpath id='Path' fill='%237C87A5' d='M14 12l-2-4-2 4zM6 8l2 4 2-4z'/%3e%3c/g%3e%3cg id='Group' transform='translate(76 56)' opacity='.5' stroke='%237C87A5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M4 2H2a2 2 0 0 0-2 2v8h20V4a2 2 0 0 0-2-2h-2' id='Path' fill='white'/%3e%3cpath id='Path' fill='%237C87A5' d='M14 0l-2 4-2-4zM6 4l2-4 2 4z'/%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(4 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(16 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(28 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(40 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(52 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(64 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(124 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(136 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(100 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(112 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(148 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(160 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(172 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(184 20)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(124 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(136 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(100 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(112 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(148 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(160 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(172 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(184 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(124 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(136 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(100 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(112 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(148 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(160 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(172 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(184 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(124 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(136 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(100 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(112 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(148 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(160 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(172 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(184 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(4 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(16 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(28 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(40 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(52 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(64 56)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(4 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(16 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(28 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(40 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(52 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(64 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cpath d='M96 16H0V2C0 .9.9 0 2 0h92a2 2 0 0 1 2 2v14zM124 16H96V2c0-1.1.9-2 2-2h24a2 2 0 0 1 2 2v14z' id='Path' stroke='%237C87A5' fill='white' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(4 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(16 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(28 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(40 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(52 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(64 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(4 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(16 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(28 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(40 44)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(4 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(16 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(28 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(40 32)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cpath d='M122 84H98a2 2 0 0 1-2-2V68h28v14a2 2 0 0 1-2 2zM194 84h-48a2 2 0 0 1-2-2V68h52v14a2 2 0 0 1-2 2z' id='Path' stroke='%237C87A5' fill='white' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(100 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(102 74)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg%3e%3cg transform='translate(112 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(114 74)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(100 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(102 6)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg%3e%3cg transform='translate(112 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(114 6)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cpath d='M196 16h-52V2c0-1.1.9-2 2-2h48a2 2 0 0 1 2 2v14z' id='Path' stroke='%237C87A5' fill='white' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M124 72h-20a4 4 0 0 0-4 4v8h-2a2 2 0 0 1-2-2V72H0v-4h124v4zM124 12h-20a4 4 0 0 1-4-4V0h-2a2 2 0 0 0-2 2v10H0v4h124v-4z' id='Path' stroke='%23231F20' fill='%23231F20' opacity='.1' stroke-linecap='round' stroke-linejoin='round'/%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(148 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(150 6)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg%3e%3cg transform='translate(160 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(162 6)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg%3e%3cg transform='translate(172 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(174 6)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg%3e%3cg transform='translate(184 4)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(186 6)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cg id='Group' opacity='.5'%3e%3cg transform='translate(148 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(150 74)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg%3e%3cg transform='translate(160 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(162 74)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3cg%3e%3cg transform='translate(172 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(174 74)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg%3e%3cg transform='translate(184 72)'%3e%3ccircle id='Oval' fill='white' cx='4' cy='4' r='3.5'/%3e%3cpath d='M4 1a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3zm0-1a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3cg transform='translate(186 74)'%3e%3ccircle id='Oval' fill='white' cx='2' cy='2' r='1.5'/%3e%3cpath d='M2 1c.5 0 1 .4 1 1 0 .5-.5 1-1 1a1 1 0 0 1-1-1c0-.6.4-1 1-1zm0-1a2 2 0 0 0-2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z' id='Shape' fill='%237C87A5'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cpath id='Rectangle' stroke='%23231F20' fill='%23231F20' opacity='.1' stroke-linecap='round' stroke-linejoin='round' d='M144 12h52v4h-52zM144 68h52v4h-52z'/%3e%3c/g%3e%3cg style='-webkit-animation:wiggle .5s infinite ease-in-out alternate%3banimation:wiggle .5s infinite ease-in-out alternate'%3e%3cuse fill='black' filter='url(%23filter-2)' xlink:href='%23path-1'/%3e%3cuse stroke='%234280D7' fill='%234C97FF' xlink:href='%23path-1'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e";
 
 var entry = {
-  name: 'LEGO Education SPIKE Prime',
-  // Removed "(Legacy)" since this is the new implementation
-  extensionId: 'spikeprime',
-  collaborator: 'CrispStrobe',
-  // with acknowledgments and big thanks towards bricklife
-  iconURL: img$2,
-  insetIconURL: img$1,
+  name: 'LEGO Education SPIKE Essential',
+  extensionId: 'spikeessential',
+  collaborator: 'bricklife',
+  iconURL: img$3,
+  insetIconURL: img$2,
   description: /*#__PURE__*/React.createElement(FormattedMessage, {
-    defaultMessage: "Build with SPIKE Prime, Robot Inventor, and Powered Up devices. Supports motors, sensors, lights, and displays.",
-    id: "gui.extension.spikeprime.description" // Updated to reflect comprehensive support
+    defaultMessage: "Build with motors and sensors.",
+    id: "gui.extension.spikeessential.description"
   }),
   featured: true,
   disabled: false,
   bluetoothRequired: true,
-  internetConnectionRequired: false,
-  // Changed from true - BLE extensions don't typically need internet
+  internetConnectionRequired: true,
   launchPeripheralConnectionFlow: true,
   useAutoScan: true,
-  // Changed to true for better UX - auto-scan for SPIKE Prime hubs
-  connectionIconURL: img,
-  connectionSmallIconURL: img$1,
+  connectionIconURL: img$1,
+  connectionSmallIconURL: img$2,
+  connectionTipIconURL: img,
   connectingMessage: /*#__PURE__*/React.createElement(FormattedMessage, {
-    defaultMessage: "Connecting to SPIKE Prime...",
-    id: "gui.extension.spikeprime.connectingMessage" // Fixed - was pointing to boost
+    defaultMessage: "Connecting",
+    id: "gui.extension.boost.connectingMessage"
   }),
-  helpLink: 'https://education.lego.com/' // Fixed - was pointing to boost help
+  helpLink: 'https://scratch.mit.edu/boost'
 };
 
 function _classCallCheck(instance, Constructor) {
@@ -7632,6 +7635,79 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = _getPrototypeOf(object);
+    if (object === null) break;
+  }
+  return object;
+}
+
+function _get() {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get.bind();
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = _superPropBase(target, property);
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+      if (desc.get) {
+        return desc.get.call(arguments.length < 3 ? target : receiver);
+      }
+      return desc.value;
+    };
+  }
+  return _get.apply(this, arguments);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
 }
 
 /**
@@ -8207,52 +8283,851 @@ var Cast$1 = /*#__PURE__*/function () {
 }();
 var cast = Cast$1;
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self;
-}
+var Color$1 = {
+  BLACK: 0,
+  PINK: 1,
+  PURPLE: 2,
+  BLUE: 3,
+  LIGHT_BLUE: 4,
+  LIGHT_GREEN: 5,
+  GREEN: 6,
+  YELLOW: 7,
+  ORANGE: 8,
+  RED: 9,
+  WHITE: 10,
+  NONE: -1
+};
+var color = Color$1;
 
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
+var setupTranslations = function setupTranslations(formatMessage) {
+  var extTranslations = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var localeSetup = formatMessage.setup();
+  var translations = {
+    'en': {
+      'legobluetooth.motorPWM': '[PORT] start motor at [POWER] % power',
+      'legobluetooth.motorStop': '[PORT] stop motor',
+      'legobluetooth.motorRunFor': '[PORT] run [DIRECTION] for [VALUE] [UNIT]',
+      'legobluetooth.motorGoDirectionToPosition': '[PORT] go [DIRECTION] to position [POSITION]',
+      'legobluetooth.motorStart': '[PORT] start motor [DIRECTION]',
+      'legobluetooth.motorSetSpeed': '[PORT] set speed to [SPEED] %',
+      'legobluetooth.getRelativePosition': '[PORT] relative position',
+      'legobluetooth.getPosition': '[PORT] position',
+      'legobluetooth.motorResetRelativePosition': '[PORT] reset relative position to [RELATIVE_POSITION]',
+      'legobluetooth.displayImageFor': 'turn on [MATRIX] for [DURATION] seconds',
+      'legobluetooth.displayImage': 'turn on [MATRIX]',
+      'legobluetooth.displayText': 'write [TEXT]',
+      'legobluetooth.displayClear': 'turn off pixels',
+      'legobluetooth.displaySetBrightness': 'set pixel brightness to [BRIGHTNESS] %',
+      'legobluetooth.displaySetPixel': 'set pixel at [X] , [Y] to [BRIGHTNESS] %',
+      'legobluetooth.centerButtonLights': 'set center button light to [COLOR]',
+      'legobluetooth.ultrasonicLightUp': '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]',
+      'legobluetooth.getColor': '[PORT] color',
+      'legobluetooth.getDistance': '[PORT] distance',
+      'legobluetooth.getForce': '[PORT] force',
+      'legobluetooth.getTilt': '[PORT] tilt [XY]',
+      'legobluetooth.setHubLEDColor': 'set hub LED color to [COLOR]',
+      'legobluetooth.getHubTilt': 'hub tilt [XYZ]',
+      'legobluetooth.getAngle': '[AXIS] angle',
+      'legobluetooth.getName': 'name',
+      'legobluetooth.getFirmwareVersion': 'firmware version',
+      'legobluetooth.getBatteryLevel': 'battery level',
+      'legobluetooth.rotations': 'rotations',
+      'legobluetooth.degrees': 'degrees',
+      'legobluetooth.seconds': 'seconds',
+      'legobluetooth.shortestPath': 'shortest',
+      'legobluetooth.clockwise': 'clockwise',
+      'legobluetooth.counterclockwise': 'counterclockwise',
+      'legobluetooth.black': '(0) Black',
+      'legobluetooth.pink': '(1) Pink',
+      'legobluetooth.purple': '(2) Purple',
+      'legobluetooth.blue': '(3) Blue',
+      'legobluetooth.lightBlue': '(4) Light blue',
+      'legobluetooth.lightGreen': '(5) Light green',
+      'legobluetooth.green': '(6) Green',
+      'legobluetooth.yellow': '(7) Yellow',
+      'legobluetooth.orange': '(8) Orange',
+      'legobluetooth.red': '(9) Red',
+      'legobluetooth.white': '(10) White',
+      'legobluetooth.noColor': '(-1) No color',
+      'legobluetooth.pitch': 'pitch',
+      'legobluetooth.roll': 'roll',
+      'legobluetooth.yaw': 'yaw'
+    },
+    'it': {},
+    'ja': {
+      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーで回す',
+      'legobluetooth.motorStop': '[PORT] モーターを止める',
+      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] 方向に [VALUE] [UNIT] 回す',
+      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] で位置 [POSITION] まで回す',
+      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] 方向に回す',
+      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
+      'legobluetooth.getRelativePosition': '[PORT] 相対位置',
+      'legobluetooth.getPosition': '[PORT] 位置',
+      'legobluetooth.motorResetRelativePosition': '[PORT] 相対位置を [RELATIVE_POSITION] にリセットする',
+      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] 秒間オンにする',
+      'legobluetooth.displayImage': '[MATRIX] をオンにする',
+      'legobluetooth.displayText': '[TEXT] を表示する',
+      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
+      'legobluetooth.displaySetBrightness': 'ピクセルの明るさを [BRIGHTNESS] %にする',
+      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルの明るさを [BRIGHTNESS] %にする',
+      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
+      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
+      'legobluetooth.getColor': '[PORT] 色',
+      'legobluetooth.getDistance': '[PORT] 距離',
+      'legobluetooth.getForce': '[PORT] 圧力',
+      'legobluetooth.getTilt': '[PORT] 傾き [XY]',
+      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
+      'legobluetooth.getHubTilt': 'ハブの傾き [XYZ]',
+      'legobluetooth.getAngle': '[AXIS] 角',
+      'legobluetooth.getName': '名前',
+      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
+      'legobluetooth.getBatteryLevel': '電池残量',
+      'legobluetooth.rotations': '回転',
+      'legobluetooth.degrees': '度',
+      'legobluetooth.seconds': '秒',
+      'legobluetooth.shortestPath': '最短経路',
+      'legobluetooth.clockwise': '時計回り',
+      'legobluetooth.counterclockwise': '反時計回り',
+      'legobluetooth.black': '(0) 黒',
+      'legobluetooth.pink': '(1) ピンク',
+      'legobluetooth.purple': '(2) 紫',
+      'legobluetooth.blue': '(3) 青',
+      'legobluetooth.lightBlue': '(4) 水色',
+      'legobluetooth.lightGreen': '(5) 明るい緑',
+      'legobluetooth.green': '(6) 緑',
+      'legobluetooth.yellow': '(7) 黄色',
+      'legobluetooth.orange': '(8) オレンジ',
+      'legobluetooth.red': '(9) 赤',
+      'legobluetooth.white': '(10) 白',
+      'legobluetooth.noColor': '(-1) 色なし',
+      'legobluetooth.pitch': 'ピッチ',
+      'legobluetooth.roll': 'ロール',
+      'legobluetooth.yaw': 'ヨー'
+    },
+    'ja-Hira': {
+      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーでまわす',
+      'legobluetooth.motorStop': '[PORT] モーターをとめる',
+      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] ほうこうに [VALUE] [UNIT] まわす',
+      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] でいち [POSITION] までまわす',
+      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] ほうこうにまわす',
+      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
+      'legobluetooth.getRelativePosition': '[PORT] そうたいいち',
+      'legobluetooth.getPosition': '[PORT] いち',
+      'legobluetooth.motorResetRelativePosition': '[PORT] そうたいいちを [RELATIVE_POSITION] にリセットする',
+      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] びょうかんオンにする',
+      'legobluetooth.displayImage': '[MATRIX] をオンにする',
+      'legobluetooth.displayText': '[TEXT] をひょうじする',
+      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
+      'legobluetooth.displaySetBrightness': 'ピクセルのあかるさを [BRIGHTNESS] %にする',
+      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルのあかるさを [BRIGHTNESS] %にする',
+      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
+      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
+      'legobluetooth.getColor': '[PORT] いろ',
+      'legobluetooth.getDistance': '[PORT] きょり',
+      'legobluetooth.getForce': '[PORT] あつりょく',
+      'legobluetooth.getTilt': '[PORT] かたむき [XY]',
+      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
+      'legobluetooth.getHubTilt': 'ハブのかたむき [XYZ]',
+      'legobluetooth.getAngle': '[AXIS] かく',
+      'legobluetooth.getName': 'なまえ',
+      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
+      'legobluetooth.getBatteryLevel': 'でんちざんりょう',
+      'legobluetooth.rotations': 'かいてん',
+      'legobluetooth.degrees': 'ど',
+      'legobluetooth.seconds': 'びょう',
+      'legobluetooth.shortestPath': 'さいたんきょり',
+      'legobluetooth.clockwise': 'とけいまわり',
+      'legobluetooth.counterclockwise': 'はんとけいまわり',
+      'legobluetooth.black': '(0) くろ',
+      'legobluetooth.pink': '(1) ピンク',
+      'legobluetooth.purple': '(2) むらさき',
+      'legobluetooth.blue': '(3) あお',
+      'legobluetooth.lightBlue': '(4) みずいろ',
+      'legobluetooth.lightGreen': '(5) あかるいみどり',
+      'legobluetooth.green': '(6) みどり',
+      'legobluetooth.yellow': '(7) きいろ',
+      'legobluetooth.orange': '(8) オレンジ',
+      'legobluetooth.red': '(9) あか',
+      'legobluetooth.white': '(10) しろ',
+      'legobluetooth.noColor': '(-1) いろなし',
+      'legobluetooth.pitch': 'ピッチ',
+      'legobluetooth.roll': 'ロール',
+      'legobluetooth.yaw': 'ヨー'
     }
+  };
+  for (var locale in translations) {
+    if (extTranslations[locale]) {
+      Object.assign(translations[locale], extTranslations[locale]);
+    }
+    if (!localeSetup.translations[locale]) {
+      localeSetup.translations[locale] = {};
+    }
+    Object.assign(localeSetup.translations[locale], translations[locale]);
+  }
+};
+var setupTranslations_1 = setupTranslations;
+
+var ArgumentType = argumentType;
+var BlockType = blockType;
+var Cast = cast;
+var Color = color;
+var _setupTranslations = setupTranslations_1;
+var BLESendInterval = 100;
+var waitPromise = function waitPromise() {
+  return new Promise(function (resolve) {
+    return window.setTimeout(resolve, BLESendInterval);
   });
-  Object.defineProperty(subClass, "prototype", {
-    writable: false
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
+};
+var BleBaseBlocks$1 = /*#__PURE__*/function () {
+  function BleBaseBlocks(peripheral) {
+    _classCallCheck(this, BleBaseBlocks);
+    this._peripheral = peripheral;
+  }
+  _createClass(BleBaseBlocks, [{
+    key: "externalPorts",
+    get: function get() {
+      return ['A', 'B', 'C', 'D'];
+    }
+  }, {
+    key: "multipleExternalPorts",
+    get: function get() {
+      return ['A', 'B', 'C', 'D', 'A+B', 'C+D', 'A+B+C+D'];
+    }
+  }, {
+    key: "hasInternalTiltSensorBlocks",
+    get: function get() {
+      return true;
+    }
+  }, {
+    key: "hasAdvancedBlocks",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "getBlocks",
+    value: function getBlocks(formatMessage) {
+      var blocks = [{
+        opcode: 'motorPWM',
+        text: formatMessage({
+          id: 'legobluetooth.motorPWM',
+          default: '[PORT] start motor at [POWER] % power'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          POWER: {
+            type: ArgumentType.NUMBER,
+            defaultValue: 100
+          }
+        }
+      }, {
+        opcode: 'motorStop',
+        text: formatMessage({
+          id: 'legobluetooth.motorStop',
+          default: '[PORT] stop motor'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, '---', {
+        opcode: 'motorRunFor',
+        text: formatMessage({
+          id: 'legobluetooth.motorRunFor',
+          default: '[PORT] run [DIRECTION] for [VALUE] [UNIT]'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          DIRECTION: {
+            type: ArgumentType.NUMBER,
+            menu: 'DIRECTION',
+            defaultValue: 1
+          },
+          VALUE: {
+            type: ArgumentType.NUMBER,
+            defaultValue: 1
+          },
+          UNIT: {
+            type: ArgumentType.STRING,
+            menu: 'MOTOR_UNIT',
+            defaultValue: 'rotations'
+          }
+        }
+      }, {
+        opcode: 'motorStart',
+        text: formatMessage({
+          id: 'legobluetooth.motorStart',
+          default: '[PORT] start motor [DIRECTION]'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          DIRECTION: {
+            type: ArgumentType.NUMBER,
+            menu: 'DIRECTION',
+            defaultValue: 1
+          }
+        }
+      }, {
+        opcode: 'motorSetSpeed',
+        text: formatMessage({
+          id: 'legobluetooth.motorSetSpeed',
+          default: '[PORT] set speed to [SPEED] %'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          SPEED: {
+            type: ArgumentType.NUMBER,
+            defaultValue: 75
+          }
+        }
+      }, {
+        opcode: 'getRelativePosition',
+        text: formatMessage({
+          id: 'legobluetooth.getRelativePosition',
+          default: '[PORT] relative position'
+        }),
+        blockType: BlockType.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'motorResetRelativePosition',
+        text: formatMessage({
+          id: 'legobluetooth.motorResetRelativePosition',
+          default: '[PORT] reset relative position to [RELATIVE_POSITION]'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'MULTIPLE_PORT',
+            defaultValue: 'A'
+          },
+          RELATIVE_POSITION: {
+            type: ArgumentType.NUMBER,
+            defaultValue: 0
+          }
+        }
+      }, '---', {
+        opcode: 'getColor',
+        text: formatMessage({
+          id: 'legobluetooth.getColor',
+          default: '[PORT] color'
+        }),
+        blockType: BlockType.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'getDistance',
+        text: formatMessage({
+          id: 'legobluetooth.getDistance',
+          default: '[PORT] distance'
+        }),
+        blockType: BlockType.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'getForce',
+        text: formatMessage({
+          id: 'legobluetooth.getForce',
+          default: '[PORT] force'
+        }),
+        blockType: BlockType.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          }
+        }
+      }, {
+        opcode: 'getTilt',
+        text: formatMessage({
+          id: 'legobluetooth.getTilt',
+          default: '[PORT] tilt [XY]'
+        }),
+        blockType: BlockType.REPORTER,
+        arguments: {
+          PORT: {
+            type: ArgumentType.STRING,
+            menu: 'PORT',
+            defaultValue: 'A'
+          },
+          XY: {
+            type: ArgumentType.STRING,
+            menu: 'XY',
+            defaultValue: 'x'
+          }
+        }
+      }, '---', {
+        opcode: 'setHubLEDColor',
+        text: formatMessage({
+          id: 'legobluetooth.setHubLEDColor',
+          default: 'set hub LED color to [COLOR]'
+        }),
+        blockType: BlockType.COMMAND,
+        arguments: {
+          COLOR: {
+            type: ArgumentType.NUMBER,
+            menu: 'LED_COLOR',
+            defaultValue: Color.BLUE
+          }
+        }
+      }];
+      if (this.hasInternalTiltSensorBlocks) {
+        blocks.push({
+          opcode: 'getHubTilt',
+          text: formatMessage({
+            id: 'legobluetooth.getHubTilt',
+            default: 'hub tilt [XYZ]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            XYZ: {
+              type: ArgumentType.STRING,
+              menu: 'XYZ',
+              defaultValue: 'x'
+            }
+          }
+        });
+      }
+      if (this.hasAdvancedBlocks) {
+        blocks.push({
+          opcode: 'getName',
+          text: formatMessage({
+            id: 'legobluetooth.getName',
+            default: 'name'
+          }),
+          blockType: BlockType.REPORTER
+        });
+        blocks.push({
+          opcode: 'getFirmwareVersion',
+          text: formatMessage({
+            id: 'legobluetooth.getFirmwareVersion',
+            default: 'firmware version'
+          }),
+          blockType: BlockType.REPORTER
+        });
+        blocks.push({
+          opcode: 'getBatteryLevel',
+          text: formatMessage({
+            id: 'legobluetooth.getBatteryLevel',
+            default: 'battery level'
+          }),
+          blockType: BlockType.REPORTER
+        });
+      }
+      return blocks;
+    }
+  }, {
+    key: "getMenus",
+    value: function getMenus(formatMessage) {
+      return {
+        PORT: {
+          acceptReporters: true,
+          items: this.externalPorts
+        },
+        MULTIPLE_PORT: {
+          acceptReporters: true,
+          items: this.multipleExternalPorts
+        },
+        MOTOR_UNIT: {
+          acceptReporters: false,
+          items: [{
+            text: formatMessage({
+              id: 'legobluetooth.rotations',
+              default: 'rotations'
+            }),
+            value: 'rotations'
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.degrees',
+              default: 'degrees'
+            }),
+            value: 'degrees'
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.seconds',
+              default: 'seconds'
+            }),
+            value: 'seconds'
+          }]
+        },
+        DIRECTION: {
+          acceptReporters: false,
+          items: [{
+            text: '⬆︎',
+            value: '1'
+          }, {
+            text: '⬇',
+            value: '-1'
+          }]
+        },
+        LED_COLOR: {
+          acceptReporters: true,
+          items: [{
+            text: formatMessage({
+              id: 'legobluetooth.black',
+              default: '(0) Black'
+            }),
+            value: String(Color.BLACK)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.pink',
+              default: '(1) Pink'
+            }),
+            value: String(Color.PINK)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.purple',
+              default: '(2) Purple'
+            }),
+            value: String(Color.PURPLE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.blue',
+              default: '(3) Blue'
+            }),
+            value: String(Color.BLUE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.lightBlue',
+              default: '(4) Light blue'
+            }),
+            value: String(Color.LIGHT_BLUE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.lightGreen',
+              default: '(5) Light green'
+            }),
+            value: String(Color.LIGHT_GREEN)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.green',
+              default: '(6) Green'
+            }),
+            value: String(Color.GREEN)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.yellow',
+              default: '(7) Yellow'
+            }),
+            value: String(Color.YELLOW)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.orange',
+              default: '(8) Orange'
+            }),
+            value: String(Color.ORANGE)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.red',
+              default: '(9) Red'
+            }),
+            value: String(Color.RED)
+          }, {
+            text: formatMessage({
+              id: 'legobluetooth.white',
+              default: '(10) White'
+            }),
+            value: String(Color.WHITE)
+          }]
+        },
+        XY: {
+          acceptReporters: false,
+          items: ['x', 'y']
+        },
+        XYZ: {
+          acceptReporters: false,
+          items: ['x', 'y', 'z']
+        }
+      };
+    }
+  }, {
+    key: "_validatePorts",
+    value: function _validatePorts(text) {
+      return text.toUpperCase().replace(/[^ABCD]/g, '').split('').filter(function (x, i, self) {
+        return self.indexOf(x) === i;
+      }).sort();
+    }
+  }, {
+    key: "motorPWM",
+    value: function motorPWM(args) {
+      var _this = this;
+      var power = Cast.toNumber(args.POWER);
+      var ports = this._validatePorts(Cast.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this.externalPorts.indexOf(port);
+        return _this._peripheral.motorPWM(portId, power);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "motorStop",
+    value: function motorStop(args) {
+      var _this2 = this;
+      var ports = this._validatePorts(Cast.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this2.externalPorts.indexOf(port);
+        return _this2._peripheral.motorPWM(portId, 0);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "motorRunFor",
+    value: function motorRunFor(args) {
+      var direction = args.DIRECTION;
+      var value = Cast.toNumber(args.VALUE);
+      var unit = args.UNIT;
+      var ports = this._validatePorts(Cast.toString(args.PORT));
+      switch (unit) {
+        case 'rotations':
+          return this._motorRunForDegrees(ports, direction, value * 360);
+        case 'degrees':
+          return this._motorRunForDegrees(ports, direction, value);
+        case 'seconds':
+          return this._motorRunTimed(ports, direction, value);
+        default:
+          return Promise.resolve();
+      }
+    }
+  }, {
+    key: "_motorRunForDegrees",
+    value: function _motorRunForDegrees(ports, direction, degrees) {
+      var _this3 = this;
+      var promises = ports.map(function (port) {
+        var portId = _this3.externalPorts.indexOf(port);
+        return _this3._peripheral.motorRunForDegrees(portId, direction, degrees);
+      });
+      return Promise.all(promises).then(function () {});
+    }
+  }, {
+    key: "_motorRunTimed",
+    value: function _motorRunTimed(ports, direction, seconds) {
+      var _this4 = this;
+      var promises = ports.map(function (port) {
+        var portId = _this4.externalPorts.indexOf(port);
+        return _this4._peripheral.motorRunTimed(portId, direction, seconds);
+      });
+      return Promise.all(promises).then(function () {});
+    }
+  }, {
+    key: "motorStart",
+    value: function motorStart(args) {
+      var _this5 = this;
+      var direction = args.DIRECTION;
+      var ports = this._validatePorts(Cast.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this5.externalPorts.indexOf(port);
+        return _this5._peripheral.motorStart(portId, direction);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "motorSetSpeed",
+    value: function motorSetSpeed(args) {
+      var _this6 = this;
+      var speed = Cast.toNumber(args.SPEED);
+      var ports = this._validatePorts(Cast.toString(args.PORT));
+      ports.forEach(function (port) {
+        var portId = _this6.externalPorts.indexOf(port);
+        _this6._peripheral.motorSetSpeed(portId, speed);
+      });
+      return Promise.resolve();
+    }
+  }, {
+    key: "motorResetRelativePosition",
+    value: function motorResetRelativePosition(args) {
+      var _this7 = this;
+      var relativePosition = Cast.toNumber(args.RELATIVE_POSITION);
+      var ports = this._validatePorts(Cast.toString(args.PORT));
+      var promises = ports.map(function (port) {
+        var portId = _this7.externalPorts.indexOf(port);
+        return _this7._peripheral.motorResetRelativePosition(portId, relativePosition);
+      });
+      return Promise.all(promises).then(waitPromise);
+    }
+  }, {
+    key: "getRelativePosition",
+    value: function getRelativePosition(args) {
+      return this._getSensorValue(args, 'relativePosition', 0);
+    }
+  }, {
+    key: "getColor",
+    value: function getColor(args) {
+      return this._getSensorValue(args, 'color', -1);
+    }
+  }, {
+    key: "getDistance",
+    value: function getDistance(args) {
+      return this._getSensorValue(args, 'distance', 0);
+    }
+  }, {
+    key: "getForce",
+    value: function getForce(args) {
+      return this._getSensorValue(args, 'force', 0);
+    }
+  }, {
+    key: "getTilt",
+    value: function getTilt(args) {
+      var key = 'tilt' + args.XY.toUpperCase();
+      return this._getSensorValue(args, key, 0);
+    }
+  }, {
+    key: "_getSensorValue",
+    value: function _getSensorValue(args, key, defaultValue) {
+      var port = this._validatePorts(Cast.toString(args.PORT)).shift();
+      if (port) {
+        var portId = this.externalPorts.indexOf(port);
+        var value = this._peripheral.inputValue(portId, key);
+        return value != null ? value : defaultValue;
+      }
+      return defaultValue;
+    }
+  }, {
+    key: "setHubLEDColor",
+    value: function setHubLEDColor(args) {
+      var color = Cast.toNumber(args.COLOR);
+      return this._peripheral.setLEDColor(color).then(waitPromise);
+    }
+  }, {
+    key: "getHubTilt",
+    value: function getHubTilt(args) {
+      var key = 'tilt' + args.XYZ.toUpperCase();
+      var value = this._peripheral.internalInputValue(key);
+      return value != null ? value : 0;
+    }
+  }, {
+    key: "getName",
+    value: function getName() {
+      return this._peripheral.name ? this._peripheral.name : "";
+    }
+  }, {
+    key: "getFirmwareVersion",
+    value: function getFirmwareVersion() {
+      return this._peripheral.firmwareVersion ? this._peripheral.firmwareVersion : "";
+    }
+  }, {
+    key: "getBatteryLevel",
+    value: function getBatteryLevel() {
+      return this._peripheral.batteryLevel;
+    }
+  }, {
+    key: "setupTranslations",
+    value: function setupTranslations(formatMessage) {
+      _setupTranslations(formatMessage);
+    }
+  }]);
+  return BleBaseBlocks;
+}();
+var bleBaseBlocks = BleBaseBlocks$1;
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 var JSONRPC$1 = /*#__PURE__*/function () {
@@ -8387,8 +9262,8 @@ var JSONRPC$1 = /*#__PURE__*/function () {
 }();
 var jsonrpc = JSONRPC$1;
 
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _callSuper$2(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$2() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$2() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$2 = function _isNativeReflectConstruct() { return !!t; })(); }
 var JSONRPC = jsonrpc;
 var BLE$1 = /*#__PURE__*/function (_JSONRPC) {
   _inherits(BLE, _JSONRPC);
@@ -8405,7 +9280,7 @@ var BLE$1 = /*#__PURE__*/function (_JSONRPC) {
     var _this;
     var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
     _classCallCheck(this, BLE);
-    _this = _callSuper(this, BLE);
+    _this = _callSuper$2(this, BLE);
     _this._socket = runtime.getScratchLinkSocket('BLE');
     _this._socket.setOnOpen(_this.requestPeripheral.bind(_assertThisInitialized(_this)));
     _this._socket.setOnClose(_this.handleDisconnectError.bind(_assertThisInitialized(_this)));
@@ -8665,7 +9540,1800 @@ var BLE$1 = /*#__PURE__*/function (_JSONRPC) {
 }(JSONRPC);
 var ble = BLE$1;
 
-var MathUtil$1 = /*#__PURE__*/function () {
+var lookup = [];
+var revLookup = [];
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+var inited = false;
+function init() {
+  inited = true;
+  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  for (var i = 0, len = code.length; i < len; ++i) {
+    lookup[i] = code[i];
+    revLookup[code.charCodeAt(i)] = i;
+  }
+  revLookup['-'.charCodeAt(0)] = 62;
+  revLookup['_'.charCodeAt(0)] = 63;
+}
+function toByteArray(b64) {
+  if (!inited) {
+    init();
+  }
+  var i, j, l, tmp, placeHolders, arr;
+  var len = b64.length;
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4');
+  }
+
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
+
+  // base64 is 4/3 + up to two characters of the original data
+  arr = new Arr(len * 3 / 4 - placeHolders);
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len;
+  var L = 0;
+  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+    tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
+    arr[L++] = tmp >> 16 & 0xFF;
+    arr[L++] = tmp >> 8 & 0xFF;
+    arr[L++] = tmp & 0xFF;
+  }
+  if (placeHolders === 2) {
+    tmp = revLookup[b64.charCodeAt(i)] << 2 | revLookup[b64.charCodeAt(i + 1)] >> 4;
+    arr[L++] = tmp & 0xFF;
+  } else if (placeHolders === 1) {
+    tmp = revLookup[b64.charCodeAt(i)] << 10 | revLookup[b64.charCodeAt(i + 1)] << 4 | revLookup[b64.charCodeAt(i + 2)] >> 2;
+    arr[L++] = tmp >> 8 & 0xFF;
+    arr[L++] = tmp & 0xFF;
+  }
+  return arr;
+}
+function tripletToBase64(num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F];
+}
+function encodeChunk(uint8, start, end) {
+  var tmp;
+  var output = [];
+  for (var i = start; i < end; i += 3) {
+    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + uint8[i + 2];
+    output.push(tripletToBase64(tmp));
+  }
+  return output.join('');
+}
+function fromByteArray(uint8) {
+  if (!inited) {
+    init();
+  }
+  var tmp;
+  var len = uint8.length;
+  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
+  var output = '';
+  var parts = [];
+  var maxChunkLength = 16383; // must be multiple of 3
+
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, i + maxChunkLength > len2 ? len2 : i + maxChunkLength));
+  }
+
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1];
+    output += lookup[tmp >> 2];
+    output += lookup[tmp << 4 & 0x3F];
+    output += '==';
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + uint8[len - 1];
+    output += lookup[tmp >> 10];
+    output += lookup[tmp >> 4 & 0x3F];
+    output += lookup[tmp << 2 & 0x3F];
+    output += '=';
+  }
+  parts.push(output);
+  return parts.join('');
+}
+
+function read(buffer, offset, isLE, mLen, nBytes) {
+  var e, m;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var nBits = -7;
+  var i = isLE ? nBytes - 1 : 0;
+  var d = isLE ? -1 : 1;
+  var s = buffer[offset + i];
+  i += d;
+  e = s & (1 << -nBits) - 1;
+  s >>= -nBits;
+  nBits += eLen;
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  m = e & (1 << -nBits) - 1;
+  e >>= -nBits;
+  nBits += mLen;
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  if (e === 0) {
+    e = 1 - eBias;
+  } else if (e === eMax) {
+    return m ? NaN : (s ? -1 : 1) * Infinity;
+  } else {
+    m = m + Math.pow(2, mLen);
+    e = e - eBias;
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
+}
+function write(buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
+  var i = isLE ? 0 : nBytes - 1;
+  var d = isLE ? 1 : -1;
+  var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+  value = Math.abs(value);
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0;
+    e = eMax;
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2);
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--;
+      c *= 2;
+    }
+    if (e + eBias >= 1) {
+      value += rt / c;
+    } else {
+      value += rt * Math.pow(2, 1 - eBias);
+    }
+    if (value * c >= 2) {
+      e++;
+      c /= 2;
+    }
+    if (e + eBias >= eMax) {
+      m = 0;
+      e = eMax;
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen);
+      e = e + eBias;
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+      e = 0;
+    }
+  }
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+  e = e << mLen | m;
+  eLen += mLen;
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+  buffer[offset + i - d] |= s * 128;
+}
+
+var toString = {}.toString;
+var isArray = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+var INSPECT_MAX_BYTES = 50;
+
+/**
+ * If `Buffer.TYPED_ARRAY_SUPPORT`:
+ *   === true    Use Uint8Array implementation (fastest)
+ *   === false   Use Object implementation (most compatible, even IE6)
+ *
+ * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+ * Opera 11.6+, iOS 4.2+.
+ *
+ * Due to various browser bugs, sometimes the Object implementation will be used even
+ * when the browser supports typed arrays.
+ *
+ * Note:
+ *
+ *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+ *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+ *
+ *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+ *
+ *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+ *     incorrect length in some situations.
+
+ * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+ * get the Object implementation, which is slower but behaves correctly.
+ */
+Buffer.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined ? global$1.TYPED_ARRAY_SUPPORT : true;
+
+/*
+ * Export kMaxLength after typed array support is determined.
+ */
+kMaxLength();
+function kMaxLength() {
+  return Buffer.TYPED_ARRAY_SUPPORT ? 0x7fffffff : 0x3fffffff;
+}
+function createBuffer(that, length) {
+  if (kMaxLength() < length) {
+    throw new RangeError('Invalid typed array length');
+  }
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = new Uint8Array(length);
+    that.__proto__ = Buffer.prototype;
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    if (that === null) {
+      that = new Buffer(length);
+    }
+    that.length = length;
+  }
+  return that;
+}
+
+/**
+ * The Buffer constructor returns instances of `Uint8Array` that have their
+ * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+ * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+ * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * returns a single octet.
+ *
+ * The `Uint8Array` prototype remains unmodified.
+ */
+
+function Buffer(arg, encodingOrOffset, length) {
+  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
+    return new Buffer(arg, encodingOrOffset, length);
+  }
+
+  // Common case.
+  if (typeof arg === 'number') {
+    if (typeof encodingOrOffset === 'string') {
+      throw new Error('If encoding is specified then the first argument must be a string');
+    }
+    return allocUnsafe(this, arg);
+  }
+  return from(this, arg, encodingOrOffset, length);
+}
+Buffer.poolSize = 8192; // not used by this implementation
+
+// TODO: Legacy, not needed anymore. Remove in next major version.
+Buffer._augment = function (arr) {
+  arr.__proto__ = Buffer.prototype;
+  return arr;
+};
+function from(that, value, encodingOrOffset, length) {
+  if (typeof value === 'number') {
+    throw new TypeError('"value" argument must not be a number');
+  }
+  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+    return fromArrayBuffer(that, value, encodingOrOffset, length);
+  }
+  if (typeof value === 'string') {
+    return fromString(that, value, encodingOrOffset);
+  }
+  return fromObject(that, value);
+}
+
+/**
+ * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+ * if value is a number.
+ * Buffer.from(str[, encoding])
+ * Buffer.from(array)
+ * Buffer.from(buffer)
+ * Buffer.from(arrayBuffer[, byteOffset[, length]])
+ **/
+Buffer.from = function (value, encodingOrOffset, length) {
+  return from(null, value, encodingOrOffset, length);
+};
+if (Buffer.TYPED_ARRAY_SUPPORT) {
+  Buffer.prototype.__proto__ = Uint8Array.prototype;
+  Buffer.__proto__ = Uint8Array;
+  if (typeof Symbol !== 'undefined' && Symbol.species && Buffer[Symbol.species] === Buffer) ;
+}
+function assertSize(size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('"size" argument must be a number');
+  } else if (size < 0) {
+    throw new RangeError('"size" argument must not be negative');
+  }
+}
+function alloc(that, size, fill, encoding) {
+  assertSize(size);
+  if (size <= 0) {
+    return createBuffer(that, size);
+  }
+  if (fill !== undefined) {
+    // Only pay attention to encoding if it's a string. This
+    // prevents accidentally sending in a number that would
+    // be interpretted as a start offset.
+    return typeof encoding === 'string' ? createBuffer(that, size).fill(fill, encoding) : createBuffer(that, size).fill(fill);
+  }
+  return createBuffer(that, size);
+}
+
+/**
+ * Creates a new filled Buffer instance.
+ * alloc(size[, fill[, encoding]])
+ **/
+Buffer.alloc = function (size, fill, encoding) {
+  return alloc(null, size, fill, encoding);
+};
+function allocUnsafe(that, size) {
+  assertSize(size);
+  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < size; ++i) {
+      that[i] = 0;
+    }
+  }
+  return that;
+}
+
+/**
+ * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+ * */
+Buffer.allocUnsafe = function (size) {
+  return allocUnsafe(null, size);
+};
+/**
+ * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+ */
+Buffer.allocUnsafeSlow = function (size) {
+  return allocUnsafe(null, size);
+};
+function fromString(that, string, encoding) {
+  if (typeof encoding !== 'string' || encoding === '') {
+    encoding = 'utf8';
+  }
+  if (!Buffer.isEncoding(encoding)) {
+    throw new TypeError('"encoding" must be a valid string encoding');
+  }
+  var length = byteLength(string, encoding) | 0;
+  that = createBuffer(that, length);
+  var actual = that.write(string, encoding);
+  if (actual !== length) {
+    // Writing a hex string, for example, that contains invalid characters will
+    // cause everything after the first invalid character to be ignored. (e.g.
+    // 'abxxcd' will be treated as 'ab')
+    that = that.slice(0, actual);
+  }
+  return that;
+}
+function fromArrayLike(that, array) {
+  var length = array.length < 0 ? 0 : checked(array.length) | 0;
+  that = createBuffer(that, length);
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255;
+  }
+  return that;
+}
+function fromArrayBuffer(that, array, byteOffset, length) {
+  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
+
+  if (byteOffset < 0 || array.byteLength < byteOffset) {
+    throw new RangeError('\'offset\' is out of bounds');
+  }
+  if (array.byteLength < byteOffset + (length || 0)) {
+    throw new RangeError('\'length\' is out of bounds');
+  }
+  if (byteOffset === undefined && length === undefined) {
+    array = new Uint8Array(array);
+  } else if (length === undefined) {
+    array = new Uint8Array(array, byteOffset);
+  } else {
+    array = new Uint8Array(array, byteOffset, length);
+  }
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = array;
+    that.__proto__ = Buffer.prototype;
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    that = fromArrayLike(that, array);
+  }
+  return that;
+}
+function fromObject(that, obj) {
+  if (internalIsBuffer(obj)) {
+    var len = checked(obj.length) | 0;
+    that = createBuffer(that, len);
+    if (that.length === 0) {
+      return that;
+    }
+    obj.copy(that, 0, 0, len);
+    return that;
+  }
+  if (obj) {
+    if (typeof ArrayBuffer !== 'undefined' && obj.buffer instanceof ArrayBuffer || 'length' in obj) {
+      if (typeof obj.length !== 'number' || isnan(obj.length)) {
+        return createBuffer(that, 0);
+      }
+      return fromArrayLike(that, obj);
+    }
+    if (obj.type === 'Buffer' && isArray(obj.data)) {
+      return fromArrayLike(that, obj.data);
+    }
+  }
+  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.');
+}
+function checked(length) {
+  // Note: cannot use `length < kMaxLength()` here because that fails when
+  // length is NaN (which is otherwise coerced to zero.)
+  if (length >= kMaxLength()) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum ' + 'size: 0x' + kMaxLength().toString(16) + ' bytes');
+  }
+  return length | 0;
+}
+Buffer.isBuffer = isBuffer;
+function internalIsBuffer(b) {
+  return !!(b != null && b._isBuffer);
+}
+Buffer.compare = function compare(a, b) {
+  if (!internalIsBuffer(a) || !internalIsBuffer(b)) {
+    throw new TypeError('Arguments must be Buffers');
+  }
+  if (a === b) return 0;
+  var x = a.length;
+  var y = b.length;
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i];
+      y = b[i];
+      break;
+    }
+  }
+  if (x < y) return -1;
+  if (y < x) return 1;
+  return 0;
+};
+Buffer.isEncoding = function isEncoding(encoding) {
+  switch (String(encoding).toLowerCase()) {
+    case 'hex':
+    case 'utf8':
+    case 'utf-8':
+    case 'ascii':
+    case 'latin1':
+    case 'binary':
+    case 'base64':
+    case 'ucs2':
+    case 'ucs-2':
+    case 'utf16le':
+    case 'utf-16le':
+      return true;
+    default:
+      return false;
+  }
+};
+Buffer.concat = function concat(list, length) {
+  if (!isArray(list)) {
+    throw new TypeError('"list" argument must be an Array of Buffers');
+  }
+  if (list.length === 0) {
+    return Buffer.alloc(0);
+  }
+  var i;
+  if (length === undefined) {
+    length = 0;
+    for (i = 0; i < list.length; ++i) {
+      length += list[i].length;
+    }
+  }
+  var buffer = Buffer.allocUnsafe(length);
+  var pos = 0;
+  for (i = 0; i < list.length; ++i) {
+    var buf = list[i];
+    if (!internalIsBuffer(buf)) {
+      throw new TypeError('"list" argument must be an Array of Buffers');
+    }
+    buf.copy(buffer, pos);
+    pos += buf.length;
+  }
+  return buffer;
+};
+function byteLength(string, encoding) {
+  if (internalIsBuffer(string)) {
+    return string.length;
+  }
+  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' && (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+    return string.byteLength;
+  }
+  if (typeof string !== 'string') {
+    string = '' + string;
+  }
+  var len = string.length;
+  if (len === 0) return 0;
+
+  // Use a for loop to avoid recursion
+  var loweredCase = false;
+  for (;;) {
+    switch (encoding) {
+      case 'ascii':
+      case 'latin1':
+      case 'binary':
+        return len;
+      case 'utf8':
+      case 'utf-8':
+      case undefined:
+        return utf8ToBytes(string).length;
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return len * 2;
+      case 'hex':
+        return len >>> 1;
+      case 'base64':
+        return base64ToBytes(string).length;
+      default:
+        if (loweredCase) return utf8ToBytes(string).length; // assume utf8
+        encoding = ('' + encoding).toLowerCase();
+        loweredCase = true;
+    }
+  }
+}
+Buffer.byteLength = byteLength;
+function slowToString(encoding, start, end) {
+  var loweredCase = false;
+
+  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+  // property of a typed array.
+
+  // This behaves neither like String nor Uint8Array in that we set start/end
+  // to their upper/lower bounds if the value passed is out of range.
+  // undefined is handled specially as per ECMA-262 6th Edition,
+  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
+  if (start === undefined || start < 0) {
+    start = 0;
+  }
+  // Return early if start > this.length. Done here to prevent potential uint32
+  // coercion fail below.
+  if (start > this.length) {
+    return '';
+  }
+  if (end === undefined || end > this.length) {
+    end = this.length;
+  }
+  if (end <= 0) {
+    return '';
+  }
+
+  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+  end >>>= 0;
+  start >>>= 0;
+  if (end <= start) {
+    return '';
+  }
+  if (!encoding) encoding = 'utf8';
+  while (true) {
+    switch (encoding) {
+      case 'hex':
+        return hexSlice(this, start, end);
+      case 'utf8':
+      case 'utf-8':
+        return utf8Slice(this, start, end);
+      case 'ascii':
+        return asciiSlice(this, start, end);
+      case 'latin1':
+      case 'binary':
+        return latin1Slice(this, start, end);
+      case 'base64':
+        return base64Slice(this, start, end);
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return utf16leSlice(this, start, end);
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
+        encoding = (encoding + '').toLowerCase();
+        loweredCase = true;
+    }
+  }
+}
+
+// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+// Buffer instances.
+Buffer.prototype._isBuffer = true;
+function swap(b, n, m) {
+  var i = b[n];
+  b[n] = b[m];
+  b[m] = i;
+}
+Buffer.prototype.swap16 = function swap16() {
+  var len = this.length;
+  if (len % 2 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 16-bits');
+  }
+  for (var i = 0; i < len; i += 2) {
+    swap(this, i, i + 1);
+  }
+  return this;
+};
+Buffer.prototype.swap32 = function swap32() {
+  var len = this.length;
+  if (len % 4 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 32-bits');
+  }
+  for (var i = 0; i < len; i += 4) {
+    swap(this, i, i + 3);
+    swap(this, i + 1, i + 2);
+  }
+  return this;
+};
+Buffer.prototype.swap64 = function swap64() {
+  var len = this.length;
+  if (len % 8 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 64-bits');
+  }
+  for (var i = 0; i < len; i += 8) {
+    swap(this, i, i + 7);
+    swap(this, i + 1, i + 6);
+    swap(this, i + 2, i + 5);
+    swap(this, i + 3, i + 4);
+  }
+  return this;
+};
+Buffer.prototype.toString = function toString() {
+  var length = this.length | 0;
+  if (length === 0) return '';
+  if (arguments.length === 0) return utf8Slice(this, 0, length);
+  return slowToString.apply(this, arguments);
+};
+Buffer.prototype.equals = function equals(b) {
+  if (!internalIsBuffer(b)) throw new TypeError('Argument must be a Buffer');
+  if (this === b) return true;
+  return Buffer.compare(this, b) === 0;
+};
+Buffer.prototype.inspect = function inspect() {
+  var str = '';
+  var max = INSPECT_MAX_BYTES;
+  if (this.length > 0) {
+    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
+    if (this.length > max) str += ' ... ';
+  }
+  return '<Buffer ' + str + '>';
+};
+Buffer.prototype.compare = function compare(target, start, end, thisStart, thisEnd) {
+  if (!internalIsBuffer(target)) {
+    throw new TypeError('Argument must be a Buffer');
+  }
+  if (start === undefined) {
+    start = 0;
+  }
+  if (end === undefined) {
+    end = target ? target.length : 0;
+  }
+  if (thisStart === undefined) {
+    thisStart = 0;
+  }
+  if (thisEnd === undefined) {
+    thisEnd = this.length;
+  }
+  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+    throw new RangeError('out of range index');
+  }
+  if (thisStart >= thisEnd && start >= end) {
+    return 0;
+  }
+  if (thisStart >= thisEnd) {
+    return -1;
+  }
+  if (start >= end) {
+    return 1;
+  }
+  start >>>= 0;
+  end >>>= 0;
+  thisStart >>>= 0;
+  thisEnd >>>= 0;
+  if (this === target) return 0;
+  var x = thisEnd - thisStart;
+  var y = end - start;
+  var len = Math.min(x, y);
+  var thisCopy = this.slice(thisStart, thisEnd);
+  var targetCopy = target.slice(start, end);
+  for (var i = 0; i < len; ++i) {
+    if (thisCopy[i] !== targetCopy[i]) {
+      x = thisCopy[i];
+      y = targetCopy[i];
+      break;
+    }
+  }
+  if (x < y) return -1;
+  if (y < x) return 1;
+  return 0;
+};
+
+// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
+// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
+//
+// Arguments:
+// - buffer - a Buffer to search
+// - val - a string, Buffer, or number
+// - byteOffset - an index into `buffer`; will be clamped to an int32
+// - encoding - an optional encoding, relevant is val is a string
+// - dir - true for indexOf, false for lastIndexOf
+function bidirectionalIndexOf(buffer, val, byteOffset, encoding, dir) {
+  // Empty buffer means no match
+  if (buffer.length === 0) return -1;
+
+  // Normalize byteOffset
+  if (typeof byteOffset === 'string') {
+    encoding = byteOffset;
+    byteOffset = 0;
+  } else if (byteOffset > 0x7fffffff) {
+    byteOffset = 0x7fffffff;
+  } else if (byteOffset < -0x80000000) {
+    byteOffset = -0x80000000;
+  }
+  byteOffset = +byteOffset; // Coerce to Number.
+  if (isNaN(byteOffset)) {
+    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+    byteOffset = dir ? 0 : buffer.length - 1;
+  }
+
+  // Normalize byteOffset: negative offsets start from the end of the buffer
+  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
+  if (byteOffset >= buffer.length) {
+    if (dir) return -1;else byteOffset = buffer.length - 1;
+  } else if (byteOffset < 0) {
+    if (dir) byteOffset = 0;else return -1;
+  }
+
+  // Normalize val
+  if (typeof val === 'string') {
+    val = Buffer.from(val, encoding);
+  }
+
+  // Finally, search either indexOf (if dir is true) or lastIndexOf
+  if (internalIsBuffer(val)) {
+    // Special case: looking for empty string/buffer always fails
+    if (val.length === 0) {
+      return -1;
+    }
+    return arrayIndexOf(buffer, val, byteOffset, encoding, dir);
+  } else if (typeof val === 'number') {
+    val = val & 0xFF; // Search for a byte value [0-255]
+    if (Buffer.TYPED_ARRAY_SUPPORT && typeof Uint8Array.prototype.indexOf === 'function') {
+      if (dir) {
+        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset);
+      } else {
+        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
+      }
+    }
+    return arrayIndexOf(buffer, [val], byteOffset, encoding, dir);
+  }
+  throw new TypeError('val must be string, number or Buffer');
+}
+function arrayIndexOf(arr, val, byteOffset, encoding, dir) {
+  var indexSize = 1;
+  var arrLength = arr.length;
+  var valLength = val.length;
+  if (encoding !== undefined) {
+    encoding = String(encoding).toLowerCase();
+    if (encoding === 'ucs2' || encoding === 'ucs-2' || encoding === 'utf16le' || encoding === 'utf-16le') {
+      if (arr.length < 2 || val.length < 2) {
+        return -1;
+      }
+      indexSize = 2;
+      arrLength /= 2;
+      valLength /= 2;
+      byteOffset /= 2;
+    }
+  }
+  function read(buf, i) {
+    if (indexSize === 1) {
+      return buf[i];
+    } else {
+      return buf.readUInt16BE(i * indexSize);
+    }
+  }
+  var i;
+  if (dir) {
+    var foundIndex = -1;
+    for (i = byteOffset; i < arrLength; i++) {
+      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+        if (foundIndex === -1) foundIndex = i;
+        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize;
+      } else {
+        if (foundIndex !== -1) i -= i - foundIndex;
+        foundIndex = -1;
+      }
+    }
+  } else {
+    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
+    for (i = byteOffset; i >= 0; i--) {
+      var found = true;
+      for (var j = 0; j < valLength; j++) {
+        if (read(arr, i + j) !== read(val, j)) {
+          found = false;
+          break;
+        }
+      }
+      if (found) return i;
+    }
+  }
+  return -1;
+}
+Buffer.prototype.includes = function includes(val, byteOffset, encoding) {
+  return this.indexOf(val, byteOffset, encoding) !== -1;
+};
+Buffer.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, true);
+};
+Buffer.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, false);
+};
+function hexWrite(buf, string, offset, length) {
+  offset = Number(offset) || 0;
+  var remaining = buf.length - offset;
+  if (!length) {
+    length = remaining;
+  } else {
+    length = Number(length);
+    if (length > remaining) {
+      length = remaining;
+    }
+  }
+
+  // must be an even number of digits
+  var strLen = string.length;
+  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string');
+  if (length > strLen / 2) {
+    length = strLen / 2;
+  }
+  for (var i = 0; i < length; ++i) {
+    var parsed = parseInt(string.substr(i * 2, 2), 16);
+    if (isNaN(parsed)) return i;
+    buf[offset + i] = parsed;
+  }
+  return i;
+}
+function utf8Write(buf, string, offset, length) {
+  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length);
+}
+function asciiWrite(buf, string, offset, length) {
+  return blitBuffer(asciiToBytes(string), buf, offset, length);
+}
+function latin1Write(buf, string, offset, length) {
+  return asciiWrite(buf, string, offset, length);
+}
+function base64Write(buf, string, offset, length) {
+  return blitBuffer(base64ToBytes(string), buf, offset, length);
+}
+function ucs2Write(buf, string, offset, length) {
+  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length);
+}
+Buffer.prototype.write = function write(string, offset, length, encoding) {
+  // Buffer#write(string)
+  if (offset === undefined) {
+    encoding = 'utf8';
+    length = this.length;
+    offset = 0;
+    // Buffer#write(string, encoding)
+  } else if (length === undefined && typeof offset === 'string') {
+    encoding = offset;
+    length = this.length;
+    offset = 0;
+    // Buffer#write(string, offset[, length][, encoding])
+  } else if (isFinite(offset)) {
+    offset = offset | 0;
+    if (isFinite(length)) {
+      length = length | 0;
+      if (encoding === undefined) encoding = 'utf8';
+    } else {
+      encoding = length;
+      length = undefined;
+    }
+    // legacy write(string, encoding, offset, length) - remove in v0.13
+  } else {
+    throw new Error('Buffer.write(string, encoding, offset[, length]) is no longer supported');
+  }
+  var remaining = this.length - offset;
+  if (length === undefined || length > remaining) length = remaining;
+  if (string.length > 0 && (length < 0 || offset < 0) || offset > this.length) {
+    throw new RangeError('Attempt to write outside buffer bounds');
+  }
+  if (!encoding) encoding = 'utf8';
+  var loweredCase = false;
+  for (;;) {
+    switch (encoding) {
+      case 'hex':
+        return hexWrite(this, string, offset, length);
+      case 'utf8':
+      case 'utf-8':
+        return utf8Write(this, string, offset, length);
+      case 'ascii':
+        return asciiWrite(this, string, offset, length);
+      case 'latin1':
+      case 'binary':
+        return latin1Write(this, string, offset, length);
+      case 'base64':
+        // Warning: maxLength not taken into account in base64Write
+        return base64Write(this, string, offset, length);
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return ucs2Write(this, string, offset, length);
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding);
+        encoding = ('' + encoding).toLowerCase();
+        loweredCase = true;
+    }
+  }
+};
+Buffer.prototype.toJSON = function toJSON() {
+  return {
+    type: 'Buffer',
+    data: Array.prototype.slice.call(this._arr || this, 0)
+  };
+};
+function base64Slice(buf, start, end) {
+  if (start === 0 && end === buf.length) {
+    return fromByteArray(buf);
+  } else {
+    return fromByteArray(buf.slice(start, end));
+  }
+}
+function utf8Slice(buf, start, end) {
+  end = Math.min(buf.length, end);
+  var res = [];
+  var i = start;
+  while (i < end) {
+    var firstByte = buf[i];
+    var codePoint = null;
+    var bytesPerSequence = firstByte > 0xEF ? 4 : firstByte > 0xDF ? 3 : firstByte > 0xBF ? 2 : 1;
+    if (i + bytesPerSequence <= end) {
+      var secondByte, thirdByte, fourthByte, tempCodePoint;
+      switch (bytesPerSequence) {
+        case 1:
+          if (firstByte < 0x80) {
+            codePoint = firstByte;
+          }
+          break;
+        case 2:
+          secondByte = buf[i + 1];
+          if ((secondByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0x1F) << 0x6 | secondByte & 0x3F;
+            if (tempCodePoint > 0x7F) {
+              codePoint = tempCodePoint;
+            }
+          }
+          break;
+        case 3:
+          secondByte = buf[i + 1];
+          thirdByte = buf[i + 2];
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | thirdByte & 0x3F;
+            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+              codePoint = tempCodePoint;
+            }
+          }
+          break;
+        case 4:
+          secondByte = buf[i + 1];
+          thirdByte = buf[i + 2];
+          fourthByte = buf[i + 3];
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | fourthByte & 0x3F;
+            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+              codePoint = tempCodePoint;
+            }
+          }
+      }
+    }
+    if (codePoint === null) {
+      // we did not generate a valid codePoint so insert a
+      // replacement char (U+FFFD) and advance only 1 byte
+      codePoint = 0xFFFD;
+      bytesPerSequence = 1;
+    } else if (codePoint > 0xFFFF) {
+      // encode to utf16 (surrogate pair dance)
+      codePoint -= 0x10000;
+      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
+      codePoint = 0xDC00 | codePoint & 0x3FF;
+    }
+    res.push(codePoint);
+    i += bytesPerSequence;
+  }
+  return decodeCodePointsArray(res);
+}
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+// the lowest limit is Chrome, with 0x10000 args.
+// We go 1 magnitude less, for safety
+var MAX_ARGUMENTS_LENGTH = 0x1000;
+function decodeCodePointsArray(codePoints) {
+  var len = codePoints.length;
+  if (len <= MAX_ARGUMENTS_LENGTH) {
+    return String.fromCharCode.apply(String, codePoints); // avoid extra slice()
+  }
+
+  // Decode in chunks to avoid "call stack size exceeded".
+  var res = '';
+  var i = 0;
+  while (i < len) {
+    res += String.fromCharCode.apply(String, codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH));
+  }
+  return res;
+}
+function asciiSlice(buf, start, end) {
+  var ret = '';
+  end = Math.min(buf.length, end);
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i] & 0x7F);
+  }
+  return ret;
+}
+function latin1Slice(buf, start, end) {
+  var ret = '';
+  end = Math.min(buf.length, end);
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i]);
+  }
+  return ret;
+}
+function hexSlice(buf, start, end) {
+  var len = buf.length;
+  if (!start || start < 0) start = 0;
+  if (!end || end < 0 || end > len) end = len;
+  var out = '';
+  for (var i = start; i < end; ++i) {
+    out += toHex(buf[i]);
+  }
+  return out;
+}
+function utf16leSlice(buf, start, end) {
+  var bytes = buf.slice(start, end);
+  var res = '';
+  for (var i = 0; i < bytes.length; i += 2) {
+    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
+  }
+  return res;
+}
+Buffer.prototype.slice = function slice(start, end) {
+  var len = this.length;
+  start = ~~start;
+  end = end === undefined ? len : ~~end;
+  if (start < 0) {
+    start += len;
+    if (start < 0) start = 0;
+  } else if (start > len) {
+    start = len;
+  }
+  if (end < 0) {
+    end += len;
+    if (end < 0) end = 0;
+  } else if (end > len) {
+    end = len;
+  }
+  if (end < start) end = start;
+  var newBuf;
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = this.subarray(start, end);
+    newBuf.__proto__ = Buffer.prototype;
+  } else {
+    var sliceLen = end - start;
+    newBuf = new Buffer(sliceLen, undefined);
+    for (var i = 0; i < sliceLen; ++i) {
+      newBuf[i] = this[i + start];
+    }
+  }
+  return newBuf;
+};
+
+/*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+function checkOffset(offset, ext, length) {
+  if (offset % 1 !== 0 || offset < 0) throw new RangeError('offset is not uint');
+  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length');
+}
+Buffer.prototype.readUIntLE = function readUIntLE(offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+  var val = this[offset];
+  var mul = 1;
+  var i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul;
+  }
+  return val;
+};
+Buffer.prototype.readUIntBE = function readUIntBE(offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    checkOffset(offset, byteLength, this.length);
+  }
+  var val = this[offset + --byteLength];
+  var mul = 1;
+  while (byteLength > 0 && (mul *= 0x100)) {
+    val += this[offset + --byteLength] * mul;
+  }
+  return val;
+};
+Buffer.prototype.readUInt8 = function readUInt8(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length);
+  return this[offset];
+};
+Buffer.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  return this[offset] | this[offset + 1] << 8;
+};
+Buffer.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  return this[offset] << 8 | this[offset + 1];
+};
+Buffer.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 0x1000000;
+};
+Buffer.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return this[offset] * 0x1000000 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
+};
+Buffer.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+  var val = this[offset];
+  var mul = 1;
+  var i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul;
+  }
+  mul *= 0x80;
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+  return val;
+};
+Buffer.prototype.readIntBE = function readIntBE(offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+  var i = byteLength;
+  var mul = 1;
+  var val = this[offset + --i];
+  while (i > 0 && (mul *= 0x100)) {
+    val += this[offset + --i] * mul;
+  }
+  mul *= 0x80;
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+  return val;
+};
+Buffer.prototype.readInt8 = function readInt8(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length);
+  if (!(this[offset] & 0x80)) return this[offset];
+  return (0xff - this[offset] + 1) * -1;
+};
+Buffer.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  var val = this[offset] | this[offset + 1] << 8;
+  return val & 0x8000 ? val | 0xFFFF0000 : val;
+};
+Buffer.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  var val = this[offset + 1] | this[offset] << 8;
+  return val & 0x8000 ? val | 0xFFFF0000 : val;
+};
+Buffer.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
+};
+Buffer.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
+};
+Buffer.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return read(this, offset, true, 23, 4);
+};
+Buffer.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return read(this, offset, false, 23, 4);
+};
+Buffer.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length);
+  return read(this, offset, true, 52, 8);
+};
+Buffer.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length);
+  return read(this, offset, false, 52, 8);
+};
+function checkInt(buf, value, offset, ext, max, min) {
+  if (!internalIsBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance');
+  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds');
+  if (offset + ext > buf.length) throw new RangeError('Index out of range');
+}
+Buffer.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+    checkInt(this, value, offset, byteLength, maxBytes, 0);
+  }
+  var mul = 1;
+  var i = 0;
+  this[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    this[offset + i] = value / mul & 0xFF;
+  }
+  return offset + byteLength;
+};
+Buffer.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+    checkInt(this, value, offset, byteLength, maxBytes, 0);
+  }
+  var i = byteLength - 1;
+  var mul = 1;
+  this[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    this[offset + i] = value / mul & 0xFF;
+  }
+  return offset + byteLength;
+};
+Buffer.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+  this[offset] = value & 0xff;
+  return offset + 1;
+};
+function objectWriteUInt16(buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffff + value + 1;
+  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
+    buf[offset + i] = (value & 0xff << 8 * (littleEndian ? i : 1 - i)) >>> (littleEndian ? i : 1 - i) * 8;
+  }
+}
+Buffer.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value & 0xff;
+    this[offset + 1] = value >>> 8;
+  } else {
+    objectWriteUInt16(this, value, offset, true);
+  }
+  return offset + 2;
+};
+Buffer.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value >>> 8;
+    this[offset + 1] = value & 0xff;
+  } else {
+    objectWriteUInt16(this, value, offset, false);
+  }
+  return offset + 2;
+};
+function objectWriteUInt32(buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffffffff + value + 1;
+  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+    buf[offset + i] = value >>> (littleEndian ? i : 3 - i) * 8 & 0xff;
+  }
+}
+Buffer.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset + 3] = value >>> 24;
+    this[offset + 2] = value >>> 16;
+    this[offset + 1] = value >>> 8;
+    this[offset] = value & 0xff;
+  } else {
+    objectWriteUInt32(this, value, offset, true);
+  }
+  return offset + 4;
+};
+Buffer.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value >>> 24;
+    this[offset + 1] = value >>> 16;
+    this[offset + 2] = value >>> 8;
+    this[offset + 3] = value & 0xff;
+  } else {
+    objectWriteUInt32(this, value, offset, false);
+  }
+  return offset + 4;
+};
+Buffer.prototype.writeIntLE = function writeIntLE(value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1);
+    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+  }
+  var i = 0;
+  var mul = 1;
+  var sub = 0;
+  this[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+      sub = 1;
+    }
+    this[offset + i] = (value / mul >> 0) - sub & 0xFF;
+  }
+  return offset + byteLength;
+};
+Buffer.prototype.writeIntBE = function writeIntBE(value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1);
+    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+  }
+  var i = byteLength - 1;
+  var mul = 1;
+  var sub = 0;
+  this[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+      sub = 1;
+    }
+    this[offset + i] = (value / mul >> 0) - sub & 0xFF;
+  }
+  return offset + byteLength;
+};
+Buffer.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+  if (value < 0) value = 0xff + value + 1;
+  this[offset] = value & 0xff;
+  return offset + 1;
+};
+Buffer.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value & 0xff;
+    this[offset + 1] = value >>> 8;
+  } else {
+    objectWriteUInt16(this, value, offset, true);
+  }
+  return offset + 2;
+};
+Buffer.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value >>> 8;
+    this[offset + 1] = value & 0xff;
+  } else {
+    objectWriteUInt16(this, value, offset, false);
+  }
+  return offset + 2;
+};
+Buffer.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value & 0xff;
+    this[offset + 1] = value >>> 8;
+    this[offset + 2] = value >>> 16;
+    this[offset + 3] = value >>> 24;
+  } else {
+    objectWriteUInt32(this, value, offset, true);
+  }
+  return offset + 4;
+};
+Buffer.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000);
+  if (value < 0) value = 0xffffffff + value + 1;
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value >>> 24;
+    this[offset + 1] = value >>> 16;
+    this[offset + 2] = value >>> 8;
+    this[offset + 3] = value & 0xff;
+  } else {
+    objectWriteUInt32(this, value, offset, false);
+  }
+  return offset + 4;
+};
+function checkIEEE754(buf, value, offset, ext, max, min) {
+  if (offset + ext > buf.length) throw new RangeError('Index out of range');
+  if (offset < 0) throw new RangeError('Index out of range');
+}
+function writeFloat(buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 4);
+  }
+  write(buf, value, offset, littleEndian, 23, 4);
+  return offset + 4;
+}
+Buffer.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
+  return writeFloat(this, value, offset, true, noAssert);
+};
+Buffer.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
+  return writeFloat(this, value, offset, false, noAssert);
+};
+function writeDouble(buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 8);
+  }
+  write(buf, value, offset, littleEndian, 52, 8);
+  return offset + 8;
+}
+Buffer.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
+  return writeDouble(this, value, offset, true, noAssert);
+};
+Buffer.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
+  return writeDouble(this, value, offset, false, noAssert);
+};
+
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+Buffer.prototype.copy = function copy(target, targetStart, start, end) {
+  if (!start) start = 0;
+  if (!end && end !== 0) end = this.length;
+  if (targetStart >= target.length) targetStart = target.length;
+  if (!targetStart) targetStart = 0;
+  if (end > 0 && end < start) end = start;
+
+  // Copy 0 bytes; we're done
+  if (end === start) return 0;
+  if (target.length === 0 || this.length === 0) return 0;
+
+  // Fatal error conditions
+  if (targetStart < 0) {
+    throw new RangeError('targetStart out of bounds');
+  }
+  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds');
+  if (end < 0) throw new RangeError('sourceEnd out of bounds');
+
+  // Are we oob?
+  if (end > this.length) end = this.length;
+  if (target.length - targetStart < end - start) {
+    end = target.length - targetStart + start;
+  }
+  var len = end - start;
+  var i;
+  if (this === target && start < targetStart && targetStart < end) {
+    // descending copy from end
+    for (i = len - 1; i >= 0; --i) {
+      target[i + targetStart] = this[i + start];
+    }
+  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+    // ascending copy from start
+    for (i = 0; i < len; ++i) {
+      target[i + targetStart] = this[i + start];
+    }
+  } else {
+    Uint8Array.prototype.set.call(target, this.subarray(start, start + len), targetStart);
+  }
+  return len;
+};
+
+// Usage:
+//    buffer.fill(number[, offset[, end]])
+//    buffer.fill(buffer[, offset[, end]])
+//    buffer.fill(string[, offset[, end]][, encoding])
+Buffer.prototype.fill = function fill(val, start, end, encoding) {
+  // Handle string cases:
+  if (typeof val === 'string') {
+    if (typeof start === 'string') {
+      encoding = start;
+      start = 0;
+      end = this.length;
+    } else if (typeof end === 'string') {
+      encoding = end;
+      end = this.length;
+    }
+    if (val.length === 1) {
+      var code = val.charCodeAt(0);
+      if (code < 256) {
+        val = code;
+      }
+    }
+    if (encoding !== undefined && typeof encoding !== 'string') {
+      throw new TypeError('encoding must be a string');
+    }
+    if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
+      throw new TypeError('Unknown encoding: ' + encoding);
+    }
+  } else if (typeof val === 'number') {
+    val = val & 255;
+  }
+
+  // Invalid ranges are not set to a default, so can range check early.
+  if (start < 0 || this.length < start || this.length < end) {
+    throw new RangeError('Out of range index');
+  }
+  if (end <= start) {
+    return this;
+  }
+  start = start >>> 0;
+  end = end === undefined ? this.length : end >>> 0;
+  if (!val) val = 0;
+  var i;
+  if (typeof val === 'number') {
+    for (i = start; i < end; ++i) {
+      this[i] = val;
+    }
+  } else {
+    var bytes = internalIsBuffer(val) ? val : utf8ToBytes(new Buffer(val, encoding).toString());
+    var len = bytes.length;
+    for (i = 0; i < end - start; ++i) {
+      this[i + start] = bytes[i % len];
+    }
+  }
+  return this;
+};
+
+// HELPER FUNCTIONS
+// ================
+
+var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
+function base64clean(str) {
+  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+  str = stringtrim(str).replace(INVALID_BASE64_RE, '');
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return '';
+  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+  while (str.length % 4 !== 0) {
+    str = str + '=';
+  }
+  return str;
+}
+function stringtrim(str) {
+  if (str.trim) return str.trim();
+  return str.replace(/^\s+|\s+$/g, '');
+}
+function toHex(n) {
+  if (n < 16) return '0' + n.toString(16);
+  return n.toString(16);
+}
+function utf8ToBytes(string, units) {
+  units = units || Infinity;
+  var codePoint;
+  var length = string.length;
+  var leadSurrogate = null;
+  var bytes = [];
+  for (var i = 0; i < length; ++i) {
+    codePoint = string.charCodeAt(i);
+
+    // is surrogate component
+    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+      // last char was a lead
+      if (!leadSurrogate) {
+        // no lead yet
+        if (codePoint > 0xDBFF) {
+          // unexpected trail
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+          continue;
+        } else if (i + 1 === length) {
+          // unpaired lead
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+          continue;
+        }
+
+        // valid lead
+        leadSurrogate = codePoint;
+        continue;
+      }
+
+      // 2 leads in a row
+      if (codePoint < 0xDC00) {
+        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+        leadSurrogate = codePoint;
+        continue;
+      }
+
+      // valid surrogate pair
+      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
+    } else if (leadSurrogate) {
+      // valid bmp char, but last char was a lead
+      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+    }
+    leadSurrogate = null;
+
+    // encode utf8
+    if (codePoint < 0x80) {
+      if ((units -= 1) < 0) break;
+      bytes.push(codePoint);
+    } else if (codePoint < 0x800) {
+      if ((units -= 2) < 0) break;
+      bytes.push(codePoint >> 0x6 | 0xC0, codePoint & 0x3F | 0x80);
+    } else if (codePoint < 0x10000) {
+      if ((units -= 3) < 0) break;
+      bytes.push(codePoint >> 0xC | 0xE0, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
+    } else if (codePoint < 0x110000) {
+      if ((units -= 4) < 0) break;
+      bytes.push(codePoint >> 0x12 | 0xF0, codePoint >> 0xC & 0x3F | 0x80, codePoint >> 0x6 & 0x3F | 0x80, codePoint & 0x3F | 0x80);
+    } else {
+      throw new Error('Invalid code point');
+    }
+  }
+  return bytes;
+}
+function asciiToBytes(str) {
+  var byteArray = [];
+  for (var i = 0; i < str.length; ++i) {
+    // Node's code seems to be doing this and not & 0x7F..
+    byteArray.push(str.charCodeAt(i) & 0xFF);
+  }
+  return byteArray;
+}
+function utf16leToBytes(str, units) {
+  var c, hi, lo;
+  var byteArray = [];
+  for (var i = 0; i < str.length; ++i) {
+    if ((units -= 2) < 0) break;
+    c = str.charCodeAt(i);
+    hi = c >> 8;
+    lo = c % 256;
+    byteArray.push(lo);
+    byteArray.push(hi);
+  }
+  return byteArray;
+}
+function base64ToBytes(str) {
+  return toByteArray(base64clean(str));
+}
+function blitBuffer(src, dst, offset, length) {
+  for (var i = 0; i < length; ++i) {
+    if (i + offset >= dst.length || i >= src.length) break;
+    dst[i + offset] = src[i];
+  }
+  return i;
+}
+function isnan(val) {
+  return val !== val; // eslint-disable-line no-self-compare
+}
+
+// the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+function isBuffer(obj) {
+  return obj != null && (!!obj._isBuffer || isFastBuffer(obj) || isSlowBuffer(obj));
+}
+function isFastBuffer(obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer(obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0));
+}
+
+var browserAtob = {exports: {}};
+
+(function (module) {
+  (function (w) {
+
+    function findBest(atobNative) {
+      // normal window
+      if ('function' === typeof atobNative) {
+        return atobNative;
+      }
+
+      // browserify (web worker)
+      if ('function' === typeof Buffer) {
+        return function atobBrowserify(a) {
+          //!! Deliberately using an API that's deprecated in node.js because
+          //!! this file is for browsers and we expect them to cope with it.
+          //!! Discussion: github.com/node-browser-compat/atob/pull/9
+          return new Buffer(a, 'base64').toString('binary');
+        };
+      }
+
+      // ios web worker with base64js
+      if ('object' === _typeof$1(w.base64js)) {
+        // bufferToBinaryString
+        // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
+        return function atobWebWorker_iOS(a) {
+          var buf = w.base64js.b64ToByteArray(a);
+          return Array.prototype.map.call(buf, function (ch) {
+            return String.fromCharCode(ch);
+          }).join('');
+        };
+      }
+      return function () {
+        // ios web worker without base64js
+        throw new Error("You're probably in an old browser or an iOS webworker." + " It might help to include beatgammit's base64-js.");
+      };
+    }
+    var atobBest = findBest(w.atob);
+    w.atob = atobBest;
+    if (module && module.exports) {
+      module.exports = atobBest;
+    }
+  })(window);
+})(browserAtob);
+
+var btoa$1 = {exports: {}};
+
+(function () {
+
+  function btoa(str) {
+    var buffer;
+    if (str instanceof Buffer) {
+      buffer = str;
+    } else {
+      buffer = Buffer.from(str.toString(), 'binary');
+    }
+    return buffer.toString('base64');
+  }
+  btoa$1.exports = btoa;
+})();
+
+var atob = browserAtob.exports;
+var btoa = btoa$1.exports;
+var Base64Util$1 = /*#__PURE__*/function () {
+  function Base64Util() {
+    _classCallCheck(this, Base64Util);
+  }
+  _createClass(Base64Util, null, [{
+    key: "base64ToUint8Array",
+    value:
+    /**
+     * Convert a base64 encoded string to a Uint8Array.
+     * @param {string} base64 - a base64 encoded string.
+     * @return {Uint8Array} - a decoded Uint8Array.
+     */
+    function base64ToUint8Array(base64) {
+      var binaryString = atob(base64);
+      var len = binaryString.length;
+      var array = new Uint8Array(len);
+      for (var i = 0; i < len; i++) {
+        array[i] = binaryString.charCodeAt(i);
+      }
+      return array;
+    }
+
+    /**
+     * Convert a Uint8Array to a base64 encoded string.
+     * @param {Uint8Array} array - the array to convert.
+     * @return {string} - the base64 encoded string.
+     */
+  }, {
+    key: "uint8ArrayToBase64",
+    value: function uint8ArrayToBase64(array) {
+      var base64 = btoa(String.fromCharCode.apply(null, array));
+      return base64;
+    }
+
+    /**
+    * Convert an array buffer to a base64 encoded string.
+    * @param {array} buffer - an array buffer to convert.
+    * @return {string} - the base64 encoded string.
+    */
+  }, {
+    key: "arrayBufferToBase64",
+    value: function arrayBufferToBase64(buffer) {
+      var binary = '';
+      var bytes = new Uint8Array(buffer);
+      var len = bytes.byteLength;
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+  }]);
+  return Base64Util;
+}();
+var base64Util = Base64Util$1;
+
+var MathUtil$2 = /*#__PURE__*/function () {
   function MathUtil() {
     _classCallCheck(this, MathUtil);
   }
@@ -8808,7 +11476,7 @@ var MathUtil$1 = /*#__PURE__*/function () {
   }]);
   return MathUtil;
 }();
-var mathUtil = MathUtil$1;
+var mathUtil = MathUtil$2;
 
 var Timer$1 = /*#__PURE__*/function () {
   function Timer() {
@@ -8994,189 +11662,829 @@ var RateLimiter$1 = /*#__PURE__*/function () {
 }();
 var rateLimiter = RateLimiter$1;
 
-var Color$1 = {
-  BLACK: 0,
-  PINK: 1,
-  PURPLE: 2,
-  BLUE: 3,
-  LIGHT_BLUE: 4,
-  LIGHT_GREEN: 5,
-  GREEN: 6,
-  YELLOW: 7,
-  ORANGE: 8,
-  RED: 9,
-  WHITE: 10,
-  NONE: -1
+var IOType$2 = {
+  SIMPLE_MEDIUM_LINEAR_MOTOR: 0x01,
+  TRAIN_MOTOR: 0x02,
+  BUTTION: 0x05,
+  LIGHT: 0x08,
+  VOLTAGE: 0x14,
+  CURRENT: 0x15,
+  PIEZO_TONE: 0x16,
+  RGB_LIGHT: 0x17,
+  TILT_SENSOR: 0x22,
+  MOTION_SENSOR: 0x23,
+  COLOR_DISTANCE_SENSOR: 0x25,
+  MEDIUM_LINEAR_MOTOR: 0x26,
+  MOVE_HUB_MOTOR: 0x27,
+  MOVE_HUB_TILT_SENSOR: 0x28,
+  DUPLO_TRAIN_BASE_MOTOR: 0x29,
+  DUPLO_TRAIN_BASE_SPEAKER: 0x2a,
+  DUPLO_TRAIN_BASE_COLOR_SENSOR: 0x2b,
+  DUPLO_TRAIN_BASE_SPEEDOMETER: 0x2c,
+  TECHNIC_LARGE_MOTOR: 0x2e,
+  TECHNIC_XL_MOTOR: 0x2f,
+  TECHNIC_MEDIUM_ANGULAR_MOTOR: 0x30,
+  TECHNIC_LARGE_ANGULAR_MOTOR: 0x31,
+  REMOTE_POWER_CONTROL_BUTTON: 0x37,
+  TECHNIC_HUB_TILT_SENSOR: 0x3b,
+  TECHNIC_COLOR_SENSOR: 0x3d,
+  TECHNIC_DISTANCE_SENSOR: 0x3e,
+  TECHNIC_FORCE_SENSOR: 0x3f,
+  TECHNIC_SMALL_ANGULAR_MOTOR: 0x41,
+  MARIO_COLOR_BARCODE_SENSOR: 0x49,
+  MARIO_PANTS: 0x4a,
+  TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY: 0x4b,
+  TECHNIC_LARGE_ANGULAR_MOTOR_GRAY: 0x4c
 };
-var color = Color$1;
+var ioType = IOType$2;
 
-var setupTranslations$1 = function setupTranslations(formatMessage) {
-  var extTranslations = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var localeSetup = formatMessage.setup();
-  var translations = {
-    'en': {
-      'legobluetooth.motorPWM': '[PORT] start motor at [POWER] % power',
-      'legobluetooth.motorStop': '[PORT] stop motor',
-      'legobluetooth.motorRunFor': '[PORT] run [DIRECTION] for [VALUE] [UNIT]',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] go [DIRECTION] to position [POSITION]',
-      'legobluetooth.motorStart': '[PORT] start motor [DIRECTION]',
-      'legobluetooth.motorSetSpeed': '[PORT] set speed to [SPEED] %',
-      'legobluetooth.getRelativePosition': '[PORT] relative position',
-      'legobluetooth.getPosition': '[PORT] position',
-      'legobluetooth.motorResetRelativePosition': '[PORT] reset relative position to [RELATIVE_POSITION]',
-      'legobluetooth.displayImageFor': 'turn on [MATRIX] for [DURATION] seconds',
-      'legobluetooth.displayImage': 'turn on [MATRIX]',
-      'legobluetooth.displayText': 'write [TEXT]',
-      'legobluetooth.displayClear': 'turn off pixels',
-      'legobluetooth.displaySetBrightness': 'set pixel brightness to [BRIGHTNESS] %',
-      'legobluetooth.displaySetPixel': 'set pixel at [X] , [Y] to [BRIGHTNESS] %',
-      'legobluetooth.centerButtonLights': 'set center button light to [COLOR]',
-      'legobluetooth.ultrasonicLightUp': '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]',
-      'legobluetooth.getColor': '[PORT] color',
-      'legobluetooth.getDistance': '[PORT] distance',
-      'legobluetooth.getForce': '[PORT] force',
-      'legobluetooth.getTilt': '[PORT] tilt [XY]',
-      'legobluetooth.setHubLEDColor': 'set hub LED color to [COLOR]',
-      'legobluetooth.getHubTilt': 'hub tilt [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] angle',
-      'legobluetooth.getName': 'name',
-      'legobluetooth.getFirmwareVersion': 'firmware version',
-      'legobluetooth.getBatteryLevel': 'battery level',
-      'legobluetooth.rotations': 'rotations',
-      'legobluetooth.degrees': 'degrees',
-      'legobluetooth.seconds': 'seconds',
-      'legobluetooth.shortestPath': 'shortest',
-      'legobluetooth.clockwise': 'clockwise',
-      'legobluetooth.counterclockwise': 'counterclockwise',
-      'legobluetooth.black': '(0) Black',
-      'legobluetooth.pink': '(1) Pink',
-      'legobluetooth.purple': '(2) Purple',
-      'legobluetooth.blue': '(3) Blue',
-      'legobluetooth.lightBlue': '(4) Light blue',
-      'legobluetooth.lightGreen': '(5) Light green',
-      'legobluetooth.green': '(6) Green',
-      'legobluetooth.yellow': '(7) Yellow',
-      'legobluetooth.orange': '(8) Orange',
-      'legobluetooth.red': '(9) Red',
-      'legobluetooth.white': '(10) White',
-      'legobluetooth.noColor': '(-1) No color',
-      'legobluetooth.pitch': 'pitch',
-      'legobluetooth.roll': 'roll',
-      'legobluetooth.yaw': 'yaw'
+var device = {};
+
+function _callSuper$1(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
+var MathUtil$1 = mathUtil;
+var IOType$1 = ioType;
+var GenericDevice = /*#__PURE__*/function () {
+  function GenericDevice(ioType) {
+    _classCallCheck(this, GenericDevice);
+    this._ioType = ioType;
+    this._inputValues = {};
+  }
+  _createClass(GenericDevice, [{
+    key: "ioType",
+    get: function get() {
+      return this._ioType;
+    }
+  }, {
+    key: "mode",
+    get: function get() {
+      switch (this._ioType) {
+        case IOType$1.MEDIUM_LINEAR_MOTOR:
+        case IOType$1.MOVE_HUB_MOTOR:
+        case IOType$1.TECHNIC_LARGE_MOTOR:
+        case IOType$1.TECHNIC_XL_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+          return 2;
+        // Relative Position
+        case IOType$1.TILT_SENSOR:
+          return 0;
+        // Tilt X, Y
+        case IOType$1.MOTION_SENSOR:
+          return 0;
+        // Distance
+        case IOType$1.COLOR_DISTANCE_SENSOR:
+          return 8;
+        // Color and Distance
+        case IOType$1.MOVE_HUB_TILT_SENSOR:
+          return 0;
+        // Tilt X, Y
+        case IOType$1.DUPLO_TRAIN_BASE_SPEAKER:
+          return 1;
+        // Sound
+        case IOType$1.DUPLO_TRAIN_BASE_COLOR_SENSOR:
+          return 1;
+        // Color
+        case IOType$1.DUPLO_TRAIN_BASE_SPEEDOMETER:
+          return 1;
+        // Driving Distance
+        case IOType$1.REMOTE_POWER_CONTROL_BUTTON:
+          return 0;
+        // Button
+        case IOType$1.TECHNIC_HUB_TILT_SENSOR:
+          return 0;
+        // Tilt X, Y, Z
+        case IOType$1.TECHNIC_COLOR_SENSOR:
+          return 0;
+        // Color
+        case IOType$1.TECHNIC_DISTANCE_SENSOR:
+          return 0;
+        // Distance
+        case IOType$1.TECHNIC_FORCE_SENSOR:
+          return 0;
+        // Force
+        case IOType$1.MARIO_COLOR_BARCODE_SENSOR:
+          return 0;
+        case IOType$1.MARIO_PANTS:
+          return 0;
+        default:
+          return null;
+      }
+    }
+  }, {
+    key: "inputValues",
+    get: function get() {
+      return this._inputValues;
+    }
+  }, {
+    key: "updateInputValues",
+    value: function updateInputValues(data) {
+      var _this = this;
+      if (data.length == 0) {
+        this._inputValues = {};
+        return;
+      }
+      var buffer = Buffer.from(data);
+      switch (this._ioType) {
+        case IOType$1.MEDIUM_LINEAR_MOTOR:
+        case IOType$1.MOVE_HUB_MOTOR:
+        case IOType$1.TECHNIC_LARGE_MOTOR:
+        case IOType$1.TECHNIC_XL_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+          this._inputValues = {
+            relativePosition: buffer.readInt32LE(0)
+          };
+          break;
+        case IOType$1.TILT_SENSOR:
+          this._inputValues = {
+            tiltX: buffer.readInt8(0),
+            tiltY: buffer.readInt8(1)
+          };
+          break;
+        case IOType$1.MOTION_SENSOR:
+          this._inputValues = {
+            distance: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.COLOR_DISTANCE_SENSOR:
+          this._inputValues = {
+            color: buffer.readInt8(0),
+            distance: buffer.readInt8(1)
+          };
+          break;
+        case IOType$1.MOVE_HUB_TILT_SENSOR:
+          this._inputValues = {
+            tiltX: buffer.readInt8(0),
+            tiltY: buffer.readInt8(1)
+          };
+          break;
+        case IOType$1.DUPLO_TRAIN_BASE_COLOR_SENSOR:
+          var value = buffer.readInt8(0);
+          if (value > -1) {
+            this._inputValues = {
+              color: value
+            };
+            setTimeout(function () {
+              _this._inputValues = {
+                color: -1
+              };
+            }, 100);
+          }
+          break;
+        case IOType$1.DUPLO_TRAIN_BASE_SPEEDOMETER:
+          this._inputValues = {
+            drivingDistance: buffer.readInt32LE(0)
+          };
+          break;
+        case IOType$1.REMOTE_POWER_CONTROL_BUTTON:
+          this._inputValues = {
+            button: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.TECHNIC_HUB_TILT_SENSOR:
+          this._inputValues = {
+            tiltX: buffer.readInt16LE(4),
+            tiltY: buffer.readInt16LE(2),
+            tiltZ: buffer.readInt16LE(0)
+          };
+          break;
+        case IOType$1.TECHNIC_COLOR_SENSOR:
+          this._inputValues = {
+            color: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.TECHNIC_DISTANCE_SENSOR:
+          this._inputValues = {
+            distance: buffer.readInt16LE(0)
+          };
+          break;
+        case IOType$1.TECHNIC_FORCE_SENSOR:
+          this._inputValues = {
+            force: buffer.readInt8(0)
+          };
+          break;
+        case IOType$1.MARIO_COLOR_BARCODE_SENSOR:
+          this._inputValues = {
+            barcode: buffer.readInt16LE(0),
+            color: buffer.readInt16LE(2)
+          };
+          break;
+        case IOType$1.MARIO_PANTS:
+          this._inputValues = {
+            pants: buffer.readInt8(0)
+          };
+          break;
+        default:
+          this._inputValues = {};
+          break;
+      }
+      this._inputValues.bytes = buffer;
+    }
+  }]);
+  return GenericDevice;
+}();
+var Motor = /*#__PURE__*/function (_GenericDevice) {
+  _inherits(Motor, _GenericDevice);
+  function Motor(ioType) {
+    var _this2;
+    _classCallCheck(this, Motor);
+    _this2 = _callSuper$1(this, Motor, [ioType]);
+    switch (ioType) {
+      case IOType$1.MEDIUM_LINEAR_MOTOR:
+      case IOType$1.MOVE_HUB_MOTOR:
+        _this2._canUseSpeed = true;
+        _this2._canUsePosition = false;
+        _this2._speed = 75;
+        break;
+      case IOType$1.TECHNIC_LARGE_MOTOR:
+      case IOType$1.TECHNIC_XL_MOTOR:
+      case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+      case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+      case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+      case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+      case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+        _this2._canUseSpeed = true;
+        _this2._canUsePosition = true;
+        _this2._speed = 75;
+        break;
+      default:
+        _this2._canUseSpeed = false;
+        _this2._canUsePosition = false;
+        _this2._speed = 0;
+    }
+    return _this2;
+  }
+  _createClass(Motor, [{
+    key: "canUseSpeed",
+    get: function get() {
+      return this._canUseSpeed;
+    }
+  }, {
+    key: "canUsePosition",
+    get: function get() {
+      return this._canUsePosition;
+    }
+  }, {
+    key: "speed",
+    get: function get() {
+      return this._speed;
     },
-    'it': {},
-    'ja': {
-      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーで回す',
-      'legobluetooth.motorStop': '[PORT] モーターを止める',
-      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] 方向に [VALUE] [UNIT] 回す',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] で位置 [POSITION] まで回す',
-      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] 方向に回す',
-      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
-      'legobluetooth.getRelativePosition': '[PORT] 相対位置',
-      'legobluetooth.getPosition': '[PORT] 位置',
-      'legobluetooth.motorResetRelativePosition': '[PORT] 相対位置を [RELATIVE_POSITION] にリセットする',
-      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] 秒間オンにする',
-      'legobluetooth.displayImage': '[MATRIX] をオンにする',
-      'legobluetooth.displayText': '[TEXT] を表示する',
-      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
-      'legobluetooth.displaySetBrightness': 'ピクセルの明るさを [BRIGHTNESS] %にする',
-      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルの明るさを [BRIGHTNESS] %にする',
-      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
-      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
-      'legobluetooth.getColor': '[PORT] 色',
-      'legobluetooth.getDistance': '[PORT] 距離',
-      'legobluetooth.getForce': '[PORT] 圧力',
-      'legobluetooth.getTilt': '[PORT] 傾き [XY]',
-      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
-      'legobluetooth.getHubTilt': 'ハブの傾き [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] 角',
-      'legobluetooth.getName': '名前',
-      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
-      'legobluetooth.getBatteryLevel': '電池残量',
-      'legobluetooth.rotations': '回転',
-      'legobluetooth.degrees': '度',
-      'legobluetooth.seconds': '秒',
-      'legobluetooth.shortestPath': '最短経路',
-      'legobluetooth.clockwise': '時計回り',
-      'legobluetooth.counterclockwise': '反時計回り',
-      'legobluetooth.black': '(0) 黒',
-      'legobluetooth.pink': '(1) ピンク',
-      'legobluetooth.purple': '(2) 紫',
-      'legobluetooth.blue': '(3) 青',
-      'legobluetooth.lightBlue': '(4) 水色',
-      'legobluetooth.lightGreen': '(5) 明るい緑',
-      'legobluetooth.green': '(6) 緑',
-      'legobluetooth.yellow': '(7) 黄色',
-      'legobluetooth.orange': '(8) オレンジ',
-      'legobluetooth.red': '(9) 赤',
-      'legobluetooth.white': '(10) 白',
-      'legobluetooth.noColor': '(-1) 色なし',
-      'legobluetooth.pitch': 'ピッチ',
-      'legobluetooth.roll': 'ロール',
-      'legobluetooth.yaw': 'ヨー'
-    },
-    'ja-Hira': {
-      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーでまわす',
-      'legobluetooth.motorStop': '[PORT] モーターをとめる',
-      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] ほうこうに [VALUE] [UNIT] まわす',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] でいち [POSITION] までまわす',
-      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] ほうこうにまわす',
-      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
-      'legobluetooth.getRelativePosition': '[PORT] そうたいいち',
-      'legobluetooth.getPosition': '[PORT] いち',
-      'legobluetooth.motorResetRelativePosition': '[PORT] そうたいいちを [RELATIVE_POSITION] にリセットする',
-      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] びょうかんオンにする',
-      'legobluetooth.displayImage': '[MATRIX] をオンにする',
-      'legobluetooth.displayText': '[TEXT] をひょうじする',
-      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
-      'legobluetooth.displaySetBrightness': 'ピクセルのあかるさを [BRIGHTNESS] %にする',
-      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルのあかるさを [BRIGHTNESS] %にする',
-      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
-      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
-      'legobluetooth.getColor': '[PORT] いろ',
-      'legobluetooth.getDistance': '[PORT] きょり',
-      'legobluetooth.getForce': '[PORT] あつりょく',
-      'legobluetooth.getTilt': '[PORT] かたむき [XY]',
-      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
-      'legobluetooth.getHubTilt': 'ハブのかたむき [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] かく',
-      'legobluetooth.getName': 'なまえ',
-      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
-      'legobluetooth.getBatteryLevel': 'でんちざんりょう',
-      'legobluetooth.rotations': 'かいてん',
-      'legobluetooth.degrees': 'ど',
-      'legobluetooth.seconds': 'びょう',
-      'legobluetooth.shortestPath': 'さいたんきょり',
-      'legobluetooth.clockwise': 'とけいまわり',
-      'legobluetooth.counterclockwise': 'はんとけいまわり',
-      'legobluetooth.black': '(0) くろ',
-      'legobluetooth.pink': '(1) ピンク',
-      'legobluetooth.purple': '(2) むらさき',
-      'legobluetooth.blue': '(3) あお',
-      'legobluetooth.lightBlue': '(4) みずいろ',
-      'legobluetooth.lightGreen': '(5) あかるいみどり',
-      'legobluetooth.green': '(6) みどり',
-      'legobluetooth.yellow': '(7) きいろ',
-      'legobluetooth.orange': '(8) オレンジ',
-      'legobluetooth.red': '(9) あか',
-      'legobluetooth.white': '(10) しろ',
-      'legobluetooth.noColor': '(-1) いろなし',
-      'legobluetooth.pitch': 'ピッチ',
-      'legobluetooth.roll': 'ロール',
-      'legobluetooth.yaw': 'ヨー'
+    set: function set(value) {
+      if (this._canUseSpeed) {
+        this._speed = MathUtil$1.clamp(value, -100, 100);
+      }
     }
-  };
-  for (var locale in translations) {
-    if (extTranslations[locale]) {
-      Object.assign(translations[locale], extTranslations[locale]);
-    }
-    if (!localeSetup.translations[locale]) {
-      localeSetup.translations[locale] = {};
-    }
-    Object.assign(localeSetup.translations[locale], translations[locale]);
+  }]);
+  return Motor;
+}(GenericDevice);
+var createDevice = function createDevice(ioType) {
+  switch (ioType) {
+    case IOType$1.SIMPLE_MEDIUM_LINEAR_MOTOR:
+    case IOType$1.TRAIN_MOTOR:
+    case IOType$1.LIGHT:
+    case IOType$1.MEDIUM_LINEAR_MOTOR:
+    case IOType$1.MOVE_HUB_MOTOR:
+    case IOType$1.DUPLO_TRAIN_BASE_MOTOR:
+    case IOType$1.TECHNIC_LARGE_MOTOR:
+    case IOType$1.TECHNIC_XL_MOTOR:
+    case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
+    case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
+    case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
+    case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
+    case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
+      return new Motor(ioType);
+    default:
+      return new GenericDevice(ioType);
   }
 };
-var setupTranslations_1 = setupTranslations$1;
+device.GenericDevice = GenericDevice;
+device.Motor = Motor;
+device.createDevice = createDevice;
+
+var BLE = ble;
+var Base64Util = base64Util;
+var MathUtil = mathUtil;
+var RateLimiter = rateLimiter;
+
+//const log = require('../../../util/log');
+
+var IOType = ioType;
+var Device = device;
+var _TextDecoder;
+if (typeof TextDecoder === 'undefined') {
+  _TextDecoder = null;
+} else {
+  _TextDecoder = TextDecoder;
+}
+var ServiceUUID = '00001623-1212-efde-1623-785feabcd123';
+var CharacteristicUUID = '00001624-1212-efde-1623-785feabcd123';
+var SendRateMax = 20;
+var PollingInterval = 3000;
+var MAX_INT32 = Math.pow(2, 31) - 1;
+var MIN_INT32 = Math.pow(2, 31) * -1;
+var MAX_INT16 = Math.pow(2, 15) - 1;
+var MessageType = {
+  HUB_PROPERTIES: 0x01,
+  HUB_ATTACHED_IO: 0x04,
+  GENERIC_ERROR_MESSAGES: 0x05,
+  PORT_INPUT_FORMAT_SETUP: 0x41,
+  PORT_INPUT_FORMAT_SETUP_COMBINED: 0x42,
+  PORT_VALUE: 0x45,
+  PORT_VALUE_COMBINED: 0x46,
+  PORT_OUTPUT_COMMAND: 0x81,
+  PORT_OUTPUT_COMMAND_FEEDBACK: 0x82
+};
+var HubPropertyReference = {
+  ADVERTISING_NAME: 0x01,
+  BUTTON: 0x02,
+  FW_VERSION: 0x03,
+  BATTERY_VOLTAGE: 0x06,
+  SPEAKER_VOLUME: 0x12
+};
+var HubPropertyOperation = {
+  SET: 0x01,
+  ENABLE_UPDATES: 0x02,
+  DISABLE_UPDATES: 0x03,
+  RESET: 0x04,
+  REQUEST_UPDATE: 0x05,
+  UPDATE: 0x06
+};
+var numberToInt32Array = function numberToInt32Array(number) {
+  var buffer = new ArrayBuffer(4);
+  var dataview = new DataView(buffer);
+  dataview.setInt32(0, number);
+  return [dataview.getUint8(3), dataview.getUint8(2), dataview.getUint8(1), dataview.getUint8(0)];
+};
+var numberToInt16Array = function numberToInt16Array(number) {
+  var buffer = new ArrayBuffer(2);
+  var dataview = new DataView(buffer);
+  dataview.setInt16(0, number);
+  return [dataview.getUint8(1), dataview.getUint8(0)];
+};
+var Hub$1 = /*#__PURE__*/function () {
+  function Hub(runtime, extensionId) {
+    var hubType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    _classCallCheck(this, Hub);
+    this._runtime = runtime;
+    this._extensionId = extensionId;
+    this._hubType = hubType;
+    this._name = null;
+    this._firmwareVersion = null;
+    this._batteryLevel = 0;
+    this._devices = [];
+    this._firstNotificationCallback = null;
+    this._outputCommandFeedbackCallbacks = [];
+    this._outputCommandCompletionCallbacks = [];
+    this._ble = null;
+    this._runtime.registerPeripheralExtension(extensionId, this);
+    this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
+    this._rateLimiter = new RateLimiter(SendRateMax);
+    this._pollingId = null;
+    this.reset = this.reset.bind(this);
+    this._onConnect = this._onConnect.bind(this);
+    this._onMessage = this._onMessage.bind(this);
+  }
+  _createClass(Hub, [{
+    key: "name",
+    get: function get() {
+      return this._name;
+    }
+  }, {
+    key: "firmwareVersion",
+    get: function get() {
+      return this._firmwareVersion;
+    }
+  }, {
+    key: "batteryLevel",
+    get: function get() {
+      return this._batteryLevel;
+    }
+
+    // BLE
+  }, {
+    key: "scan",
+    value: function scan() {
+      if (this._ble) {
+        this._ble.disconnect();
+      }
+      var hubTypeFilter = {
+        dataPrefix: []
+      };
+      if (this._hubType) {
+        hubTypeFilter = {
+          dataPrefix: [0x00, this._hubType],
+          mask: [0x00, 0xff]
+        };
+      }
+      this._ble = new BLE(this._runtime, this._extensionId, {
+        filters: [{
+          services: [ServiceUUID],
+          manufacturerData: {
+            0x0397: hubTypeFilter
+          }
+        }],
+        optionalServices: []
+      }, this._onConnect, this.reset);
+    }
+  }, {
+    key: "connect",
+    value: function connect(id) {
+      if (this._ble) {
+        this._ble.connectPeripheral(id);
+      }
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      if (this._ble) {
+        this._ble.disconnect();
+      }
+      this.reset();
+    }
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      var connected = false;
+      if (this._ble) {
+        connected = this._ble.isConnected();
+      }
+      return connected;
+    }
+  }, {
+    key: "_onConnect",
+    value: function _onConnect() {
+      var _this = this;
+      this._ble.startNotifications(ServiceUUID, CharacteristicUUID, this._onMessage);
+      this._firstNotificationCallback = function () {
+        _this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.ADVERTISING_NAME, HubPropertyOperation.ENABLE_UPDATES], false);
+        _this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.FW_VERSION, HubPropertyOperation.REQUEST_UPDATE]);
+      };
+      this._startPollingBatteryLevel();
+    }
+  }, {
+    key: "_onMessage",
+    value: function _onMessage(base64) {
+      var data = Base64Util.base64ToUint8Array(base64);
+      //logByteArray('<<', data);
+
+      var length = data[0];
+      if (length > 127) {
+        //log.warn(`Unsupported message length: ${length}`);
+        return;
+      }
+      var messageType = data[2];
+      switch (messageType) {
+        case MessageType.HUB_PROPERTIES:
+          {
+            var property = data[3];
+            switch (property) {
+              case HubPropertyReference.ADVERTISING_NAME:
+                if (_TextDecoder) {
+                  var uint8Array = new Uint8Array(data.slice(5));
+                  this._name = new _TextDecoder().decode(uint8Array);
+                } else {
+                  this._name = 'unsupported';
+                }
+                break;
+              case HubPropertyReference.FW_VERSION:
+                var value = data.slice(5);
+                if (value.length == 4) {
+                  var s = value.reduce(function (output, elem) {
+                    return ('0' + (elem & 0xff).toString(16)).slice(-2) + output;
+                  }, '');
+                  this._firmwareVersion = s.slice(0, 1) + '.' + s.slice(1, 2) + '.' + s.slice(2, 4) + '.' + s.slice(4);
+                }
+                break;
+              case HubPropertyReference.BATTERY_VOLTAGE:
+                this._batteryLevel = data[5];
+                break;
+            }
+            break;
+          }
+        case MessageType.HUB_ATTACHED_IO:
+          {
+            var portId = data[3];
+            var event = data[4];
+            var ioType = data[5];
+            switch (event) {
+              case 0x00:
+                // Detached I/O
+                this._dettachDevice(portId);
+                break;
+              case 0x01:
+                // Attached I/O
+                this._attachDevice(portId, ioType);
+                break;
+            }
+            break;
+          }
+        case MessageType.PORT_VALUE:
+          {
+            var _portId = data[3];
+            var device = this._devices[_portId];
+            if (device) {
+              device.updateInputValues(data.slice(4));
+              //log.debug(portId, device.inputValues);
+            }
+            break;
+          }
+        case MessageType.PORT_OUTPUT_COMMAND_FEEDBACK:
+          {
+            var _portId2 = data[3];
+            var feedback = data[4];
+            var discarded = feedback & 0x04;
+            var completed = feedback & 0x02;
+            var inProgress = feedback & 0x01;
+            if (discarded) {
+              this._clearOutputCommandCompletionCallback(_portId2);
+            }
+            if (completed) {
+              this._clearOutputCommandFeedbackCallback(_portId2);
+              this._clearOutputCommandCompletionCallback(_portId2);
+            }
+            if (inProgress) {
+              this._moveOutputCommandFeedbackCallbackToCompletionCallback(_portId2);
+            }
+            break;
+          }
+      }
+      if (this._firstNotificationCallback) {
+        this._firstNotificationCallback();
+        this._firstNotificationCallback = null;
+      }
+    }
+  }, {
+    key: "_dettachDevice",
+    value: function _dettachDevice(portId) {
+      this._devices[portId] = null;
+    }
+  }, {
+    key: "_attachDevice",
+    value: function _attachDevice(portId, ioType) {
+      var _this2 = this;
+      var device = Device.createDevice(ioType);
+      this._devices[portId] = device;
+      var mode = device.mode;
+      if (mode !== null) {
+        setTimeout(function () {
+          _this2.sendMessage(MessageType.PORT_INPUT_FORMAT_SETUP, [portId, mode, 1, 0, 0, 0, 1], false);
+        }, 100);
+      }
+    }
+  }, {
+    key: "send",
+    value: function send(data) {
+      var useLimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      if (!this.isConnected()) {
+        return Promise.resolve();
+      }
+      if (useLimiter) {
+        if (!this._rateLimiter.okayToSend()) {
+          return Promise.resolve();
+        }
+      }
+
+      //logByteArray('>>', data);
+
+      return this._ble.write(ServiceUUID, CharacteristicUUID, Base64Util.uint8ArrayToBase64(data), 'base64', true);
+    }
+  }, {
+    key: "sendMessage",
+    value: function sendMessage(messageType, payload) {
+      var useLimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+      var command = [0x00,
+      // Hub ID: Always set to 0x00 (zero)
+      messageType].concat(_toConsumableArray(payload));
+      command.unshift(command.length + 1);
+      return this.send(command, useLimiter);
+    }
+  }, {
+    key: "sendOutputCommand",
+    value: function sendOutputCommand(portId, subCommand, payload) {
+      var needsFeedback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+      var useLimiter = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+      var flag = needsFeedback ? 0x11 : 0x10;
+      return this.sendMessage(MessageType.PORT_OUTPUT_COMMAND, [portId, flag, subCommand].concat(_toConsumableArray(payload)), useLimiter);
+    }
+
+    // Reset and Stop
+  }, {
+    key: "reset",
+    value: function reset() {
+      this._name = null;
+      this._firmwareVersion = null;
+      this._batteryLevel = 0;
+      this._devices = [];
+      this._outputCommandFeedbackCallbacks = [];
+      this._outputCommandCompletionCallbacks = [];
+      this._stopPollingBatteryLevel();
+    }
+  }, {
+    key: "stopAll",
+    value: function stopAll() {
+      if (this.isConnected()) {
+        this.stopAllMotors();
+      }
+    }
+  }, {
+    key: "stopAllMotors",
+    value: function stopAllMotors() {
+      for (var _i = 0, _Object$entries = Object.entries(this._devices); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          portId = _Object$entries$_i[0],
+          device = _Object$entries$_i[1];
+        if (device instanceof Device.Motor) {
+          this.sendOutputCommand(portId, 0x51, [0x00, 0], false);
+          this._outputCommandFeedbackCallbacks[portId] = null;
+          this._outputCommandCompletionCallbacks[portId] = null;
+        }
+      }
+    }
+  }, {
+    key: "_startPollingBatteryLevel",
+    value: function _startPollingBatteryLevel() {
+      var _this3 = this;
+      this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.BATTERY_VOLTAGE, HubPropertyOperation.REQUEST_UPDATE]);
+      this._pollingId = window.setInterval(function () {
+        _this3.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.BATTERY_VOLTAGE, HubPropertyOperation.REQUEST_UPDATE]);
+      }, PollingInterval);
+    }
+  }, {
+    key: "_stopPollingBatteryLevel",
+    value: function _stopPollingBatteryLevel() {
+      if (this._pollingId) {
+        window.clearInterval(this._pollingId);
+        this._pollingId = null;
+      }
+    }
+
+    // Output Command Feedback
+  }, {
+    key: "_createOutputCommandFeedbackPromise",
+    value: function _createOutputCommandFeedbackPromise(portId) {
+      var _this4 = this;
+      return new Promise(function (resolve) {
+        _this4._outputCommandFeedbackCallbacks[portId] = resolve;
+      });
+    }
+  }, {
+    key: "_clearOutputCommandFeedbackCallback",
+    value: function _clearOutputCommandFeedbackCallback(portId) {
+      if (this._outputCommandFeedbackCallbacks[portId]) {
+        this._outputCommandFeedbackCallbacks[portId]();
+        this._outputCommandFeedbackCallbacks[portId] = null;
+      }
+    }
+  }, {
+    key: "_clearOutputCommandCompletionCallback",
+    value: function _clearOutputCommandCompletionCallback(portId) {
+      if (this._outputCommandCompletionCallbacks[portId]) {
+        this._outputCommandCompletionCallbacks[portId]();
+        this._outputCommandCompletionCallbacks[portId] = null;
+      }
+    }
+  }, {
+    key: "_moveOutputCommandFeedbackCallbackToCompletionCallback",
+    value: function _moveOutputCommandFeedbackCallbackToCompletionCallback(portId) {
+      this._outputCommandCompletionCallbacks[portId] = this._outputCommandFeedbackCallbacks[portId];
+      this._outputCommandFeedbackCallbacks[portId] = null;
+    }
+
+    // Motor
+  }, {
+    key: "getMotor",
+    value: function getMotor(portId) {
+      var device = this._devices[portId];
+      if (device instanceof Device.Motor) {
+        return device;
+      } else {
+        return null;
+      }
+    }
+  }, {
+    key: "motorPWM",
+    value: function motorPWM(portId, power) {
+      power = MathUtil.clamp(power, -100, 100);
+      var motor = this.getMotor(portId);
+      if (motor) {
+        return this.sendOutputCommand(portId, 0x51, [0x00, power]);
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorRunForDegrees",
+    value: function motorRunForDegrees(portId, direction, degrees) {
+      direction = direction * Math.sign(degrees);
+      degrees = MathUtil.clamp(Math.abs(degrees), 1, MAX_INT32);
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        var speed = motor.speed * direction;
+        return this.sendOutputCommand(portId, 0x0b, [].concat(_toConsumableArray(numberToInt32Array(degrees)), [speed, 100, 0x7f, 0x00])).then(this._createOutputCommandFeedbackPromise.bind(this, portId));
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorRunTimed",
+    value: function motorRunTimed(portId, direction, seconds) {
+      var milliseconds = MathUtil.clamp(seconds * 1000, 0, MAX_INT16);
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        var speed = motor.speed * direction;
+        return this.sendOutputCommand(portId, 0x09, [].concat(_toConsumableArray(numberToInt16Array(milliseconds)), [speed, 100, 0x7f, 0x00])).then(this._createOutputCommandFeedbackPromise.bind(this, portId));
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorStart",
+    value: function motorStart(portId, direction) {
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        var speed = motor.speed * direction;
+        return this.sendOutputCommand(portId, 0x07, [speed, 100, 0x00]);
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "motorSetSpeed",
+    value: function motorSetSpeed(portId, speed) {
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        motor.speed = speed;
+      }
+    }
+  }, {
+    key: "motorResetRelativePosition",
+    value: function motorResetRelativePosition(portId, relativePosition) {
+      relativePosition = MathUtil.clamp(relativePosition, MIN_INT32, MAX_INT32);
+      var motor = this.getMotor(portId);
+      if (motor && motor.canUseSpeed) {
+        return this.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(numberToInt32Array(relativePosition))));
+      } else {
+        return Promise.resolve();
+      }
+    }
+
+    // Input Values
+  }, {
+    key: "inputValue",
+    value: function inputValue(portId, key) {
+      var device = this._devices[portId];
+      if (device && device.inputValues.hasOwnProperty(key)) {
+        return device.inputValues[key];
+      }
+      return null;
+    }
+  }, {
+    key: "internalInputValue",
+    value: function internalInputValue(key) {
+      for (var _i2 = 0, _Object$entries2 = Object.entries(this._devices); _i2 < _Object$entries2.length; _i2++) {
+        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+          portId = _Object$entries2$_i[0],
+          device = _Object$entries2$_i[1];
+        if (portId >= 0x32 && device.inputValues.hasOwnProperty(key)) {
+          return device.inputValues[key];
+        }
+      }
+      return null;
+    }
+
+    // Hub LED
+  }, {
+    key: "setLEDColor",
+    value: function setLEDColor(color) {
+      if (color < 0 || color > 10) {
+        color = 0;
+      }
+      var portId = this._devices.findIndex(function (device) {
+        return device && device.ioType == IOType.RGB_LIGHT;
+      });
+      if (portId != -1) {
+        return this.sendOutputCommand(portId, 0x51, [0x00, color]);
+      } else {
+        return Promise.resolve();
+      }
+    }
+  }, {
+    key: "setVolume",
+    value: function setVolume(volume) {
+      volume = MathUtil.clamp(volume, 0, 100);
+      return this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.SPEAKER_VOLUME, HubPropertyOperation.SET, volume]);
+    }
+  }]);
+  return Hub;
+}();
+var hub = Hub$1;
 
 var formatMessage$1 = {exports: {}};
 
@@ -10937,1228 +14245,59 @@ var plurals = {
   module.exports = namespace();
 })(formatMessage$1);
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-var ArgumentType = argumentType;
-var BlockType = blockType;
-var Cast = cast;
-var BLE = ble;
-var MathUtil = mathUtil;
-var RateLimiter = rateLimiter;
-var Color = color;
-var setupTranslations = setupTranslations_1;
-var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAEUUlEQVR4Ae2cTWgTURDHZxORatUeFLUeqtaThSDFHopQ1HoQhB4LigjWq3pTEbUXK+LHUb2qICrYkwiCF7UUpYdq0UA9iFVbaFXqoWq1CMm6/022SZNsnsmb3X2kM7Dp5s17k5lf5r15KewjEhECQkAICAEhIASEgBBYjAQs7qB7r9zvoLR90rbtNsd2I7f9Ku1NWZY1TDHrat+pA4NV2ig5jBVg76W7Z2yyLpBts9ot6XkVjY5TabKot+/0wYtVDC85hC1QN/NS6efxeDzW2ZGg1kQzraivK/mhYTf+mp2jkeQYPR1MUiqVSlM8tosrE2NswWDaErnwOtpbjIGH+PBFwid8sfARSwxX3GwAs2uem3lcznHbwayAeL5y2F/CYSRrwy0YUU3b77NEt4aIkpMZbxIbiHraiVbX5yLM842tuHECzHka8h3gHe8n+jmX++CB90SvJ4iudS+EmOvBc8c2hXncqc4KMg/w2pqIbh/KXLhHG3RBSk0A9KbtsZ2ZbMO0xT3E02Xe8b/WBEB+LP9vsSYAomBArg8QYT3EhXuIp8u843+tiSKCaouCMTxOdPhODtJKZx8PXZBSEwCx5qHaqrYxQYCsCYAAA4gn9gSBqLzNmlgDy4cYrFYAavKNfgqPFvxDqMX5uV9OKu1fzhaDTjJQE6IAFICaBDSHR78Gqta8wgAr7V84nvm9TGFNoOFloF/1DLpdE5BquGSgipBCLwAVgFRqAagipNCHtwb6Vc+g2xUAdNWSgZoEw8vAoKutn31NQKrhkoEqQgq9AFQAUqkFoIqQQh/eGhh0tfWzrwCgq5YM1CQYXgb6OepXPStt97MfcLtkoCZgASgANQloDo9+DfSrnpW2a4KodrhM4WrJZcdFn4F+AfhVYb/+EbVLBmqCF4ACUJOA5nBz10C/KqwZMPdwmcKaRAWgANQkoDncyDXw1ZsPhOvb9Iwb3to1DbR92xb30oyXfbhRAPFYav+jlzT26cuCQCcmpwnX23efqbtrh1FPghoF0IPXsGo57d3dSpub1rkgP45/pSfPRlyw6NOzv3MB4CjfGFNEMGWReYB39Mg+Smzd6GYanrDEPdqgQx/0NUWMAggoyLxldUuL+KANOogALMJD8wXDm7YlusxPaa+4lOoTdpsxGRh24FyfZwxAbFUgKBh+4um8vn79wmw3BiD2eRBU2z9zf4sYoA06iNe3qFMEDUYBbN60nmZ+/KYbNx9T0tnzYV+IC/dogw59TAJo1D4Qm2RvL/jg4YuifAI89DFJOAFOOYE1ImPyTseoKFaMwyYZ2xRcXrXl+ikH37ICX1mEDSDOpnLOY+nCCUE45EZHgvrdC98g7jlaOg7mjeVbA52DvZzHBtM4XmlwaNRdu/I+J9JbZB58gm/wEYeQcTlU8Aikntlzl++dtdL2efd4JT1TgYx24Zl6+JgX8WI7/s6LW/4KASEgBISAEBACQkAILC4C/wDBL1fytvgQdgAAAABJRU5ErkJggg==';
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+var BleBaseBlocks = bleBaseBlocks;
+var Hub = hub;
+var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAADMElEQVR4Ae3bT2gTQRQG8LetpI1GK4iUKhRSoQhVMfRealAEr4J40It/ToLgSVFEPHjoqSdv6kVBQXoVBIk2IHjRQjUVBKkKKh7VaBrFrvttM5ApSX3TyHYSvoGwmc2b2X2/ziS7dEeEhQIUoAAFKEABClCAAhSgAAUoQAEKUIACFKAABSiQhEDgepAwDIMrE/dORduTUduRUMKMax8+xQcSlKPzKQVBcPPq+aM3om3ocn5OgNcmpwYq1eodCcO8y0HaJjYICumenmOXzh3+rD3nddpAjLzLE3djvL5N6+XgvpxkB/sls6FX24WXceUfCzL/4Ys8fDwjX7/9zGOARLnu147Ebm1WYXrn6ajjs8A7c+KQbB/YIqmU2l97mMTjkEP/1s2S2z0ks3PvpFr9nZ1+Wvo4/WjqheZkujRBiKl958UjL92b0jZrmzjkhFmFYnLVnLwaMOpsBB1i2nZqqcstzlWTpxrQ/Nq2+3feSigmN5PrSrHmMzWgacCtLUBA28O5RkBnMrsBAW0P5xoBncnsBgS0PZxrBHQmsxsQ0PZwrhHQmcxuQEDbw7lGQGcyuwEBbQ/nGgGdyewGBLQ9nGsEdCazGxDQ9nCuEdCZzG7gzX+F/iwuSqE4KzOv5uV7uWKfZa22MZOW3K6s5Mf2SHeXH397bwCBV3w21xDO7ASsiTkwvtfsXtOtN4AYeSjHj4zL8NC2hihv3n6S2/efxKPUF0A/5kHEZaZtMzyIDu9YgjWxDZUT3ukNYMJ5/7fDEbBFSgISsEWBFptzBHYKIC6SUXCp0qyYz0xss7gk93tzHYg7DFwk4zrvXwWxvhRvAHF7hqK9lSPgMgHc2+LuAq+xi8+XfbpULV4Ybbh/LXfyR6RFfTVg7Wl2wTPFSZW+wVHBK6licjO5ao6rBow6K6FDPJDdqaUutzhXTZ5qQKyjQId4mr2y8EvTd1vFICfkhmJy1SSgBsQilKjnQrQUQK7feiAvX79PdDprkllNDKYtckFOyA05xrkqO+NCm3qoVSy0cQLEsaIlAFzqVY/O9xSgAAUoQAEKUIACFKAABShAAQpQgAIUoAAFKECBRAT+AigB5y5rdsAFAAAAAElFTkSuQmCC';
 var formatMessage = formatMessage$1.exports;
-var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeprime.mjs';
-var BTSendRateMax = 40;
-var SpikePorts = ['A', 'B', 'C', 'D', 'E', 'F'];
-var SpikeMotorStopMode = {
-  float: 0,
-  brake: 1,
-  hold: 2
-};
-var SpikeOrientation = {
-  front: 1,
-  back: 2,
-  up: 3,
-  down: 4,
-  rightside: 5,
-  leftside: 6
-};
-
-// SPIKE Prime BLE Service UUID (the one that actually works)
-var BLE_SERVICE_ID = '0000fd02-0000-1000-8000-00805f9b34fb';
-var SpikeMotorSetting = /*#__PURE__*/function () {
-  function SpikeMotorSetting() {
-    _classCallCheck(this, SpikeMotorSetting);
-    this._speed = 75;
-    this._stopMode = SpikeMotorStopMode.brake;
-    this._stallDetection = true;
-  }
-  _createClass(SpikeMotorSetting, [{
-    key: "speed",
-    get: function get() {
-      return this._speed;
-    },
-    set: function set(value) {
-      this._speed = MathUtil.clamp(value, -100, 100);
-    }
-  }, {
-    key: "stopMode",
-    get: function get() {
-      return this._stopMode;
-    },
-    set: function set(value) {
-      if (value >= 0 && value <= 2) this._stopMode = value;
-    }
-  }, {
-    key: "stallDetection",
-    get: function get() {
-      return this._stallDetection;
-    },
-    set: function set(value) {
-      this._stallDetection = value;
-    }
-  }]);
-  return SpikeMotorSetting;
-}();
-var SpikePrime = /*#__PURE__*/function () {
-  function SpikePrime(runtime, extensionId) {
-    _classCallCheck(this, SpikePrime);
-    this._runtime = runtime;
-    this._extensionId = extensionId;
-    this._remainingText = '';
-    this._sensors = {
-      buttons: [0, 0, 0, 0],
-      angle: {
-        pitch: 0,
-        roll: 0,
-        yaw: 0
-      },
-      orientation: SpikeOrientation.front
-    };
-    this._portValues = {};
-    this._pixelBrightness = 100;
-    this._motorSettings = {
-      A: new SpikeMotorSetting(),
-      B: new SpikeMotorSetting(),
-      C: new SpikeMotorSetting(),
-      D: new SpikeMotorSetting(),
-      E: new SpikeMotorSetting(),
-      F: new SpikeMotorSetting()
-    };
-    this._ble = null;
-    this._runtime.registerPeripheralExtension(extensionId, this);
-    this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
-    this._rateLimiter = new RateLimiter(BTSendRateMax);
-    this.reset = this.reset.bind(this);
-    this._onConnect = this._onConnect.bind(this);
-    this._onMessage = this._onMessage.bind(this);
-    this._openRequests = {};
-    this._requestId = 0;
-  }
-  _createClass(SpikePrime, [{
-    key: "angle",
-    get: function get() {
-      return this._sensors.angle;
-    }
-  }, {
-    key: "orientation",
-    get: function get() {
-      return this._sensors.orientation;
-    }
-  }, {
-    key: "portValues",
-    get: function get() {
-      return this._portValues;
-    }
-  }, {
-    key: "pixelBrightness",
-    get: function get() {
-      return this._pixelBrightness;
-    },
-    set: function set(value) {
-      this._pixelBrightness = MathUtil.clamp(value, 0, 100);
-    }
-  }, {
-    key: "motorSettings",
-    get: function get() {
-      return this._motorSettings;
-    }
-  }, {
-    key: "stopAll",
-    value: function stopAll() {
-      this.stopAllMotors();
-      this.stopSound();
-    }
-  }, {
-    key: "stopSound",
-    value: function stopSound() {
-      this.sendCommand('scratch.play_sound', {
-        name: 'Beep',
-        freq: 0,
-        time: 0
-      }, false);
-    }
-  }, {
-    key: "stopAllMotors",
-    value: function stopAllMotors() {
-      var _this = this;
-      var ports = SpikePorts;
-      var promises = ports.map(function (port) {
-        var setting = _this.motorSettings[port];
-        return _this.sendCommand('scratch.motor_stop', {
-          port: port,
-          stop: setting.stopMode
-        }, false);
-      });
-      return Promise.all(promises).catch(function (err) {
-        console.warn('Error stopping motors:', err);
-      });
-    }
-  }, {
-    key: "scan",
-    value: function scan() {
-      if (this._ble) {
-        this._ble.disconnect();
-      }
-      try {
-        // Initialize BLE with proper options for Scrub
-        this._ble = new BLE(this._runtime, this._extensionId, {
-          // Try broader scanning approach for Scrub
-          filters: [{
-            services: [BLE_SERVICE_ID]
-          }],
-          optionalServices: [BLE_SERVICE_ID],
-          // Add name-based filters as fallback
-          acceptAllDevices: false
-        }, this._onConnect, this.reset, this._onMessage);
-        console.log('BLE scanning initiated with service:', BLE_SERVICE_ID);
-      } catch (error) {
-        console.error('Failed to initialize BLE:', error);
-      }
-    }
-  }, {
-    key: "connect",
-    value: function connect(id) {
-      if (this._ble) {
-        console.log('Attempting to connect to device:', id);
-        this._ble.connectPeripheral(id);
-      }
-    }
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      if (this._ble) {
-        this._ble.disconnect();
-      }
-      this.reset();
-    }
-  }, {
-    key: "reset",
-    value: function reset() {
-      this._remainingText = '';
-      this._requestId = 0;
-      Object.values(this._openRequests).forEach(function (request) {
-        if (request.timeout) {
-          clearTimeout(request.timeout);
-        }
-        request.reject(new Error('Connection reset'));
-      });
-      this._openRequests = {};
-      this._sensors = {
-        buttons: [0, 0, 0, 0],
-        angle: {
-          pitch: 0,
-          roll: 0,
-          yaw: 0
-        },
-        orientation: SpikeOrientation.front
-      };
-      this._portValues = {};
-    }
-  }, {
-    key: "isConnected",
-    value: function isConnected() {
-      return this._ble && this._ble.isConnected();
-    }
-  }, {
-    key: "sendJSON",
-    value: function sendJSON(json) {
-      var _this2 = this;
-      var useLimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      if (!this.isConnected()) {
-        return Promise.reject(new Error('Not connected to SPIKE Prime'));
-      }
-      if (useLimiter && !this._rateLimiter.okayToSend()) {
-        return Promise.resolve();
-      }
-      var jsonText = JSON.stringify(json);
-      var message = jsonText + '\r';
-      if (!json.hasOwnProperty('i')) {
-        return this._ble.write(message);
-      }
-      var promise = new Promise(function (resolve, reject) {
-        _this2._openRequests[json.i] = {
-          resolve: resolve,
-          reject: reject,
-          timeout: setTimeout(function () {
-            delete _this2._openRequests[json.i];
-            reject(new Error('Command timed out'));
-          }, 5000)
-        };
-      });
-      this._ble.write(message).catch(function (err) {
-        if (_this2._openRequests[json.i]) {
-          clearTimeout(_this2._openRequests[json.i].timeout);
-          delete _this2._openRequests[json.i];
-        }
-      });
-      return promise;
-    }
-  }, {
-    key: "sendCommand",
-    value: function sendCommand(method, params) {
-      var needsResponse = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-      if (needsResponse) {
-        var id = (this._requestId++).toString();
-        return this.sendJSON({
-          i: id,
-          m: method,
-          p: params
-        });
-      }
-      return this.sendJSON({
-        m: method,
-        p: params
-      });
-    }
-  }, {
-    key: "_onConnect",
-    value: function _onConnect() {
-      var _this3 = this;
-      console.log('SPIKE Prime connected successfully');
-      // Give the hub a moment to stabilize before sending commands
-      setTimeout(function () {
-        _this3.sendCommand('trigger_current_state', {}, false);
-      }, 1000);
-    }
-  }, {
-    key: "_onMessage",
-    value: function _onMessage(params) {
-      try {
-        var text = new TextDecoder().decode(params);
-        var responses = (this._remainingText + text).split('\r');
-        this._remainingText = responses.pop() || '';
-        var _iterator = _createForOfIteratorHelper(responses),
-          _step;
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var jsonText = _step.value;
-            if (!jsonText.trim()) continue;
-            try {
-              var json = JSON.parse(jsonText);
-              this._parseResponse(json);
-            } catch (parseError) {
-              console.warn('Invalid JSON:', jsonText, parseError);
-            }
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-      } catch (error) {
-        console.error('Error processing message:', error);
-      }
-    }
-  }, {
-    key: "_parseResponse",
-    value: function _parseResponse(response) {
-      try {
-        if (response.hasOwnProperty('i')) {
-          var openRequest = this._openRequests[response.i];
-          if (openRequest) {
-            clearTimeout(openRequest.timeout);
-            if (response.e) {
-              openRequest.reject(new Error(response.e));
-            } else {
-              openRequest.resolve(response.r);
-            }
-            delete this._openRequests[response.i];
-          }
-          return;
-        }
-        if (response.hasOwnProperty('m')) {
-          switch (response.m) {
-            case 0:
-              this._parseHubStatus(response.p);
-              break;
-            case 1:
-              break;
-            case 2:
-              break;
-            case 3:
-              this._parseButtonEvent(response.p);
-              break;
-            case 4:
-              this._parseOrientationEvent(response.p);
-              break;
-            default:
-              console.log('Unknown message type:', response.m);
-              break;
-          }
-        }
-      } catch (error) {
-        console.error('Error parsing response:', error, response);
-      }
-    }
-  }, {
-    key: "_parseHubStatus",
-    value: function _parseHubStatus(params) {
-      if (!params || !Array.isArray(params)) return;
-      for (var i = 0; i < 6 && i < params.length; i++) {
-        var port = SpikePorts[i];
-        if (!params[i] || !Array.isArray(params[i])) continue;
-        var deviceId = params[i][0];
-        var values = params[i][1];
-        if (!Array.isArray(values)) continue;
-        switch (deviceId) {
-          case 48:
-          case 49:
-            this._portValues[port] = {
-              speed: values[0] || 0,
-              degreesCounted: values[1] || 0,
-              position: ((values[2] || 0) + 360) % 360,
-              power: values[3] || 0
-            };
-            break;
-          case 61:
-            this._portValues[port] = {
-              color: values[0] || 0,
-              reflected_light: values[1] || 0,
-              ambient_light: values[2] || 0
-            };
-            break;
-          case 62:
-            this._portValues[port] = {
-              distance: values[0] || 0
-            };
-            break;
-          case 63:
-            this._portValues[port] = {
-              force: values[0] || 0
-            };
-            break;
-          default:
-            this._portValues[port] = {};
-            break;
-        }
-      }
-      if (params[8] && Array.isArray(params[8])) {
-        var angle = params[8];
-        this._sensors.angle.yaw = angle[0] || 0;
-        this._sensors.angle.pitch = angle[1] || 0;
-        this._sensors.angle.roll = angle[2] || 0;
-      }
-    }
-  }, {
-    key: "_parseButtonEvent",
-    value: function _parseButtonEvent(params) {
-      if (!Array.isArray(params) || params.length < 2) return;
-      var button = params[0];
-      var pressed = params[1];
-      switch (button) {
-        case 'left':
-          this._sensors.buttons[0] = pressed;
-          break;
-        case 'right':
-          this._sensors.buttons[1] = pressed;
-          break;
-        case 'center':
-          this._sensors.buttons[2] = pressed;
-          break;
-      }
-    }
-  }, {
-    key: "_parseOrientationEvent",
-    value: function _parseOrientationEvent(orientation) {
-      if (typeof orientation === 'string' && SpikeOrientation.hasOwnProperty(orientation)) {
-        this._sensors.orientation = SpikeOrientation[orientation];
-      }
-    }
-  }]);
-  return SpikePrime;
-}();
-var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
-  function Scratch3SpikePrimeBlocks(runtime) {
-    _classCallCheck(this, Scratch3SpikePrimeBlocks);
-    this.runtime = runtime;
-    this._peripheral = new SpikePrime(this.runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID);
-    this._playNoteForPicker = this._playNoteForPicker.bind(this);
-    this.runtime.on('PLAY_NOTE', this._playNoteForPicker);
+var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeessential.mjs';
+var Scratch3SpikeEssentialBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
+  _inherits(Scratch3SpikeEssentialBlocks, _BleBaseBlocks);
+  function Scratch3SpikeEssentialBlocks(runtime) {
+    var _this;
+    _classCallCheck(this, Scratch3SpikeEssentialBlocks);
+    _this = _callSuper(this, Scratch3SpikeEssentialBlocks, [new Hub(runtime, Scratch3SpikeEssentialBlocks.EXTENSION_ID, 0x83)]);
     if (runtime.formatMessage) {
+      // Replace 'formatMessage' to a formatter which is used in the runtime.
       formatMessage = runtime.formatMessage;
     }
+    return _this;
   }
-  _createClass(Scratch3SpikePrimeBlocks, [{
+  _createClass(Scratch3SpikeEssentialBlocks, [{
+    key: "externalPorts",
+    get: function get() {
+      return ['A', 'B'];
+    }
+  }, {
+    key: "multipleExternalPorts",
+    get: function get() {
+      return ['A', 'B', 'A+B'];
+    }
+  }, {
     key: "getInfo",
     value: function getInfo() {
-      setupTranslations(formatMessage);
+      this.setupTranslations(formatMessage);
       return {
-        id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-        name: 'SPIKE Prime (Scrub)',
+        id: Scratch3SpikeEssentialBlocks.EXTENSION_ID,
+        name: 'SPIKE Essential',
+        extensionURL: Scratch3SpikeEssentialBlocks.extensionURL,
         blockIconURI: blockIconURI,
         showStatusButton: true,
-        blocks: [{
-          opcode: 'motorRunFor',
-          text: formatMessage({
-            id: 'legobluetooth.motorRunFor',
-            default: '[PORT] run [DIRECTION] for [VALUE] [UNIT]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            DIRECTION: {
-              type: ArgumentType.NUMBER,
-              menu: 'DIRECTION',
-              defaultValue: 1
-            },
-            VALUE: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 1
-            },
-            UNIT: {
-              type: ArgumentType.STRING,
-              menu: 'MOTOR_UNIT',
-              defaultValue: 'rotations'
-            }
-          }
-        }, {
-          opcode: 'motorGoDirectionToPosition',
-          text: formatMessage({
-            id: 'legobluetooth.motorGoDirectionToPosition',
-            default: '[PORT] go [DIRECTION] to position [POSITION]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            DIRECTION: {
-              type: ArgumentType.STRING,
-              menu: 'POSITION_DIRECTION',
-              defaultValue: 'shortest'
-            },
-            POSITION: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 0
-            }
-          }
-        }, {
-          opcode: 'motorStart',
-          text: formatMessage({
-            id: 'legobluetooth.motorStart',
-            default: '[PORT] start motor [DIRECTION]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            DIRECTION: {
-              type: ArgumentType.NUMBER,
-              menu: 'DIRECTION',
-              defaultValue: 1
-            }
-          }
-        }, {
-          opcode: 'motorStop',
-          text: formatMessage({
-            id: 'legobluetooth.motorStop',
-            default: '[PORT] stop motor'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, {
-          opcode: 'motorSetSpeed',
-          text: formatMessage({
-            id: 'legobluetooth.motorSetSpeed',
-            default: '[PORT] set speed to [SPEED] %'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            SPEED: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 75
-            }
-          }
-        }, {
-          opcode: 'getPosition',
-          text: formatMessage({
-            id: 'legobluetooth.getPosition',
-            default: '[PORT] position'
-          }),
-          blockType: BlockType.REPORTER,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, {
-          opcode: 'getSpeed',
-          text: formatMessage({
-            id: 'legobluetooth.getSpeed',
-            default: '[PORT] speed'
-          }),
-          blockType: BlockType.REPORTER,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, '---', {
-          opcode: 'displayImageFor',
-          text: formatMessage({
-            id: 'legobluetooth.displayImageFor',
-            default: 'turn on [MATRIX] for [DURATION] seconds'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            MATRIX: {
-              type: ArgumentType.MATRIX,
-              defaultValue: '1101111011000001000101110'
-            },
-            DURATION: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 2
-            }
-          }
-        }, {
-          opcode: 'displayImage',
-          text: formatMessage({
-            id: 'legobluetooth.displayImage',
-            default: 'turn on [MATRIX]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            MATRIX: {
-              type: ArgumentType.MATRIX,
-              defaultValue: '1101111011000001000101110'
-            }
-          }
-        }, {
-          opcode: 'displayText',
-          text: formatMessage({
-            id: 'legobluetooth.displayText',
-            default: 'write [TEXT]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            TEXT: {
-              type: ArgumentType.STRING,
-              defaultValue: 'Hello'
-            }
-          }
-        }, {
-          opcode: 'displayClear',
-          text: formatMessage({
-            id: 'legobluetooth.displayClear',
-            default: 'turn off pixels'
-          }),
-          blockType: BlockType.COMMAND
-        }, {
-          opcode: 'displaySetBrightness',
-          text: formatMessage({
-            id: 'legobluetooth.displaySetBrightness',
-            default: 'set pixel brightness to [BRIGHTNESS] %'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            BRIGHTNESS: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 75
-            }
-          }
-        }, {
-          opcode: 'displaySetPixel',
-          text: formatMessage({
-            id: 'legobluetooth.displaySetPixel',
-            default: 'set pixel at [X] , [Y] to [BRIGHTNESS] %'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            X: {
-              type: ArgumentType.STRING,
-              menu: 'COORDINATE',
-              defaultValue: '1'
-            },
-            Y: {
-              type: ArgumentType.STRING,
-              menu: 'COORDINATE',
-              defaultValue: '1'
-            },
-            BRIGHTNESS: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 100
-            }
-          }
-        }, {
-          opcode: 'centerButtonLights',
-          text: formatMessage({
-            id: 'legobluetooth.centerButtonLights',
-            default: 'set center button light to [COLOR]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            COLOR: {
-              type: ArgumentType.STRING,
-              menu: 'LED_COLOR',
-              defaultValue: 9
-            }
-          }
-        }, {
-          opcode: 'ultrasonicLightUp',
-          text: formatMessage({
-            id: 'legobluetooth.ultrasonicLightUp',
-            default: '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            PORT: {
-              type: ArgumentType.STRING,
-              menu: 'PORT',
-              defaultValue: 'A'
-            },
-            LIGHT0: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 100
-            },
-            LIGHT1: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 100
-            },
-            LIGHT2: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 100
-            },
-            LIGHT3: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 100
-            }
-          }
-        }, '---', {
-          opcode: 'getAngle',
-          text: formatMessage({
-            id: 'legobluetooth.getAngle',
-            default: '[AXIS] angle'
-          }),
-          blockType: BlockType.REPORTER,
-          arguments: {
-            AXIS: {
-              type: ArgumentType.STRING,
-              menu: 'AXIS',
-              defaultValue: 'pitch'
-            }
-          }
-        }, {
-          opcode: 'isButtonPressed',
-          text: formatMessage({
-            id: 'legobluetooth.isButtonPressed',
-            default: '[BUTTON] button pressed?'
-          }),
-          blockType: BlockType.BOOLEAN,
-          arguments: {
-            BUTTON: {
-              type: ArgumentType.STRING,
-              menu: 'BUTTON',
-              defaultValue: 'left'
-            }
-          }
-        }, {
-          opcode: 'beep',
-          text: formatMessage({
-            id: 'legobluetooth.beep',
-            default: 'beep note [NOTE] for [TIME] seconds'
-          }),
-          blockType: BlockType.COMMAND,
-          arguments: {
-            NOTE: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 60
-            },
-            TIME: {
-              type: ArgumentType.NUMBER,
-              defaultValue: 0.5
-            }
-          }
-        }],
-        menus: {
-          PORT: {
-            acceptReporters: true,
-            items: SpikePorts
-          },
-          MULTIPLE_PORT: {
-            acceptReporters: true,
-            items: ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F']
-          },
-          MOTOR_UNIT: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.rotations',
-                default: 'rotations'
-              }),
-              value: 'rotations'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.degrees',
-                default: 'degrees'
-              }),
-              value: 'degrees'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.seconds',
-                default: 'seconds'
-              }),
-              value: 'seconds'
-            }]
-          },
-          POSITION_DIRECTION: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.shortestPath',
-                default: 'shortest path'
-              }),
-              value: 'shortest'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.clockwise',
-                default: 'clockwise'
-              }),
-              value: 'clockwise'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.counterclockwise',
-                default: 'counterclockwise'
-              }),
-              value: 'counterclockwise'
-            }]
-          },
-          COORDINATE: {
-            acceptReporters: true,
-            items: ['1', '2', '3', '4', '5']
-          },
-          LED_COLOR: {
-            acceptReporters: true,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.black',
-                default: '(0) Black'
-              }),
-              value: String(Color.BLACK)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.pink',
-                default: '(1) Pink'
-              }),
-              value: String(Color.PINK)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.purple',
-                default: '(2) Purple'
-              }),
-              value: String(Color.PURPLE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.blue',
-                default: '(3) Blue'
-              }),
-              value: String(Color.BLUE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.lightBlue',
-                default: '(4) Light blue'
-              }),
-              value: String(Color.LIGHT_BLUE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.lightGreen',
-                default: '(5) Light green'
-              }),
-              value: String(Color.LIGHT_GREEN)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.green',
-                default: '(6) Green'
-              }),
-              value: String(Color.GREEN)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.yellow',
-                default: '(7) Yellow'
-              }),
-              value: String(Color.YELLOW)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.orange',
-                default: '(8) Orange'
-              }),
-              value: String(Color.ORANGE)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.red',
-                default: '(9) Red'
-              }),
-              value: String(Color.RED)
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.white',
-                default: '(10) White'
-              }),
-              value: String(Color.WHITE)
-            }]
-          },
-          AXIS: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.pitch',
-                default: 'pitch'
-              }),
-              value: 'pitch'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.roll',
-                default: 'roll'
-              }),
-              value: 'roll'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.yaw',
-                default: 'yaw'
-              }),
-              value: 'yaw'
-            }]
-          },
-          BUTTON: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'legobluetooth.left',
-                default: 'left'
-              }),
-              value: 'left'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.right',
-                default: 'right'
-              }),
-              value: 'right'
-            }, {
-              text: formatMessage({
-                id: 'legobluetooth.center',
-                default: 'center'
-              }),
-              value: 'center'
-            }]
-          },
-          DIRECTION: {
-            acceptReporters: false,
-            items: [{
-              text: '⬆︎',
-              value: '1'
-            }, {
-              text: '⬇',
-              value: '-1'
-            }]
-          }
-        }
+        blocks: this.getBlocks(formatMessage),
+        menus: this.getMenus(formatMessage)
       };
     }
   }, {
-    key: "motorRunFor",
-    value: function motorRunFor(args) {
-      var direction = Cast.toNumber(args.DIRECTION);
-      var value = Cast.toNumber(args.VALUE);
-      var unit = args.UNIT;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      switch (unit) {
-        case 'rotations':
-          return this._motorRunForDegrees(ports, direction, value * 360);
-        case 'degrees':
-          return this._motorRunForDegrees(ports, direction, value);
-        case 'seconds':
-          return this._motorRunTimed(ports, direction, value);
-        default:
-          return Promise.resolve();
-      }
-    }
-  }, {
-    key: "_motorRunForDegrees",
-    value: function _motorRunForDegrees(ports, direction, degrees) {
-      var _this4 = this;
-      var promises = ports.map(function (port) {
-        var setting = _this4._peripheral.motorSettings[port];
-        return _this4._peripheral.sendCommand('scratch.motor_run_for_degrees', {
-          port: port,
-          speed: setting.speed * direction,
-          degrees: Math.floor(degrees),
-          stop: setting.stopMode,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).catch(function (err) {
-        console.warn('Motor run for degrees failed:', err);
-      });
-    }
-  }, {
-    key: "_motorRunTimed",
-    value: function _motorRunTimed(ports, direction, seconds) {
-      var _this5 = this;
-      var promises = ports.map(function (port) {
-        var setting = _this5._peripheral.motorSettings[port];
-        return _this5._peripheral.sendCommand('scratch.motor_run_timed', {
-          port: port,
-          speed: setting.speed * direction,
-          time: Math.floor(seconds * 1000),
-          stop: setting.stopMode,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).catch(function (err) {
-        console.warn('Motor run timed failed:', err);
-      });
-    }
-  }, {
-    key: "motorGoDirectionToPosition",
-    value: function motorGoDirectionToPosition(args) {
-      var _this6 = this;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var setting = _this6._peripheral.motorSettings[port];
-        return _this6._peripheral.sendCommand('scratch.motor_go_direction_to_position', {
-          port: port,
-          direction: args.DIRECTION,
-          position: Math.round(Cast.toNumber(args.POSITION)),
-          speed: setting.speed,
-          stop: setting.stopMode,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).catch(function (err) {
-        console.warn('Motor go to position failed:', err);
-      });
-    }
-  }, {
-    key: "motorStart",
-    value: function motorStart(args) {
-      var _this7 = this;
-      var direction = Cast.toNumber(args.DIRECTION);
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var setting = _this7._peripheral.motorSettings[port];
-        return _this7._peripheral.sendCommand('scratch.motor_start', {
-          port: port,
-          speed: setting.speed * direction,
-          stall: setting.stallDetection
-        });
-      });
-      return Promise.all(promises).catch(function (err) {
-        console.warn('Motor start failed:', err);
-      });
-    }
-  }, {
-    key: "motorStop",
-    value: function motorStop(args) {
-      var _this8 = this;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var setting = _this8._peripheral.motorSettings[port];
-        return _this8._peripheral.sendCommand('scratch.motor_stop', {
-          port: port,
-          stop: setting.stopMode
-        });
-      });
-      return Promise.all(promises).catch(function (err) {
-        console.warn('Motor stop failed:', err);
-      });
-    }
-  }, {
-    key: "motorSetSpeed",
-    value: function motorSetSpeed(args) {
-      var _this9 = this;
-      var speed = Cast.toNumber(args.SPEED);
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      ports.forEach(function (port) {
-        _this9._peripheral.motorSettings[port].speed = speed;
-      });
-      return Promise.resolve();
-    }
-  }, {
-    key: "getPosition",
-    value: function getPosition(args) {
-      var port = Cast.toString(args.PORT).trim().toUpperCase();
-      return this._peripheral.portValues[port] && this._peripheral.portValues[port].position || 0;
-    }
-  }, {
-    key: "getSpeed",
-    value: function getSpeed(args) {
-      var port = Cast.toString(args.PORT).trim().toUpperCase();
-      return this._peripheral.portValues[port] && this._peripheral.portValues[port].speed || 0;
-    }
-  }, {
-    key: "displayImageFor",
-    value: function displayImageFor(args) {
-      var brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-      var symbol = (Cast.toString(args.MATRIX).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-      var image = symbol.replace(/1/g, brightness).match(/.{5}/g).join(':');
-      var duration = MathUtil.clamp(Cast.toNumber(args.DURATION) * 1000, 0, 60000);
-      return this._peripheral.sendCommand('scratch.display_image_for', {
-        image: image,
-        duration: duration
-      }).catch(function (err) {
-        console.warn('Display image for failed:', err);
-      });
-    }
-  }, {
-    key: "displayImage",
-    value: function displayImage(args) {
-      var brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-      var symbol = (Cast.toString(args.MATRIX).replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-      var image = symbol.replace(/1/g, brightness).match(/.{5}/g).join(':');
-      return this._peripheral.sendCommand('scratch.display_image', {
-        image: image
-      }).catch(function (err) {
-        console.warn('Display image failed:', err);
-      });
-    }
-  }, {
-    key: "displayText",
-    value: function displayText(args) {
-      var text = Cast.toString(args.TEXT);
-      return this._peripheral.sendCommand('scratch.display_text', {
-        text: text
-      }).catch(function (err) {
-        console.warn('Display text failed:', err);
-      });
-    }
-  }, {
-    key: "displayClear",
-    value: function displayClear() {
-      return this._peripheral.sendCommand('scratch.display_clear', {}).catch(function (err) {
-        console.warn('Display clear failed:', err);
-      });
-    }
-  }, {
-    key: "displaySetBrightness",
-    value: function displaySetBrightness(args) {
-      var brightness = MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100);
-      this._peripheral.pixelBrightness = brightness;
-      return Promise.resolve();
-    }
-  }, {
-    key: "displaySetPixel",
-    value: function displaySetPixel(args) {
-      var x = Cast.toNumber(args.X);
-      if (x < 1 || x > 5) return Promise.resolve();
-      var y = Cast.toNumber(args.Y);
-      if (y < 1 || y > 5) return Promise.resolve();
-      var brightness = Math.round(9 * MathUtil.clamp(Cast.toNumber(args.BRIGHTNESS), 0, 100) / 100);
-      return this._peripheral.sendCommand('scratch.display_set_pixel', {
-        x: x - 1,
-        y: y - 1,
-        brightness: brightness
-      }).catch(function (err) {
-        console.warn('Display set pixel failed:', err);
-      });
-    }
-  }, {
-    key: "centerButtonLights",
-    value: function centerButtonLights(args) {
-      var color = Cast.toNumber(args.COLOR);
-      return this._peripheral.sendCommand('scratch.center_button_lights', {
-        color: color
-      }).catch(function (err) {
-        console.warn('Center button lights failed:', err);
-      });
-    }
-  }, {
-    key: "ultrasonicLightUp",
-    value: function ultrasonicLightUp(args) {
-      var port = Cast.toString(args.PORT).trim().toUpperCase();
-      if (!SpikePorts.includes(port)) return Promise.resolve();
-      var lights = [0, 1, 2, 3].map(function (i) {
-        return MathUtil.clamp(Cast.toNumber(args['LIGHT' + i]), 0, 100);
-      });
-      return this._peripheral.sendCommand('scratch.ultrasonic_light_up', {
-        port: port,
-        lights: lights
-      }).catch(function (err) {
-        console.warn('Ultrasonic light up failed:', err);
-      });
-    }
-  }, {
-    key: "getAngle",
-    value: function getAngle(args) {
-      var axis = Cast.toString(args.AXIS);
-      return this._peripheral.angle[axis] || 0;
-    }
-  }, {
-    key: "isButtonPressed",
-    value: function isButtonPressed(args) {
-      var button = Cast.toString(args.BUTTON);
-      switch (button) {
-        case 'left':
-          return this._peripheral._sensors.buttons[0] === 1;
-        case 'right':
-          return this._peripheral._sensors.buttons[1] === 1;
-        case 'center':
-          return this._peripheral._sensors.buttons[2] === 1;
-        default:
-          return false;
-      }
-    }
-  }, {
-    key: "beep",
-    value: function beep(args) {
-      var note = MathUtil.clamp(Cast.toNumber(args.NOTE), 47, 99);
-      var time = MathUtil.clamp(Cast.toNumber(args.TIME), 0, 3);
-      if (time === 0) return Promise.resolve();
-      var freq = Math.round(Math.pow(2, (note - 69) / 12) * 440);
-      return this._peripheral.sendCommand('scratch.play_sound', {
-        name: 'Beep',
-        freq: freq,
-        time: Math.round(time * 1000)
-      }).catch(function (err) {
-        console.warn('Beep failed:', err);
-      });
-    }
-  }, {
-    key: "_validatePorts",
-    value: function _validatePorts(text) {
-      return text.toUpperCase().replace(/[^ABCDEF]/g, '').split('').filter(function (x, i, self) {
-        return self.indexOf(x) === i;
-      }).sort();
-    }
-  }, {
-    key: "_playNoteForPicker",
-    value: function _playNoteForPicker(note, category) {
-      if (category !== this.getInfo().name) return;
-      this.beep({
-        NOTE: note,
-        TIME: 0.25
-      });
+    key: "getHubTilt",
+    value: function getHubTilt(args) {
+      var value = _get(_getPrototypeOf(Scratch3SpikeEssentialBlocks.prototype), "getHubTilt", this).call(this, args);
+      return value != null ? value / 10 : 0;
     }
   }], [{
     key: "EXTENSION_ID",
     get: function get() {
-      return 'spikeprime';
+      return 'spikeessential';
     }
   }, {
     key: "extensionURL",
@@ -12169,9 +14308,9 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
       extensionURL = url;
     }
   }]);
-  return Scratch3SpikePrimeBlocks;
-}();
-var blockClass = Scratch3SpikePrimeBlocks;
-blockClass = Scratch3SpikePrimeBlocks;
+  return Scratch3SpikeEssentialBlocks;
+}(BleBaseBlocks);
+var blockClass = Scratch3SpikeEssentialBlocks;
+blockClass = Scratch3SpikeEssentialBlocks;
 
 export { blockClass, entry };
