@@ -112,10 +112,12 @@ const rollupOptions = {
                 browser: true,
                 preferBuiltins: true,
                 moduleDirectories: [
-                    ...options['moduleDirectories'],
+                    'node_modules'  // Only directory names here
+                ],
+                modulePaths: [     // Absolute paths go here
                     path.resolve(process.cwd(), './node_modules'),
                     path.resolve(__dirname, '../node_modules'),
-                    'node_modules'
+                    ...options['moduleDirectories']  // These might be absolute paths from CLI
                 ]
             }),
             babel({
