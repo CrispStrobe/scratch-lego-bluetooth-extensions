@@ -6,7 +6,7 @@
  */
 
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs-extra');
 const { execSync } = require('child_process');
 
 /**
@@ -101,7 +101,13 @@ const ExtDirName = args['dir'] || ExtId;
 // Resolve all necessary paths
 const Cwd = process.cwd();
 const GuiRoot = args['gui'] ? path.resolve(Cwd, args['gui']) : path.resolve(Cwd, '../scratch-gui');
-const VmRoot = args['vm'] ? path.resolve(Cwd, args['vm']) : path.resolve(GuiRoot, './node_modules/scratch-vm');
+
+// --- THIS IS THE FIX ---
+// Dynamically resolve the path to the installed 'scratch-vm' package.
+// This is robust and not dependent on a fixed node_modules structure.
+const vmPackagePath = require.resolve('scratch-vm/package.json', { paths: [GuiRoot] });
+const VmRoot = path.dirname(vmPackagePath);
+// --- END OF FIX ---
 
 const ExtBlockPath = args['block'] ? path.resolve(Cwd, args['block']) : path.resolve(Cwd, './src/block');
 const ExtEntryPath = args['entry'] ? path.resolve(Cwd, args['entry']) : path.resolve(Cwd, './src/entry');
