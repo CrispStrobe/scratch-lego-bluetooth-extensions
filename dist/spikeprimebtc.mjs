@@ -905,11 +905,11 @@ var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
       setupTranslations(formatMessage);
       return {
         id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-        name: 'SPIKE Prime Ultimate',
+        name: 'SPIKE Prime BTC',
         blockIconURI: blockIconURI,
         showStatusButton: true,
         blocks: [
-        // ===== MOTOR CONTROL (HIGH CONFIDENCE) =====
+        // ===== MOTOR CONTROL =====
         {
           opcode: 'motorRunFor',
           text: formatMessage({

@@ -611,11 +611,11 @@ class Scratch3SpikePrimeBlocks {
 
         return {
             id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-            name: 'SPIKE Prime Ultimate',
+            name: 'SPIKE Prime BTC',
             blockIconURI: blockIconURI,
             showStatusButton: true,
             blocks: [
-                // ===== MOTOR CONTROL (HIGH CONFIDENCE) =====
+                // ===== MOTOR CONTROL =====
                 {
                     opcode: 'motorRunFor',
                     text: formatMessage({
