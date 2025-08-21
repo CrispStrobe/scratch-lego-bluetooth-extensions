@@ -2215,7 +2215,7 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
   }]);
   return Scratch3PMBlocks;
 }();
-var blockClass = Scratch3PMBlocks;
+var blockClass = Scratch3GamepadBlocks;
 blockClass = Scratch3PMBlocks;
 
 export { blockClass, entry };

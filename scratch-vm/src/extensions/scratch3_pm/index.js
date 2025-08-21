@@ -538,5 +538,5 @@ class Scratch3PMBlocks {
     }
 }
 
-exports.blockClass = Scratch3GamepadBlocks;
+exports.blockClass = Scratch3PMBlocks;
 module.exports = Scratch3PMBlocks;
