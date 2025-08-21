@@ -1,3 +1,78 @@
+var en = {
+	"gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
+	"gui.extension.spikeprime.description": "Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with bluetooth classic). Supports motors, sensors, lights, and displays.",
+	"gui.extension.spikeprime.connectingMessage": "Connecting to SPIKE Prime..."
+};
+var de = {
+	"gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
+	"gui.extension.spikeprime.description": "Baue mit SPIKE Prime or Robot Inventor (alte Firmware Version 2.x). Unterstützt Motoren, Sensoren, Lichter und Displays.",
+	"gui.extension.spikeprime.connectingMessage": "Verbinde mit SPIKE Prime..."
+};
+var fr = {
+	"gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
+	"gui.extension.spikeprime.description": "Construisez avec SPIKE Prime ou Robot Inventor (v. 2 firmware). Prend en charge les moteurs, capteurs, lumières et écrans.",
+	"gui.extension.spikeprime.connectingMessage": "Connexion à SPIKE Prime..."
+};
+var translations = {
+	en: en,
+	de: de,
+	fr: fr
+};
+
+var img$2 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/4EcMAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAACWKADAAQAAAABAAABdAAAAAAO8RAJAAAU8ElEQVR4Ae3YQW5cOQxFUVfDq/H+t2JvpxrIMBN9wY8BJZ6epaEw+ocaXNTr/f3x/vAfAQIECBAgQIBATOC/2CSDCBAgQIAAAQIE/ggILA+BAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECnwgIEPgHAl/vf/CPBP+Jn1dw2IBR9jtgyT6RwJ6AX7D2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBR4vb8/3stTDhAgQIAAAQIECDwW8AvWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBD6fHXOKQFjg6x0eWDzu5/W7f8D3/s6v+m/b757wtPe8p+M0gT8CfsHyEAgQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFjg9f7+eIdnGkeAAAECBAgQGC3gF6zR6/fxBAgQIECAQIWAwKpQNZMAAQIECBAYLSCwRq/fxxMgQIAAAQIVAgKrQtVMAgQIECBAYLSAwBq9fh9PgAABAgQIVAgIrApVMwkQIECAAIHRAgJr9Pp9PAECBAgQIFAhILAqVM0kQIAAAQIERgsIrNHr9/EECBAgQIBAhYDAqlA1kwABAgQIEBgtILBGr9/HEyBAgAABAhUCAqtC1UwCBAgQIEBgtIDAGr1+H0+AAAECBAhUCAisClUzCRAgQIAAgdECAmv0+n08AQIECBAgUCHwWTHUTAJLga/38kirAz+v313H9/7Or/pv2++e8LT3vKfjNIE/An7B8hAIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBY4PX+/niHZxpHgAABAgQIEBgt4Bes0ev38QQIECBAgECFgMCqUDWTAAECBAgQGC0gsEav38cTIECAAAECFQICq0LVTAIECBAgQGC0gMAavX4fT4AAAQIECFQICKwKVTMJECBAgACB0QICa/T6fTwBAgQIECBQISCwKlTNJECAAAECBEYLCKzR6/fxBAgQIECAQIWAwKpQNZMAAQIECBAYLSCwRq/fxxMgQIAAAQIVAgKrQtVMAgQIECBAYLSAwBq9fh9PgAABAgQIVAgIrApVMwkQIECAAIHRAgJr9Pp9PAECBAgQIFAh8Fkx1EwCBP4S+Hr/9T+a//Hn9bsL+t7f+VX/7d/ut/p+5hO4QMAvWBcs0ScQIECAAAECvQQEVq99uA0BAgQIECBwgYDAumCJPoEAAQIECBDoJSCweu3DbQgQIECAAIELBATWBUv0CQQIECBAgEAvAYHVax9uQ4AAAQIECFwgILAuWKJPIECAAAECBHoJCKxe+3AbAgQIECBA4AIBgXXBEn0CAQIECBAg0EtAYPXah9sQIECAAAECFwgIrAuW6BMIECBAgACBXgICq9c+3IYAAQIECBC4QEBgXbBEn0CAAAECBAj0EhBYvfbhNgQIECBAgMAFAgLrgiX6BAIECBAgQKCXgMDqtQ+3IUCAAAECBC4QEFgXLNEnECBAgAABAr0EBFavfbgNAQIECBAgcIGAwLpgiT6BAAECBAgQ6CUgsHrtw20IECBAgACBCwQE1gVL9AkECBAgQIBALwGB1WsfbkOAAAECBAhcICCwLliiTyBAgAABAgR6CQisXvtwGwIECBAgQOACAYF1wRJ9AgECBAgQINBLQGD12ofbECBAgAABAhcICKwLlugTCBAgQIAAgV4CAqvXPtyGAAECBAgQuEBAYF2wRJ9AgAABAgQI9BIQWL324TYECBAgQIDABQIC64Il+gQCBAgQIECgl4DA6rUPtyFAgAABAgQuEBBYFyzRJxAgQIAAAQK9BARWr324DQECBAgQIHCBgMC6YIk+gQABAgQIEOglILB67cNtCBAgQIAAgQsEBNYFS/QJBAgQIECAQC8BgdVrH25DgAABAgQIXCAgsC5Yok8gQIAAAQIEegkIrF77cBsCBAgQIEDgAgGBdcESfQIBAgQIECDQS0Bg9dqH2xAgQIAAAQIXCAisC5boEwgQIECAAIFeAq/398e715XchgABAgQIECBwtoBfsM7en9sTIECAAAECDQUEVsOluBIBAgQIECBwtoDAOnt/bk+AAAECBAg0FBBYDZfiSgQIECBAgMDZAgLr7P25PQECBAgQINBQQGA1XIorESBAgAABAmcLCKyz9+f2BAgQIECAQEMBgdVwKa5EgAABAgQInC0gsM7en9sTIECAAAECDQUEVsOluBIBAgQIECBwtoDAOnt/bk+AAAECBAg0FBBYDZfiSgQIECBAgMDZAgLr7P25PQECBAgQINBQQGA1XIorESBAgAABAmcLCKyz9+f2BAgQIECAQEOBz4Z3ciUCBE4X+Hqf9QU/r7Pu67YECLQX8AtW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCn6dd2H0JEDhA4Od1wCVdkQABAnUCfsGqszWZAAECBAgQGCogsIYu3mcTIECAAAECdQICq87WZAIECBAgQGCogMAaunifTYAAAQIECNQJCKw6W5MJECBAgACBoQICa+jifTYBAgQIECBQJyCw6mxNJkCAAAECBIYKCKyhi/fZBAgQIECAQJ2AwKqzNZkAAQIECBAYKiCwhi7eZxMgQIAAAQJ1AgKrztZkAgQIECBAYKiAwBq6eJ9NgAABAgQI1AkIrDpbkwkQIECAAIGhAgJr6OJ9NgECBAgQIFAnILDqbE0mQIAAAQIEhgoIrKGL99kECBAgQIBAnYDAqrM1mQABAgQIEBgqILCGLt5nEyBAgAABAnUCAqvO1mQCBAgQIEBgqIDAGrp4n02AAAECBAjUCQisOluTCRAgQIAAgaECAmvo4n02AQIECBAgUCcgsOpsTSZAgAABAgSGCgisoYv32QQIECBAgECdgMCqszWZAAECBAgQGCogsIYu3mcTIECAAAECdQICq87WZAIECBAgQGCogMAaunifTYAAAQIECNQJCKw6W5MJECBAgACBoQICa+jifTYBAgQIECBQJyCw6mxNJkCAAAECBIYKCKyhi/fZBAgQIECAQJ2AwKqzNZkAAQIECBAYKiCwhi7eZxMgQIAAAQJ1AgKrztZkAgQIECBAYKiAwBq6eJ9NgAABAgQI1AkIrDpbkwkQIECAAIGhAgJr6OJ9NgECBAgQIFAnILDqbE0mQIAAAQIEhgoIrKGL99kECBAgQIBAnYDAqrM1mQABAgQIEBgqILCGLt5nEyBAgAABAnUCAqvO1mQCBAgQIEBgqMD/dCwx5rhX9OkAAAAASUVORK5CYII=";
+
+var img$1 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='40px' height='40px' viewBox='0 0 40 40' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-small%3c/title%3e %3cg id='spikeprime-small' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3crect id='body' stroke='%237C87A5' fill='white' x='9.5' y='4.5' width='21' height='31' rx='1.5'%3e%3c/rect%3e %3cg id='matrix' transform='translate(13.000000%2c 12.000000)' fill='%23FFD500'%3e %3crect id='d' x='6' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy' x='9' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-3' x='6' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-2' x='9' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-11' x='0' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-10' x='3' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-9' x='0' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-8' x='3' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-15' x='12' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-14' x='3' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-13' x='12' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-12' x='6' y='12' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-16' x='3' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-17' x='9' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-5' x='6' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-4' x='9' y='9' width='2' height='2'%3e%3c/rect%3e %3c/g%3e %3ccircle id='Oval' stroke='%234C97FF' cx='26.5' cy='8.5' r='1.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' cx='20' cy='31' r='2.5'%3e%3c/circle%3e %3c/g%3e%3c/svg%3e";
+
+var img = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='79px' height='123px' viewBox='0 0 79 123' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-illustration%3c/title%3e %3cg id='spikeprime-illustration' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3cg id='Group' transform='translate(1.000000%2c 1.000000)'%3e %3crect id='Rectangle' stroke='%237C87A5' fill='white' x='0' y='0' width='77' height='121' rx='5.5'%3e%3c/rect%3e %3ccircle id='Oval' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-3' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-5' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3cpath d='M16.5%2c99 C13.4624339%2c99 11%2c101.462434 11%2c104.5 C11%2c107.537566 13.4624339%2c110 16.5%2c110 C38.5%2c110 38.5%2c110 60.5%2c110 C63.5375661%2c110 66%2c107.537566 66%2c104.5 C66%2c101.462434 63.5375661%2c99 60.5%2c99 C38.5%2c99 38.5%2c99 16.5%2c99 Z' id='Path' stroke='%237C87A5' stroke-width='0.5'%3e%3c/path%3e %3ccircle id='Center-Button' stroke='%237C87A5' stroke-width='1.5' fill='white' cx='38.5' cy='104.5' r='10.5'%3e%3c/circle%3e %3ccircle id='Bluetooth' stroke='%234C97FF' stroke-width='1.5' cx='60.5' cy='16.5' r='6.5'%3e%3c/circle%3e %3cg id='matrix' transform='translate(12.000000%2c 34.000000)' fill='%23FFD500'%3e %3crect id='Rectangle-Copy-24' x='0' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-26' x='11' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-25' x='11' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-29' x='22' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-28' x='33' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-27' x='33' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-31' x='44' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-42' x='0' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-40' x='11' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-39' x='11' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-38' x='22' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-37' x='22' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-36' x='33' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-35' x='33' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-34' x='44' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-45' x='22' y='44' width='9' height='9'%3e%3c/rect%3e %3c/g%3e %3c/g%3e %3c/g%3e%3c/svg%3e";
+
+/**
+ * @param {object} messageData - data for format-message
+ * @returns {string} - translated message for the current locale
+ */
+var formatMessage = function formatMessage(messageData) {
+  return messageData.defaultMessage;
+};
+var entry = {
+  get name() {
+    return formatMessage({
+      id: 'gui.extension.spikeprime.name',
+      default: 'LEGO Education SPIKE Prime',
+      description: 'Name for the SPIKE Prime extension'
+    });
+  },
+  extensionId: 'spikeprime',
+  collaborator: 'CrispStrobe',
+  iconURL: img$2,
+  insetIconURL: img$1,
+  get description() {
+    return formatMessage({
+      id: 'gui.extension.spikeprime.description',
+      default: 'Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with bluetooth classic). Supports motors, sensors, lights, and displays.',
+      description: 'Description for the SPIKE Prime extension'
+    });
+  },
+  featured: true,
+  disabled: false,
+  bluetoothRequired: true,
+  internetConnectionRequired: false,
+  launchPeripheralConnectionFlow: true,
+  useAutoScan: true,
+  connectionIconURL: img,
+  connectionSmallIconURL: img$1,
+  get connectingMessage() {
+    return formatMessage({
+      id: 'gui.extension.spikeprime.connectingMessage',
+      default: 'Connecting to SPIKE Prime (over bluetooth classic SPP)...',
+      description: 'Message shown when connecting to SPIKE Prime'
+    });
+  },
+  helpLink: 'https://education.lego.com/',
+  setFormatMessage: function setFormatMessage(formatter) {
+    formatMessage = formatter;
+  },
+  translationMap: translations
+};
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function _typeof(o) {
@@ -7278,3 +7353,5 @@ function require_spikeprimebtc() {
 }
 
 require_spikeprimebtc();
+
+export { entry };
