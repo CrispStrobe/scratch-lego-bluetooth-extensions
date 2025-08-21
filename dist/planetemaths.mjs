@@ -10,7 +10,7 @@ var fr = {
 	"gui.extension.planetemaths.name": "Planète Maths",
 	"gui.extension.planetemaths.description": "Utiliser des outils mathématiques."
 };
-var translations = {
+var translations$1 = {
 	en: en,
 	de: de,
 	fr: fr
@@ -24,12 +24,12 @@ var img = "data:image/svg+xml,%3c%3fxml version='1.0' standalone='no'%3f%3e%3c!D
  * @param {object} messageData - data for format-message
  * @returns {string} - translated message for the current locale
  */
-var formatMessage = function formatMessage(messageData) {
+var formatMessage$1 = function formatMessage(messageData) {
   return messageData.defaultMessage;
 };
 var entry = {
   get name() {
-    return formatMessage({
+    return formatMessage$1({
       id: 'gui.extension.planetemaths.name',
       default: 'Maths Planet',
       description: 'Name for the Maths Planet extension'
@@ -40,7 +40,7 @@ var entry = {
   iconURL: img$1,
   insetIconURL: img,
   get description() {
-    return formatMessage({
+    return formatMessage$1({
       id: 'gui.extension.planetemaths.description',
       default: 'Use mathematics tools.',
       description: 'Description for the Maths Planet extension'
@@ -51,10 +51,14 @@ var entry = {
   bluetoothRequired: false,
   internetConnectionRequired: false,
   setFormatMessage: function setFormatMessage(formatter) {
-    formatMessage = formatter;
+    formatMessage$1 = formatter;
   },
-  translationMap: translations
+  translationMap: translations$1
 };
+
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
 
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -64,10 +68,6 @@ function _typeof(o) {
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
-}
-
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
 function toPrimitive(t, r) {
@@ -98,1454 +98,1397 @@ function _createClass(e, r, t) {
   }), e;
 }
 
-var _planetemaths = {exports: {}};
+var BlockType = require('../../extension-support/block-type');
+var ArgumentType = require('../../extension-support/argument-type');
+var Cast = require('../../util/cast');
+var MathUtil = require('../../util/math-util');
+var translations = {
+  "en": {
+    "pm.title": "Maths",
+    "pm.add": "[NUM1] + [NUM2]",
+    "pm.substract": "[NUM1] - [NUM2]",
+    "pm.multiply": "[NUM1] x [NUM2]",
+    "pm.divide": "[NUM1] / [NUM2]",
+    "pm.pow": "[NUM1] ^ [NUM2]",
+    "pm.mathop": "[OPERATOR] of [NUM1]",
+    "pm.mathopdiv": "[OPERATOR] of [NUM1] divided by [NUM2]",
+    "pm.mathop2": "[OPERATOR] of [NUM1] and [NUM2]",
+    "pm.multiple": "[NUM1] is a [choix1] of [NUM2]",
+    "pm.arrondis": "[TYPE] [NUM1] to [CHIFFRE]",
+    "pm.pentiere": "[choix1] digit of [NUM1]",
+    "pm.pdecimale": "[choix1] digit of [NUM1]",
+    "pm.sommechiffres": "sum of digits of [NUM1]",
+    "pm.pi": "π",
+    "pm.oppose": "- [NUM1]",
+    "pm.inverse": "1 / [NUM1]",
+    "pm.pourcent": "[NUM1] %",
+    "pm.random": "pick random [NUM1] to [NUM2]",
+    "pm.gt": "[NUM1] < [NUM2]",
+    "pm.gte": "[NUM1] ≤ [NUM2]",
+    "pm.equals": "[NUM1] = [NUM2]",
+    "pm.lt": "[NUM1] > [NUM2]",
+    "pm.lte": "[NUM1] ≥ [NUM2]",
+    "pm.min": "minimum of [NUM1] and [NUM2]",
+    "pm.max": "maximum of [NUM1] and [NUM2]",
+    "pm.and": "[OPERAND1] and [OPERAND2]",
+    "pm.or": "[OPERAND1] or [OPERAND2]",
+    "pm.not": "not [OPERAND1]",
+    "pm.join": "join [STRING1] [STRING2]",
+    "pm.letterof": "letter [LETTER] of [STRING]",
+    "pm.length": "length of [STRING]",
+    "pm.contains": "[STRING1] contains [STRING2] ?",
+    "pm.extract": "extract characters from [NUM1] to [NUM2] of [STRING]",
+    "text.c1": "units",
+    "text.c2": "tens",
+    "text.c3": "hundreds",
+    "text.c4": "thousands",
+    "text.c5": "tens of thousands",
+    "text.c6": "hundreds of thousands",
+    "text.c7": "millions",
+    "text.c8": "tens of millions",
+    "text.c9": "hundreds of millions",
+    "text.c10": "billions",
+    "text.c11": "tens of billions",
+    "text.c12": "hundreds of billions",
+    "text.d1": "tenths",
+    "text.d2": "hundredths",
+    "text.d3": "thousandths",
+    "text.d4": "ten thousandths",
+    "text.d5": "hundred thousandths",
+    "text.d6": "millionths",
+    "text.a0": "the unit",
+    "text.a1": "tenth",
+    "text.a2": "hundredth",
+    "text.a3": "thousandth",
+    "text.a4": "ten thousandth",
+    "text.a5": "hundred thousandth",
+    "text.a6": "millionth",
+    "text.sqrt": "√",
+    "text.cos": "cos",
+    "text.sin": "sin",
+    "text.tan": "tan",
+    "text.acos": "arccos",
+    "text.asin": "arcsin",
+    "text.atan": "arctan",
+    "text.pow10": "10 ^",
+    "text.pgcd": "GCD",
+    "text.ppcm": "LCM",
+    "text.reste": "remainder",
+    "text.quotient": "quotient",
+    "text.vad": "Approximate value by defect of",
+    "text.vae": "Approximate value by excess of",
+    "text.arrondi": "Round",
+    "text.multiple": "multiple",
+    "text.diviseur": "divider"
+  },
+  "de": {
+    "pm.title": "Mathe",
+    "pm.add": "[NUM1] + [NUM2]",
+    "pm.substract": "[NUM1] - [NUM2]",
+    "pm.multiply": "[NUM1] x [NUM2]",
+    "pm.divide": "[NUM1] / [NUM2]",
+    "pm.pow": "[NUM1] ^ [NUM2]",
+    "pm.mathop": "[OPERATOR] von [NUM1]",
+    "pm.mathopdiv": "[OPERATOR] der Division von [NUM1] durch [NUM2]",
+    "pm.mathop2": "[OPERATOR] von [NUM1] und [NUM2]",
+    "pm.multiple": "[NUM1] ist ein [choix1] von [NUM2]",
+    "pm.arrondis": "[TYPE] von [NUM1] auf [CHIFFRE]",
+    "pm.pentiere": "[choix1] Ziffer von [NUM1]",
+    "pm.pdecimale": "[choix1] Ziffer von [NUM1]",
+    "pm.sommechiffres": "Quersumme von [NUM1]",
+    "pm.pi": "π",
+    "pm.oppose": "- [NUM1]",
+    "pm.inverse": "1 / [NUM1]",
+    "pm.pourcent": "[NUM1] %",
+    "pm.random": "Zufallszahl von [NUM1] bis [NUM2]",
+    "pm.gt": "[NUM1] < [NUM2]",
+    "pm.gte": "[NUM1] ≤ [NUM2]",
+    "pm.equals": "[NUM1] = [NUM2]",
+    "pm.lt": "[NUM1] > [NUM2]",
+    "pm.lte": "[NUM1] ≥ [NUM2]",
+    "pm.min": "Minimum von [NUM1] und [NUM2]",
+    "pm.max": "Maximum von [NUM1] und [NUM2]",
+    "pm.and": "[OPERAND1] und [OPERAND2]",
+    "pm.or": "[OPERAND1] oder [OPERAND2]",
+    "pm.not": "nicht [OPERAND1]",
+    "pm.join": "verbinde [STRING1] und [STRING2]",
+    "pm.letterof": "Zeichen [LETTER] von [STRING]",
+    "pm.length": "Länge von [STRING]",
+    "pm.contains": "[STRING1] enthält [STRING2] ?",
+    "pm.extract": "Zeichen [NUM1] bis [NUM2] aus [STRING]",
+    "text.c1": "Einer",
+    "text.c2": "Zehner",
+    "text.c3": "Hunderter",
+    "text.c4": "Tausender",
+    "text.c5": "Zehntausender",
+    "text.c6": "Hunderttausender",
+    "text.c7": "Millionen",
+    "text.c8": "Zehnmillionen",
+    "text.c9": "Hundertmillionen",
+    "text.c10": "Milliarden",
+    "text.c11": "Zehnmilliarden",
+    "text.c12": "Hundertmilliarden",
+    "text.d1": "Zehntel",
+    "text.d2": "Hundertstel",
+    "text.d3": "Tausendstel",
+    "text.d4": "Zehntausendstel",
+    "text.d5": "Hunderttausendstel",
+    "text.d6": "Millionstel",
+    "text.a0": "die Einerstelle",
+    "text.a1": "die Zehntelstelle",
+    "text.a2": "die Hundertstelstelle",
+    "text.a3": "die Tausendstelstelle",
+    "text.a4": "die Zehntausendstelstelle",
+    "text.a5": "die Hunderttausendstelstelle",
+    "text.a6": "die Millionstelstelle",
+    "text.sqrt": "√",
+    "text.cos": "cos",
+    "text.sin": "sin",
+    "text.tan": "tan",
+    "text.acos": "arccos",
+    "text.asin": "arcsin",
+    "text.atan": "arctan",
+    "text.pow10": "10 ^",
+    "text.pgcd": "ggT",
+    "text.ppcm": "kgV",
+    "text.reste": "Rest",
+    "text.quotient": "Quotient",
+    "text.vad": "Abgerundeter Wert von",
+    "text.vae": "Aufgerundeter Wert von",
+    "text.arrondi": "Runde",
+    "text.multiple": "Vielfaches",
+    "text.diviseur": "Teiler"
+  },
+  "fr": {
+    "pm.title": "Maths",
+    "pm.add": "[NUM1] + [NUM2]",
+    "pm.substract": "[NUM1] - [NUM2]",
+    "pm.multiply": "[NUM1] x [NUM2]",
+    "pm.divide": "[NUM1] / [NUM2]",
+    "pm.pow": "[NUM1] ^ [NUM2]",
+    "pm.mathop": "[OPERATOR] de [NUM1]",
+    "pm.mathopdiv": "[OPERATOR] de [NUM1] divisé par [NUM2]",
+    "pm.mathop2": "[OPERATOR] de [NUM1] et [NUM2]",
+    "pm.multiple": "[NUM1] est un [choix1] de [NUM2]",
+    "pm.arrondis": "[TYPE] de [NUM1] [CHIFFRE]",
+    "pm.pentiere": "chiffre des [choix1] de [NUM1]",
+    "pm.pdecimale": "chiffre des [choix1] de [NUM1]",
+    "pm.sommechiffres": "somme des chiffres de [NUM1]",
+    "pm.pi": "π",
+    "pm.oppose": "- [NUM1]",
+    "pm.inverse": "1 / [NUM1]",
+    "pm.pourcent": "[NUM1] %",
+    "pm.random": "nombre aléatoire entre [NUM1] et [NUM2]",
+    "pm.gt": "[NUM1] < [NUM2]",
+    "pm.gte": "[NUM1] ≤ [NUM2]",
+    "pm.equals": "[NUM1] = [NUM2]",
+    "pm.lt": "[NUM1] > [NUM2]",
+    "pm.lte": "[NUM1] ≥ [NUM2]",
+    "pm.min": "minimum de [NUM1] et [NUM2]",
+    "pm.max": "maximum de [NUM1] et [NUM2]",
+    "pm.and": "[OPERAND1] et [OPERAND2]",
+    "pm.or": "[OPERAND1] ou [OPERAND2]",
+    "pm.not": "non [OPERAND1]",
+    "pm.join": "regrouper [STRING1] et [STRING2]",
+    "pm.letterof": "lettre [LETTER] de [STRING]",
+    "pm.length": "longueur de [STRING]",
+    "pm.contains": "[STRING1] contient [STRING2] ?",
+    "pm.extract": "extraire caractères [NUM1] à [NUM2] de [STRING]",
+    "text.c1": "unités",
+    "text.c2": "dizaines",
+    "text.c3": "centaines",
+    "text.c4": "unités de mille",
+    "text.c5": "dizaines de mille",
+    "text.c6": "centaines de mille",
+    "text.c7": "unités de millions",
+    "text.c8": "dizaines de millions",
+    "text.c9": "centaines de millions",
+    "text.c10": "unités de milliards",
+    "text.c11": "dizaines de milliards",
+    "text.c12": "centaines de milliards",
+    "text.d1": "dixièmes",
+    "text.d2": "centièmes",
+    "text.d3": "millièmes",
+    "text.d4": "dix-millièmes",
+    "text.d5": "cent-millièmes",
+    "text.d6": "millionièmes",
+    "text.a0": "à l'unité",
+    "text.a1": "au dixième",
+    "text.a2": "au centième",
+    "text.a3": "au millième",
+    "text.a4": "au dix-millième",
+    "text.a5": "au cent-millième",
+    "text.a6": "au millionième",
+    "text.sqrt": "√",
+    "text.cos": "cos",
+    "text.sin": "sin",
+    "text.tan": "tan",
+    "text.acos": "arccos",
+    "text.asin": "arcsin",
+    "text.atan": "arctan",
+    "text.pow10": "10 ^",
+    "text.pgcd": "PGCD",
+    "text.ppcm": "PPCM",
+    "text.reste": "reste",
+    "text.quotient": "quotient",
+    "text.vad": "valeur approchée par défaut de",
+    "text.vae": "valeur approchée par excès de",
+    "text.arrondi": "arrondi de",
+    "text.multiple": "multiple",
+    "text.diviseur": "diviseur"
+  }
+};
+var formatMessage = function formatMessage(messageData) {
+  return messageData.defaultMessage;
+};
 
-_planetemaths.exports;
-var hasRequired_planetemaths;
-function require_planetemaths() {
-  if (hasRequired_planetemaths) return _planetemaths.exports;
-  hasRequired_planetemaths = 1;
-  (function (module, exports) {
-    // Browser-compatible Scratch VM utilities
-    var ArgumentType = {
-      ANGLE: 'angle',
-      BOOLEAN: 'Boolean',
-      COLOR: 'color',
-      NUMBER: 'number',
-      STRING: 'string',
-      MATRIX: 'matrix',
-      NOTE: 'note',
-      IMAGE: 'image'
-    };
-    var BlockType = {
-      BOOLEAN: 'Boolean',
-      BUTTON: 'button',
-      COMMAND: 'command',
-      CONDITIONAL: 'conditional',
-      EVENT: 'event',
-      HAT: 'hat',
-      LOOP: 'loop',
-      REPORTER: 'reporter'
-    };
-    var Cast = {
-      toNumber: function toNumber(value) {
-        if (typeof value === 'number') {
-          if (Number.isNaN(value)) return 0;
-          return value;
+// This is a simplified setup that works with this older extension style
+var setupTranslations = function setupTranslations() {
+  try {
+    var localeSetup = formatMessage.setup();
+    if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+      Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
+    }
+  } catch (e) {
+    // Fails silently, which is fine.
+  }
+};
+var Scratch3PMBlocks = /*#__PURE__*/function () {
+  function Scratch3PMBlocks(runtime) {
+    _classCallCheck(this, Scratch3PMBlocks);
+    this.runtime = runtime;
+    if (runtime.formatMessage) {
+      formatMessage = runtime.formatMessage;
+    }
+  }
+  return _createClass(Scratch3PMBlocks, [{
+    key: "getInfo",
+    value: function getInfo() {
+      setupTranslations();
+      return {
+        id: 'planetemaths',
+        name: formatMessage({
+          id: 'pm.title',
+          default: 'Maths'
+        }),
+        color1: '#4879b7',
+        color2: '#000000',
+        blocks: [{
+          opcode: 'add',
+          text: formatMessage({
+            id: 'pm.add',
+            default: '[NUM1] + [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'substract',
+          text: formatMessage({
+            id: 'pm.substract',
+            default: '[NUM1] - [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'multiply',
+          text: formatMessage({
+            id: 'pm.multiply',
+            default: '[NUM1] x [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'divide',
+          text: formatMessage({
+            id: 'pm.divide',
+            default: '[NUM1] / [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, '---', {
+          opcode: 'pow',
+          text: formatMessage({
+            id: 'pm.pow',
+            default: '[NUM1] ^ [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, '---', {
+          opcode: 'mathop',
+          text: formatMessage({
+            id: 'pm.mathop',
+            default: '[OPERATOR] of [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            OPERATOR: {
+              type: ArgumentType.STRING,
+              menu: 'LIST_MATHOP',
+              defaultValue: 'sqrt'
+            }
+          }
+        }, '---', {
+          opcode: 'mathopdiv',
+          text: formatMessage({
+            id: 'pm.mathopdiv',
+            default: '[OPERATOR] of [NUM1] divided by [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            OPERATOR: {
+              type: ArgumentType.STRING,
+              menu: 'LIST_MATHOPDIV',
+              defaultValue: 'reste'
+            }
+          }
+        }, {
+          opcode: 'mathop2',
+          text: formatMessage({
+            id: 'pm.mathop2',
+            default: '[OPERATOR] of [NUM1] and [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            OPERATOR: {
+              type: ArgumentType.STRING,
+              menu: 'LIST_MATHOP2',
+              defaultValue: 'pgcd'
+            }
+          }
+        }, {
+          opcode: 'multiple',
+          text: formatMessage({
+            id: 'pm.multiple',
+            default: '[NUM1] is a [choix1] of [NUM2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            choix1: {
+              type: ArgumentType.STRING,
+              menu: 'MULTIPLE_DIVISEUR',
+              defaultValue: 'multiple'
+            }
+          }
+        }, '---', {
+          opcode: 'arrondis',
+          text: formatMessage({
+            id: 'pm.arrondis',
+            default: '[TYPE] [NUM1] to [CHIFFRE]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            TYPE: {
+              type: ArgumentType.STRING,
+              menu: 'ARRONDIS',
+              defaultValue: 'arrondi'
+            },
+            CHIFFRE: {
+              type: ArgumentType.STRING,
+              menu: 'CHIFFRE_ARRONDIS',
+              defaultValue: '0'
+            }
+          }
+        }, '---', {
+          opcode: 'chiffre_pentiere',
+          text: formatMessage({
+            id: 'pm.pentiere',
+            default: '[choix1] digit of [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            choix1: {
+              type: ArgumentType.STRING,
+              menu: 'PARTIE_ENTIERE',
+              defaultValue: '0'
+            }
+          }
+        }, {
+          opcode: 'chiffre_pdecimale',
+          text: formatMessage({
+            id: 'pm.pdecimale',
+            default: '[choix1] digit of [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            choix1: {
+              type: ArgumentType.STRING,
+              menu: 'PARTIE_DECIMALE',
+              defaultValue: '1'
+            }
+          }
+        }, {
+          opcode: 'sommechiffres',
+          text: formatMessage({
+            id: 'pm.sommechiffres',
+            default: 'sum of digits of [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, '---', {
+          opcode: 'nombre_pi',
+          text: formatMessage({
+            id: 'pm.pi',
+            default: 'π'
+          }),
+          blockType: BlockType.REPORTER
+        }, {
+          opcode: 'oppose',
+          text: formatMessage({
+            id: 'pm.oppose',
+            default: '- [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'inverse',
+          text: formatMessage({
+            id: 'pm.inverse',
+            default: '1 / [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'pourcent',
+          text: formatMessage({
+            id: 'pm.pourcent',
+            default: '[NUM1] %'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, '---', {
+          opcode: 'random',
+          text: formatMessage({
+            id: 'pm.random',
+            default: 'pick random [NUM1] to [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '1'
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '10'
+            }
+          }
+        }, '---', {
+          opcode: 'gt',
+          text: formatMessage({
+            id: 'pm.gt',
+            default: '[NUM1] < [NUM2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '50'
+            }
+          }
+        }, {
+          opcode: 'gte',
+          text: formatMessage({
+            id: 'pm.gte',
+            default: '[NUM1] ≤ [NUM2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '50'
+            }
+          }
+        }, {
+          opcode: 'equals',
+          text: formatMessage({
+            id: 'pm.equals',
+            default: '[NUM1] = [NUM2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '50'
+            }
+          }
+        }, {
+          opcode: 'lt',
+          text: formatMessage({
+            id: 'pm.lt',
+            default: '[NUM1] > [NUM2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '50'
+            }
+          }
+        }, {
+          opcode: 'lte',
+          text: formatMessage({
+            id: 'pm.lte',
+            default: '[NUM1] ≥ [NUM2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '50'
+            }
+          }
+        }, {
+          opcode: 'min',
+          text: formatMessage({
+            id: 'pm.min',
+            default: 'minimum of [NUM1] and [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'max',
+          text: formatMessage({
+            id: 'pm.max',
+            default: 'maximum of [NUM1] and [NUM2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: ' '
+            }
+          }
+        }, '---', {
+          opcode: 'and',
+          text: formatMessage({
+            id: 'pm.and',
+            default: '[OPERAND1] and [OPERAND2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            OPERAND1: {
+              type: ArgumentType.BOOLEAN,
+              defaultValue: ' '
+            },
+            OPERAND2: {
+              type: ArgumentType.BOOLEAN,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'or',
+          text: formatMessage({
+            id: 'pm.or',
+            default: '[OPERAND1] or [OPERAND2]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            OPERAND1: {
+              type: ArgumentType.BOOLEAN,
+              defaultValue: ' '
+            },
+            OPERAND2: {
+              type: ArgumentType.BOOLEAN,
+              defaultValue: ' '
+            }
+          }
+        }, {
+          opcode: 'not',
+          text: formatMessage({
+            id: 'pm.not',
+            default: 'not [OPERAND1]'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            OPERAND1: {
+              type: ArgumentType.BOOLEAN,
+              defaultValue: ' '
+            }
+          }
+        }, '---', {
+          opcode: 'join',
+          text: formatMessage({
+            id: 'pm.join',
+            default: 'join [STRING1] [STRING2]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            STRING1: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Planète '
+            },
+            STRING2: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Maths'
+            }
+          }
+        }, {
+          opcode: 'letterOf',
+          text: formatMessage({
+            id: 'pm.letterof',
+            default: 'letter [LETTER] of [STRING]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            STRING: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Maths'
+            },
+            LETTER: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '1'
+            }
+          }
+        }, {
+          opcode: 'length',
+          text: formatMessage({
+            id: 'pm.length',
+            default: 'length of [STRING]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            STRING: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Maths'
+            }
+          }
+        }, {
+          opcode: 'contains',
+          text: formatMessage({
+            id: 'pm.contains',
+            default: '[STRING1] contains [STRING2] ?'
+          }),
+          blockType: BlockType.BOOLEAN,
+          arguments: {
+            STRING1: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Maths'
+            },
+            STRING2: {
+              type: ArgumentType.STRING,
+              defaultValue: 's'
+            }
+          }
+        }, {
+          opcode: 'extract',
+          text: formatMessage({
+            id: 'pm.extract',
+            default: 'extract characters from [NUM1] to [NUM2] of [STRING]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            STRING: {
+              type: ArgumentType.STRING,
+              defaultValue: 'Planète Maths'
+            },
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '1'
+            },
+            NUM2: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '7'
+            }
+          }
+        }],
+        menus: {
+          PARTIE_ENTIERE: {
+            items: [{
+              text: formatMessage({
+                id: 'text.c1',
+                default: 'units'
+              }),
+              value: '0'
+            }, {
+              text: formatMessage({
+                id: 'text.c2',
+                default: 'tens'
+              }),
+              value: '1'
+            }, {
+              text: formatMessage({
+                id: 'text.c3',
+                default: 'hundreds'
+              }),
+              value: '2'
+            }, {
+              text: formatMessage({
+                id: 'text.c4',
+                default: 'thousands'
+              }),
+              value: '3'
+            }, {
+              text: formatMessage({
+                id: 'text.c5',
+                default: 'tens of thousands'
+              }),
+              value: '4'
+            }, {
+              text: formatMessage({
+                id: 'text.c6',
+                default: 'hundreds of thousands'
+              }),
+              value: '5'
+            }, {
+              text: formatMessage({
+                id: 'text.c7',
+                default: 'millions'
+              }),
+              value: '6'
+            }, {
+              text: formatMessage({
+                id: 'text.c8',
+                default: 'tens of millions'
+              }),
+              value: '7'
+            }, {
+              text: formatMessage({
+                id: 'text.c9',
+                default: 'hundreds of millions'
+              }),
+              value: '8'
+            }, {
+              text: formatMessage({
+                id: 'text.c10',
+                default: 'billions'
+              }),
+              value: '9'
+            }, {
+              text: formatMessage({
+                id: 'text.c11',
+                default: 'tens of billions'
+              }),
+              value: '10'
+            }, {
+              text: formatMessage({
+                id: 'text.c12',
+                default: 'hundreds of billions'
+              }),
+              value: '11'
+            }]
+          },
+          PARTIE_DECIMALE: {
+            items: [{
+              text: formatMessage({
+                id: 'text.d1',
+                default: 'tenths'
+              }),
+              value: '1'
+            }, {
+              text: formatMessage({
+                id: 'text.d2',
+                default: 'hundredths'
+              }),
+              value: '2'
+            }, {
+              text: formatMessage({
+                id: 'text.d3',
+                default: 'thousandths'
+              }),
+              value: '3'
+            }, {
+              text: formatMessage({
+                id: 'text.d4',
+                default: 'ten thousandths'
+              }),
+              value: '4'
+            }, {
+              text: formatMessage({
+                id: 'text.d5',
+                default: 'hundred thousandths'
+              }),
+              value: '5'
+            }, {
+              text: formatMessage({
+                id: 'text.d6',
+                default: 'millionths'
+              }),
+              value: '6'
+            }]
+          },
+          CHIFFRE_ARRONDIS: {
+            items: [{
+              text: formatMessage({
+                id: 'text.a0',
+                default: 'the unit'
+              }),
+              value: '0'
+            }, {
+              text: formatMessage({
+                id: 'text.a1',
+                default: 'tenth'
+              }),
+              value: '1'
+            }, {
+              text: formatMessage({
+                id: 'text.a2',
+                default: 'hundredth'
+              }),
+              value: '2'
+            }, {
+              text: formatMessage({
+                id: 'text.a3',
+                default: 'thousandth'
+              }),
+              value: '3'
+            }, {
+              text: formatMessage({
+                id: 'text.a4',
+                default: 'ten thousandth'
+              }),
+              value: '4'
+            }, {
+              text: formatMessage({
+                id: 'text.a5',
+                default: 'hundred thousandth'
+              }),
+              value: '5'
+            }, {
+              text: formatMessage({
+                id: 'text.a6',
+                default: 'millionth'
+              }),
+              value: '6'
+            }]
+          },
+          LIST_MATHOP: {
+            items: [{
+              text: formatMessage({
+                id: 'text.sqrt',
+                default: '√'
+              }),
+              value: 'sqrt'
+            }, {
+              text: formatMessage({
+                id: 'text.cos',
+                default: 'cos'
+              }),
+              value: 'cos'
+            }, {
+              text: formatMessage({
+                id: 'text.sin',
+                default: 'sin'
+              }),
+              value: 'sin'
+            }, {
+              text: formatMessage({
+                id: 'text.tan',
+                default: 'tan'
+              }),
+              value: 'tan'
+            }, {
+              text: formatMessage({
+                id: 'text.acos',
+                default: 'arccos'
+              }),
+              value: 'acos'
+            }, {
+              text: formatMessage({
+                id: 'text.asin',
+                default: 'arcsin'
+              }),
+              value: 'asin'
+            }, {
+              text: formatMessage({
+                id: 'text.atan',
+                default: 'arctan'
+              }),
+              value: 'atan'
+            }, {
+              text: formatMessage({
+                id: 'text.pow10',
+                default: '10 ^'
+              }),
+              value: '10 ^'
+            }]
+          },
+          LIST_MATHOP2: {
+            items: [{
+              text: formatMessage({
+                id: 'text.pgcd',
+                default: 'GCD'
+              }),
+              value: 'pgcd'
+            }, {
+              text: formatMessage({
+                id: 'text.ppcm',
+                default: 'LCM'
+              }),
+              value: 'ppcm'
+            }]
+          },
+          LIST_MATHOPDIV: {
+            items: [{
+              text: formatMessage({
+                id: 'text.reste',
+                default: 'remainder'
+              }),
+              value: 'reste'
+            }, {
+              text: formatMessage({
+                id: 'text.quotient',
+                default: 'quotient'
+              }),
+              value: 'quotient'
+            }]
+          },
+          ARRONDIS: {
+            items: [{
+              text: formatMessage({
+                id: 'text.vad',
+                default: 'Approximate value by defect of'
+              }),
+              value: 'vad'
+            }, {
+              text: formatMessage({
+                id: 'text.vae',
+                default: 'Approximate value by excess of'
+              }),
+              value: 'vae'
+            }, {
+              text: formatMessage({
+                id: 'text.arrondi',
+                default: 'Round'
+              }),
+              value: 'arrondi'
+            }]
+          },
+          MULTIPLE_DIVISEUR: {
+            items: [{
+              text: formatMessage({
+                id: 'text.multiple',
+                default: 'multiple'
+              }),
+              value: 'multiple'
+            }, {
+              text: formatMessage({
+                id: 'text.diviseur',
+                default: 'divider'
+              }),
+              value: 'diviseur'
+            }]
+          }
         }
-        var n = Number(value);
-        return Number.isNaN(n) ? 0 : n;
-      },
-      toBoolean: function toBoolean(value) {
-        if (typeof value === 'boolean') return value;
-        if (typeof value === 'string') {
-          if (value === '' || value === '0' || value.toLowerCase() === 'false') return false;
-          return true;
+      };
+    }
+  }, {
+    key: "add",
+    value: function add(args) {
+      return Cast.toNumber(args.NUM1) + Cast.toNumber(args.NUM2);
+    }
+  }, {
+    key: "substract",
+    value: function substract(args) {
+      return Cast.toNumber(args.NUM1) - Cast.toNumber(args.NUM2);
+    }
+  }, {
+    key: "multiply",
+    value: function multiply(args) {
+      return Cast.toNumber(args.NUM1) * Cast.toNumber(args.NUM2);
+    }
+  }, {
+    key: "divide",
+    value: function divide(args) {
+      return Cast.toNumber(args.NUM1) / Cast.toNumber(args.NUM2);
+    }
+  }, {
+    key: "pow",
+    value: function pow(args) {
+      return Math.pow(Cast.toNumber(args.NUM1), Cast.toNumber(args.NUM2));
+    }
+  }, {
+    key: "gt",
+    value: function gt(args) {
+      return Cast.compare(args.NUM1, args.NUM2) < 0;
+    }
+  }, {
+    key: "gte",
+    value: function gte(args) {
+      return Cast.compare(args.NUM1, args.NUM2) <= 0;
+    }
+  }, {
+    key: "equals",
+    value: function equals(args) {
+      return Cast.compare(args.NUM1, args.NUM2) === 0;
+    }
+  }, {
+    key: "lt",
+    value: function lt(args) {
+      return Cast.compare(args.NUM1, args.NUM2) > 0;
+    }
+  }, {
+    key: "lte",
+    value: function lte(args) {
+      return Cast.compare(args.NUM1, args.NUM2) >= 0;
+    }
+  }, {
+    key: "min",
+    value: function min(args) {
+      return Math.min(Cast.toNumber(args.NUM1), Cast.toNumber(args.NUM2));
+    }
+  }, {
+    key: "max",
+    value: function max(args) {
+      return Math.max(Cast.toNumber(args.NUM1), Cast.toNumber(args.NUM2));
+    }
+  }, {
+    key: "oppose",
+    value: function oppose(args) {
+      return -1 * Cast.toNumber(args.NUM1);
+    }
+  }, {
+    key: "inverse",
+    value: function inverse(args) {
+      return 1 / Cast.toNumber(args.NUM1);
+    }
+  }, {
+    key: "random",
+    value: function random(args) {
+      var nFrom = Cast.toNumber(args.NUM1);
+      var nTo = Cast.toNumber(args.NUM2);
+      var low = nFrom <= nTo ? nFrom : nTo;
+      var high = nFrom <= nTo ? nTo : nFrom;
+      if (low === high) return low;
+      if (Cast.isInt(args.NUM1) && Cast.isInt(args.NUM2)) {
+        return low + Math.floor(Math.random() * (high + 1 - low));
+      }
+      return Math.random() * (high - low) + low;
+    }
+  }, {
+    key: "and",
+    value: function and(args) {
+      return Cast.toBoolean(args.OPERAND1) && Cast.toBoolean(args.OPERAND2);
+    }
+  }, {
+    key: "or",
+    value: function or(args) {
+      return Cast.toBoolean(args.OPERAND1) || Cast.toBoolean(args.OPERAND2);
+    }
+  }, {
+    key: "not",
+    value: function not(args) {
+      return !Cast.toBoolean(args.OPERAND1);
+    }
+  }, {
+    key: "pourcent",
+    value: function pourcent(args) {
+      return Cast.toNumber(args.NUM1) / 100;
+    }
+  }, {
+    key: "mathop",
+    value: function mathop(args) {
+      var operator = Cast.toString(args.OPERATOR).toLowerCase();
+      var n = Cast.toNumber(args.NUM1);
+      switch (operator) {
+        case 'sqrt':
+          return Math.sqrt(n);
+        case 'sin':
+          return parseFloat(Math.sin(Math.PI * n / 180).toFixed(10));
+        case 'cos':
+          return parseFloat(Math.cos(Math.PI * n / 180).toFixed(10));
+        case 'tan':
+          return MathUtil.tan(n);
+        case 'asin':
+          return Math.asin(n) * 180 / Math.PI;
+        case 'acos':
+          return Math.acos(n) * 180 / Math.PI;
+        case 'atan':
+          return Math.atan(n) * 180 / Math.PI;
+        case '10 ^':
+          return Math.pow(10, n);
+      }
+      return 0;
+    }
+  }, {
+    key: "mathop2",
+    value: function mathop2(args) {
+      var operator = Cast.toString(args.OPERATOR).toLowerCase();
+      var n1 = Cast.toNumber(args.NUM1);
+      var n2 = Cast.toNumber(args.NUM2);
+      if (Number.isInteger(n1) && Number.isInteger(n2)) {
+        switch (operator) {
+          case 'pgcd':
+            return this.pgcd(n1, n2);
+          case 'ppcm':
+            return n1 * n2 / this.pgcd(n1, n2);
         }
-        return Boolean(value);
-      },
-      toString: function toString(value) {
-        return String(value);
       }
-    };
-    var MathUtil = {
-      clamp: function clamp(n, min, max) {
-        return Math.min(Math.max(n, min), max);
+      return '';
+    }
+  }, {
+    key: "mathopdiv",
+    value: function mathopdiv(args) {
+      var operator = Cast.toString(args.OPERATOR).toLowerCase();
+      var n1 = Cast.toNumber(args.NUM1);
+      var n2 = Cast.toNumber(args.NUM2);
+      if (Number.isInteger(n1) && Number.isInteger(n2)) {
+        var result = n1 % n2;
+        switch (operator) {
+          case 'reste':
+            return result;
+          case 'quotient':
+            return (n1 - result) / n2;
+        }
       }
-    };
-    var translations = {
-      "en": {
-        "pm.title": "Maths",
-        "pm.add": "[NUM1] + [NUM2]",
-        "pm.substract": "[NUM1] - [NUM2]",
-        "pm.multiply": "[NUM1] x [NUM2]",
-        "pm.divide": "[NUM1] / [NUM2]",
-        "pm.pow": "[NUM1] ^ [NUM2]",
-        "pm.mathop": "[OPERATOR] of [NUM1]",
-        "pm.mathopdiv": "[OPERATOR] of [NUM1] divided by [NUM2]",
-        "pm.mathop2": "[OPERATOR] of [NUM1] and [NUM2]",
-        "pm.multiple": "[NUM1] is a [choix1] of [NUM2]",
-        "pm.arrondis": "[TYPE] [NUM1] to [CHIFFRE]",
-        "pm.pentiere": "[choix1] digit of [NUM1]",
-        "pm.pdecimale": "[choix1] digit of [NUM1]",
-        "pm.sommechiffres": "sum of digits of [NUM1]",
-        "pm.pi": "π",
-        "pm.oppose": "- [NUM1]",
-        "pm.inverse": "1 / [NUM1]",
-        "pm.pourcent": "[NUM1] %",
-        "pm.random": "pick random [NUM1] to [NUM2]",
-        "pm.gt": "[NUM1] < [NUM2]",
-        "pm.gte": "[NUM1] ≤ [NUM2]",
-        "pm.equals": "[NUM1] = [NUM2]",
-        "pm.lt": "[NUM1] > [NUM2]",
-        "pm.lte": "[NUM1] ≥ [NUM2]",
-        "pm.min": "minimum of [NUM1] and [NUM2]",
-        "pm.max": "maximum of [NUM1] and [NUM2]",
-        "pm.and": "[OPERAND1] and [OPERAND2]",
-        "pm.or": "[OPERAND1] or [OPERAND2]",
-        "pm.not": "not [OPERAND1]",
-        "pm.join": "join [STRING1] [STRING2]",
-        "pm.letterof": "letter [LETTER] of [STRING]",
-        "pm.length": "length of [STRING]",
-        "pm.contains": "[STRING1] contains [STRING2] ?",
-        "pm.extract": "extract characters from [NUM1] to [NUM2] of [STRING]",
-        "text.c1": "units",
-        "text.c2": "tens",
-        "text.c3": "hundreds",
-        "text.c4": "thousands",
-        "text.c5": "tens of thousands",
-        "text.c6": "hundreds of thousands",
-        "text.c7": "millions",
-        "text.c8": "tens of millions",
-        "text.c9": "hundreds of millions",
-        "text.c10": "billions",
-        "text.c11": "tens of billions",
-        "text.c12": "hundreds of billions",
-        "text.d1": "tenths",
-        "text.d2": "hundredths",
-        "text.d3": "thousandths",
-        "text.d4": "ten thousandths",
-        "text.d5": "hundred thousandths",
-        "text.d6": "millionths",
-        "text.a0": "the unit",
-        "text.a1": "tenth",
-        "text.a2": "hundredth",
-        "text.a3": "thousandth",
-        "text.a4": "ten thousandth",
-        "text.a5": "hundred thousandth",
-        "text.a6": "millionth",
-        "text.sqrt": "√",
-        "text.cos": "cos",
-        "text.sin": "sin",
-        "text.tan": "tan",
-        "text.acos": "arccos",
-        "text.asin": "arcsin",
-        "text.atan": "arctan",
-        "text.pow10": "10 ^",
-        "text.pgcd": "GCD",
-        "text.ppcm": "LCM",
-        "text.reste": "remainder",
-        "text.quotient": "quotient",
-        "text.vad": "Approximate value by defect of",
-        "text.vae": "Approximate value by excess of",
-        "text.arrondi": "Round",
-        "text.multiple": "multiple",
-        "text.diviseur": "divider"
-      },
-      "de": {
-        "pm.title": "Mathe",
-        "pm.add": "[NUM1] + [NUM2]",
-        "pm.substract": "[NUM1] - [NUM2]",
-        "pm.multiply": "[NUM1] x [NUM2]",
-        "pm.divide": "[NUM1] / [NUM2]",
-        "pm.pow": "[NUM1] ^ [NUM2]",
-        "pm.mathop": "[OPERATOR] von [NUM1]",
-        "pm.mathopdiv": "[OPERATOR] der Division von [NUM1] durch [NUM2]",
-        "pm.mathop2": "[OPERATOR] von [NUM1] und [NUM2]",
-        "pm.multiple": "[NUM1] ist ein [choix1] von [NUM2]",
-        "pm.arrondis": "[TYPE] von [NUM1] auf [CHIFFRE]",
-        "pm.pentiere": "[choix1] Ziffer von [NUM1]",
-        "pm.pdecimale": "[choix1] Ziffer von [NUM1]",
-        "pm.sommechiffres": "Quersumme von [NUM1]",
-        "pm.pi": "π",
-        "pm.oppose": "- [NUM1]",
-        "pm.inverse": "1 / [NUM1]",
-        "pm.pourcent": "[NUM1] %",
-        "pm.random": "Zufallszahl von [NUM1] bis [NUM2]",
-        "pm.gt": "[NUM1] < [NUM2]",
-        "pm.gte": "[NUM1] ≤ [NUM2]",
-        "pm.equals": "[NUM1] = [NUM2]",
-        "pm.lt": "[NUM1] > [NUM2]",
-        "pm.lte": "[NUM1] ≥ [NUM2]",
-        "pm.min": "Minimum von [NUM1] und [NUM2]",
-        "pm.max": "Maximum von [NUM1] und [NUM2]",
-        "pm.and": "[OPERAND1] und [OPERAND2]",
-        "pm.or": "[OPERAND1] oder [OPERAND2]",
-        "pm.not": "nicht [OPERAND1]",
-        "pm.join": "verbinde [STRING1] und [STRING2]",
-        "pm.letterof": "Zeichen [LETTER] von [STRING]",
-        "pm.length": "Länge von [STRING]",
-        "pm.contains": "[STRING1] enthält [STRING2] ?",
-        "pm.extract": "Zeichen [NUM1] bis [NUM2] aus [STRING]",
-        "text.c1": "Einer",
-        "text.c2": "Zehner",
-        "text.c3": "Hunderter",
-        "text.c4": "Tausender",
-        "text.c5": "Zehntausender",
-        "text.c6": "Hunderttausender",
-        "text.c7": "Millionen",
-        "text.c8": "Zehnmillionen",
-        "text.c9": "Hundertmillionen",
-        "text.c10": "Milliarden",
-        "text.c11": "Zehnmilliarden",
-        "text.c12": "Hundertmilliarden",
-        "text.d1": "Zehntel",
-        "text.d2": "Hundertstel",
-        "text.d3": "Tausendstel",
-        "text.d4": "Zehntausendstel",
-        "text.d5": "Hunderttausendstel",
-        "text.d6": "Millionstel",
-        "text.a0": "die Einerstelle",
-        "text.a1": "die Zehntelstelle",
-        "text.a2": "die Hundertstelstelle",
-        "text.a3": "die Tausendstelstelle",
-        "text.a4": "die Zehntausendstelstelle",
-        "text.a5": "die Hunderttausendstelstelle",
-        "text.a6": "die Millionstelstelle",
-        "text.sqrt": "√",
-        "text.cos": "cos",
-        "text.sin": "sin",
-        "text.tan": "tan",
-        "text.acos": "arccos",
-        "text.asin": "arcsin",
-        "text.atan": "arctan",
-        "text.pow10": "10 ^",
-        "text.pgcd": "ggT",
-        "text.ppcm": "kgV",
-        "text.reste": "Rest",
-        "text.quotient": "Quotient",
-        "text.vad": "Abgerundeter Wert von",
-        "text.vae": "Aufgerundeter Wert von",
-        "text.arrondi": "Runde",
-        "text.multiple": "Vielfaches",
-        "text.diviseur": "Teiler"
-      },
-      "fr": {
-        "pm.title": "Maths",
-        "pm.add": "[NUM1] + [NUM2]",
-        "pm.substract": "[NUM1] - [NUM2]",
-        "pm.multiply": "[NUM1] x [NUM2]",
-        "pm.divide": "[NUM1] / [NUM2]",
-        "pm.pow": "[NUM1] ^ [NUM2]",
-        "pm.mathop": "[OPERATOR] de [NUM1]",
-        "pm.mathopdiv": "[OPERATOR] de [NUM1] divisé par [NUM2]",
-        "pm.mathop2": "[OPERATOR] de [NUM1] et [NUM2]",
-        "pm.multiple": "[NUM1] est un [choix1] de [NUM2]",
-        "pm.arrondis": "[TYPE] de [NUM1] [CHIFFRE]",
-        "pm.pentiere": "chiffre des [choix1] de [NUM1]",
-        "pm.pdecimale": "chiffre des [choix1] de [NUM1]",
-        "pm.sommechiffres": "somme des chiffres de [NUM1]",
-        "pm.pi": "π",
-        "pm.oppose": "- [NUM1]",
-        "pm.inverse": "1 / [NUM1]",
-        "pm.pourcent": "[NUM1] %",
-        "pm.random": "nombre aléatoire entre [NUM1] et [NUM2]",
-        "pm.gt": "[NUM1] < [NUM2]",
-        "pm.gte": "[NUM1] ≤ [NUM2]",
-        "pm.equals": "[NUM1] = [NUM2]",
-        "pm.lt": "[NUM1] > [NUM2]",
-        "pm.lte": "[NUM1] ≥ [NUM2]",
-        "pm.min": "minimum de [NUM1] et [NUM2]",
-        "pm.max": "maximum de [NUM1] et [NUM2]",
-        "pm.and": "[OPERAND1] et [OPERAND2]",
-        "pm.or": "[OPERAND1] ou [OPERAND2]",
-        "pm.not": "non [OPERAND1]",
-        "pm.join": "regrouper [STRING1] et [STRING2]",
-        "pm.letterof": "lettre [LETTER] de [STRING]",
-        "pm.length": "longueur de [STRING]",
-        "pm.contains": "[STRING1] contient [STRING2] ?",
-        "pm.extract": "extraire caractères [NUM1] à [NUM2] de [STRING]",
-        "text.c1": "unités",
-        "text.c2": "dizaines",
-        "text.c3": "centaines",
-        "text.c4": "unités de mille",
-        "text.c5": "dizaines de mille",
-        "text.c6": "centaines de mille",
-        "text.c7": "unités de millions",
-        "text.c8": "dizaines de millions",
-        "text.c9": "centaines de millions",
-        "text.c10": "unités de milliards",
-        "text.c11": "dizaines de milliards",
-        "text.c12": "centaines de milliards",
-        "text.d1": "dixièmes",
-        "text.d2": "centièmes",
-        "text.d3": "millièmes",
-        "text.d4": "dix-millièmes",
-        "text.d5": "cent-millièmes",
-        "text.d6": "millionièmes",
-        "text.a0": "à l'unité",
-        "text.a1": "au dixième",
-        "text.a2": "au centième",
-        "text.a3": "au millième",
-        "text.a4": "au dix-millième",
-        "text.a5": "au cent-millième",
-        "text.a6": "au millionième",
-        "text.sqrt": "√",
-        "text.cos": "cos",
-        "text.sin": "sin",
-        "text.tan": "tan",
-        "text.acos": "arccos",
-        "text.asin": "arcsin",
-        "text.atan": "arctan",
-        "text.pow10": "10 ^",
-        "text.pgcd": "PGCD",
-        "text.ppcm": "PPCM",
-        "text.reste": "reste",
-        "text.quotient": "quotient",
-        "text.vad": "valeur approchée par défaut de",
-        "text.vae": "valeur approchée par excès de",
-        "text.arrondi": "arrondi de",
-        "text.multiple": "multiple",
-        "text.diviseur": "diviseur"
+      return '';
+    }
+  }, {
+    key: "arrondis",
+    value: function arrondis(args) {
+      var type = Cast.toString(args.TYPE).toLowerCase();
+      var n1 = Cast.toNumber(args.NUM1);
+      var c = Cast.toNumber(args.CHIFFRE);
+      var factor = Math.pow(10, c);
+      switch (type) {
+        case 'vad':
+          return Math.floor(n1 * factor) / factor;
+        case 'vae':
+          return Math.ceil(n1 * factor) / factor;
+        case 'arrondi':
+          return Math.round(n1 * factor) / factor;
       }
-    };
-    var formatMessage = function formatMessage(messageData) {
-      return messageData.defaultMessage;
-    };
+      return 0;
+    }
+  }, {
+    key: "chiffre_pentiere",
+    value: function chiffre_pentiere(args) {
+      return Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1))) - Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1) + 1)) * 10;
+    }
+  }, {
+    key: "chiffre_pdecimale",
+    value: function chiffre_pdecimale(args) {
+      return Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1))) - Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1) - 1)) * 10;
+    }
+  }, {
+    key: "multiple",
+    value: function multiple(args) {
+      var type = Cast.toString(args.choix1).toLowerCase();
+      var n1 = Cast.toNumber(args.NUM1);
+      var n2 = Cast.toNumber(args.NUM2);
+      if (Number.isInteger(n1) && Number.isInteger(n2)) {
+        switch (type) {
+          case 'multiple':
+            return n1 % n2 === 0;
+          case 'diviseur':
+            return n2 % n1 === 0;
+        }
+      }
+      return false;
+    }
+  }, {
+    key: "sommechiffres",
+    value: function sommechiffres(args) {
+      var value = Math.abs(Cast.toNumber(args.NUM1));
+      var somme = 0;
+      if (Number.isInteger(value)) {
+        while (value) {
+          somme += value % 10;
+          value = Math.floor(value / 10);
+        }
+        return somme;
+      }
+      return '';
+    }
+  }, {
+    key: "pgcd",
+    value: function pgcd(a, b) {
+      if (b) {
+        return this.pgcd(b, a % b);
+      }
+      return Math.abs(a);
+    }
+  }, {
+    key: "nombre_pi",
+    value: function nombre_pi() {
+      return Math.PI;
+    }
+  }, {
+    key: "join",
+    value: function join(args) {
+      return Cast.toString(args.STRING1) + Cast.toString(args.STRING2);
+    }
+  }, {
+    key: "letterOf",
+    value: function letterOf(args) {
+      var index = Cast.toNumber(args.LETTER) - 1;
+      var str = Cast.toString(args.STRING);
+      if (index < 0 || index >= str.length) {
+        return '';
+      }
+      return str.charAt(index);
+    }
+  }, {
+    key: "length",
+    value: function length(args) {
+      return Cast.toString(args.STRING).length;
+    }
+  }, {
+    key: "contains",
+    value: function contains(args) {
+      var format = function format(string) {
+        return Cast.toString(string).toLowerCase();
+      };
+      return format(args.STRING1).includes(format(args.STRING2));
+    }
+  }, {
+    key: "reverseString",
+    value: function reverseString(str) {
+      if (str === '') return '';
+      return this.reverseString(str.substr(1)) + str.charAt(0);
+    }
+  }, {
+    key: "extract",
+    value: function extract(args) {
+      var from = Cast.toNumber(args.NUM1) - 1;
+      var to = Cast.toNumber(args.NUM2) - from;
+      var str = Cast.toString(args.STRING);
+      if (to < 0) {
+        var rts = this.reverseString(str);
+        return rts.substr(rts.length - from - 1, 2 - to);
+      }
+      return str.substr(from, to);
+    }
+  }]);
+}(); // Generated ES Module export
+var blockClass = Scratch3PMBlocks;
+blockClass = Scratch3PMBlocks;
 
-    // This is a simplified setup that works with this older extension style
-    var setupTranslations = function setupTranslations() {
-      try {
-        var localeSetup = formatMessage.setup();
-        if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
-          Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
-        }
-      } catch (e) {
-        // Fails silently, which is fine.
-      }
-    };
-    var Scratch3PMBlocks = /*#__PURE__*/function () {
-      function Scratch3PMBlocks(runtime) {
-        _classCallCheck(this, Scratch3PMBlocks);
-        this.runtime = runtime;
-        if (runtime.formatMessage) {
-          formatMessage = runtime.formatMessage;
-        }
-      }
-      return _createClass(Scratch3PMBlocks, [{
-        key: "getInfo",
-        value: function getInfo() {
-          setupTranslations();
-          return {
-            id: 'planetemaths',
-            name: formatMessage({
-              id: 'pm.title',
-              default: 'Maths'
-            }),
-            color1: '#4879b7',
-            color2: '#000000',
-            blocks: [{
-              opcode: 'add',
-              text: formatMessage({
-                id: 'pm.add',
-                default: '[NUM1] + [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'substract',
-              text: formatMessage({
-                id: 'pm.substract',
-                default: '[NUM1] - [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'multiply',
-              text: formatMessage({
-                id: 'pm.multiply',
-                default: '[NUM1] x [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'divide',
-              text: formatMessage({
-                id: 'pm.divide',
-                default: '[NUM1] / [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, '---', {
-              opcode: 'pow',
-              text: formatMessage({
-                id: 'pm.pow',
-                default: '[NUM1] ^ [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, '---', {
-              opcode: 'mathop',
-              text: formatMessage({
-                id: 'pm.mathop',
-                default: '[OPERATOR] of [NUM1]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                OPERATOR: {
-                  type: ArgumentType.STRING,
-                  menu: 'LIST_MATHOP',
-                  defaultValue: 'sqrt'
-                }
-              }
-            }, '---', {
-              opcode: 'mathopdiv',
-              text: formatMessage({
-                id: 'pm.mathopdiv',
-                default: '[OPERATOR] of [NUM1] divided by [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                OPERATOR: {
-                  type: ArgumentType.STRING,
-                  menu: 'LIST_MATHOPDIV',
-                  defaultValue: 'reste'
-                }
-              }
-            }, {
-              opcode: 'mathop2',
-              text: formatMessage({
-                id: 'pm.mathop2',
-                default: '[OPERATOR] of [NUM1] and [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                OPERATOR: {
-                  type: ArgumentType.STRING,
-                  menu: 'LIST_MATHOP2',
-                  defaultValue: 'pgcd'
-                }
-              }
-            }, {
-              opcode: 'multiple',
-              text: formatMessage({
-                id: 'pm.multiple',
-                default: '[NUM1] is a [choix1] of [NUM2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                choix1: {
-                  type: ArgumentType.STRING,
-                  menu: 'MULTIPLE_DIVISEUR',
-                  defaultValue: 'multiple'
-                }
-              }
-            }, '---', {
-              opcode: 'arrondis',
-              text: formatMessage({
-                id: 'pm.arrondis',
-                default: '[TYPE] [NUM1] to [CHIFFRE]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                TYPE: {
-                  type: ArgumentType.STRING,
-                  menu: 'ARRONDIS',
-                  defaultValue: 'arrondi'
-                },
-                CHIFFRE: {
-                  type: ArgumentType.STRING,
-                  menu: 'CHIFFRE_ARRONDIS',
-                  defaultValue: '0'
-                }
-              }
-            }, '---', {
-              opcode: 'chiffre_pentiere',
-              text: formatMessage({
-                id: 'pm.pentiere',
-                default: '[choix1] digit of [NUM1]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                choix1: {
-                  type: ArgumentType.STRING,
-                  menu: 'PARTIE_ENTIERE',
-                  defaultValue: '0'
-                }
-              }
-            }, {
-              opcode: 'chiffre_pdecimale',
-              text: formatMessage({
-                id: 'pm.pdecimale',
-                default: '[choix1] digit of [NUM1]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                choix1: {
-                  type: ArgumentType.STRING,
-                  menu: 'PARTIE_DECIMALE',
-                  defaultValue: '1'
-                }
-              }
-            }, {
-              opcode: 'sommechiffres',
-              text: formatMessage({
-                id: 'pm.sommechiffres',
-                default: 'sum of digits of [NUM1]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, '---', {
-              opcode: 'nombre_pi',
-              text: formatMessage({
-                id: 'pm.pi',
-                default: 'π'
-              }),
-              blockType: BlockType.REPORTER
-            }, {
-              opcode: 'oppose',
-              text: formatMessage({
-                id: 'pm.oppose',
-                default: '- [NUM1]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'inverse',
-              text: formatMessage({
-                id: 'pm.inverse',
-                default: '1 / [NUM1]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'pourcent',
-              text: formatMessage({
-                id: 'pm.pourcent',
-                default: '[NUM1] %'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, '---', {
-              opcode: 'random',
-              text: formatMessage({
-                id: 'pm.random',
-                default: 'pick random [NUM1] to [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '1'
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '10'
-                }
-              }
-            }, '---', {
-              opcode: 'gt',
-              text: formatMessage({
-                id: 'pm.gt',
-                default: '[NUM1] < [NUM2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '50'
-                }
-              }
-            }, {
-              opcode: 'gte',
-              text: formatMessage({
-                id: 'pm.gte',
-                default: '[NUM1] ≤ [NUM2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '50'
-                }
-              }
-            }, {
-              opcode: 'equals',
-              text: formatMessage({
-                id: 'pm.equals',
-                default: '[NUM1] = [NUM2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '50'
-                }
-              }
-            }, {
-              opcode: 'lt',
-              text: formatMessage({
-                id: 'pm.lt',
-                default: '[NUM1] > [NUM2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '50'
-                }
-              }
-            }, {
-              opcode: 'lte',
-              text: formatMessage({
-                id: 'pm.lte',
-                default: '[NUM1] ≥ [NUM2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '50'
-                }
-              }
-            }, {
-              opcode: 'min',
-              text: formatMessage({
-                id: 'pm.min',
-                default: 'minimum of [NUM1] and [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'max',
-              text: formatMessage({
-                id: 'pm.max',
-                default: 'maximum of [NUM1] and [NUM2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: ' '
-                }
-              }
-            }, '---', {
-              opcode: 'and',
-              text: formatMessage({
-                id: 'pm.and',
-                default: '[OPERAND1] and [OPERAND2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                OPERAND1: {
-                  type: ArgumentType.BOOLEAN,
-                  defaultValue: ' '
-                },
-                OPERAND2: {
-                  type: ArgumentType.BOOLEAN,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'or',
-              text: formatMessage({
-                id: 'pm.or',
-                default: '[OPERAND1] or [OPERAND2]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                OPERAND1: {
-                  type: ArgumentType.BOOLEAN,
-                  defaultValue: ' '
-                },
-                OPERAND2: {
-                  type: ArgumentType.BOOLEAN,
-                  defaultValue: ' '
-                }
-              }
-            }, {
-              opcode: 'not',
-              text: formatMessage({
-                id: 'pm.not',
-                default: 'not [OPERAND1]'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                OPERAND1: {
-                  type: ArgumentType.BOOLEAN,
-                  defaultValue: ' '
-                }
-              }
-            }, '---', {
-              opcode: 'join',
-              text: formatMessage({
-                id: 'pm.join',
-                default: 'join [STRING1] [STRING2]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                STRING1: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 'Planète '
-                },
-                STRING2: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 'Maths'
-                }
-              }
-            }, {
-              opcode: 'letterOf',
-              text: formatMessage({
-                id: 'pm.letterof',
-                default: 'letter [LETTER] of [STRING]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                STRING: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 'Maths'
-                },
-                LETTER: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '1'
-                }
-              }
-            }, {
-              opcode: 'length',
-              text: formatMessage({
-                id: 'pm.length',
-                default: 'length of [STRING]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                STRING: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 'Maths'
-                }
-              }
-            }, {
-              opcode: 'contains',
-              text: formatMessage({
-                id: 'pm.contains',
-                default: '[STRING1] contains [STRING2] ?'
-              }),
-              blockType: BlockType.BOOLEAN,
-              arguments: {
-                STRING1: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 'Maths'
-                },
-                STRING2: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 's'
-                }
-              }
-            }, {
-              opcode: 'extract',
-              text: formatMessage({
-                id: 'pm.extract',
-                default: 'extract characters from [NUM1] to [NUM2] of [STRING]'
-              }),
-              blockType: BlockType.REPORTER,
-              arguments: {
-                STRING: {
-                  type: ArgumentType.STRING,
-                  defaultValue: 'Planète Maths'
-                },
-                NUM1: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '1'
-                },
-                NUM2: {
-                  type: ArgumentType.NUMBER,
-                  defaultValue: '7'
-                }
-              }
-            }],
-            menus: {
-              PARTIE_ENTIERE: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.c1',
-                    default: 'units'
-                  }),
-                  value: '0'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c2',
-                    default: 'tens'
-                  }),
-                  value: '1'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c3',
-                    default: 'hundreds'
-                  }),
-                  value: '2'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c4',
-                    default: 'thousands'
-                  }),
-                  value: '3'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c5',
-                    default: 'tens of thousands'
-                  }),
-                  value: '4'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c6',
-                    default: 'hundreds of thousands'
-                  }),
-                  value: '5'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c7',
-                    default: 'millions'
-                  }),
-                  value: '6'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c8',
-                    default: 'tens of millions'
-                  }),
-                  value: '7'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c9',
-                    default: 'hundreds of millions'
-                  }),
-                  value: '8'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c10',
-                    default: 'billions'
-                  }),
-                  value: '9'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c11',
-                    default: 'tens of billions'
-                  }),
-                  value: '10'
-                }, {
-                  text: formatMessage({
-                    id: 'text.c12',
-                    default: 'hundreds of billions'
-                  }),
-                  value: '11'
-                }]
-              },
-              PARTIE_DECIMALE: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.d1',
-                    default: 'tenths'
-                  }),
-                  value: '1'
-                }, {
-                  text: formatMessage({
-                    id: 'text.d2',
-                    default: 'hundredths'
-                  }),
-                  value: '2'
-                }, {
-                  text: formatMessage({
-                    id: 'text.d3',
-                    default: 'thousandths'
-                  }),
-                  value: '3'
-                }, {
-                  text: formatMessage({
-                    id: 'text.d4',
-                    default: 'ten thousandths'
-                  }),
-                  value: '4'
-                }, {
-                  text: formatMessage({
-                    id: 'text.d5',
-                    default: 'hundred thousandths'
-                  }),
-                  value: '5'
-                }, {
-                  text: formatMessage({
-                    id: 'text.d6',
-                    default: 'millionths'
-                  }),
-                  value: '6'
-                }]
-              },
-              CHIFFRE_ARRONDIS: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.a0',
-                    default: 'the unit'
-                  }),
-                  value: '0'
-                }, {
-                  text: formatMessage({
-                    id: 'text.a1',
-                    default: 'tenth'
-                  }),
-                  value: '1'
-                }, {
-                  text: formatMessage({
-                    id: 'text.a2',
-                    default: 'hundredth'
-                  }),
-                  value: '2'
-                }, {
-                  text: formatMessage({
-                    id: 'text.a3',
-                    default: 'thousandth'
-                  }),
-                  value: '3'
-                }, {
-                  text: formatMessage({
-                    id: 'text.a4',
-                    default: 'ten thousandth'
-                  }),
-                  value: '4'
-                }, {
-                  text: formatMessage({
-                    id: 'text.a5',
-                    default: 'hundred thousandth'
-                  }),
-                  value: '5'
-                }, {
-                  text: formatMessage({
-                    id: 'text.a6',
-                    default: 'millionth'
-                  }),
-                  value: '6'
-                }]
-              },
-              LIST_MATHOP: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.sqrt',
-                    default: '√'
-                  }),
-                  value: 'sqrt'
-                }, {
-                  text: formatMessage({
-                    id: 'text.cos',
-                    default: 'cos'
-                  }),
-                  value: 'cos'
-                }, {
-                  text: formatMessage({
-                    id: 'text.sin',
-                    default: 'sin'
-                  }),
-                  value: 'sin'
-                }, {
-                  text: formatMessage({
-                    id: 'text.tan',
-                    default: 'tan'
-                  }),
-                  value: 'tan'
-                }, {
-                  text: formatMessage({
-                    id: 'text.acos',
-                    default: 'arccos'
-                  }),
-                  value: 'acos'
-                }, {
-                  text: formatMessage({
-                    id: 'text.asin',
-                    default: 'arcsin'
-                  }),
-                  value: 'asin'
-                }, {
-                  text: formatMessage({
-                    id: 'text.atan',
-                    default: 'arctan'
-                  }),
-                  value: 'atan'
-                }, {
-                  text: formatMessage({
-                    id: 'text.pow10',
-                    default: '10 ^'
-                  }),
-                  value: '10 ^'
-                }]
-              },
-              LIST_MATHOP2: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.pgcd',
-                    default: 'GCD'
-                  }),
-                  value: 'pgcd'
-                }, {
-                  text: formatMessage({
-                    id: 'text.ppcm',
-                    default: 'LCM'
-                  }),
-                  value: 'ppcm'
-                }]
-              },
-              LIST_MATHOPDIV: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.reste',
-                    default: 'remainder'
-                  }),
-                  value: 'reste'
-                }, {
-                  text: formatMessage({
-                    id: 'text.quotient',
-                    default: 'quotient'
-                  }),
-                  value: 'quotient'
-                }]
-              },
-              ARRONDIS: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.vad',
-                    default: 'Approximate value by defect of'
-                  }),
-                  value: 'vad'
-                }, {
-                  text: formatMessage({
-                    id: 'text.vae',
-                    default: 'Approximate value by excess of'
-                  }),
-                  value: 'vae'
-                }, {
-                  text: formatMessage({
-                    id: 'text.arrondi',
-                    default: 'Round'
-                  }),
-                  value: 'arrondi'
-                }]
-              },
-              MULTIPLE_DIVISEUR: {
-                items: [{
-                  text: formatMessage({
-                    id: 'text.multiple',
-                    default: 'multiple'
-                  }),
-                  value: 'multiple'
-                }, {
-                  text: formatMessage({
-                    id: 'text.diviseur',
-                    default: 'divider'
-                  }),
-                  value: 'diviseur'
-                }]
-              }
-            }
-          };
-        }
-      }, {
-        key: "add",
-        value: function add(args) {
-          return Cast.toNumber(args.NUM1) + Cast.toNumber(args.NUM2);
-        }
-      }, {
-        key: "substract",
-        value: function substract(args) {
-          return Cast.toNumber(args.NUM1) - Cast.toNumber(args.NUM2);
-        }
-      }, {
-        key: "multiply",
-        value: function multiply(args) {
-          return Cast.toNumber(args.NUM1) * Cast.toNumber(args.NUM2);
-        }
-      }, {
-        key: "divide",
-        value: function divide(args) {
-          return Cast.toNumber(args.NUM1) / Cast.toNumber(args.NUM2);
-        }
-      }, {
-        key: "pow",
-        value: function pow(args) {
-          return Math.pow(Cast.toNumber(args.NUM1), Cast.toNumber(args.NUM2));
-        }
-      }, {
-        key: "gt",
-        value: function gt(args) {
-          return Cast.compare(args.NUM1, args.NUM2) < 0;
-        }
-      }, {
-        key: "gte",
-        value: function gte(args) {
-          return Cast.compare(args.NUM1, args.NUM2) <= 0;
-        }
-      }, {
-        key: "equals",
-        value: function equals(args) {
-          return Cast.compare(args.NUM1, args.NUM2) === 0;
-        }
-      }, {
-        key: "lt",
-        value: function lt(args) {
-          return Cast.compare(args.NUM1, args.NUM2) > 0;
-        }
-      }, {
-        key: "lte",
-        value: function lte(args) {
-          return Cast.compare(args.NUM1, args.NUM2) >= 0;
-        }
-      }, {
-        key: "min",
-        value: function min(args) {
-          return Math.min(Cast.toNumber(args.NUM1), Cast.toNumber(args.NUM2));
-        }
-      }, {
-        key: "max",
-        value: function max(args) {
-          return Math.max(Cast.toNumber(args.NUM1), Cast.toNumber(args.NUM2));
-        }
-      }, {
-        key: "oppose",
-        value: function oppose(args) {
-          return -1 * Cast.toNumber(args.NUM1);
-        }
-      }, {
-        key: "inverse",
-        value: function inverse(args) {
-          return 1 / Cast.toNumber(args.NUM1);
-        }
-      }, {
-        key: "random",
-        value: function random(args) {
-          var nFrom = Cast.toNumber(args.NUM1);
-          var nTo = Cast.toNumber(args.NUM2);
-          var low = nFrom <= nTo ? nFrom : nTo;
-          var high = nFrom <= nTo ? nTo : nFrom;
-          if (low === high) return low;
-          if (Cast.isInt(args.NUM1) && Cast.isInt(args.NUM2)) {
-            return low + Math.floor(Math.random() * (high + 1 - low));
-          }
-          return Math.random() * (high - low) + low;
-        }
-      }, {
-        key: "and",
-        value: function and(args) {
-          return Cast.toBoolean(args.OPERAND1) && Cast.toBoolean(args.OPERAND2);
-        }
-      }, {
-        key: "or",
-        value: function or(args) {
-          return Cast.toBoolean(args.OPERAND1) || Cast.toBoolean(args.OPERAND2);
-        }
-      }, {
-        key: "not",
-        value: function not(args) {
-          return !Cast.toBoolean(args.OPERAND1);
-        }
-      }, {
-        key: "pourcent",
-        value: function pourcent(args) {
-          return Cast.toNumber(args.NUM1) / 100;
-        }
-      }, {
-        key: "mathop",
-        value: function mathop(args) {
-          var operator = Cast.toString(args.OPERATOR).toLowerCase();
-          var n = Cast.toNumber(args.NUM1);
-          switch (operator) {
-            case 'sqrt':
-              return Math.sqrt(n);
-            case 'sin':
-              return parseFloat(Math.sin(Math.PI * n / 180).toFixed(10));
-            case 'cos':
-              return parseFloat(Math.cos(Math.PI * n / 180).toFixed(10));
-            case 'tan':
-              return MathUtil.tan(n);
-            case 'asin':
-              return Math.asin(n) * 180 / Math.PI;
-            case 'acos':
-              return Math.acos(n) * 180 / Math.PI;
-            case 'atan':
-              return Math.atan(n) * 180 / Math.PI;
-            case '10 ^':
-              return Math.pow(10, n);
-          }
-          return 0;
-        }
-      }, {
-        key: "mathop2",
-        value: function mathop2(args) {
-          var operator = Cast.toString(args.OPERATOR).toLowerCase();
-          var n1 = Cast.toNumber(args.NUM1);
-          var n2 = Cast.toNumber(args.NUM2);
-          if (Number.isInteger(n1) && Number.isInteger(n2)) {
-            switch (operator) {
-              case 'pgcd':
-                return this.pgcd(n1, n2);
-              case 'ppcm':
-                return n1 * n2 / this.pgcd(n1, n2);
-            }
-          }
-          return '';
-        }
-      }, {
-        key: "mathopdiv",
-        value: function mathopdiv(args) {
-          var operator = Cast.toString(args.OPERATOR).toLowerCase();
-          var n1 = Cast.toNumber(args.NUM1);
-          var n2 = Cast.toNumber(args.NUM2);
-          if (Number.isInteger(n1) && Number.isInteger(n2)) {
-            var result = n1 % n2;
-            switch (operator) {
-              case 'reste':
-                return result;
-              case 'quotient':
-                return (n1 - result) / n2;
-            }
-          }
-          return '';
-        }
-      }, {
-        key: "arrondis",
-        value: function arrondis(args) {
-          var type = Cast.toString(args.TYPE).toLowerCase();
-          var n1 = Cast.toNumber(args.NUM1);
-          var c = Cast.toNumber(args.CHIFFRE);
-          var factor = Math.pow(10, c);
-          switch (type) {
-            case 'vad':
-              return Math.floor(n1 * factor) / factor;
-            case 'vae':
-              return Math.ceil(n1 * factor) / factor;
-            case 'arrondi':
-              return Math.round(n1 * factor) / factor;
-          }
-          return 0;
-        }
-      }, {
-        key: "chiffre_pentiere",
-        value: function chiffre_pentiere(args) {
-          return Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1))) - Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1) + 1)) * 10;
-        }
-      }, {
-        key: "chiffre_pdecimale",
-        value: function chiffre_pdecimale(args) {
-          return Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1))) - Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1) - 1)) * 10;
-        }
-      }, {
-        key: "multiple",
-        value: function multiple(args) {
-          var type = Cast.toString(args.choix1).toLowerCase();
-          var n1 = Cast.toNumber(args.NUM1);
-          var n2 = Cast.toNumber(args.NUM2);
-          if (Number.isInteger(n1) && Number.isInteger(n2)) {
-            switch (type) {
-              case 'multiple':
-                return n1 % n2 === 0;
-              case 'diviseur':
-                return n2 % n1 === 0;
-            }
-          }
-          return false;
-        }
-      }, {
-        key: "sommechiffres",
-        value: function sommechiffres(args) {
-          var value = Math.abs(Cast.toNumber(args.NUM1));
-          var somme = 0;
-          if (Number.isInteger(value)) {
-            while (value) {
-              somme += value % 10;
-              value = Math.floor(value / 10);
-            }
-            return somme;
-          }
-          return '';
-        }
-      }, {
-        key: "pgcd",
-        value: function pgcd(a, b) {
-          if (b) {
-            return this.pgcd(b, a % b);
-          }
-          return Math.abs(a);
-        }
-      }, {
-        key: "nombre_pi",
-        value: function nombre_pi() {
-          return Math.PI;
-        }
-      }, {
-        key: "join",
-        value: function join(args) {
-          return Cast.toString(args.STRING1) + Cast.toString(args.STRING2);
-        }
-      }, {
-        key: "letterOf",
-        value: function letterOf(args) {
-          var index = Cast.toNumber(args.LETTER) - 1;
-          var str = Cast.toString(args.STRING);
-          if (index < 0 || index >= str.length) {
-            return '';
-          }
-          return str.charAt(index);
-        }
-      }, {
-        key: "length",
-        value: function length(args) {
-          return Cast.toString(args.STRING).length;
-        }
-      }, {
-        key: "contains",
-        value: function contains(args) {
-          var format = function format(string) {
-            return Cast.toString(string).toLowerCase();
-          };
-          return format(args.STRING1).includes(format(args.STRING2));
-        }
-      }, {
-        key: "reverseString",
-        value: function reverseString(str) {
-          if (str === '') return '';
-          return this.reverseString(str.substr(1)) + str.charAt(0);
-        }
-      }, {
-        key: "extract",
-        value: function extract(args) {
-          var from = Cast.toNumber(args.NUM1) - 1;
-          var to = Cast.toNumber(args.NUM2) - from;
-          var str = Cast.toString(args.STRING);
-          if (to < 0) {
-            var rts = this.reverseString(str);
-            return rts.substr(rts.length - from - 1, 2 - to);
-          }
-          return str.substr(from, to);
-        }
-      }]);
-    }(); // Extension export for bundling
-    var ExtensionClass = Scratch3PMBlocks;
-    module.exports = ExtensionClass;
-    exports.blockClass = ExtensionClass;
-  })(_planetemaths, _planetemaths.exports);
-  return _planetemaths.exports;
-}
-
-require_planetemaths();
-
-export { entry };
+export { blockClass, entry };
