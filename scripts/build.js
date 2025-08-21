@@ -1,10 +1,6 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
-/**
- * Build a module from the code using a local Scratch
- */
-const projectJson = require('../package.json');
 const path = require('path');
 const fs = require('fs-extra');
 const commandLineArgs = require('command-line-args');
@@ -19,203 +15,144 @@ const multi = require('@rollup/plugin-multi-entry');
 const json = require('@rollup/plugin-json');
 
 const optionDefinitions = [
-    {
-        name: 'version',
-        alias: 'V',
-        type: Boolean
-    },
-    {
-        name: 'module',
-        type: String
-    },
-    {
-        name: 'url',
-        type: String
-    },
-    {
-        name: 'block',
-        type: String,
-        defaultValue: path.resolve(process.cwd(), './src/vm/extensions/block')
-    },
-    {
-        name: 'entry',
-        type: String,
-        defaultValue: path.resolve(process.cwd(), './src/gui/lib/libraries/extensions/entry')
-    },
-    {
-        name: 'vm',
-        type:String
-    },
-    {
-        name: 'gui',
-        type:String,
-        defaultValue: path.resolve(process.cwd(), '../scratch-gui')
-    },
-    {
-        name: 'output',
-        type:String,
-        defaultValue: path.resolve(process.cwd(), './dist')
-    },
-    {
-        name: 'moduleDirectories',
-        type:String,
-        multiple: true,
-        defaultValue: []
-    },
-    {
-        name: 'debug',
-        type:Boolean
-    }
+    { name: 'module', type: String },
+    { name: 'url', type: String },
+    { name: 'block', type: String },
+    { name: 'entry', type: String },
+    { name: 'vm', type: String },
+    { name: 'gui', type: String, defaultValue: path.resolve(process.cwd(), '../scratch-gui') },
+    { name: 'output', type: String, defaultValue: path.resolve(process.cwd(), './dist') },
+    { name: 'moduleDirectories', type: String, multiple: true, defaultValue: [] }
 ];
 
-// Read options
 const options = commandLineArgs(optionDefinitions);
-if (options['version']) {
-    process.stdout.write(`v${projectJson.version}\n`);
-    process.exit(0);
-}
+
 if (!options['module']) {
-    throw('set --module <module name>');
-}
-const moduleName = options['module'];
-const extSrcDir = path.resolve(process.cwd(), options['block']);
-const entrySrcDir = path.resolve(process.cwd(), options['entry']);
-const GuiRoot = path.resolve(process.cwd(), options['gui']);
-console.log(`gui = ${GuiRoot}`);
-const VmRoot = options['vm'] ?
-    path.resolve(process.cwd(), options['vm']):
-    path.resolve(GuiRoot, './node_modules/scratch-vm');
-console.log(`vm = ${VmRoot}`);
-const outputDir = path.resolve(process.cwd(), options['output']);
-console.log(`output = ${outputDir}`);
-fs.ensureDirSync(outputDir);
-
-const blockWorkingDir = path.resolve(VmRoot, `src/extensions/_${moduleName}`);
-const blockFile = path.resolve(blockWorkingDir, 'index.js');
-
-const entryWorkingDir = path.resolve(GuiRoot, `src/lib/libraries/extensions/_${moduleName}`);
-const entryFile = path.resolve(entryWorkingDir, 'index.jsx');
-
-const moduleFile = path.resolve(outputDir, `${moduleName}.mjs`);
-
-const rollupOptions = {
-    inputOptions: {
-        input: [entryFile, blockFile],
-        plugins: [
-            multi(),
-            json(),
-            importImage(),
-            commonjs(),
-            nodeGlobals(),
-            nodePolifills(),
-            nodeResolve({
-                browser: true,
-                preferBuiltins: true,
-                moduleDirectories: [
-                    ...options['moduleDirectories'],
-                    path.resolve(process.cwd(), './node_modules'),
-                    path.resolve(__dirname, '../node_modules'),
-                    'node_modules'
-                ]
-            }),
-            babel({
-                babelrc: false,
-                presets: [
-                    ['@babel/preset-env',
-                        {
-                            "modules": false,
-                            targets: {
-                                browsers: [
-                                    'last 3 versions',
-                                    'Safari >= 8',
-                                    'iOS >= 8']
-                            }
-                        }
-                    ],
-                    '@babel/preset-react'
-                ],
-                babelHelpers: 'runtime',
-                plugins: [
-                    '@babel/plugin-transform-react-jsx',
-                    ["@babel/plugin-transform-runtime",
-                        { "regenerator": true }]
-                ]
-            }),
-        ]
-    },
-    outputOptions: {
-        file: moduleFile,
-        format: 'es',
-    }
+    console.error('ERROR: --module is required');
+    process.exit(1);
 }
 
 async function build() {
-    // Copy module sources
+    const moduleName = options['module'];
+    const GuiRoot = path.resolve(process.cwd(), options['gui']);
+    const VmRoot = options['vm'] ? path.resolve(process.cwd(), options['vm']) : path.resolve(GuiRoot, './node_modules/scratch-vm');
+    const outputDir = path.resolve(process.cwd(), options['output']);
+    const extSrcDir = path.resolve(process.cwd(), options['block']);
+    const entrySrcDir = path.resolve(process.cwd(), options['entry']);
+
+    fs.ensureDirSync(outputDir);
+
+    const blockWorkingDir = path.resolve(VmRoot, `src/extensions/_${moduleName}`);
+    const entryWorkingDir = path.resolve(GuiRoot, `src/lib/libraries/extensions/_${moduleName}`);
+    const blockFile = path.resolve(blockWorkingDir, 'index.js');
+    const entryFile = path.resolve(entryWorkingDir, 'index.jsx');
+    const blockFileESM = path.resolve(blockWorkingDir, 'index.mjs'); // Use .mjs extension
+    const moduleFile = path.resolve(outputDir, `${moduleName}.mjs`);
+
+    console.log('Copying files...');
     fs.copySync(extSrcDir, blockWorkingDir, { dereference: true });
     fs.copySync(entrySrcDir, entryWorkingDir);
-    console.log('\ncopy source to working dir');
-    console.log(blockWorkingDir);
-    console.log(entryWorkingDir);
 
-    const blockFile = path.resolve(blockWorkingDir, './index.js');
-    console.log(`Block: file = ${blockFile}`);
+    console.log('Converting to pure ES modules...');
     let blockCode = fs.readFileSync(blockFile, 'utf-8');
-    
-    // --- Step 1: Handle translations.json BEFORE other transformations ---
+    let entryCode = fs.readFileSync(entryFile, 'utf-8');
+
+    // Handle translations
     const translationsFile = path.resolve(blockWorkingDir, './translations.json');
     if (fs.existsSync(translationsFile)) {
         const translationsContent = fs.readFileSync(translationsFile, 'utf-8');
         const translationsCode = `const translations = ${translationsContent};`;
-        // Find and replace the specific require statement for translations.json
-        blockCode = blockCode.replace(
-            /const\s+translations\s*=\s*require\(['"]\.\/translations\.json['"]\);?/,
-            translationsCode
-        );
+        blockCode = blockCode.replace(/const\s+translations\s*=\s*require\(['"]\.\/translations\.json['"]\);?/, translationsCode);
     }
 
-    // --- Step 2: Use the ORIGINAL script's logic for exports ---
-    // This is the key line from the original script. It prepares the file for the commonjs plugin.
-    blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*([^;]+);/gm, 'exports.blockClass = $1;');
-    
-    fs.writeFileSync(blockFile, blockCode);
-
-    // --- The rest of the script remains the same ---
-
-    // Replace URL in entry and block code.
+    // Replace URL if provided
     if (options['url']) {
         const url = options['url'];
-        // Replace URL in entry
-        const entryFile = path.resolve(entryWorkingDir, './index.jsx');
-        console.log(`Entry: file = ${entryFile}`);
-        let entryCode = fs.readFileSync(entryFile, 'utf-8');
         entryCode = entryCode.replace(/extensionURL:\s*[^,]+,/gm, `extensionURL: '${url}',`);
-        fs.writeFileSync(entryFile, entryCode);
-        console.log(`Entry: extensionURL = ${url}`);
-
-        // Replace URL in block
-        blockCode = fs.readFileSync(blockFile, 'utf-8'); // Re-read the file after previous changes
         blockCode = blockCode.replace(/let\s+extensionURL\s+=\s+[^;]+;/gm, `let extensionURL = '${url}';`);
-        fs.writeFileSync(blockFile, blockCode);
-        console.log(`Block: extensionURL = ${url}`);
     }
 
-    // Build module.
-    console.log('\nstart to build module ...');
-    process.chdir(path.resolve(__dirname, '../'));
-    const bundle = await rollup.rollup(rollupOptions.inputOptions);
-    
-    // write the bundle to disk
-    await bundle.write(rollupOptions.outputOptions);
-    console.log(`\n✅ Success to build module: ${moduleFile}`);
+    // Find the exported class
+    const exportMatch = blockCode.match(/^\s*module\.exports\s*=\s*([^;]+);?\s*$/m);
+    if (!exportMatch) {
+        throw new Error('Could not find module.exports in block file');
+    }
+    const exportedClass = exportMatch[1];
 
-    // Clean up
+    // COMPLETELY rewrite the block file as pure ES module
+    // Remove all CommonJS patterns and create clean ES module
+    blockCode = blockCode.replace(/^\s*module\.exports\s*=\s*[^;]+;?\s*$/gm, '');
+    blockCode = blockCode.replace(/^\s*exports\.[^=]+=\s*[^;]+;?\s*$/gm, '');
+    
+    // Add the exact export pattern you want
+    blockCode += `\n// Generated ES Module export\nvar blockClass = ${exportedClass};\nblockClass = ${exportedClass};\nexport { blockClass };\n`;
+
+    // Write as .mjs file to force ES module treatment
+    fs.writeFileSync(blockFileESM, blockCode);
+    fs.writeFileSync(entryFile, entryCode);
+
+    console.log('Building with rollup...');
+    const rollupOptions = {
+        inputOptions: {
+            input: [entryFile, blockFileESM], // Use the .mjs file
+            plugins: [
+                multi(),
+                json(),
+                importImage(),
+                // Add CommonJS plugin back but exclude our .mjs block file
+                commonjs({
+                    transformMixedEsModules: true,
+                    exclude: [blockFileESM] // Exclude our converted .mjs file
+                }),
+                nodeGlobals(),
+                nodePolifills(),
+                nodeResolve({
+                    browser: true,
+                    preferBuiltins: false,
+                    modulePaths: [
+                        path.resolve(process.cwd(), './node_modules'),
+                        path.resolve(__dirname, '../node_modules')
+                    ]
+                }),
+                babel({
+                    babelrc: false,
+                    presets: [
+                        ['@babel/preset-env', {
+                            "modules": false,
+                            targets: { browsers: ['last 3 versions', 'Safari >= 8', 'iOS >= 8'] }
+                        }],
+                        '@babel/preset-react'
+                    ],
+                    babelHelpers: 'runtime',
+                    plugins: [
+                        '@babel/plugin-transform-react-jsx',
+                        ["@babel/plugin-transform-runtime", { "regenerator": true }]
+                    ]
+                })
+            ]
+        },
+        outputOptions: {
+            file: moduleFile,
+            format: 'es'
+        }
+    };
+
+    try {
+        process.chdir(path.resolve(__dirname, '../'));
+        const bundle = await rollup.rollup(rollupOptions.inputOptions);
+        await bundle.write(rollupOptions.outputOptions);
+        console.log(`Built: ${moduleFile}`);
+    } catch (error) {
+        console.error('Build failed:', error);
+        throw error;
+    }
+
+    console.log('Cleaning up...');
     fs.removeSync(blockWorkingDir);
     fs.removeSync(entryWorkingDir);
-    console.log('\nworking dir removed');
 }
 
-try {
-    build();
-} catch (err) {
-    console.error(err)
-}
+build().catch(err => {
+    console.error('BUILD FAILED:', err);
+    process.exit(1);
+});

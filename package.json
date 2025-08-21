@@ -55,7 +55,25 @@
   },
   "homepage": "https://github.com/CrispStrobe/scratch-lego-bluetooth-extensions",
   "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/plugin-transform-react-jsx": "^7.27.1",
+    "@babel/plugin-transform-runtime": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/runtime": "^7.28.3",
     "fs-extra": "^11.2.0",
     "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-image": "^3.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-multi-entry": "^6.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "command-line-args": "^6.0.1",
+    "rollup": "^4.47.1",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-polyfill-node": "^0.13.0"
   }
 }
