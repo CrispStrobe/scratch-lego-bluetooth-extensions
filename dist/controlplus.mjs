@@ -7876,38 +7876,6 @@ var entry = {
   helpLink: 'https://scratch.mit.edu/boost'
 };
 
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
-}
-
-function toPrimitive(t, r) {
-  if ("object" != _typeof$1(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r || "default");
-    if ("object" != _typeof$1(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r ? String : Number)(t);
-}
-
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof$1(i) ? i : i + "";
-}
-
-function _defineProperties(e, r) {
-  for (var t = 0; t < r.length; t++) {
-    var o = r[t];
-    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
-  }
-}
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
-    writable: !1
-  }), e;
-}
-
 function _assertThisInitialized(e) {
   if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   return e;
@@ -7944,7 +7912,39 @@ function _inherits(t, e) {
   }), e && _setPrototypeOf(t, e);
 }
 
-var _controlplus = {};
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof$1(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof$1(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof$1(i) ? i : i + "";
+}
+
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+
+var _controlplus = {exports: {}};
 
 /**
  * Block argument types
@@ -12835,125 +12835,129 @@ function requireHub() {
 
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_controlplus.exports;
 var hasRequired_controlplus;
 function require_controlplus() {
-  if (hasRequired_controlplus) return _controlplus;
+  if (hasRequired_controlplus) return _controlplus.exports;
   hasRequired_controlplus = 1;
-  var BleBaseBlocks = requireBleBaseBlocks();
-  var Hub = requireHub();
+  (function (module, exports) {
+    var BleBaseBlocks = requireBleBaseBlocks();
+    var Hub = requireHub();
 
-  // 1. All translations are defined here in a single object.
-  // The keys (e.g., "controlplus.turnMotor") are unique IDs.
-  var translations = {
-    // English
-    en: {
-      'controlplus.name': 'CONTROL+',
-      'controlplus.turnMotor': 'turn motor [PORT] for [TIME] seconds',
-      'controlplus.isReady': 'hub is ready?',
-      'controlplus.port.A': 'A',
-      'controlplus.port.B': 'B'
-    },
-    // German
-    de: {
-      'controlplus.name': 'CONTROL+',
-      'controlplus.turnMotor': 'drehe Motor [PORT] für [TIME] Sekunden',
-      'controlplus.isReady': 'Hub ist bereit?',
-      'controlplus.port.A': 'A',
-      'controlplus.port.B': 'B'
-    }
-    // Add other languages here...
-  };
-  var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAAD6UlEQVR4Ae2aPWgUURDHZy93XhIjSTaFBILaWFhFK9FCghZaCnbaWFlYWEYEixSCaGlhLYIEEcEyIEIUPxpFIqKghRASosjlEvN5l7tdd3bzlr3lZvdld72Lyf8V997Omzcz77eze8PdI0IDARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAgZ1PwIja4tidp0M1q3KXyB5x9AajdHfB3ByRMZnPFUfHrl+YUfsVATK8ul2Zsm3bVMroHYSGMd9hFIcVxLwEZTPzzANDAzRy4gj17C02Vb03UaI339Yo39VLXeZBWi/P0MbqPB091ElXTvfTQE9H03XPX36m7z9+UZz9pos1hJJ9SR5ncnmlQpPvvtL0TMms2fxU0kVek5MXuo9tJDxe+2W24ppgeLmOAtUrS+51FDxWmP1ZdvWibo6rkPBDsi/J49xwAnGsXvPY8FjMQGfOfedJmecZIiqvWO6Q4XGz6htuL2WeO+l8rK5V3aGyf//BCzXVtL96+Ywr19UL21dGJbmaj+pVrI6O/30QkYFRpjCnCERloNJpaX9yuL/B39sp71FvEDoXunrhdVlfIwNTEm3IwFDdtyXTi9MftqSvlPlbUb3YWSZlXPjdp6sXXqf8ZtX7AFXd5xTNLa37uJT5n5sPMFz3PXzyWmtfj68NaelJSuE6MGmdJtn/1/LAO1Cv7ss6oHAdqB7nsDxrv1nZ8zPQMdhQ96m6KytHYTuS/TR1WthHK64DGdgKdzvPBwCmvKcAmBKgcfP2IzvOhtnXQ+fPHaPOzj1xqpHz6+tVejbxkeYXliP1kkxK71TJVlaxaGUgb5g3zk6TtqwCTuo/uC7LWPwMLM+9Cvrwx7lcgfYNDFMu3+3L0gys2iotlabIsrxfbdLY4rX9g6cSm+BY1L6k/UvGld/YDOSN/il9InaWtmUNL008KpY0NnhtsA4UbdlWlRZ/vxfnt8PEVjMoq5hjMzArRzvVjp+B6plu151UgFUc6rpVfVK/yMCUd8j/W1PVg9slA9sdh8RVZeqtG5dcdshAiZSmHAA1QUlqACiR0ZQDoCYoSQ0AJTKacgDUBCWpAaBERlMOgJqgJDUAlMhoygFQE5SkBoASGU15EKBzBtg5cZlrfhJV015qNavu/W3Q7jiabSQQk8uKdQIAjUkWdPcdbivEWnWBw2h7HG4QgQ+Gx2y85rHisf97IJ8+dw6Vny0UTbN3//FNxfZ1Thy0HeIIE9g8ZD6q5H4G8qlzPn3unEMfdyb9FFWK6JmJMR48oQ8mIAACIAACIAACIAACIAACIAACIAACIAACIAACIAACIAACILBbCPwFpqc7sJw6T5QAAAAASUVORK5CYII=';
-  var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/controlplus.mjs';
+    // 1. All translations are defined here in a single object.
+    // The keys (e.g., "controlplus.turnMotor") are unique IDs.
+    var translations = {
+      // English
+      en: {
+        'controlplus.name': 'CONTROL+',
+        'controlplus.turnMotor': 'turn motor [PORT] for [TIME] seconds',
+        'controlplus.isReady': 'hub is ready?',
+        'controlplus.port.A': 'A',
+        'controlplus.port.B': 'B'
+      },
+      // German
+      de: {
+        'controlplus.name': 'CONTROL+',
+        'controlplus.turnMotor': 'drehe Motor [PORT] für [TIME] Sekunden',
+        'controlplus.isReady': 'Hub ist bereit?',
+        'controlplus.port.A': 'A',
+        'controlplus.port.B': 'B'
+      }
+      // Add other languages here...
+    };
+    var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAAD6UlEQVR4Ae2aPWgUURDHZy93XhIjSTaFBILaWFhFK9FCghZaCnbaWFlYWEYEixSCaGlhLYIEEcEyIEIUPxpFIqKghRASosjlEvN5l7tdd3bzlr3lZvdld72Lyf8V997Omzcz77eze8PdI0IDARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAgZ1PwIja4tidp0M1q3KXyB5x9AajdHfB3ByRMZnPFUfHrl+YUfsVATK8ul2Zsm3bVMroHYSGMd9hFIcVxLwEZTPzzANDAzRy4gj17C02Vb03UaI339Yo39VLXeZBWi/P0MbqPB091ElXTvfTQE9H03XPX36m7z9+UZz9pos1hJJ9SR5ncnmlQpPvvtL0TMms2fxU0kVek5MXuo9tJDxe+2W24ppgeLmOAtUrS+51FDxWmP1ZdvWibo6rkPBDsi/J49xwAnGsXvPY8FjMQGfOfedJmecZIiqvWO6Q4XGz6htuL2WeO+l8rK5V3aGyf//BCzXVtL96+Ywr19UL21dGJbmaj+pVrI6O/30QkYFRpjCnCERloNJpaX9yuL/B39sp71FvEDoXunrhdVlfIwNTEm3IwFDdtyXTi9MftqSvlPlbUb3YWSZlXPjdp6sXXqf8ZtX7AFXd5xTNLa37uJT5n5sPMFz3PXzyWmtfj68NaelJSuE6MGmdJtn/1/LAO1Cv7ss6oHAdqB7nsDxrv1nZ8zPQMdhQ96m6KytHYTuS/TR1WthHK64DGdgKdzvPBwCmvKcAmBKgcfP2IzvOhtnXQ+fPHaPOzj1xqpHz6+tVejbxkeYXliP1kkxK71TJVlaxaGUgb5g3zk6TtqwCTuo/uC7LWPwMLM+9Cvrwx7lcgfYNDFMu3+3L0gys2iotlabIsrxfbdLY4rX9g6cSm+BY1L6k/UvGld/YDOSN/il9InaWtmUNL008KpY0NnhtsA4UbdlWlRZ/vxfnt8PEVjMoq5hjMzArRzvVjp+B6plu151UgFUc6rpVfVK/yMCUd8j/W1PVg9slA9sdh8RVZeqtG5dcdshAiZSmHAA1QUlqACiR0ZQDoCYoSQ0AJTKacgDUBCWpAaBERlMOgJqgJDUAlMhoygFQE5SkBoASGU15EKBzBtg5cZlrfhJV015qNavu/W3Q7jiabSQQk8uKdQIAjUkWdPcdbivEWnWBw2h7HG4QgQ+Gx2y85rHisf97IJ8+dw6Vny0UTbN3//FNxfZ1Thy0HeIIE9g8ZD6q5H4G8qlzPn3unEMfdyb9FFWK6JmJMR48oQ8mIAACIAACIAACIAACIAACIAACIAACIAACIAACIAACIAACILBbCPwFpqc7sJw6T5QAAAAASUVORK5CYII=';
+    var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/controlplus.mjs';
 
-  // 2. We no longer need the 'format-message' library here.
-  // The GUI will provide a working function.
-  var Scratch3ControlPlusBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
-    function Scratch3ControlPlusBlocks(runtime) {
-      _classCallCheck(this, Scratch3ControlPlusBlocks);
-      // 3. The constructor is now much simpler.
-      // We don't need to manage `formatMessage` ourselves.
-      return _callSuper(this, Scratch3ControlPlusBlocks, [new Hub(runtime, Scratch3ControlPlusBlocks.EXTENSION_ID, 0x80)]);
-    }
-    _inherits(Scratch3ControlPlusBlocks, _BleBaseBlocks);
-    return _createClass(Scratch3ControlPlusBlocks, [{
-      key: "getInfo",
-      value: function getInfo() {
-        // We no longer call `this.setupTranslations()` here.
-        return {
-          id: Scratch3ControlPlusBlocks.EXTENSION_ID,
-          // The `name` property should use the translation ID from our object above.
-          name: translations.en['controlplus.name'],
-          extensionURL: extensionURL,
-          blockIconURI: blockIconURI,
-          showStatusButton: true,
-          // Define blocks and menus directly.
-          // This is cleaner and easier to read.
-          blocks: [{
-            opcode: 'turnMotor',
-            blockType: 'command',
-            // 4. The 'text' property uses the default English message directly.
-            // The Scratch GUI uses this exact string to look up the translation.
-            text: 'turn motor [PORT] for [TIME] seconds',
-            arguments: {
-              PORT: {
-                type: 'string',
-                menu: 'PORT',
-                // We define this menu below
-                defaultValue: 'A'
-              },
-              TIME: {
-                type: 'number',
-                defaultValue: 1
+    // 2. We no longer need the 'format-message' library here.
+    // The GUI will provide a working function.
+    var Scratch3ControlPlusBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
+      function Scratch3ControlPlusBlocks(runtime) {
+        _classCallCheck(this, Scratch3ControlPlusBlocks);
+        // 3. The constructor is now much simpler.
+        // We don't need to manage `formatMessage` ourselves.
+        return _callSuper(this, Scratch3ControlPlusBlocks, [new Hub(runtime, Scratch3ControlPlusBlocks.EXTENSION_ID, 0x80)]);
+      }
+      _inherits(Scratch3ControlPlusBlocks, _BleBaseBlocks);
+      return _createClass(Scratch3ControlPlusBlocks, [{
+        key: "getInfo",
+        value: function getInfo() {
+          // We no longer call `this.setupTranslations()` here.
+          return {
+            id: Scratch3ControlPlusBlocks.EXTENSION_ID,
+            // The `name` property should use the translation ID from our object above.
+            name: translations.en['controlplus.name'],
+            extensionURL: extensionURL,
+            blockIconURI: blockIconURI,
+            showStatusButton: true,
+            // Define blocks and menus directly.
+            // This is cleaner and easier to read.
+            blocks: [{
+              opcode: 'turnMotor',
+              blockType: 'command',
+              // 4. The 'text' property uses the default English message directly.
+              // The Scratch GUI uses this exact string to look up the translation.
+              text: 'turn motor [PORT] for [TIME] seconds',
+              arguments: {
+                PORT: {
+                  type: 'string',
+                  menu: 'PORT',
+                  // We define this menu below
+                  defaultValue: 'A'
+                },
+                TIME: {
+                  type: 'number',
+                  defaultValue: 1
+                }
               }
-            }
-          }, {
-            opcode: 'isReady',
-            blockType: 'Boolean',
-            text: 'hub is ready?'
-          }],
-          menus: {
-            PORT: {
-              acceptReporters: true,
-              items: [{
-                text: translations.en['controlplus.port.A'],
-                // Use translation ID
-                value: 'A'
-              }, {
-                text: translations.en['controlplus.port.B'],
-                // Use translation ID
-                value: 'B'
-              }]
-            }
-          },
-          // 5. The magic happens here. We provide the entire translation object to the GUI.
-          // The GUI will automatically handle switching languages.
-          translationMap: translations
-        };
-      }
+            }, {
+              opcode: 'isReady',
+              blockType: 'Boolean',
+              text: 'hub is ready?'
+            }],
+            menus: {
+              PORT: {
+                acceptReporters: true,
+                items: [{
+                  text: translations.en['controlplus.port.A'],
+                  // Use translation ID
+                  value: 'A'
+                }, {
+                  text: translations.en['controlplus.port.B'],
+                  // Use translation ID
+                  value: 'B'
+                }]
+              }
+            },
+            // 5. The magic happens here. We provide the entire translation object to the GUI.
+            // The GUI will automatically handle switching languages.
+            translationMap: translations
+          };
+        }
 
-      // Dummy functions for the example to work
-    }, {
-      key: "turnMotor",
-      value: function turnMotor(args) {
-        console.log("Turning motor ".concat(args.PORT, " for ").concat(args.TIME, " seconds."));
-      }
-    }, {
-      key: "isReady",
-      value: function isReady() {
-        // In a real extension, this would return the hub's connection state.
-        return true;
-      }
-    }], [{
-      key: "EXTENSION_ID",
-      get: function get() {
-        return 'controlplus';
-      }
-    }]);
-  }(BleBaseBlocks);
-  _controlplus.blockClass = Scratch3ControlPlusBlocks;
-  _controlplus.blockClass = Scratch3ControlPlusBlocks;
-  return _controlplus;
+        // Dummy functions for the example to work
+      }, {
+        key: "turnMotor",
+        value: function turnMotor(args) {
+          console.log("Turning motor ".concat(args.PORT, " for ").concat(args.TIME, " seconds."));
+        }
+      }, {
+        key: "isReady",
+        value: function isReady() {
+          // In a real extension, this would return the hub's connection state.
+          return true;
+        }
+      }], [{
+        key: "EXTENSION_ID",
+        get: function get() {
+          return 'controlplus';
+        }
+      }]);
+    }(BleBaseBlocks); // Extension export for bundling
+    var ExtensionClass = Scratch3ControlPlusBlocks;
+    module.exports = ExtensionClass;
+    exports.blockClass = ExtensionClass;
+  })(_controlplus, _controlplus.exports);
+  return _controlplus.exports;
 }
 
 require_controlplus();

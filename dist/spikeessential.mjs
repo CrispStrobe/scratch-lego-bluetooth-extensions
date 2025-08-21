@@ -7876,6 +7876,57 @@ var entry = {
   helpLink: 'https://scratch.mit.edu/boost'
 };
 
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
+}
+
+function _superPropBase(t, o) {
+  for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
+  return t;
+}
+
+function _get() {
+  return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
+    var p = _superPropBase(e, t);
+    if (p) {
+      var n = Object.getOwnPropertyDescriptor(p, t);
+      return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value;
+    }
+  }, _get.apply(null, arguments);
+}
+
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+function _possibleConstructorReturn(t, e) {
+  if (e && ("object" == _typeof$1(e) || "function" == typeof e)) return e;
+  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+  return _assertThisInitialized(t);
+}
+
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+
+function _inherits(t, e) {
+  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+  t.prototype = Object.create(e && e.prototype, {
+    constructor: {
+      value: t,
+      writable: !0,
+      configurable: !0
+    }
+  }), Object.defineProperty(t, "prototype", {
+    writable: !1
+  }), e && _setPrototypeOf(t, e);
+}
+
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -7908,58 +7959,7 @@ function _createClass(e, r, t) {
   }), e;
 }
 
-function _assertThisInitialized(e) {
-  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  return e;
-}
-
-function _possibleConstructorReturn(t, e) {
-  if (e && ("object" == _typeof$1(e) || "function" == typeof e)) return e;
-  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
-  return _assertThisInitialized(t);
-}
-
-function _getPrototypeOf(t) {
-  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
-    return t.__proto__ || Object.getPrototypeOf(t);
-  }, _getPrototypeOf(t);
-}
-
-function _superPropBase(t, o) {
-  for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
-  return t;
-}
-
-function _get() {
-  return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
-    var p = _superPropBase(e, t);
-    if (p) {
-      var n = Object.getOwnPropertyDescriptor(p, t);
-      return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value;
-    }
-  }, _get.apply(null, arguments);
-}
-
-function _setPrototypeOf(t, e) {
-  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
-    return t.__proto__ = e, t;
-  }, _setPrototypeOf(t, e);
-}
-
-function _inherits(t, e) {
-  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
-  t.prototype = Object.create(e && e.prototype, {
-    constructor: {
-      value: t,
-      writable: !0,
-      configurable: !0
-    }
-  }), Object.defineProperty(t, "prototype", {
-    writable: !1
-  }), e && _setPrototypeOf(t, e);
-}
-
-var _spikeessential = {};
+var _spikeessential = {exports: {}};
 
 /**
  * Block argument types
@@ -14650,78 +14650,82 @@ function requireFormatMessage() {
   return formatMessage.exports;
 }
 
+function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
+_spikeessential.exports;
 var hasRequired_spikeessential;
 function require_spikeessential() {
-  if (hasRequired_spikeessential) return _spikeessential;
+  if (hasRequired_spikeessential) return _spikeessential.exports;
   hasRequired_spikeessential = 1;
-  var BleBaseBlocks = requireBleBaseBlocks();
-  var Hub = requireHub();
-  var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAADMElEQVR4Ae3bT2gTQRQG8LetpI1GK4iUKhRSoQhVMfRealAEr4J40It/ToLgSVFEPHjoqSdv6kVBQXoVBIk2IHjRQjUVBKkKKh7VaBrFrvttM5ApSX3TyHYSvoGwmc2b2X2/ziS7dEeEhQIUoAAFKEABClCAAhSgAAUoQAEKUIACFKAABSiQhEDgepAwDIMrE/dORduTUduRUMKMax8+xQcSlKPzKQVBcPPq+aM3om3ocn5OgNcmpwYq1eodCcO8y0HaJjYICumenmOXzh3+rD3nddpAjLzLE3djvL5N6+XgvpxkB/sls6FX24WXceUfCzL/4Ys8fDwjX7/9zGOARLnu147Ebm1WYXrn6ajjs8A7c+KQbB/YIqmU2l97mMTjkEP/1s2S2z0ks3PvpFr9nZ1+Wvo4/WjqheZkujRBiKl958UjL92b0jZrmzjkhFmFYnLVnLwaMOpsBB1i2nZqqcstzlWTpxrQ/Nq2+3feSigmN5PrSrHmMzWgacCtLUBA28O5RkBnMrsBAW0P5xoBncnsBgS0PZxrBHQmsxsQ0PZwrhHQmcxuQEDbw7lGQGcyuwEBbQ/nGgGdyewGBLQ9nGsEdCazGxDQ9nCuEdCZzG7gzX+F/iwuSqE4KzOv5uV7uWKfZa22MZOW3K6s5Mf2SHeXH397bwCBV3w21xDO7ASsiTkwvtfsXtOtN4AYeSjHj4zL8NC2hihv3n6S2/efxKPUF0A/5kHEZaZtMzyIDu9YgjWxDZUT3ukNYMJ5/7fDEbBFSgISsEWBFptzBHYKIC6SUXCp0qyYz0xss7gk93tzHYg7DFwk4zrvXwWxvhRvAHF7hqK9lSPgMgHc2+LuAq+xi8+XfbpULV4Ybbh/LXfyR6RFfTVg7Wl2wTPFSZW+wVHBK6licjO5ao6rBow6K6FDPJDdqaUutzhXTZ5qQKyjQId4mr2y8EvTd1vFICfkhmJy1SSgBsQilKjnQrQUQK7feiAvX79PdDprkllNDKYtckFOyA05xrkqO+NCm3qoVSy0cQLEsaIlAFzqVY/O9xSgAAUoQAEKUIACFKAABShAAQpQgAIUoAAFKECBRAT+AigB5y5rdsAFAAAAAElFTkSuQmCC';
-  var formatMessage = requireFormatMessage();
-  var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeessential.mjs';
-  var Scratch3SpikeEssentialBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
-    function Scratch3SpikeEssentialBlocks(runtime) {
-      var _this;
-      _classCallCheck(this, Scratch3SpikeEssentialBlocks);
-      _this = _callSuper(this, Scratch3SpikeEssentialBlocks, [new Hub(runtime, Scratch3SpikeEssentialBlocks.EXTENSION_ID, 0x83)]);
-      if (runtime.formatMessage) {
-        // Replace 'formatMessage' to a formatter which is used in the runtime.
-        formatMessage = runtime.formatMessage;
+  (function (module, exports) {
+    var BleBaseBlocks = requireBleBaseBlocks();
+    var Hub = requireHub();
+    var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAADMElEQVR4Ae3bT2gTQRQG8LetpI1GK4iUKhRSoQhVMfRealAEr4J40It/ToLgSVFEPHjoqSdv6kVBQXoVBIk2IHjRQjUVBKkKKh7VaBrFrvttM5ApSX3TyHYSvoGwmc2b2X2/ziS7dEeEhQIUoAAFKEABClCAAhSgAAUoQAEKUIACFKAABSiQhEDgepAwDIMrE/dORduTUduRUMKMax8+xQcSlKPzKQVBcPPq+aM3om3ocn5OgNcmpwYq1eodCcO8y0HaJjYICumenmOXzh3+rD3nddpAjLzLE3djvL5N6+XgvpxkB/sls6FX24WXceUfCzL/4Ys8fDwjX7/9zGOARLnu147Ebm1WYXrn6ajjs8A7c+KQbB/YIqmU2l97mMTjkEP/1s2S2z0ks3PvpFr9nZ1+Wvo4/WjqheZkujRBiKl958UjL92b0jZrmzjkhFmFYnLVnLwaMOpsBB1i2nZqqcstzlWTpxrQ/Nq2+3feSigmN5PrSrHmMzWgacCtLUBA28O5RkBnMrsBAW0P5xoBncnsBgS0PZxrBHQmsxsQ0PZwrhHQmcxuQEDbw7lGQGcyuwEBbQ/nGgGdyewGBLQ9nGsEdCazGxDQ9nCuEdCZzG7gzX+F/iwuSqE4KzOv5uV7uWKfZa22MZOW3K6s5Mf2SHeXH397bwCBV3w21xDO7ASsiTkwvtfsXtOtN4AYeSjHj4zL8NC2hihv3n6S2/efxKPUF0A/5kHEZaZtMzyIDu9YgjWxDZUT3ukNYMJ5/7fDEbBFSgISsEWBFptzBHYKIC6SUXCp0qyYz0xss7gk93tzHYg7DFwk4zrvXwWxvhRvAHF7hqK9lSPgMgHc2+LuAq+xi8+XfbpULV4Ybbh/LXfyR6RFfTVg7Wl2wTPFSZW+wVHBK6licjO5ao6rBow6K6FDPJDdqaUutzhXTZ5qQKyjQId4mr2y8EvTd1vFICfkhmJy1SSgBsQilKjnQrQUQK7feiAvX79PdDprkllNDKYtckFOyA05xrkqO+NCm3qoVSy0cQLEsaIlAFzqVY/O9xSgAAUoQAEKUIACFKAABShAAQpQgAIUoAAFKECBRAT+AigB5y5rdsAFAAAAAElFTkSuQmCC';
+    var formatMessage = requireFormatMessage();
+    var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/spikeessential.mjs';
+    var Scratch3SpikeEssentialBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
+      function Scratch3SpikeEssentialBlocks(runtime) {
+        var _this7;
+        _classCallCheck(this, Scratch3SpikeEssentialBlocks);
+        _this7 = _callSuper(this, Scratch3SpikeEssentialBlocks, [new Hub(runtime, Scratch3SpikeEssentialBlocks.EXTENSION_ID, 0x83)]);
+        if (runtime.formatMessage) {
+          // Replace 'formatMessage' to a formatter which is used in the runtime.
+          formatMessage = runtime.formatMessage;
+        }
+        return _this7;
       }
-      return _this;
-    }
-    _inherits(Scratch3SpikeEssentialBlocks, _BleBaseBlocks);
-    return _createClass(Scratch3SpikeEssentialBlocks, [{
-      key: "externalPorts",
-      get: function get() {
-        return ['A', 'B'];
-      }
-    }, {
-      key: "multipleExternalPorts",
-      get: function get() {
-        return ['A', 'B', 'A+B'];
-      }
-    }, {
-      key: "getInfo",
-      value: function getInfo() {
-        this.setupTranslations(formatMessage);
-        return {
-          id: Scratch3SpikeEssentialBlocks.EXTENSION_ID,
-          name: 'SPIKE Essential',
-          extensionURL: Scratch3SpikeEssentialBlocks.extensionURL,
-          blockIconURI: blockIconURI,
-          showStatusButton: true,
-          blocks: this.getBlocks(formatMessage),
-          menus: this.getMenus(formatMessage)
-        };
-      }
-    }, {
-      key: "getHubTilt",
-      value: function getHubTilt(args) {
-        var value = _superPropGet(Scratch3SpikeEssentialBlocks, "getHubTilt", this, 3)([args]);
-        return value != null ? value / 10 : 0;
-      }
-    }], [{
-      key: "EXTENSION_ID",
-      get: function get() {
-        return 'spikeessential';
-      }
-    }, {
-      key: "extensionURL",
-      get: function get() {
-        return extensionURL;
-      },
-      set: function set(url) {
-        extensionURL = url;
-      }
-    }]);
-  }(BleBaseBlocks);
-  _spikeessential.blockClass = Scratch3SpikeEssentialBlocks;
-  _spikeessential.blockClass = Scratch3SpikeEssentialBlocks;
-  return _spikeessential;
+      _inherits(Scratch3SpikeEssentialBlocks, _BleBaseBlocks);
+      return _createClass(Scratch3SpikeEssentialBlocks, [{
+        key: "externalPorts",
+        get: function get() {
+          return ['A', 'B'];
+        }
+      }, {
+        key: "multipleExternalPorts",
+        get: function get() {
+          return ['A', 'B', 'A+B'];
+        }
+      }, {
+        key: "getInfo",
+        value: function getInfo() {
+          this.setupTranslations(formatMessage);
+          return {
+            id: Scratch3SpikeEssentialBlocks.EXTENSION_ID,
+            name: 'SPIKE Essential',
+            extensionURL: Scratch3SpikeEssentialBlocks.extensionURL,
+            blockIconURI: blockIconURI,
+            showStatusButton: true,
+            blocks: this.getBlocks(formatMessage),
+            menus: this.getMenus(formatMessage)
+          };
+        }
+      }, {
+        key: "getHubTilt",
+        value: function getHubTilt(args) {
+          var value = _superPropGet(Scratch3SpikeEssentialBlocks, "getHubTilt", this, 3)([args]);
+          return value != null ? value / 10 : 0;
+        }
+      }], [{
+        key: "EXTENSION_ID",
+        get: function get() {
+          return 'spikeessential';
+        }
+      }, {
+        key: "extensionURL",
+        get: function get() {
+          return extensionURL;
+        },
+        set: function set(url) {
+          extensionURL = url;
+        }
+      }]);
+    }(BleBaseBlocks); // Extension export for bundling
+    var ExtensionClass = Scratch3SpikeEssentialBlocks;
+    module.exports = ExtensionClass;
+    exports.blockClass = ExtensionClass;
+  })(_spikeessential, _spikeessential.exports);
+  return _spikeessential.exports;
 }
 
 require_spikeessential();

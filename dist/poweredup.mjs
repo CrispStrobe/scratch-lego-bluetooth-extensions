@@ -7876,38 +7876,6 @@ var entry = {
   helpLink: 'https://scratch.mit.edu/boost'
 };
 
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
-}
-
-function toPrimitive(t, r) {
-  if ("object" != _typeof$1(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r || "default");
-    if ("object" != _typeof$1(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r ? String : Number)(t);
-}
-
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof$1(i) ? i : i + "";
-}
-
-function _defineProperties(e, r) {
-  for (var t = 0; t < r.length; t++) {
-    var o = r[t];
-    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
-  }
-}
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
-    writable: !1
-  }), e;
-}
-
 function _assertThisInitialized(e) {
   if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   return e;
@@ -7944,7 +7912,39 @@ function _inherits(t, e) {
   }), e && _setPrototypeOf(t, e);
 }
 
-var _poweredup = {};
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof$1(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof$1(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof$1(i) ? i : i + "";
+}
+
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+
+var _poweredup = {exports: {}};
 
 /**
  * Block argument types
@@ -14637,74 +14637,78 @@ function requireFormatMessage() {
 
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_poweredup.exports;
 var hasRequired_poweredup;
 function require_poweredup() {
-  if (hasRequired_poweredup) return _poweredup;
+  if (hasRequired_poweredup) return _poweredup.exports;
   hasRequired_poweredup = 1;
-  var BleBaseBlocks = requireBleBaseBlocks();
-  var Hub = requireHub();
-  var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAByElEQVR4Ae3YP07DMBiG8QS4ACdBYmQtlwCmzhwAkICFSvzZmZkoCxyBlZ2TcIOEtJKrqlL6fGlqCdonS9y88WfnV0eWUhQeCiiggAIKKKCAAgoooIACCiiggAIKKKCAAgoooIACCiiQV6DsUv728W1QVfWwLIvduiw/Rhcn75P+m3o9YrMXuSndU9XVU9M+rOuiaOSPm/YUcFOvp+dedsYVeH3/2nBt7zG6OltqtLO9NOt58vArfHd5up4RF6rcPIynV3LVXxgu/DPNizqEASeFIkUTRJd7aZJ/OfcV7vnvdFqBaayjg/3UnJ2/vn9m7flGl3vn+/2X9tIdZvIQ7sLuwlkXc/gVPh8Oskzk+eVzWjdX/VUnneZF/d1ESAhyAQGIYgFJCHIBAYhiAUkIcgEBiGIBSQhyAQGIYgFJCHIBAYhiAUkIcgEBiGIBSQhyAQGIYgFJCPLw98Do9zEYrzXOXb914J6BK7AnYHgF5vpinFZervqr+qR5UX9XIAlBLiAAUSwgCUEuIABRLCAJQR7ehaO7EozXGueu3zpwz8AV2BPQ7goooIACCiiggAIKKKCAAgoooIACCiiggAIKKKCAAgookFvgF1zdypav+pVRAAAAAElFTkSuQmCC';
-  var formatMessage = requireFormatMessage();
-  var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/poweredup.mjs';
-  var Scratch3PoweredUpBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
-    function Scratch3PoweredUpBlocks(runtime) {
-      var _this;
-      _classCallCheck(this, Scratch3PoweredUpBlocks);
-      _this = _callSuper(this, Scratch3PoweredUpBlocks, [new Hub(runtime, Scratch3PoweredUpBlocks.EXTENSION_ID, 0x41)]);
-      if (runtime.formatMessage) {
-        // Replace 'formatMessage' to a formatter which is used in the runtime.
-        formatMessage = runtime.formatMessage;
+  (function (module, exports) {
+    var BleBaseBlocks = requireBleBaseBlocks();
+    var Hub = requireHub();
+    var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAASKG51AAAByElEQVR4Ae3YP07DMBiG8QS4ACdBYmQtlwCmzhwAkICFSvzZmZkoCxyBlZ2TcIOEtJKrqlL6fGlqCdonS9y88WfnV0eWUhQeCiiggAIKKKCAAgoooIACCiiggAIKKKCAAgoooIACCiiQV6DsUv728W1QVfWwLIvduiw/Rhcn75P+m3o9YrMXuSndU9XVU9M+rOuiaOSPm/YUcFOvp+dedsYVeH3/2nBt7zG6OltqtLO9NOt58vArfHd5up4RF6rcPIynV3LVXxgu/DPNizqEASeFIkUTRJd7aZJ/OfcV7vnvdFqBaayjg/3UnJ2/vn9m7flGl3vn+/2X9tIdZvIQ7sLuwlkXc/gVPh8Oskzk+eVzWjdX/VUnneZF/d1ESAhyAQGIYgFJCHIBAYhiAUkIcgEBiGIBSQhyAQGIYgFJCHIBAYhiAUkIcgEBiGIBSQhyAQGIYgFJCPLw98Do9zEYrzXOXb914J6BK7AnYHgF5vpinFZervqr+qR5UX9XIAlBLiAAUSwgCUEuIABRLCAJQR7ehaO7EozXGueu3zpwz8AV2BPQ7goooIACCiiggAIKKKCAAgoooIACCiiggAIKKKCAAgookFvgF1zdypav+pVRAAAAAElFTkSuQmCC';
+    var formatMessage = requireFormatMessage();
+    var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/poweredup.mjs';
+    var Scratch3PoweredUpBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
+      function Scratch3PoweredUpBlocks(runtime) {
+        var _this7;
+        _classCallCheck(this, Scratch3PoweredUpBlocks);
+        _this7 = _callSuper(this, Scratch3PoweredUpBlocks, [new Hub(runtime, Scratch3PoweredUpBlocks.EXTENSION_ID, 0x41)]);
+        if (runtime.formatMessage) {
+          // Replace 'formatMessage' to a formatter which is used in the runtime.
+          formatMessage = runtime.formatMessage;
+        }
+        return _this7;
       }
-      return _this;
-    }
-    _inherits(Scratch3PoweredUpBlocks, _BleBaseBlocks);
-    return _createClass(Scratch3PoweredUpBlocks, [{
-      key: "externalPorts",
-      get: function get() {
-        return ['A', 'B'];
-      }
-    }, {
-      key: "multipleExternalPorts",
-      get: function get() {
-        return ['A', 'B', 'A+B'];
-      }
-    }, {
-      key: "hasInternalTiltSensorBlocks",
-      get: function get() {
-        return false;
-      }
-    }, {
-      key: "getInfo",
-      value: function getInfo() {
-        this.setupTranslations(formatMessage);
-        return {
-          id: Scratch3PoweredUpBlocks.EXTENSION_ID,
-          name: 'Powered UP',
-          extensionURL: Scratch3PoweredUpBlocks.extensionURL,
-          blockIconURI: blockIconURI,
-          showStatusButton: true,
-          blocks: this.getBlocks(formatMessage),
-          menus: this.getMenus(formatMessage)
-        };
-      }
-    }], [{
-      key: "EXTENSION_ID",
-      get: function get() {
-        return 'poweredup';
-      }
-    }, {
-      key: "extensionURL",
-      get: function get() {
-        return extensionURL;
-      },
-      set: function set(url) {
-        extensionURL = url;
-      }
-    }]);
-  }(BleBaseBlocks);
-  _poweredup.blockClass = Scratch3PoweredUpBlocks;
-  _poweredup.blockClass = Scratch3PoweredUpBlocks;
-  return _poweredup;
+      _inherits(Scratch3PoweredUpBlocks, _BleBaseBlocks);
+      return _createClass(Scratch3PoweredUpBlocks, [{
+        key: "externalPorts",
+        get: function get() {
+          return ['A', 'B'];
+        }
+      }, {
+        key: "multipleExternalPorts",
+        get: function get() {
+          return ['A', 'B', 'A+B'];
+        }
+      }, {
+        key: "hasInternalTiltSensorBlocks",
+        get: function get() {
+          return false;
+        }
+      }, {
+        key: "getInfo",
+        value: function getInfo() {
+          this.setupTranslations(formatMessage);
+          return {
+            id: Scratch3PoweredUpBlocks.EXTENSION_ID,
+            name: 'Powered UP',
+            extensionURL: Scratch3PoweredUpBlocks.extensionURL,
+            blockIconURI: blockIconURI,
+            showStatusButton: true,
+            blocks: this.getBlocks(formatMessage),
+            menus: this.getMenus(formatMessage)
+          };
+        }
+      }], [{
+        key: "EXTENSION_ID",
+        get: function get() {
+          return 'poweredup';
+        }
+      }, {
+        key: "extensionURL",
+        get: function get() {
+          return extensionURL;
+        },
+        set: function set(url) {
+          extensionURL = url;
+        }
+      }]);
+    }(BleBaseBlocks); // Extension export for bundling
+    var ExtensionClass = Scratch3PoweredUpBlocks;
+    module.exports = ExtensionClass;
+    exports.blockClass = ExtensionClass;
+  })(_poweredup, _poweredup.exports);
+  return _poweredup.exports;
 }
 
 require_poweredup();

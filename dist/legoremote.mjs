@@ -7876,6 +7876,42 @@ var entry = {
   helpLink: 'https://scratch.mit.edu/boost'
 };
 
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+function _possibleConstructorReturn(t, e) {
+  if (e && ("object" == _typeof$1(e) || "function" == typeof e)) return e;
+  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+  return _assertThisInitialized(t);
+}
+
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
+}
+
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+
+function _inherits(t, e) {
+  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+  t.prototype = Object.create(e && e.prototype, {
+    constructor: {
+      value: t,
+      writable: !0,
+      configurable: !0
+    }
+  }), Object.defineProperty(t, "prototype", {
+    writable: !1
+  }), e && _setPrototypeOf(t, e);
+}
+
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -7908,606 +7944,7 @@ function _createClass(e, r, t) {
   }), e;
 }
 
-var _legoremote = {};
-
-/**
- * Block argument types
- * @enum {string}
- */
-var argumentType;
-var hasRequiredArgumentType;
-function requireArgumentType() {
-  if (hasRequiredArgumentType) return argumentType;
-  hasRequiredArgumentType = 1;
-  var ArgumentType = {
-    /**
-     * Numeric value with angle picker
-     */
-    ANGLE: 'angle',
-    /**
-     * Boolean value with hexagonal placeholder
-     */
-    BOOLEAN: 'Boolean',
-    /**
-     * Numeric value with color picker
-     */
-    COLOR: 'color',
-    /**
-     * Numeric value with text field
-     */
-    NUMBER: 'number',
-    /**
-     * String value with text field
-     */
-    STRING: 'string',
-    /**
-     * String value with matrix field
-     */
-    MATRIX: 'matrix',
-    /**
-     * MIDI note number with note picker (piano) field
-     */
-    NOTE: 'note',
-    /**
-     * Inline image on block (as part of the label)
-     */
-    IMAGE: 'image'
-  };
-  argumentType = ArgumentType;
-  return argumentType;
-}
-
-/**
- * Types of block
- * @enum {string}
- */
-var blockType;
-var hasRequiredBlockType;
-function requireBlockType() {
-  if (hasRequiredBlockType) return blockType;
-  hasRequiredBlockType = 1;
-  var BlockType = {
-    /**
-     * Boolean reporter with hexagonal shape
-     */
-    BOOLEAN: 'Boolean',
-    /**
-     * A button (not an actual block) for some special action, like making a variable
-     */
-    BUTTON: 'button',
-    /**
-     * Command block
-     */
-    COMMAND: 'command',
-    /**
-     * Specialized command block which may or may not run a child branch
-     * The thread continues with the next block whether or not a child branch ran.
-     */
-    CONDITIONAL: 'conditional',
-    /**
-     * Specialized hat block with no implementation function
-     * This stack only runs if the corresponding event is emitted by other code.
-     */
-    EVENT: 'event',
-    /**
-     * Hat block which conditionally starts a block stack
-     */
-    HAT: 'hat',
-    /**
-     * Specialized command block which may or may not run a child branch
-     * If a child branch runs, the thread evaluates the loop block again.
-     */
-    LOOP: 'loop',
-    /**
-     * General reporter with numeric or string value
-     */
-    REPORTER: 'reporter'
-  };
-  blockType = BlockType;
-  return blockType;
-}
-
-var color$1;
-var hasRequiredColor$1;
-function requireColor$1() {
-  if (hasRequiredColor$1) return color$1;
-  hasRequiredColor$1 = 1;
-  var Color = /*#__PURE__*/function () {
-    function Color() {
-      _classCallCheck(this, Color);
-    }
-    return _createClass(Color, null, [{
-      key: "RGB_BLACK",
-      get:
-      /**
-       * @typedef {object} RGBObject - An object representing a color in RGB format.
-       * @property {number} r - the red component, in the range [0, 255].
-       * @property {number} g - the green component, in the range [0, 255].
-       * @property {number} b - the blue component, in the range [0, 255].
-       */
-
-      /**
-       * @typedef {object} HSVObject - An object representing a color in HSV format.
-       * @property {number} h - hue, in the range [0-359).
-       * @property {number} s - saturation, in the range [0,1].
-       * @property {number} v - value, in the range [0,1].
-       */
-
-      /** @type {RGBObject} */
-      function get() {
-        return {
-          r: 0,
-          g: 0,
-          b: 0
-        };
-      }
-
-      /** @type {RGBObject} */
-    }, {
-      key: "RGB_WHITE",
-      get: function get() {
-        return {
-          r: 255,
-          g: 255,
-          b: 255
-        };
-      }
-
-      /**
-       * Convert a Scratch decimal color to a hex string, #RRGGBB.
-       * @param {number} decimal RGB color as a decimal.
-       * @return {string} RGB color as #RRGGBB hex string.
-       */
-    }, {
-      key: "decimalToHex",
-      value: function decimalToHex(decimal) {
-        if (decimal < 0) {
-          decimal += 0xFFFFFF + 1;
-        }
-        var hex = Number(decimal).toString(16);
-        hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
-        return hex;
-      }
-
-      /**
-       * Convert a Scratch decimal color to an RGB color object.
-       * @param {number} decimal RGB color as decimal.
-       * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       */
-    }, {
-      key: "decimalToRgb",
-      value: function decimalToRgb(decimal) {
-        var a = decimal >> 24 & 0xFF;
-        var r = decimal >> 16 & 0xFF;
-        var g = decimal >> 8 & 0xFF;
-        var b = decimal & 0xFF;
-        return {
-          r: r,
-          g: g,
-          b: b,
-          a: a > 0 ? a : 255
-        };
-      }
-
-      /**
-       * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
-       * CC-BY-SA Tim Down:
-       * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-       * @param {!string} hex Hex representation of the color.
-       * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       */
-    }, {
-      key: "hexToRgb",
-      value: function hexToRgb(hex) {
-        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-          return r + r + g + g + b + b;
-        });
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16)
-        } : null;
-      }
-
-      /**
-       * Convert an RGB color object to a hex color.
-       * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       * @return {!string} Hex representation of the color.
-       */
-    }, {
-      key: "rgbToHex",
-      value: function rgbToHex(rgb) {
-        return Color.decimalToHex(Color.rgbToDecimal(rgb));
-      }
-
-      /**
-       * Convert an RGB color object to a Scratch decimal color.
-       * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       * @return {!number} Number representing the color.
-       */
-    }, {
-      key: "rgbToDecimal",
-      value: function rgbToDecimal(rgb) {
-        return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
-      }
-
-      /**
-      * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
-      * @param {!string} hex Hex representation of the color.
-      * @return {!number} Number representing the color.
-      */
-    }, {
-      key: "hexToDecimal",
-      value: function hexToDecimal(hex) {
-        return Color.rgbToDecimal(Color.hexToRgb(hex));
-      }
-
-      /**
-       * Convert an HSV color to RGB format.
-       * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
-       * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       */
-    }, {
-      key: "hsvToRgb",
-      value: function hsvToRgb(hsv) {
-        var h = hsv.h % 360;
-        if (h < 0) h += 360;
-        var s = Math.max(0, Math.min(hsv.s, 1));
-        var v = Math.max(0, Math.min(hsv.v, 1));
-        var i = Math.floor(h / 60);
-        var f = h / 60 - i;
-        var p = v * (1 - s);
-        var q = v * (1 - s * f);
-        var t = v * (1 - s * (1 - f));
-        var r;
-        var g;
-        var b;
-        switch (i) {
-          default:
-          case 0:
-            r = v;
-            g = t;
-            b = p;
-            break;
-          case 1:
-            r = q;
-            g = v;
-            b = p;
-            break;
-          case 2:
-            r = p;
-            g = v;
-            b = t;
-            break;
-          case 3:
-            r = p;
-            g = q;
-            b = v;
-            break;
-          case 4:
-            r = t;
-            g = p;
-            b = v;
-            break;
-          case 5:
-            r = v;
-            g = p;
-            b = q;
-            break;
-        }
-        return {
-          r: Math.floor(r * 255),
-          g: Math.floor(g * 255),
-          b: Math.floor(b * 255)
-        };
-      }
-
-      /**
-       * Convert an RGB color to HSV format.
-       * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
-       */
-    }, {
-      key: "rgbToHsv",
-      value: function rgbToHsv(rgb) {
-        var r = rgb.r / 255;
-        var g = rgb.g / 255;
-        var b = rgb.b / 255;
-        var x = Math.min(Math.min(r, g), b);
-        var v = Math.max(Math.max(r, g), b);
-
-        // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
-        var h = 0;
-        var s = 0;
-        if (x !== v) {
-          var f = r === x ? g - b : g === x ? b - r : r - g;
-          var i = r === x ? 3 : g === x ? 5 : 1;
-          h = (i - f / (v - x)) * 60 % 360;
-          s = (v - x) / v;
-        }
-        return {
-          h: h,
-          s: s,
-          v: v
-        };
-      }
-
-      /**
-       * Linear interpolation between rgb0 and rgb1.
-       * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
-       * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
-       * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
-       * @return {RGBObject} the interpolated color.
-       */
-    }, {
-      key: "mixRgb",
-      value: function mixRgb(rgb0, rgb1, fraction1) {
-        if (fraction1 <= 0) return rgb0;
-        if (fraction1 >= 1) return rgb1;
-        var fraction0 = 1 - fraction1;
-        return {
-          r: fraction0 * rgb0.r + fraction1 * rgb1.r,
-          g: fraction0 * rgb0.g + fraction1 * rgb1.g,
-          b: fraction0 * rgb0.b + fraction1 * rgb1.b
-        };
-      }
-    }]);
-  }();
-  color$1 = Color;
-  return color$1;
-}
-
-var cast;
-var hasRequiredCast;
-function requireCast() {
-  if (hasRequiredCast) return cast;
-  hasRequiredCast = 1;
-  var Color = requireColor$1();
-
-  /**
-   * @fileoverview
-   * Utilities for casting and comparing Scratch data-types.
-   * Scratch behaves slightly differently from JavaScript in many respects,
-   * and these differences should be encapsulated below.
-   * For example, in Scratch, add(1, join("hello", world")) -> 1.
-   * This is because "hello world" is cast to 0.
-   * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
-   * Use when coercing a value before computation.
-   */
-  var Cast = /*#__PURE__*/function () {
-    function Cast() {
-      _classCallCheck(this, Cast);
-    }
-    return _createClass(Cast, null, [{
-      key: "toNumber",
-      value:
-      /**
-       * Scratch cast to number.
-       * Treats NaN as 0.
-       * In Scratch 2.0, this is captured by `interp.numArg.`
-       * @param {*} value Value to cast to number.
-       * @return {number} The Scratch-casted number value.
-       */
-      function toNumber(value) {
-        // If value is already a number we don't need to coerce it with
-        // Number().
-        if (typeof value === 'number') {
-          // Scratch treats NaN as 0, when needed as a number.
-          // E.g., 0 + NaN -> 0.
-          if (Number.isNaN(value)) {
-            return 0;
-          }
-          return value;
-        }
-        var n = Number(value);
-        if (Number.isNaN(n)) {
-          // Scratch treats NaN as 0, when needed as a number.
-          // E.g., 0 + NaN -> 0.
-          return 0;
-        }
-        return n;
-      }
-
-      /**
-       * Scratch cast to boolean.
-       * In Scratch 2.0, this is captured by `interp.boolArg.`
-       * Treats some string values differently from JavaScript.
-       * @param {*} value Value to cast to boolean.
-       * @return {boolean} The Scratch-casted boolean value.
-       */
-    }, {
-      key: "toBoolean",
-      value: function toBoolean(value) {
-        // Already a boolean?
-        if (typeof value === 'boolean') {
-          return value;
-        }
-        if (typeof value === 'string') {
-          // These specific strings are treated as false in Scratch.
-          if (value === '' || value === '0' || value.toLowerCase() === 'false') {
-            return false;
-          }
-          // All other strings treated as true.
-          return true;
-        }
-        // Coerce other values and numbers.
-        return Boolean(value);
-      }
-
-      /**
-       * Scratch cast to string.
-       * @param {*} value Value to cast to string.
-       * @return {string} The Scratch-casted string value.
-       */
-    }, {
-      key: "toString",
-      value: function toString(value) {
-        return String(value);
-      }
-
-      /**
-       * Cast any Scratch argument to an RGB color array to be used for the renderer.
-       * @param {*} value Value to convert to RGB color array.
-       * @return {Array.<number>} [r,g,b], values between 0-255.
-       */
-    }, {
-      key: "toRgbColorList",
-      value: function toRgbColorList(value) {
-        var color = Cast.toRgbColorObject(value);
-        return [color.r, color.g, color.b];
-      }
-
-      /**
-       * Cast any Scratch argument to an RGB color object to be used for the renderer.
-       * @param {*} value Value to convert to RGB color object.
-       * @return {RGBOject} [r,g,b], values between 0-255.
-       */
-    }, {
-      key: "toRgbColorObject",
-      value: function toRgbColorObject(value) {
-        var color;
-        if (typeof value === 'string' && value.substring(0, 1) === '#') {
-          color = Color.hexToRgb(value);
-
-          // If the color wasn't *actually* a hex color, cast to black
-          if (!color) color = {
-            r: 0,
-            g: 0,
-            b: 0,
-            a: 255
-          };
-        } else {
-          color = Color.decimalToRgb(Cast.toNumber(value));
-        }
-        return color;
-      }
-
-      /**
-       * Determine if a Scratch argument is a white space string (or null / empty).
-       * @param {*} val value to check.
-       * @return {boolean} True if the argument is all white spaces or null / empty.
-       */
-    }, {
-      key: "isWhiteSpace",
-      value: function isWhiteSpace(val) {
-        return val === null || typeof val === 'string' && val.trim().length === 0;
-      }
-
-      /**
-       * Compare two values, using Scratch cast, case-insensitive string compare, etc.
-       * In Scratch 2.0, this is captured by `interp.compare.`
-       * @param {*} v1 First value to compare.
-       * @param {*} v2 Second value to compare.
-       * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
-       */
-    }, {
-      key: "compare",
-      value: function compare(v1, v2) {
-        var n1 = Number(v1);
-        var n2 = Number(v2);
-        if (n1 === 0 && Cast.isWhiteSpace(v1)) {
-          n1 = NaN;
-        } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
-          n2 = NaN;
-        }
-        if (isNaN(n1) || isNaN(n2)) {
-          // At least one argument can't be converted to a number.
-          // Scratch compares strings as case insensitive.
-          var s1 = String(v1).toLowerCase();
-          var s2 = String(v2).toLowerCase();
-          if (s1 < s2) {
-            return -1;
-          } else if (s1 > s2) {
-            return 1;
-          }
-          return 0;
-        }
-        // Handle the special case of Infinity
-        if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
-          return 0;
-        }
-        // Compare as numbers.
-        return n1 - n2;
-      }
-
-      /**
-       * Determine if a Scratch argument number represents a round integer.
-       * @param {*} val Value to check.
-       * @return {boolean} True if number looks like an integer.
-       */
-    }, {
-      key: "isInt",
-      value: function isInt(val) {
-        // Values that are already numbers.
-        if (typeof val === 'number') {
-          if (isNaN(val)) {
-            // NaN is considered an integer.
-            return true;
-          }
-          // True if it's "round" (e.g., 2.0 and 2).
-          return val === parseInt(val, 10);
-        } else if (typeof val === 'boolean') {
-          // `True` and `false` always represent integer after Scratch cast.
-          return true;
-        } else if (typeof val === 'string') {
-          // If it contains a decimal point, don't consider it an int.
-          return val.indexOf('.') < 0;
-        }
-        return false;
-      }
-    }, {
-      key: "LIST_INVALID",
-      get: function get() {
-        return 'INVALID';
-      }
-    }, {
-      key: "LIST_ALL",
-      get: function get() {
-        return 'ALL';
-      }
-
-      /**
-       * Compute a 1-based index into a list, based on a Scratch argument.
-       * Two special cases may be returned:
-       * LIST_ALL: if the block is referring to all of the items in the list.
-       * LIST_INVALID: if the index was invalid in any way.
-       * @param {*} index Scratch arg, including 1-based numbers or special cases.
-       * @param {number} length Length of the list.
-       * @param {boolean} acceptAll Whether it should accept "all" or not.
-       * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
-       */
-    }, {
-      key: "toListIndex",
-      value: function toListIndex(index, length, acceptAll) {
-        if (typeof index !== 'number') {
-          if (index === 'all') {
-            return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
-          }
-          if (index === 'last') {
-            if (length > 0) {
-              return length;
-            }
-            return Cast.LIST_INVALID;
-          } else if (index === 'random' || index === 'any') {
-            if (length > 0) {
-              return 1 + Math.floor(Math.random() * length);
-            }
-            return Cast.LIST_INVALID;
-          }
-        }
-        index = Math.floor(Cast.toNumber(index));
-        if (index < 1 || index > length) {
-          return Cast.LIST_INVALID;
-        }
-        return index;
-      }
-    }]);
-  }();
-  cast = Cast;
-  return cast;
-}
+var _legoremote = {exports: {}};
 
 function _arrayWithHoles(r) {
   if (Array.isArray(r)) return r;
@@ -8577,42 +8014,6 @@ function _nonIterableSpread() {
 
 function _toConsumableArray(r) {
   return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-}
-
-function _assertThisInitialized(e) {
-  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  return e;
-}
-
-function _possibleConstructorReturn(t, e) {
-  if (e && ("object" == _typeof$1(e) || "function" == typeof e)) return e;
-  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
-  return _assertThisInitialized(t);
-}
-
-function _getPrototypeOf(t) {
-  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
-    return t.__proto__ || Object.getPrototypeOf(t);
-  }, _getPrototypeOf(t);
-}
-
-function _setPrototypeOf(t, e) {
-  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
-    return t.__proto__ = e, t;
-  }, _setPrototypeOf(t, e);
-}
-
-function _inherits(t, e) {
-  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
-  t.prototype = Object.create(e && e.prototype, {
-    constructor: {
-      value: t,
-      writable: !0,
-      configurable: !0
-    }
-  }), Object.defineProperty(t, "prototype", {
-    writable: !1
-  }), e && _setPrototypeOf(t, e);
 }
 
 var jsonrpc;
@@ -12037,29 +11438,6 @@ function requireHub() {
   return hub;
 }
 
-var color;
-var hasRequiredColor;
-function requireColor() {
-  if (hasRequiredColor) return color;
-  hasRequiredColor = 1;
-  var Color = {
-    BLACK: 0,
-    PINK: 1,
-    PURPLE: 2,
-    BLUE: 3,
-    LIGHT_BLUE: 4,
-    LIGHT_GREEN: 5,
-    GREEN: 6,
-    YELLOW: 7,
-    ORANGE: 8,
-    RED: 9,
-    WHITE: 10,
-    NONE: -1
-  };
-  color = Color;
-  return color;
-}
-
 var setupTranslations_1;
 var hasRequiredSetupTranslations;
 function requireSetupTranslations() {
@@ -14037,332 +13415,374 @@ function requireFormatMessage() {
   return formatMessage.exports;
 }
 
+_legoremote.exports;
 var hasRequired_legoremote;
 function require_legoremote() {
-  if (hasRequired_legoremote) return _legoremote;
+  if (hasRequired_legoremote) return _legoremote.exports;
   hasRequired_legoremote = 1;
-  var ArgumentType = requireArgumentType();
-  var BlockType = requireBlockType();
-  var Cast = requireCast();
-  var Hub = requireHub();
-  var Color = requireColor();
-  var setupTranslations = requireSetupTranslations();
-  var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAAIXElEQVR4Ae1aaWxVRRQ+j66ULgKlC2XpXhZBZBFLBEmBkCCaCIrIEtBoNDEh8YcEFUJVIhATfmg0Gk2ERAQbiYmKCUH2hFV2WiotLWvpApQuQFte33O+uczzvnvn3b77Xvtoykzyeu/MnPPNuV/P3HNm5hKpohhQDCgGFAOKAcWAYkAxoBhQDCgGFAOKAcWAYkAxoBhQDCgGFAOKAcWAYqDnM+Do6BFXrSsaReTc7Xa7EzuS7Un9DoejOCwsuqDwgzm1Vs9lSeCqdT+PdLtpD5F7gBVIT+1j5JSEhUVMK1w+r9rXM/okcOX6rcPJ5QJ5yblZA2nBnCkUFtbLF06ntk/56DjHSxgyjl8brmj1/Z9r9U4dTAJ2734r/bhlF1XX3iEHOUqjo6MKPn5/7g2JKEkZWbm+KM/hdu0GeTmZoSVPZmSo22J6R9GbC6ZTanJfcpN7WEtL6941G4rSZHZ4PHDl2s1uo0BWegotenUqhYfI88T4j9oDhR33W9po49bdVFV9WzR5rms+XMi5k3ogpDJB3ivPh5w8j4Xd4KZ3dCS9Mb+A0lL7+7RGSmDGkGSNvPAwn4qPS0c0I3EpI3HQQHkSEm4kIn1wEi1m0zbCBnm36pvo/IVrdPJMBdU3NJPT6eKw4eG9qG9CLD09OpOG5w6i/n3jjMNZ1kXwsBSSdHa2PdFREZzETb/spqvXb3qNaCJw8TxGXoR/nod3w469p6jikjzKP3C2U+2tBtqx5yT/4bUwc+oYGpjSz8uIzqp0pT1RkeG09LUC+mxDkZe5JgIjI0xNXgqouFhy+Nffx+noiTJiCTb1YkHG1e6i2D5RlD8+h9JS+nKd69X1dOifMmq+28plQPS3m3bQM2NzaNb0cdTL4YlhXmPYTVe62h5hXCQj0Vik70CjkL7ewiLTJhaZjhy/wANMLktzBHnzXppIORnJFNM7kv9wjzYQCxnIIqJDFxjACrY8antsEYj/9JbfDlDF5RqKj4uhtxbNIIR6FHge3hXGgjb0oUAWOtAFBrCAGWjpDvbYIhDTVpD37pKZ/F1We7OBP7+YtjIyRB9k8f6DriARmIGW7mCP3wTiBY13HqLzwrlTKC62N3/u1rYH/Ipp66uIPiELXWAAC5iyRNUXlmjvLvb4TSCiLQLGpAnDOiWKwhOBBUxg2y3dxR6/CLx5u4mnKsjMJz87wu6z+pQHFjARnZG7+Vu6kz3muCx5itKya7wVyXCUJFCgM3X1WImmrinjC11FuwUWME+wBByJ+HMTh1P+1/kmOX3DofcOUSjt0Y8tu/fLA8srtZ2cYTmDZBhBtQ3L1jDFGP6ACdnuYI9fHtjQeI8/V1Jigj/PZ0smaYCGKcYQyvE58eKWXxvLGj11IRtKezyDG2788sCm5vtcTUReA0ZQVYEpxvAHTMgKXX90/JURmGKMjvRMBF66ankE0BGe/X6RR8tXdfbxgtWwsOfy1ToTuonAk2crTUJ2/ysmAIuGprsPvbuPlldaiHq6HpU9p4vN3JgIPFd6mbCLoi8J8TG8KlYd+r5g72vrtJWMGEPg4Z2n/4l2XIVsKO1pd7no7PnLejP4vYnAtjYnTyn0ktkZqbwq0gd9X7D3peVaiiTG8AdPyIbSngvlVdTSqq269DZKo/DJsxU0esRQjxzSBezpIVebNe2BNBe88ckJj7z0ZuMuU3MrMwiYKMgHUZDndVRCaY+wRTZ90WfyQBxdXmR5nz4KJfaL42ck2E05cLhEYAZ9BRYwsdFqZ7c61PbA80rLr7MjTnMxEZg+OJEd5RGdLr7kJY2dZHZaTwePlQa0+PcCYxVsBgALmMC2W0JpT3HpFWpn+5lpqdpGsd5WE4F5WSm8/9Q574iDxT92khFgNm/b7/HQqEhtD/Defd+bo6JPyMK7gQEsYAayxR9Ke4Qz5WVpscCSwCGDEgknUTV1d+hGTb1elm/DZw5Npsame3xrHl4kVgPYvvdVRB9koYNtfWAAC1v7gRbodrU9WPVUXqmhcLb1ljk0yWSqyQNxTpGXmcwFjV6Ivtdfnuwx+oefdvLdFAjj7EMWpdCGPhTsvEBHkAcsX+ciXKGDP6Gw50zJJW5FxuAB0sM2E4GQzn3oqnBd45Y7vHMJOyedOC6XnOy9cKGiih8Y4eCo6PcjVFZZQ5iy+OEebeJQCbLQgS4wgBVs6Wp7xPTNzdKcymivNI0Z0D+O+j0RS7fvNFPZxSrKy/b+LAT/+dkzxtPYUZlex5ogaue+c8YxeB2HSl11rNlV9uDjIrzKMHMGp8m/TpASiCfOy05hU6+cMI2NBAqG8CLHpw/Y4ERSa3WwjtwN6YexYEf6y++3M4z/d1uMMrJ6Yr94Wvb2CzyKi/7OsEdg4Spyv6z0JJ+vGp8E5mam0GFG4HlGDI4OraYbiMFmKH52C6aIXfIwBnSgO+bJDNOQwdgjwJDKnSnRlm6y6CvkTAR+Y1gxIP85y/KgCWOyhU6nXeF9+w4Wc7y5s/OlZMgGw6zY9uchrvvUyHQvL5TJB9JWyY5dEexQtm0/5hNCGkSM0qckOzRGmUDqwvswHUGEvwWy0BFe6K+eHTkxfTvS8Xig+N5Nr1D43R8xzvrG6ivX6+Jw6GNnuaXHkd3rve/5SSNteRFWL9DpKi90sgS/5N+rmMUOCqPcNcsXanmY5EEsPbDwnReZDzt+hZ4xJ5Rg2WoK1PvEIF3phVj3svyVfd3rOGpFHmyRrY+FjfxauHbLVCfhW+nHr7D0aNmnKxZ8ZfXklh4IxdUr5u9jFy0cWSH1sD7mfs7omPCtPeyx1OMoBhQDigHFgGJAMaAYUAwoBhQDigHFgGJAMaAYUAwoBhQDigHFgGJAMaAYCIiB/wDMm5xzGCCCggAAAABJRU5ErkJggg==';
-  var BLESendInterval = 100;
-  var waitPromise = function waitPromise() {
-    return new Promise(function (resolve) {
-      return window.setTimeout(resolve, BLESendInterval);
-    });
-  };
-  var formatMessage = requireFormatMessage();
-  var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/legoremote.mjs';
-  var PortId = {
-    BUTTON_A: 0x00,
-    BUTTON_B: 0x01
-  };
-  var Button = {
-    NONE: 0,
-    PLUS: 1,
-    MINUS: -1,
-    STOP: 127,
-    ANY: 255
-  };
-  var Scratch3LegoRemoteBlocks = /*#__PURE__*/function () {
-    function Scratch3LegoRemoteBlocks(runtime) {
-      _classCallCheck(this, Scratch3LegoRemoteBlocks);
-      this._peripheral = new Hub(runtime, Scratch3LegoRemoteBlocks.EXTENSION_ID, 0x42);
-      if (runtime.formatMessage) {
-        // Replace 'formatMessage' to a formatter which is used in the runtime.
-        formatMessage = runtime.formatMessage;
+  (function (module, exports) {
+    // Browser-compatible Scratch VM utilities
+    var ArgumentType = {
+      ANGLE: 'angle',
+      BOOLEAN: 'Boolean',
+      COLOR: 'color',
+      NUMBER: 'number',
+      STRING: 'string',
+      MATRIX: 'matrix',
+      NOTE: 'note',
+      IMAGE: 'image'
+    };
+    var BlockType = {
+      BOOLEAN: 'Boolean',
+      BUTTON: 'button',
+      COMMAND: 'command',
+      CONDITIONAL: 'conditional',
+      EVENT: 'event',
+      HAT: 'hat',
+      LOOP: 'loop',
+      REPORTER: 'reporter'
+    };
+    var Cast = {
+      toNumber: function toNumber(value) {
+        if (typeof value === 'number') {
+          if (Number.isNaN(value)) return 0;
+          return value;
+        }
+        var n = Number(value);
+        return Number.isNaN(n) ? 0 : n;
+      },
+      toBoolean: function toBoolean(value) {
+        if (typeof value === 'boolean') return value;
+        if (typeof value === 'string') {
+          if (value === '' || value === '0' || value.toLowerCase() === 'false') return false;
+          return true;
+        }
+        return Boolean(value);
+      },
+      toString: function toString(value) {
+        return String(value);
       }
-    }
-    return _createClass(Scratch3LegoRemoteBlocks, [{
-      key: "getInfo",
-      value: function getInfo() {
-        this._setupTranslations();
-        return {
-          id: Scratch3LegoRemoteBlocks.EXTENSION_ID,
-          name: 'LEGO Remote',
-          extensionURL: Scratch3LegoRemoteBlocks.extensionURL,
-          blockIconURI: blockIconURI,
-          showStatusButton: true,
-          blocks: [{
-            opcode: 'whenButton',
-            text: formatMessage({
-              id: 'legoremote.whenButton',
-              default: '[PORT] when [BUTTON] button pressed'
-            }),
-            blockType: BlockType.HAT,
-            arguments: {
-              PORT: {
-                type: ArgumentType.STRING,
-                menu: 'PORT',
-                defaultValue: 'A'
-              },
-              BUTTON: {
-                type: ArgumentType.NUMBER,
-                menu: 'BUTTON',
-                defaultValue: Button.PLUS
-              }
-            }
-          }, {
-            opcode: 'isButton',
-            text: formatMessage({
-              id: 'legoremote.isButton',
-              default: '[PORT] [BUTTON] button pressed?'
-            }),
-            blockType: BlockType.BOOLEAN,
-            arguments: {
-              PORT: {
-                type: ArgumentType.STRING,
-                menu: 'PORT',
-                defaultValue: 'A'
-              },
-              BUTTON: {
-                type: ArgumentType.NUMBER,
-                menu: 'BUTTON',
-                defaultValue: Button.PLUS
-              }
-            }
-          }, '---', {
-            opcode: 'getButtonA',
-            text: formatMessage({
-              id: 'legoremote.getButtonA',
-              default: 'button A'
-            }),
-            blockType: BlockType.REPORTER
-          }, {
-            opcode: 'getButtonB',
-            text: formatMessage({
-              id: 'legoremote.getButtonB',
-              default: 'button B'
-            }),
-            blockType: BlockType.REPORTER
-          }, '---', {
-            opcode: 'setHubLEDColor',
-            text: formatMessage({
-              id: 'legoremote.setHubLEDColor',
-              default: 'set LED color to [COLOR]'
-            }),
-            blockType: BlockType.COMMAND,
-            arguments: {
-              COLOR: {
-                type: ArgumentType.NUMBER,
-                menu: 'LED_COLOR',
-                defaultValue: Color.BLUE
-              }
-            }
-          }],
-          menus: {
-            PORT: {
-              acceptReporters: true,
-              items: ['A', 'B']
-            },
-            LED_COLOR: {
-              acceptReporters: true,
-              items: [{
-                text: formatMessage({
-                  id: 'legobluetooth.black',
-                  default: '(0) Black'
-                }),
-                value: String(Color.BLACK)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.pink',
-                  default: '(1) Pink'
-                }),
-                value: String(Color.PINK)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.purple',
-                  default: '(2) Purple'
-                }),
-                value: String(Color.PURPLE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.blue',
-                  default: '(3) Blue'
-                }),
-                value: String(Color.BLUE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.lightBlue',
-                  default: '(4) Light blue'
-                }),
-                value: String(Color.LIGHT_BLUE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.lightGreen',
-                  default: '(5) Light green'
-                }),
-                value: String(Color.LIGHT_GREEN)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.green',
-                  default: '(6) Green'
-                }),
-                value: String(Color.GREEN)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.yellow',
-                  default: '(7) Yellow'
-                }),
-                value: String(Color.YELLOW)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.orange',
-                  default: '(8) Orange'
-                }),
-                value: String(Color.ORANGE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.red',
-                  default: '(9) Red'
-                }),
-                value: String(Color.RED)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.white',
-                  default: '(10) White'
-                }),
-                value: String(Color.WHITE)
-              }]
-            },
-            BUTTON: {
-              acceptReporters: false,
-              items: [{
-                text: formatMessage({
-                  id: 'legoremote.button.plus',
-                  default: 'plus'
-                }),
-                value: String(Button.PLUS)
-              }, {
-                text: formatMessage({
-                  id: 'legoremote.button.minus',
-                  default: 'minus'
-                }),
-                value: String(Button.MINUS)
-              }, {
-                text: formatMessage({
-                  id: 'legoremote.button.stop',
-                  default: 'red'
-                }),
-                value: String(Button.STOP)
-              }, {
-                text: formatMessage({
-                  id: 'legoremote.button.any',
-                  default: 'any'
-                }),
-                value: String(Button.ANY)
-              }]
-            }
-          }
-        };
-      }
-    }, {
-      key: "_validatePorts",
-      value: function _validatePorts(text) {
-        return text.toUpperCase().replace(/[^AB]/g, '').split('').filter(function (x, i, self) {
-          return self.indexOf(x) === i;
-        }).sort();
-      }
-    }, {
-      key: "setHubLEDColor",
-      value: function setHubLEDColor(args) {
-        var color = Cast.toNumber(args.COLOR);
-        return this._peripheral.setLEDColor(color).then(waitPromise);
-      }
-    }, {
-      key: "whenButton",
-      value: function whenButton(args) {
-        return this.isButton(args);
-      }
-    }, {
-      key: "isButton",
-      value: function isButton(args) {
-        var port = this._validatePorts(Cast.toString(args.PORT)).shift();
-        var portId = ['A', 'B'].indexOf(port);
-        var button = Cast.toNumber(args.BUTTON);
-        var value = this._getSensorValue(portId, 'button', Button.NONE);
-        if (button == Button.ANY) {
-          return value != Button.NONE;
-        } else {
-          return value == button;
+    };
+    var Hub = requireHub();
+    var setupTranslations = requireSetupTranslations();
+    var blockIconURI = 'data:image/png;base64,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';
+    var BLESendInterval = 100;
+    var waitPromise = function waitPromise() {
+      return new Promise(function (resolve) {
+        return window.setTimeout(resolve, BLESendInterval);
+      });
+    };
+    var formatMessage = requireFormatMessage();
+    var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/legoremote.mjs';
+    var PortId = {
+      BUTTON_A: 0x00,
+      BUTTON_B: 0x01
+    };
+    var Button = {
+      NONE: 0,
+      PLUS: 1,
+      MINUS: -1,
+      STOP: 127,
+      ANY: 255
+    };
+    var Scratch3LegoRemoteBlocks = /*#__PURE__*/function () {
+      function Scratch3LegoRemoteBlocks(runtime) {
+        _classCallCheck(this, Scratch3LegoRemoteBlocks);
+        this._peripheral = new Hub(runtime, Scratch3LegoRemoteBlocks.EXTENSION_ID, 0x42);
+        if (runtime.formatMessage) {
+          // Replace 'formatMessage' to a formatter which is used in the runtime.
+          formatMessage = runtime.formatMessage;
         }
       }
-    }, {
-      key: "getButtonA",
-      value: function getButtonA() {
-        return this._getSensorValue(PortId.BUTTON_A, 'button', Button.NONE);
-      }
-    }, {
-      key: "getButtonB",
-      value: function getButtonB() {
-        return this._getSensorValue(PortId.BUTTON_B, 'button', Button.NONE);
-      }
-    }, {
-      key: "_getSensorValue",
-      value: function _getSensorValue(portId, key, defaultValue) {
-        var value = this._peripheral.inputValue(portId, key);
-        return value != null ? value : defaultValue;
-      }
-    }, {
-      key: "_setupTranslations",
-      value: function _setupTranslations() {
-        setupTranslations(formatMessage, {
-          'en': {
-            'legoremote.whenButton': '[PORT] when [BUTTON] button pressed',
-            'legoremote.isButton': '[PORT] [BUTTON] button pressed?',
-            'legoremote.getButtonA': 'button A',
-            'legoremote.getButtonB': 'button B',
-            'legoremote.setHubLEDColor': 'set LED color to [COLOR]',
-            'legoremote.button.plus': 'plus',
-            'legoremote.button.minus': 'minus',
-            'legoremote.button.stop': 'red',
-            'legoremote.button.any': 'any'
-          },
-          'ja': {
-            'legoremote.whenButton': '[PORT] [BUTTON] ボタンが押されたとき',
-            'legoremote.isButton': '[PORT] [BUTTON] ボタンが押された',
-            'legoremote.getButtonA': 'ボタン A',
-            'legoremote.getButtonB': 'ボタン B',
-            'legoremote.setHubLEDColor': 'LEDの色を [COLOR] にする',
-            'legoremote.button.plus': 'プラス',
-            'legoremote.button.minus': 'マイナス',
-            'legoremote.button.stop': '赤い',
-            'legoremote.button.any': 'どれかの'
-          },
-          'ja-Hira': {
-            'legoremote.whenButton': '[PORT] [BUTTON] ボタンがおされたとき',
-            'legoremote.isButton': '[PORT] [BUTTON] ボタンがおされた',
-            'legoremote.getButtonA': 'ボタン A',
-            'legoremote.getButtonB': 'ボタン B',
-            'legoremote.setHubLEDColor': 'LEDのいろを [COLOR] にする',
-            'legoremote.button.plus': 'プラス',
-            'legoremote.button.minus': 'マイナス',
-            'legoremote.button.stop': 'あかい',
-            'legoremote.button.any': 'どれかの'
+      return _createClass(Scratch3LegoRemoteBlocks, [{
+        key: "getInfo",
+        value: function getInfo() {
+          this._setupTranslations();
+          return {
+            id: Scratch3LegoRemoteBlocks.EXTENSION_ID,
+            name: 'LEGO Remote',
+            extensionURL: Scratch3LegoRemoteBlocks.extensionURL,
+            blockIconURI: blockIconURI,
+            showStatusButton: true,
+            blocks: [{
+              opcode: 'whenButton',
+              text: formatMessage({
+                id: 'legoremote.whenButton',
+                default: '[PORT] when [BUTTON] button pressed'
+              }),
+              blockType: BlockType.HAT,
+              arguments: {
+                PORT: {
+                  type: ArgumentType.STRING,
+                  menu: 'PORT',
+                  defaultValue: 'A'
+                },
+                BUTTON: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'BUTTON',
+                  defaultValue: Button.PLUS
+                }
+              }
+            }, {
+              opcode: 'isButton',
+              text: formatMessage({
+                id: 'legoremote.isButton',
+                default: '[PORT] [BUTTON] button pressed?'
+              }),
+              blockType: BlockType.BOOLEAN,
+              arguments: {
+                PORT: {
+                  type: ArgumentType.STRING,
+                  menu: 'PORT',
+                  defaultValue: 'A'
+                },
+                BUTTON: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'BUTTON',
+                  defaultValue: Button.PLUS
+                }
+              }
+            }, '---', {
+              opcode: 'getButtonA',
+              text: formatMessage({
+                id: 'legoremote.getButtonA',
+                default: 'button A'
+              }),
+              blockType: BlockType.REPORTER
+            }, {
+              opcode: 'getButtonB',
+              text: formatMessage({
+                id: 'legoremote.getButtonB',
+                default: 'button B'
+              }),
+              blockType: BlockType.REPORTER
+            }, '---', {
+              opcode: 'setHubLEDColor',
+              text: formatMessage({
+                id: 'legoremote.setHubLEDColor',
+                default: 'set LED color to [COLOR]'
+              }),
+              blockType: BlockType.COMMAND,
+              arguments: {
+                COLOR: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'LED_COLOR',
+                  defaultValue: Color.BLUE
+                }
+              }
+            }],
+            menus: {
+              PORT: {
+                acceptReporters: true,
+                items: ['A', 'B']
+              },
+              LED_COLOR: {
+                acceptReporters: true,
+                items: [{
+                  text: formatMessage({
+                    id: 'legobluetooth.black',
+                    default: '(0) Black'
+                  }),
+                  value: String(Color.BLACK)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.pink',
+                    default: '(1) Pink'
+                  }),
+                  value: String(Color.PINK)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.purple',
+                    default: '(2) Purple'
+                  }),
+                  value: String(Color.PURPLE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.blue',
+                    default: '(3) Blue'
+                  }),
+                  value: String(Color.BLUE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.lightBlue',
+                    default: '(4) Light blue'
+                  }),
+                  value: String(Color.LIGHT_BLUE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.lightGreen',
+                    default: '(5) Light green'
+                  }),
+                  value: String(Color.LIGHT_GREEN)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.green',
+                    default: '(6) Green'
+                  }),
+                  value: String(Color.GREEN)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.yellow',
+                    default: '(7) Yellow'
+                  }),
+                  value: String(Color.YELLOW)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.orange',
+                    default: '(8) Orange'
+                  }),
+                  value: String(Color.ORANGE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.red',
+                    default: '(9) Red'
+                  }),
+                  value: String(Color.RED)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.white',
+                    default: '(10) White'
+                  }),
+                  value: String(Color.WHITE)
+                }]
+              },
+              BUTTON: {
+                acceptReporters: false,
+                items: [{
+                  text: formatMessage({
+                    id: 'legoremote.button.plus',
+                    default: 'plus'
+                  }),
+                  value: String(Button.PLUS)
+                }, {
+                  text: formatMessage({
+                    id: 'legoremote.button.minus',
+                    default: 'minus'
+                  }),
+                  value: String(Button.MINUS)
+                }, {
+                  text: formatMessage({
+                    id: 'legoremote.button.stop',
+                    default: 'red'
+                  }),
+                  value: String(Button.STOP)
+                }, {
+                  text: formatMessage({
+                    id: 'legoremote.button.any',
+                    default: 'any'
+                  }),
+                  value: String(Button.ANY)
+                }]
+              }
+            }
+          };
+        }
+      }, {
+        key: "_validatePorts",
+        value: function _validatePorts(text) {
+          return text.toUpperCase().replace(/[^AB]/g, '').split('').filter(function (x, i, self) {
+            return self.indexOf(x) === i;
+          }).sort();
+        }
+      }, {
+        key: "setHubLEDColor",
+        value: function setHubLEDColor(args) {
+          var color = Cast.toNumber(args.COLOR);
+          return this._peripheral.setLEDColor(color).then(waitPromise);
+        }
+      }, {
+        key: "whenButton",
+        value: function whenButton(args) {
+          return this.isButton(args);
+        }
+      }, {
+        key: "isButton",
+        value: function isButton(args) {
+          var port = this._validatePorts(Cast.toString(args.PORT)).shift();
+          var portId = ['A', 'B'].indexOf(port);
+          var button = Cast.toNumber(args.BUTTON);
+          var value = this._getSensorValue(portId, 'button', Button.NONE);
+          if (button == Button.ANY) {
+            return value != Button.NONE;
+          } else {
+            return value == button;
           }
-        });
-      }
-    }], [{
-      key: "EXTENSION_ID",
-      get: function get() {
-        return 'legoremote';
-      }
-    }, {
-      key: "extensionURL",
-      get: function get() {
-        return extensionURL;
-      },
-      set: function set(url) {
-        extensionURL = url;
-      }
-    }]);
-  }();
-  _legoremote.blockClass = Scratch3LegoRemoteBlocks;
-  _legoremote.blockClass = Scratch3LegoRemoteBlocks;
-  return _legoremote;
+        }
+      }, {
+        key: "getButtonA",
+        value: function getButtonA() {
+          return this._getSensorValue(PortId.BUTTON_A, 'button', Button.NONE);
+        }
+      }, {
+        key: "getButtonB",
+        value: function getButtonB() {
+          return this._getSensorValue(PortId.BUTTON_B, 'button', Button.NONE);
+        }
+      }, {
+        key: "_getSensorValue",
+        value: function _getSensorValue(portId, key, defaultValue) {
+          var value = this._peripheral.inputValue(portId, key);
+          return value != null ? value : defaultValue;
+        }
+      }, {
+        key: "_setupTranslations",
+        value: function _setupTranslations() {
+          setupTranslations(formatMessage, {
+            'en': {
+              'legoremote.whenButton': '[PORT] when [BUTTON] button pressed',
+              'legoremote.isButton': '[PORT] [BUTTON] button pressed?',
+              'legoremote.getButtonA': 'button A',
+              'legoremote.getButtonB': 'button B',
+              'legoremote.setHubLEDColor': 'set LED color to [COLOR]',
+              'legoremote.button.plus': 'plus',
+              'legoremote.button.minus': 'minus',
+              'legoremote.button.stop': 'red',
+              'legoremote.button.any': 'any'
+            },
+            'ja': {
+              'legoremote.whenButton': '[PORT] [BUTTON] ボタンが押されたとき',
+              'legoremote.isButton': '[PORT] [BUTTON] ボタンが押された',
+              'legoremote.getButtonA': 'ボタン A',
+              'legoremote.getButtonB': 'ボタン B',
+              'legoremote.setHubLEDColor': 'LEDの色を [COLOR] にする',
+              'legoremote.button.plus': 'プラス',
+              'legoremote.button.minus': 'マイナス',
+              'legoremote.button.stop': '赤い',
+              'legoremote.button.any': 'どれかの'
+            },
+            'ja-Hira': {
+              'legoremote.whenButton': '[PORT] [BUTTON] ボタンがおされたとき',
+              'legoremote.isButton': '[PORT] [BUTTON] ボタンがおされた',
+              'legoremote.getButtonA': 'ボタン A',
+              'legoremote.getButtonB': 'ボタン B',
+              'legoremote.setHubLEDColor': 'LEDのいろを [COLOR] にする',
+              'legoremote.button.plus': 'プラス',
+              'legoremote.button.minus': 'マイナス',
+              'legoremote.button.stop': 'あかい',
+              'legoremote.button.any': 'どれかの'
+            }
+          });
+        }
+      }], [{
+        key: "EXTENSION_ID",
+        get: function get() {
+          return 'legoremote';
+        }
+      }, {
+        key: "extensionURL",
+        get: function get() {
+          return extensionURL;
+        },
+        set: function set(url) {
+          extensionURL = url;
+        }
+      }]);
+    }(); // Extension export for bundling
+    var ExtensionClass = Scratch3LegoRemoteBlocks;
+    module.exports = ExtensionClass;
+    exports.blockClass = ExtensionClass;
+  })(_legoremote, _legoremote.exports);
+  return _legoremote.exports;
 }
 
 require_legoremote();

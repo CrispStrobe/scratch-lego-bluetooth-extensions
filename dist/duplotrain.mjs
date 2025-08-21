@@ -7887,6 +7887,42 @@ var entry = {
   }
 };
 
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+function _possibleConstructorReturn(t, e) {
+  if (e && ("object" == _typeof$1(e) || "function" == typeof e)) return e;
+  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+  return _assertThisInitialized(t);
+}
+
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
+}
+
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+
+function _inherits(t, e) {
+  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+  t.prototype = Object.create(e && e.prototype, {
+    constructor: {
+      value: t,
+      writable: !0,
+      configurable: !0
+    }
+  }), Object.defineProperty(t, "prototype", {
+    writable: !1
+  }), e && _setPrototypeOf(t, e);
+}
+
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -7919,606 +7955,7 @@ function _createClass(e, r, t) {
   }), e;
 }
 
-var _duplotrain = {};
-
-/**
- * Block argument types
- * @enum {string}
- */
-var argumentType;
-var hasRequiredArgumentType;
-function requireArgumentType() {
-  if (hasRequiredArgumentType) return argumentType;
-  hasRequiredArgumentType = 1;
-  var ArgumentType = {
-    /**
-     * Numeric value with angle picker
-     */
-    ANGLE: 'angle',
-    /**
-     * Boolean value with hexagonal placeholder
-     */
-    BOOLEAN: 'Boolean',
-    /**
-     * Numeric value with color picker
-     */
-    COLOR: 'color',
-    /**
-     * Numeric value with text field
-     */
-    NUMBER: 'number',
-    /**
-     * String value with text field
-     */
-    STRING: 'string',
-    /**
-     * String value with matrix field
-     */
-    MATRIX: 'matrix',
-    /**
-     * MIDI note number with note picker (piano) field
-     */
-    NOTE: 'note',
-    /**
-     * Inline image on block (as part of the label)
-     */
-    IMAGE: 'image'
-  };
-  argumentType = ArgumentType;
-  return argumentType;
-}
-
-/**
- * Types of block
- * @enum {string}
- */
-var blockType;
-var hasRequiredBlockType;
-function requireBlockType() {
-  if (hasRequiredBlockType) return blockType;
-  hasRequiredBlockType = 1;
-  var BlockType = {
-    /**
-     * Boolean reporter with hexagonal shape
-     */
-    BOOLEAN: 'Boolean',
-    /**
-     * A button (not an actual block) for some special action, like making a variable
-     */
-    BUTTON: 'button',
-    /**
-     * Command block
-     */
-    COMMAND: 'command',
-    /**
-     * Specialized command block which may or may not run a child branch
-     * The thread continues with the next block whether or not a child branch ran.
-     */
-    CONDITIONAL: 'conditional',
-    /**
-     * Specialized hat block with no implementation function
-     * This stack only runs if the corresponding event is emitted by other code.
-     */
-    EVENT: 'event',
-    /**
-     * Hat block which conditionally starts a block stack
-     */
-    HAT: 'hat',
-    /**
-     * Specialized command block which may or may not run a child branch
-     * If a child branch runs, the thread evaluates the loop block again.
-     */
-    LOOP: 'loop',
-    /**
-     * General reporter with numeric or string value
-     */
-    REPORTER: 'reporter'
-  };
-  blockType = BlockType;
-  return blockType;
-}
-
-var color$1;
-var hasRequiredColor$1;
-function requireColor$1() {
-  if (hasRequiredColor$1) return color$1;
-  hasRequiredColor$1 = 1;
-  var Color = /*#__PURE__*/function () {
-    function Color() {
-      _classCallCheck(this, Color);
-    }
-    return _createClass(Color, null, [{
-      key: "RGB_BLACK",
-      get:
-      /**
-       * @typedef {object} RGBObject - An object representing a color in RGB format.
-       * @property {number} r - the red component, in the range [0, 255].
-       * @property {number} g - the green component, in the range [0, 255].
-       * @property {number} b - the blue component, in the range [0, 255].
-       */
-
-      /**
-       * @typedef {object} HSVObject - An object representing a color in HSV format.
-       * @property {number} h - hue, in the range [0-359).
-       * @property {number} s - saturation, in the range [0,1].
-       * @property {number} v - value, in the range [0,1].
-       */
-
-      /** @type {RGBObject} */
-      function get() {
-        return {
-          r: 0,
-          g: 0,
-          b: 0
-        };
-      }
-
-      /** @type {RGBObject} */
-    }, {
-      key: "RGB_WHITE",
-      get: function get() {
-        return {
-          r: 255,
-          g: 255,
-          b: 255
-        };
-      }
-
-      /**
-       * Convert a Scratch decimal color to a hex string, #RRGGBB.
-       * @param {number} decimal RGB color as a decimal.
-       * @return {string} RGB color as #RRGGBB hex string.
-       */
-    }, {
-      key: "decimalToHex",
-      value: function decimalToHex(decimal) {
-        if (decimal < 0) {
-          decimal += 0xFFFFFF + 1;
-        }
-        var hex = Number(decimal).toString(16);
-        hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
-        return hex;
-      }
-
-      /**
-       * Convert a Scratch decimal color to an RGB color object.
-       * @param {number} decimal RGB color as decimal.
-       * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       */
-    }, {
-      key: "decimalToRgb",
-      value: function decimalToRgb(decimal) {
-        var a = decimal >> 24 & 0xFF;
-        var r = decimal >> 16 & 0xFF;
-        var g = decimal >> 8 & 0xFF;
-        var b = decimal & 0xFF;
-        return {
-          r: r,
-          g: g,
-          b: b,
-          a: a > 0 ? a : 255
-        };
-      }
-
-      /**
-       * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
-       * CC-BY-SA Tim Down:
-       * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-       * @param {!string} hex Hex representation of the color.
-       * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       */
-    }, {
-      key: "hexToRgb",
-      value: function hexToRgb(hex) {
-        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-          return r + r + g + g + b + b;
-        });
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16)
-        } : null;
-      }
-
-      /**
-       * Convert an RGB color object to a hex color.
-       * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       * @return {!string} Hex representation of the color.
-       */
-    }, {
-      key: "rgbToHex",
-      value: function rgbToHex(rgb) {
-        return Color.decimalToHex(Color.rgbToDecimal(rgb));
-      }
-
-      /**
-       * Convert an RGB color object to a Scratch decimal color.
-       * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       * @return {!number} Number representing the color.
-       */
-    }, {
-      key: "rgbToDecimal",
-      value: function rgbToDecimal(rgb) {
-        return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
-      }
-
-      /**
-      * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
-      * @param {!string} hex Hex representation of the color.
-      * @return {!number} Number representing the color.
-      */
-    }, {
-      key: "hexToDecimal",
-      value: function hexToDecimal(hex) {
-        return Color.rgbToDecimal(Color.hexToRgb(hex));
-      }
-
-      /**
-       * Convert an HSV color to RGB format.
-       * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
-       * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       */
-    }, {
-      key: "hsvToRgb",
-      value: function hsvToRgb(hsv) {
-        var h = hsv.h % 360;
-        if (h < 0) h += 360;
-        var s = Math.max(0, Math.min(hsv.s, 1));
-        var v = Math.max(0, Math.min(hsv.v, 1));
-        var i = Math.floor(h / 60);
-        var f = h / 60 - i;
-        var p = v * (1 - s);
-        var q = v * (1 - s * f);
-        var t = v * (1 - s * (1 - f));
-        var r;
-        var g;
-        var b;
-        switch (i) {
-          default:
-          case 0:
-            r = v;
-            g = t;
-            b = p;
-            break;
-          case 1:
-            r = q;
-            g = v;
-            b = p;
-            break;
-          case 2:
-            r = p;
-            g = v;
-            b = t;
-            break;
-          case 3:
-            r = p;
-            g = q;
-            b = v;
-            break;
-          case 4:
-            r = t;
-            g = p;
-            b = v;
-            break;
-          case 5:
-            r = v;
-            g = p;
-            b = q;
-            break;
-        }
-        return {
-          r: Math.floor(r * 255),
-          g: Math.floor(g * 255),
-          b: Math.floor(b * 255)
-        };
-      }
-
-      /**
-       * Convert an RGB color to HSV format.
-       * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
-       * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
-       */
-    }, {
-      key: "rgbToHsv",
-      value: function rgbToHsv(rgb) {
-        var r = rgb.r / 255;
-        var g = rgb.g / 255;
-        var b = rgb.b / 255;
-        var x = Math.min(Math.min(r, g), b);
-        var v = Math.max(Math.max(r, g), b);
-
-        // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
-        var h = 0;
-        var s = 0;
-        if (x !== v) {
-          var f = r === x ? g - b : g === x ? b - r : r - g;
-          var i = r === x ? 3 : g === x ? 5 : 1;
-          h = (i - f / (v - x)) * 60 % 360;
-          s = (v - x) / v;
-        }
-        return {
-          h: h,
-          s: s,
-          v: v
-        };
-      }
-
-      /**
-       * Linear interpolation between rgb0 and rgb1.
-       * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
-       * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
-       * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
-       * @return {RGBObject} the interpolated color.
-       */
-    }, {
-      key: "mixRgb",
-      value: function mixRgb(rgb0, rgb1, fraction1) {
-        if (fraction1 <= 0) return rgb0;
-        if (fraction1 >= 1) return rgb1;
-        var fraction0 = 1 - fraction1;
-        return {
-          r: fraction0 * rgb0.r + fraction1 * rgb1.r,
-          g: fraction0 * rgb0.g + fraction1 * rgb1.g,
-          b: fraction0 * rgb0.b + fraction1 * rgb1.b
-        };
-      }
-    }]);
-  }();
-  color$1 = Color;
-  return color$1;
-}
-
-var cast;
-var hasRequiredCast;
-function requireCast() {
-  if (hasRequiredCast) return cast;
-  hasRequiredCast = 1;
-  var Color = requireColor$1();
-
-  /**
-   * @fileoverview
-   * Utilities for casting and comparing Scratch data-types.
-   * Scratch behaves slightly differently from JavaScript in many respects,
-   * and these differences should be encapsulated below.
-   * For example, in Scratch, add(1, join("hello", world")) -> 1.
-   * This is because "hello world" is cast to 0.
-   * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
-   * Use when coercing a value before computation.
-   */
-  var Cast = /*#__PURE__*/function () {
-    function Cast() {
-      _classCallCheck(this, Cast);
-    }
-    return _createClass(Cast, null, [{
-      key: "toNumber",
-      value:
-      /**
-       * Scratch cast to number.
-       * Treats NaN as 0.
-       * In Scratch 2.0, this is captured by `interp.numArg.`
-       * @param {*} value Value to cast to number.
-       * @return {number} The Scratch-casted number value.
-       */
-      function toNumber(value) {
-        // If value is already a number we don't need to coerce it with
-        // Number().
-        if (typeof value === 'number') {
-          // Scratch treats NaN as 0, when needed as a number.
-          // E.g., 0 + NaN -> 0.
-          if (Number.isNaN(value)) {
-            return 0;
-          }
-          return value;
-        }
-        var n = Number(value);
-        if (Number.isNaN(n)) {
-          // Scratch treats NaN as 0, when needed as a number.
-          // E.g., 0 + NaN -> 0.
-          return 0;
-        }
-        return n;
-      }
-
-      /**
-       * Scratch cast to boolean.
-       * In Scratch 2.0, this is captured by `interp.boolArg.`
-       * Treats some string values differently from JavaScript.
-       * @param {*} value Value to cast to boolean.
-       * @return {boolean} The Scratch-casted boolean value.
-       */
-    }, {
-      key: "toBoolean",
-      value: function toBoolean(value) {
-        // Already a boolean?
-        if (typeof value === 'boolean') {
-          return value;
-        }
-        if (typeof value === 'string') {
-          // These specific strings are treated as false in Scratch.
-          if (value === '' || value === '0' || value.toLowerCase() === 'false') {
-            return false;
-          }
-          // All other strings treated as true.
-          return true;
-        }
-        // Coerce other values and numbers.
-        return Boolean(value);
-      }
-
-      /**
-       * Scratch cast to string.
-       * @param {*} value Value to cast to string.
-       * @return {string} The Scratch-casted string value.
-       */
-    }, {
-      key: "toString",
-      value: function toString(value) {
-        return String(value);
-      }
-
-      /**
-       * Cast any Scratch argument to an RGB color array to be used for the renderer.
-       * @param {*} value Value to convert to RGB color array.
-       * @return {Array.<number>} [r,g,b], values between 0-255.
-       */
-    }, {
-      key: "toRgbColorList",
-      value: function toRgbColorList(value) {
-        var color = Cast.toRgbColorObject(value);
-        return [color.r, color.g, color.b];
-      }
-
-      /**
-       * Cast any Scratch argument to an RGB color object to be used for the renderer.
-       * @param {*} value Value to convert to RGB color object.
-       * @return {RGBOject} [r,g,b], values between 0-255.
-       */
-    }, {
-      key: "toRgbColorObject",
-      value: function toRgbColorObject(value) {
-        var color;
-        if (typeof value === 'string' && value.substring(0, 1) === '#') {
-          color = Color.hexToRgb(value);
-
-          // If the color wasn't *actually* a hex color, cast to black
-          if (!color) color = {
-            r: 0,
-            g: 0,
-            b: 0,
-            a: 255
-          };
-        } else {
-          color = Color.decimalToRgb(Cast.toNumber(value));
-        }
-        return color;
-      }
-
-      /**
-       * Determine if a Scratch argument is a white space string (or null / empty).
-       * @param {*} val value to check.
-       * @return {boolean} True if the argument is all white spaces or null / empty.
-       */
-    }, {
-      key: "isWhiteSpace",
-      value: function isWhiteSpace(val) {
-        return val === null || typeof val === 'string' && val.trim().length === 0;
-      }
-
-      /**
-       * Compare two values, using Scratch cast, case-insensitive string compare, etc.
-       * In Scratch 2.0, this is captured by `interp.compare.`
-       * @param {*} v1 First value to compare.
-       * @param {*} v2 Second value to compare.
-       * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
-       */
-    }, {
-      key: "compare",
-      value: function compare(v1, v2) {
-        var n1 = Number(v1);
-        var n2 = Number(v2);
-        if (n1 === 0 && Cast.isWhiteSpace(v1)) {
-          n1 = NaN;
-        } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
-          n2 = NaN;
-        }
-        if (isNaN(n1) || isNaN(n2)) {
-          // At least one argument can't be converted to a number.
-          // Scratch compares strings as case insensitive.
-          var s1 = String(v1).toLowerCase();
-          var s2 = String(v2).toLowerCase();
-          if (s1 < s2) {
-            return -1;
-          } else if (s1 > s2) {
-            return 1;
-          }
-          return 0;
-        }
-        // Handle the special case of Infinity
-        if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
-          return 0;
-        }
-        // Compare as numbers.
-        return n1 - n2;
-      }
-
-      /**
-       * Determine if a Scratch argument number represents a round integer.
-       * @param {*} val Value to check.
-       * @return {boolean} True if number looks like an integer.
-       */
-    }, {
-      key: "isInt",
-      value: function isInt(val) {
-        // Values that are already numbers.
-        if (typeof val === 'number') {
-          if (isNaN(val)) {
-            // NaN is considered an integer.
-            return true;
-          }
-          // True if it's "round" (e.g., 2.0 and 2).
-          return val === parseInt(val, 10);
-        } else if (typeof val === 'boolean') {
-          // `True` and `false` always represent integer after Scratch cast.
-          return true;
-        } else if (typeof val === 'string') {
-          // If it contains a decimal point, don't consider it an int.
-          return val.indexOf('.') < 0;
-        }
-        return false;
-      }
-    }, {
-      key: "LIST_INVALID",
-      get: function get() {
-        return 'INVALID';
-      }
-    }, {
-      key: "LIST_ALL",
-      get: function get() {
-        return 'ALL';
-      }
-
-      /**
-       * Compute a 1-based index into a list, based on a Scratch argument.
-       * Two special cases may be returned:
-       * LIST_ALL: if the block is referring to all of the items in the list.
-       * LIST_INVALID: if the index was invalid in any way.
-       * @param {*} index Scratch arg, including 1-based numbers or special cases.
-       * @param {number} length Length of the list.
-       * @param {boolean} acceptAll Whether it should accept "all" or not.
-       * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
-       */
-    }, {
-      key: "toListIndex",
-      value: function toListIndex(index, length, acceptAll) {
-        if (typeof index !== 'number') {
-          if (index === 'all') {
-            return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
-          }
-          if (index === 'last') {
-            if (length > 0) {
-              return length;
-            }
-            return Cast.LIST_INVALID;
-          } else if (index === 'random' || index === 'any') {
-            if (length > 0) {
-              return 1 + Math.floor(Math.random() * length);
-            }
-            return Cast.LIST_INVALID;
-          }
-        }
-        index = Math.floor(Cast.toNumber(index));
-        if (index < 1 || index > length) {
-          return Cast.LIST_INVALID;
-        }
-        return index;
-      }
-    }]);
-  }();
-  cast = Cast;
-  return cast;
-}
+var _duplotrain = {exports: {}};
 
 function _arrayWithHoles(r) {
   if (Array.isArray(r)) return r;
@@ -8588,42 +8025,6 @@ function _nonIterableSpread() {
 
 function _toConsumableArray(r) {
   return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-}
-
-function _assertThisInitialized(e) {
-  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  return e;
-}
-
-function _possibleConstructorReturn(t, e) {
-  if (e && ("object" == _typeof$1(e) || "function" == typeof e)) return e;
-  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
-  return _assertThisInitialized(t);
-}
-
-function _getPrototypeOf(t) {
-  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
-    return t.__proto__ || Object.getPrototypeOf(t);
-  }, _getPrototypeOf(t);
-}
-
-function _setPrototypeOf(t, e) {
-  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
-    return t.__proto__ = e, t;
-  }, _setPrototypeOf(t, e);
-}
-
-function _inherits(t, e) {
-  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
-  t.prototype = Object.create(e && e.prototype, {
-    constructor: {
-      value: t,
-      writable: !0,
-      configurable: !0
-    }
-  }), Object.defineProperty(t, "prototype", {
-    writable: !1
-  }), e && _setPrototypeOf(t, e);
 }
 
 var jsonrpc;
@@ -12048,29 +11449,6 @@ function requireHub() {
   return hub;
 }
 
-var color;
-var hasRequiredColor;
-function requireColor() {
-  if (hasRequiredColor) return color;
-  hasRequiredColor = 1;
-  var Color = {
-    BLACK: 0,
-    PINK: 1,
-    PURPLE: 2,
-    BLUE: 3,
-    LIGHT_BLUE: 4,
-    LIGHT_GREEN: 5,
-    GREEN: 6,
-    YELLOW: 7,
-    ORANGE: 8,
-    RED: 9,
-    WHITE: 10,
-    NONE: -1
-  };
-  color = Color;
-  return color;
-}
-
 var setupTranslations_1;
 var hasRequiredSetupTranslations;
 function requireSetupTranslations() {
@@ -14048,445 +13426,487 @@ function requireFormatMessage() {
   return formatMessage.exports;
 }
 
+_duplotrain.exports;
 var hasRequired_duplotrain;
 function require_duplotrain() {
-  if (hasRequired_duplotrain) return _duplotrain;
+  if (hasRequired_duplotrain) return _duplotrain.exports;
   hasRequired_duplotrain = 1;
-  var ArgumentType = requireArgumentType();
-  var BlockType = requireBlockType();
-  var Cast = requireCast();
-  var Hub = requireHub();
-  var Color = requireColor();
-  var setupTranslations = requireSetupTranslations();
-  var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAAEl0lEQVR4Ae2bT0jUQRTHZ9xV1/4cMio0aUUqyoQKuniooLBO0amgoi55icLASwpWYkZ2KZKii12KDJSg6JYUVAePGtQSFZLiHzCyQ5pbrk7zdnfW3WXmN7PO+ts/vQX5zW/em3m/99nvvPntz11C8IUEkAASQAJIAAkgASSABJAAEkACSAAJIAEk4B4BahrqzQvCZL77j5DwHDq7bGw+9BXkQxKZzEGpQJWi3L5YoXC345rGQwWaklL4eRX9se59tbGmq423/a6GW3IwVOCS0UUGahWYK0ow5fCtdqf0bqKy/71yP3CaGxXoRMfApqUu3jG/v8ZgOnuX4eEP4UmSFcGOHSsaGfvaRgg7wxgri49EKZ0ghD7ctHHzFdrb+zfeJtrDtbs+MsKqxbnsSAkN+PsHd8hsqr6cUSDAY2zhUjI8SAz6wBYBrEiVkl6FZbGbkp7FE7OWtgaaTeOGFzsDUTas9xNfyeqEgLOzv8jk5DDvC/s0JRjFiYf2kBC76inwsIqKbVxs0cXHGBkd/cTmF+Yp8VA9ZDFf9JgzChTXLd0BhNHh6H83EIAlCqCCwZmYJ7ShL7x8uU/MYNiwroGiZhnGi7mpaqqYD+qabLnGJliGhkktTQ6btUvYbXgAJhKTQS2FU3kpAEvcK20Ak3fNuBgJTbGrJ3RKTmS1TuKW1i6jWpoUMWtrYPJGkXTdy3JaEt2cUlF/1gJcFkLLMCkCtISKABGgJQHL4ahABGhJwHI4KhABWhKwHJ62TyKmnzAsrzfrhuMStnxLrBWoeqpieV05MzxrFQgf7N1+iZiRx1pm0a0VaBYmda/IE+bUx6VjBDxMEDVd95QpaxWYDhBuzJF1CsyWmiqejOveBFSgjpDGjgA1gHRmBKgjpLEjQA0gnRkB6ghp7Mr/C7fceLzU/2FrQuamub35lJQVKtDy/dTeB34eeG4ZIreHb9191DEBVKAjHr1Rq0D9FLntcaez0yiB9ma5GypQzsW4V6lA/nWvaf6NzlXeQh8JzQWNJ8w1x4sNDcpLhtyrag7zn2LRaZWTkwI/wqCSVWtVY/O+Py73MAtZwk4Au2DAuooaVuAplI3N6z7IGXKPJhlmIUtYenMIjvyhIr1ys7uPfwP2YCgUZN9HP9DZ6R95vZwhb1i2oDyA5/X6+MNp8qrt0sk63hAwwS32UtdAPuD67aeng3+Cj/hEB8sq98QG/SeNMDxfse+0Ch5wUCpQQAorsePJWX5ez/92wMYibPl4jG4YUPO62ppOPHCCB/lrAZpAaul4fJf/mvj8yhXFrG5vNd1YXiodNjY+RfreBdjM7z/8Osm99qZTF6SOKXZmMr5yCaeSg7eqsDE0FNrOwRx49nKQVW8po9Vby0npmohYp35Ok8DncRL4MsEFzDg8+tpb5W1MJYaTbybjp0WBkFxrT09RaGjuFi+153i1le7uPNgCx3cfEm49flz6iyInUE62TMVPG0CR3OWObvipVD1X2iFeITZF+tkIV91L3u661nRSeU8l5rA5Zjq+zbXjWCSABJAAEkACSAAJIAEkgASQABJAAkgACSABHYF/doZ0OkkMt+gAAAAASUVORK5CYII=';
-  var BLESendInterval = 100;
-  var waitPromise = function waitPromise() {
-    return new Promise(function (resolve) {
-      return window.setTimeout(resolve, BLESendInterval);
-    });
-  };
-  var formatMessage = requireFormatMessage();
-  var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/duplotrain.mjs';
-  var Sound = {
-    BRAKE: 3,
-    DEPARTURE: 5,
-    REFILL: 7,
-    HORN: 9,
-    STEAM: 10
-  };
-  var PortId = {
-    MOTOR: 0x00,
-    SPEAKER: 0x01,
-    RGB_LIGHT: 0x11,
-    COLOR_SENSOR: 0x12,
-    SPEEDOMETER: 0x13
-  };
-  var Scratch3DuploTrainBlocks = /*#__PURE__*/function () {
-    function Scratch3DuploTrainBlocks(runtime) {
-      _classCallCheck(this, Scratch3DuploTrainBlocks);
-      this._peripheral = new Hub(runtime, Scratch3DuploTrainBlocks.EXTENSION_ID, 0x20);
-      if (runtime.formatMessage) {
-        // Replace 'formatMessage' to a formatter which is used in the runtime.
-        formatMessage = runtime.formatMessage;
+  (function (module, exports) {
+    // Browser-compatible Scratch VM utilities
+    var ArgumentType = {
+      ANGLE: 'angle',
+      BOOLEAN: 'Boolean',
+      COLOR: 'color',
+      NUMBER: 'number',
+      STRING: 'string',
+      MATRIX: 'matrix',
+      NOTE: 'note',
+      IMAGE: 'image'
+    };
+    var BlockType = {
+      BOOLEAN: 'Boolean',
+      BUTTON: 'button',
+      COMMAND: 'command',
+      CONDITIONAL: 'conditional',
+      EVENT: 'event',
+      HAT: 'hat',
+      LOOP: 'loop',
+      REPORTER: 'reporter'
+    };
+    var Cast = {
+      toNumber: function toNumber(value) {
+        if (typeof value === 'number') {
+          if (Number.isNaN(value)) return 0;
+          return value;
+        }
+        var n = Number(value);
+        return Number.isNaN(n) ? 0 : n;
+      },
+      toBoolean: function toBoolean(value) {
+        if (typeof value === 'boolean') return value;
+        if (typeof value === 'string') {
+          if (value === '' || value === '0' || value.toLowerCase() === 'false') return false;
+          return true;
+        }
+        return Boolean(value);
+      },
+      toString: function toString(value) {
+        return String(value);
       }
-    }
-    return _createClass(Scratch3DuploTrainBlocks, [{
-      key: "getInfo",
-      value: function getInfo() {
-        this._setupTranslations();
-        return {
-          id: Scratch3DuploTrainBlocks.EXTENSION_ID,
-          name: 'DUPLO Train',
-          extensionURL: Scratch3DuploTrainBlocks.extensionURL,
-          blockIconURI: blockIconURI,
-          showStatusButton: true,
-          blocks: [{
-            opcode: 'motorPWM',
-            text: formatMessage({
-              id: 'duplotrain.motorPWM',
-              default: 'run [DIRECTION] at [POWER] % power'
-            }),
-            blockType: BlockType.COMMAND,
-            arguments: {
-              DIRECTION: {
-                type: ArgumentType.NUMBER,
-                menu: 'DIRECTION',
-                defaultValue: 1
-              },
-              POWER: {
-                type: ArgumentType.NUMBER,
-                defaultValue: 50
-              }
-            }
-          }, {
-            opcode: 'motorStop',
-            text: formatMessage({
-              id: 'duplotrain.motorStop',
-              default: 'stop'
-            }),
-            blockType: BlockType.COMMAND
-          }, '---', {
-            opcode: 'playSound',
-            text: formatMessage({
-              id: 'duplotrain.playSound',
-              default: 'play [SOUND] sound'
-            }),
-            blockType: BlockType.COMMAND,
-            arguments: {
-              SOUND: {
-                type: ArgumentType.NUMBER,
-                menu: 'SOUND',
-                defaultValue: Sound.BRAKE
-              }
-            }
-          }, {
-            opcode: 'setHubLEDColor',
-            text: formatMessage({
-              id: 'duplotrain.setHubLEDColor',
-              default: 'set light color to [COLOR]'
-            }),
-            blockType: BlockType.COMMAND,
-            arguments: {
-              COLOR: {
-                type: ArgumentType.NUMBER,
-                menu: 'LED_COLOR',
-                defaultValue: Color.BLUE
-              }
-            }
-          }, '---', {
-            opcode: 'whenColor',
-            text: formatMessage({
-              id: 'duplotrain.whenColor',
-              default: 'when passing over [SENSOR_COLOR] action block'
-            }),
-            blockType: BlockType.HAT,
-            arguments: {
-              SENSOR_COLOR: {
-                type: ArgumentType.NUMBER,
-                menu: 'SENSOR_COLOR',
-                defaultValue: Color.BLUE
-              }
-            }
-          },
-          /*
-          {
-              opcode: 'isColor',
+    };
+    var Hub = requireHub();
+    var setupTranslations = requireSetupTranslations();
+    var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAAEl0lEQVR4Ae2bT0jUQRTHZ9xV1/4cMio0aUUqyoQKuniooLBO0amgoi55icLASwpWYkZ2KZKii12KDJSg6JYUVAePGtQSFZLiHzCyQ5pbrk7zdnfW3WXmN7PO+ts/vQX5zW/em3m/99nvvPntz11C8IUEkAASQAJIAAkgASSABJAAEkACSAAJIAEk4B4BahrqzQvCZL77j5DwHDq7bGw+9BXkQxKZzEGpQJWi3L5YoXC345rGQwWaklL4eRX9se59tbGmq423/a6GW3IwVOCS0UUGahWYK0ow5fCtdqf0bqKy/71yP3CaGxXoRMfApqUu3jG/v8ZgOnuX4eEP4UmSFcGOHSsaGfvaRgg7wxgri49EKZ0ghD7ctHHzFdrb+zfeJtrDtbs+MsKqxbnsSAkN+PsHd8hsqr6cUSDAY2zhUjI8SAz6wBYBrEiVkl6FZbGbkp7FE7OWtgaaTeOGFzsDUTas9xNfyeqEgLOzv8jk5DDvC/s0JRjFiYf2kBC76inwsIqKbVxs0cXHGBkd/cTmF+Yp8VA9ZDFf9JgzChTXLd0BhNHh6H83EIAlCqCCwZmYJ7ShL7x8uU/MYNiwroGiZhnGi7mpaqqYD+qabLnGJliGhkktTQ6btUvYbXgAJhKTQS2FU3kpAEvcK20Ak3fNuBgJTbGrJ3RKTmS1TuKW1i6jWpoUMWtrYPJGkXTdy3JaEt2cUlF/1gJcFkLLMCkCtISKABGgJQHL4ahABGhJwHI4KhABWhKwHJ62TyKmnzAsrzfrhuMStnxLrBWoeqpieV05MzxrFQgf7N1+iZiRx1pm0a0VaBYmda/IE+bUx6VjBDxMEDVd95QpaxWYDhBuzJF1CsyWmiqejOveBFSgjpDGjgA1gHRmBKgjpLEjQA0gnRkB6ghp7Mr/C7fceLzU/2FrQuamub35lJQVKtDy/dTeB34eeG4ZIreHb9191DEBVKAjHr1Rq0D9FLntcaez0yiB9ma5GypQzsW4V6lA/nWvaf6NzlXeQh8JzQWNJ8w1x4sNDcpLhtyrag7zn2LRaZWTkwI/wqCSVWtVY/O+Py73MAtZwk4Au2DAuooaVuAplI3N6z7IGXKPJhlmIUtYenMIjvyhIr1ys7uPfwP2YCgUZN9HP9DZ6R95vZwhb1i2oDyA5/X6+MNp8qrt0sk63hAwwS32UtdAPuD67aeng3+Cj/hEB8sq98QG/SeNMDxfse+0Ch5wUCpQQAorsePJWX5ez/92wMYibPl4jG4YUPO62ppOPHCCB/lrAZpAaul4fJf/mvj8yhXFrG5vNd1YXiodNjY+RfreBdjM7z/8Osm99qZTF6SOKXZmMr5yCaeSg7eqsDE0FNrOwRx49nKQVW8po9Vby0npmohYp35Ok8DncRL4MsEFzDg8+tpb5W1MJYaTbybjp0WBkFxrT09RaGjuFi+153i1le7uPNgCx3cfEm49flz6iyInUE62TMVPG0CR3OWObvipVD1X2iFeITZF+tkIV91L3u661nRSeU8l5rA5Zjq+zbXjWCSABJAAEkACSAAJIAEkgASQABJAAkgACSABHYF/doZ0OkkMt+gAAAAASUVORK5CYII=';
+    var BLESendInterval = 100;
+    var waitPromise = function waitPromise() {
+      return new Promise(function (resolve) {
+        return window.setTimeout(resolve, BLESendInterval);
+      });
+    };
+    var formatMessage = requireFormatMessage();
+    var extensionURL = 'https://bricklife.com/scratch-gui/xcratch/duplotrain.mjs';
+    var Sound = {
+      BRAKE: 3,
+      DEPARTURE: 5,
+      REFILL: 7,
+      HORN: 9,
+      STEAM: 10
+    };
+    var PortId = {
+      MOTOR: 0x00,
+      SPEAKER: 0x01,
+      RGB_LIGHT: 0x11,
+      COLOR_SENSOR: 0x12,
+      SPEEDOMETER: 0x13
+    };
+    var Scratch3DuploTrainBlocks = /*#__PURE__*/function () {
+      function Scratch3DuploTrainBlocks(runtime) {
+        _classCallCheck(this, Scratch3DuploTrainBlocks);
+        this._peripheral = new Hub(runtime, Scratch3DuploTrainBlocks.EXTENSION_ID, 0x20);
+        if (runtime.formatMessage) {
+          // Replace 'formatMessage' to a formatter which is used in the runtime.
+          formatMessage = runtime.formatMessage;
+        }
+      }
+      return _createClass(Scratch3DuploTrainBlocks, [{
+        key: "getInfo",
+        value: function getInfo() {
+          this._setupTranslations();
+          return {
+            id: Scratch3DuploTrainBlocks.EXTENSION_ID,
+            name: 'DUPLO Train',
+            extensionURL: Scratch3DuploTrainBlocks.extensionURL,
+            blockIconURI: blockIconURI,
+            showStatusButton: true,
+            blocks: [{
+              opcode: 'motorPWM',
               text: formatMessage({
-                  id: 'duplotrain.isColor',
-                  default: 'ground color is [SENSOR_COLOR] ?'
+                id: 'duplotrain.motorPWM',
+                default: 'run [DIRECTION] at [POWER] % power'
               }),
-              blockType: BlockType.BOOLEAN,
+              blockType: BlockType.COMMAND,
               arguments: {
-                  SENSOR_COLOR: {
-                      type: ArgumentType.NUMBER,
-                      menu: 'SENSOR_COLOR',
-                      defaultValue: Color.BLUE
-                  }
+                DIRECTION: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'DIRECTION',
+                  defaultValue: 1
+                },
+                POWER: {
+                  type: ArgumentType.NUMBER,
+                  defaultValue: 50
+                }
               }
-          },
-          {
-              opcode: 'getColor',
+            }, {
+              opcode: 'motorStop',
               text: formatMessage({
-                  id: 'duplotrain.getColor',
-                  default: 'ground color'
+                id: 'duplotrain.motorStop',
+                default: 'stop'
+              }),
+              blockType: BlockType.COMMAND
+            }, '---', {
+              opcode: 'playSound',
+              text: formatMessage({
+                id: 'duplotrain.playSound',
+                default: 'play [SOUND] sound'
+              }),
+              blockType: BlockType.COMMAND,
+              arguments: {
+                SOUND: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'SOUND',
+                  defaultValue: Sound.BRAKE
+                }
+              }
+            }, {
+              opcode: 'setHubLEDColor',
+              text: formatMessage({
+                id: 'duplotrain.setHubLEDColor',
+                default: 'set light color to [COLOR]'
+              }),
+              blockType: BlockType.COMMAND,
+              arguments: {
+                COLOR: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'LED_COLOR',
+                  defaultValue: Color.BLUE
+                }
+              }
+            }, '---', {
+              opcode: 'whenColor',
+              text: formatMessage({
+                id: 'duplotrain.whenColor',
+                default: 'when passing over [SENSOR_COLOR] action block'
+              }),
+              blockType: BlockType.HAT,
+              arguments: {
+                SENSOR_COLOR: {
+                  type: ArgumentType.NUMBER,
+                  menu: 'SENSOR_COLOR',
+                  defaultValue: Color.BLUE
+                }
+              }
+            },
+            /*
+            {
+                opcode: 'isColor',
+                text: formatMessage({
+                    id: 'duplotrain.isColor',
+                    default: 'ground color is [SENSOR_COLOR] ?'
+                }),
+                blockType: BlockType.BOOLEAN,
+                arguments: {
+                    SENSOR_COLOR: {
+                        type: ArgumentType.NUMBER,
+                        menu: 'SENSOR_COLOR',
+                        defaultValue: Color.BLUE
+                    }
+                }
+            },
+            {
+                opcode: 'getColor',
+                text: formatMessage({
+                    id: 'duplotrain.getColor',
+                    default: 'ground color'
+                }),
+                blockType: BlockType.REPORTER
+            },
+            */
+            {
+              opcode: 'getDrivingDistance',
+              text: formatMessage({
+                id: 'duplotrain.getDrivingDistance',
+                default: 'driving distance'
               }),
               blockType: BlockType.REPORTER
-          },
-          */
-          {
-            opcode: 'getDrivingDistance',
-            text: formatMessage({
-              id: 'duplotrain.getDrivingDistance',
-              default: 'driving distance'
-            }),
-            blockType: BlockType.REPORTER
-          }],
-          menus: {
-            DIRECTION: {
-              acceptReporters: false,
-              items: [{
-                text: '⬆︎',
-                value: '1'
-              }, {
-                text: '⬇',
-                value: '-1'
-              }]
-            },
-            SOUND: {
-              acceptReporters: false,
-              items: [{
-                text: formatMessage({
-                  id: 'duplotrain.brake',
-                  default: 'brake'
-                }),
-                value: String(Sound.BRAKE)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.departure',
-                  default: 'departure'
-                }),
-                value: String(Sound.DEPARTURE)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.refill',
-                  default: 'refill'
-                }),
-                value: String(Sound.REFILL)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.horn',
-                  default: 'horn'
-                }),
-                value: String(Sound.HORN)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.steam',
-                  default: 'steam'
-                }),
-                value: String(Sound.STEAM)
-              }]
-            },
-            LED_COLOR: {
-              acceptReporters: true,
-              items: [{
-                text: formatMessage({
-                  id: 'legobluetooth.black',
-                  default: '(0) Black'
-                }),
-                value: String(Color.BLACK)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.pink',
-                  default: '(1) Pink'
-                }),
-                value: String(Color.PINK)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.purple',
-                  default: '(2) Purple'
-                }),
-                value: String(Color.PURPLE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.blue',
-                  default: '(3) Blue'
-                }),
-                value: String(Color.BLUE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.lightBlue',
-                  default: '(4) Light blue'
-                }),
-                value: String(Color.LIGHT_BLUE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.lightGreen',
-                  default: '(5) Light green'
-                }),
-                value: String(Color.LIGHT_GREEN)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.green',
-                  default: '(6) Green'
-                }),
-                value: String(Color.GREEN)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.yellow',
-                  default: '(7) Yellow'
-                }),
-                value: String(Color.YELLOW)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.orange',
-                  default: '(8) Orange'
-                }),
-                value: String(Color.ORANGE)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.red',
-                  default: '(9) Red'
-                }),
-                value: String(Color.RED)
-              }, {
-                text: formatMessage({
-                  id: 'legobluetooth.white',
-                  default: '(10) White'
-                }),
-                value: String(Color.WHITE)
-              }]
-            },
-            SENSOR_COLOR: {
-              acceptReporters: false,
-              items: [{
-                text: formatMessage({
-                  id: 'duplotrain.blue',
-                  default: 'Blue'
-                }),
-                value: String(Color.BLUE)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.lightGreen',
-                  default: 'Green'
-                }),
-                value: String(Color.LIGHT_GREEN)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.yellow',
-                  default: 'Yellow'
-                }),
-                value: String(Color.YELLOW)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.red',
-                  default: 'Red'
-                }),
-                value: String(Color.RED)
-              }, {
-                text: formatMessage({
-                  id: 'duplotrain.white',
-                  default: 'White'
-                }),
-                value: String(Color.WHITE)
-              }]
+            }],
+            menus: {
+              DIRECTION: {
+                acceptReporters: false,
+                items: [{
+                  text: '⬆︎',
+                  value: '1'
+                }, {
+                  text: '⬇',
+                  value: '-1'
+                }]
+              },
+              SOUND: {
+                acceptReporters: false,
+                items: [{
+                  text: formatMessage({
+                    id: 'duplotrain.brake',
+                    default: 'brake'
+                  }),
+                  value: String(Sound.BRAKE)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.departure',
+                    default: 'departure'
+                  }),
+                  value: String(Sound.DEPARTURE)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.refill',
+                    default: 'refill'
+                  }),
+                  value: String(Sound.REFILL)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.horn',
+                    default: 'horn'
+                  }),
+                  value: String(Sound.HORN)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.steam',
+                    default: 'steam'
+                  }),
+                  value: String(Sound.STEAM)
+                }]
+              },
+              LED_COLOR: {
+                acceptReporters: true,
+                items: [{
+                  text: formatMessage({
+                    id: 'legobluetooth.black',
+                    default: '(0) Black'
+                  }),
+                  value: String(Color.BLACK)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.pink',
+                    default: '(1) Pink'
+                  }),
+                  value: String(Color.PINK)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.purple',
+                    default: '(2) Purple'
+                  }),
+                  value: String(Color.PURPLE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.blue',
+                    default: '(3) Blue'
+                  }),
+                  value: String(Color.BLUE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.lightBlue',
+                    default: '(4) Light blue'
+                  }),
+                  value: String(Color.LIGHT_BLUE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.lightGreen',
+                    default: '(5) Light green'
+                  }),
+                  value: String(Color.LIGHT_GREEN)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.green',
+                    default: '(6) Green'
+                  }),
+                  value: String(Color.GREEN)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.yellow',
+                    default: '(7) Yellow'
+                  }),
+                  value: String(Color.YELLOW)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.orange',
+                    default: '(8) Orange'
+                  }),
+                  value: String(Color.ORANGE)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.red',
+                    default: '(9) Red'
+                  }),
+                  value: String(Color.RED)
+                }, {
+                  text: formatMessage({
+                    id: 'legobluetooth.white',
+                    default: '(10) White'
+                  }),
+                  value: String(Color.WHITE)
+                }]
+              },
+              SENSOR_COLOR: {
+                acceptReporters: false,
+                items: [{
+                  text: formatMessage({
+                    id: 'duplotrain.blue',
+                    default: 'Blue'
+                  }),
+                  value: String(Color.BLUE)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.lightGreen',
+                    default: 'Green'
+                  }),
+                  value: String(Color.LIGHT_GREEN)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.yellow',
+                    default: 'Yellow'
+                  }),
+                  value: String(Color.YELLOW)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.red',
+                    default: 'Red'
+                  }),
+                  value: String(Color.RED)
+                }, {
+                  text: formatMessage({
+                    id: 'duplotrain.white',
+                    default: 'White'
+                  }),
+                  value: String(Color.WHITE)
+                }]
+              }
             }
-          }
-        };
-      }
-    }, {
-      key: "motorPWM",
-      value: function motorPWM(args) {
-        var power = Cast.toNumber(args.POWER);
-        var direction = args.DIRECTION;
-        return this._peripheral.motorPWM(PortId.MOTOR, power * direction).then(waitPromise);
-      }
-    }, {
-      key: "motorStop",
-      value: function motorStop() {
-        return this._peripheral.motorPWM(PortId.MOTOR, 0).then(waitPromise);
-      }
-    }, {
-      key: "playSound",
-      value: function playSound(args) {
-        var sound = args.SOUND;
-        return this._peripheral.sendOutputCommand(PortId.SPEAKER, 0x51, [0x01, sound]).then(waitPromise);
-      }
-    }, {
-      key: "setHubLEDColor",
-      value: function setHubLEDColor(args) {
-        var color = Cast.toNumber(args.COLOR);
-        return this._peripheral.setLEDColor(color).then(waitPromise);
-      }
-    }, {
-      key: "whenColor",
-      value: function whenColor(args) {
-        return this.getColor() == args.SENSOR_COLOR;
-      }
-    }, {
-      key: "isColor",
-      value: function isColor(args) {
-        return this.getColor() == args.SENSOR_COLOR;
-      }
-    }, {
-      key: "getColor",
-      value: function getColor() {
-        return this._getSensorValue(PortId.COLOR_SENSOR, 'color', -1);
-      }
-    }, {
-      key: "getDrivingDistance",
-      value: function getDrivingDistance() {
-        return this._getSensorValue(PortId.SPEEDOMETER, 'drivingDistance', 0);
-      }
-    }, {
-      key: "_getSensorValue",
-      value: function _getSensorValue(portId, key, defaultValue) {
-        var value = this._peripheral.inputValue(portId, key);
-        return value != null ? value : defaultValue;
-      }
-    }, {
-      key: "_setupTranslations",
-      value: function _setupTranslations() {
-        setupTranslations(formatMessage, {
-          'en': {
-            'duplotrain.motorPWM': 'run [DIRECTION] at [POWER] % power',
-            'duplotrain.motorStop': 'stop',
-            'duplotrain.playSound': 'play [SOUND] sound',
-            'duplotrain.setHubLEDColor': 'set light color to [COLOR]',
-            'duplotrain.whenColor': 'when passing over [SENSOR_COLOR] action block',
-            'duplotrain.isColor': 'ground color is [SENSOR_COLOR] ?',
-            'duplotrain.getColor': 'ground color',
-            'duplotrain.getDrivingDistance': 'driving distance',
-            'duplotrain.brake': 'brake',
-            'duplotrain.departure': 'departure',
-            'duplotrain.refill': 'refill',
-            'duplotrain.horn': 'horn',
-            'duplotrain.steam': 'steam',
-            'duplotrain.blue': 'Blue',
-            'duplotrain.lightGreen': 'Green',
-            'duplotrain.yellow': 'Yellow',
-            'duplotrain.red': 'Red',
-            'duplotrain.white': 'White'
-          },
-          'ja': {
-            'duplotrain.motorPWM': '[DIRECTION] 方向に [POWER] %のパワーで走る',
-            'duplotrain.motorStop': '止まる',
-            'duplotrain.playSound': '[SOUND] の音を鳴らす',
-            'duplotrain.setHubLEDColor': 'ライトの色を [COLOR] にする',
-            'duplotrain.whenColor': '[SENSOR_COLOR] のアクションブロックを通ったら',
-            'duplotrain.isColor': '地面の色が [SENSOR_COLOR]',
-            'duplotrain.getColor': '地面の色',
-            'duplotrain.getDrivingDistance': '走行距離',
-            'duplotrain.brake': 'ブレーキ',
-            'duplotrain.departure': '到着',
-            'duplotrain.refill': '給水',
-            'duplotrain.horn': '汽笛',
-            'duplotrain.steam': '蒸気',
-            'duplotrain.blue': '青',
-            'duplotrain.lightGreen': '緑',
-            'duplotrain.yellow': '黄色',
-            'duplotrain.red': '赤',
-            'duplotrain.white': '白'
-          },
-          'ja-Hira': {
-            'duplotrain.motorPWM': '[DIRECTION] ほうこうに [POWER] %のパワーではしる',
-            'duplotrain.motorStop': 'とまる',
-            'duplotrain.playSound': '[SOUND] のおとをならす',
-            'duplotrain.setHubLEDColor': 'ライトのいろを [COLOR] にする',
-            'duplotrain.whenColor': '[SENSOR_COLOR] のアクションブロックをとおったら',
-            'duplotrain.isColor': 'じめんのいろが [SENSOR_COLOR]',
-            'duplotrain.getColor': 'じめんのいろ',
-            'duplotrain.getDrivingDistance': 'そうこうきょり',
-            'duplotrain.brake': 'ブレーキ',
-            'duplotrain.departure': 'とうちゃく',
-            'duplotrain.refill': 'きゅうすい',
-            'duplotrain.horn': 'きてき',
-            'duplotrain.steam': 'じょうき',
-            'duplotrain.blue': 'あお',
-            'duplotrain.lightGreen': 'みどり',
-            'duplotrain.yellow': 'きいろ',
-            'duplotrain.red': 'あか',
-            'duplotrain.white': 'しろ'
-          }
-        });
-      }
-    }], [{
-      key: "EXTENSION_ID",
-      get: function get() {
-        return 'duplotrain';
-      }
-    }, {
-      key: "extensionURL",
-      get: function get() {
-        return extensionURL;
-      },
-      set: function set(url) {
-        extensionURL = url;
-      }
-    }]);
-  }();
-  _duplotrain.blockClass = Scratch3DuploTrainBlocks;
-  _duplotrain.blockClass = Scratch3DuploTrainBlocks;
-  return _duplotrain;
+          };
+        }
+      }, {
+        key: "motorPWM",
+        value: function motorPWM(args) {
+          var power = Cast.toNumber(args.POWER);
+          var direction = args.DIRECTION;
+          return this._peripheral.motorPWM(PortId.MOTOR, power * direction).then(waitPromise);
+        }
+      }, {
+        key: "motorStop",
+        value: function motorStop() {
+          return this._peripheral.motorPWM(PortId.MOTOR, 0).then(waitPromise);
+        }
+      }, {
+        key: "playSound",
+        value: function playSound(args) {
+          var sound = args.SOUND;
+          return this._peripheral.sendOutputCommand(PortId.SPEAKER, 0x51, [0x01, sound]).then(waitPromise);
+        }
+      }, {
+        key: "setHubLEDColor",
+        value: function setHubLEDColor(args) {
+          var color = Cast.toNumber(args.COLOR);
+          return this._peripheral.setLEDColor(color).then(waitPromise);
+        }
+      }, {
+        key: "whenColor",
+        value: function whenColor(args) {
+          return this.getColor() == args.SENSOR_COLOR;
+        }
+      }, {
+        key: "isColor",
+        value: function isColor(args) {
+          return this.getColor() == args.SENSOR_COLOR;
+        }
+      }, {
+        key: "getColor",
+        value: function getColor() {
+          return this._getSensorValue(PortId.COLOR_SENSOR, 'color', -1);
+        }
+      }, {
+        key: "getDrivingDistance",
+        value: function getDrivingDistance() {
+          return this._getSensorValue(PortId.SPEEDOMETER, 'drivingDistance', 0);
+        }
+      }, {
+        key: "_getSensorValue",
+        value: function _getSensorValue(portId, key, defaultValue) {
+          var value = this._peripheral.inputValue(portId, key);
+          return value != null ? value : defaultValue;
+        }
+      }, {
+        key: "_setupTranslations",
+        value: function _setupTranslations() {
+          setupTranslations(formatMessage, {
+            'en': {
+              'duplotrain.motorPWM': 'run [DIRECTION] at [POWER] % power',
+              'duplotrain.motorStop': 'stop',
+              'duplotrain.playSound': 'play [SOUND] sound',
+              'duplotrain.setHubLEDColor': 'set light color to [COLOR]',
+              'duplotrain.whenColor': 'when passing over [SENSOR_COLOR] action block',
+              'duplotrain.isColor': 'ground color is [SENSOR_COLOR] ?',
+              'duplotrain.getColor': 'ground color',
+              'duplotrain.getDrivingDistance': 'driving distance',
+              'duplotrain.brake': 'brake',
+              'duplotrain.departure': 'departure',
+              'duplotrain.refill': 'refill',
+              'duplotrain.horn': 'horn',
+              'duplotrain.steam': 'steam',
+              'duplotrain.blue': 'Blue',
+              'duplotrain.lightGreen': 'Green',
+              'duplotrain.yellow': 'Yellow',
+              'duplotrain.red': 'Red',
+              'duplotrain.white': 'White'
+            },
+            'ja': {
+              'duplotrain.motorPWM': '[DIRECTION] 方向に [POWER] %のパワーで走る',
+              'duplotrain.motorStop': '止まる',
+              'duplotrain.playSound': '[SOUND] の音を鳴らす',
+              'duplotrain.setHubLEDColor': 'ライトの色を [COLOR] にする',
+              'duplotrain.whenColor': '[SENSOR_COLOR] のアクションブロックを通ったら',
+              'duplotrain.isColor': '地面の色が [SENSOR_COLOR]',
+              'duplotrain.getColor': '地面の色',
+              'duplotrain.getDrivingDistance': '走行距離',
+              'duplotrain.brake': 'ブレーキ',
+              'duplotrain.departure': '到着',
+              'duplotrain.refill': '給水',
+              'duplotrain.horn': '汽笛',
+              'duplotrain.steam': '蒸気',
+              'duplotrain.blue': '青',
+              'duplotrain.lightGreen': '緑',
+              'duplotrain.yellow': '黄色',
+              'duplotrain.red': '赤',
+              'duplotrain.white': '白'
+            },
+            'ja-Hira': {
+              'duplotrain.motorPWM': '[DIRECTION] ほうこうに [POWER] %のパワーではしる',
+              'duplotrain.motorStop': 'とまる',
+              'duplotrain.playSound': '[SOUND] のおとをならす',
+              'duplotrain.setHubLEDColor': 'ライトのいろを [COLOR] にする',
+              'duplotrain.whenColor': '[SENSOR_COLOR] のアクションブロックをとおったら',
+              'duplotrain.isColor': 'じめんのいろが [SENSOR_COLOR]',
+              'duplotrain.getColor': 'じめんのいろ',
+              'duplotrain.getDrivingDistance': 'そうこうきょり',
+              'duplotrain.brake': 'ブレーキ',
+              'duplotrain.departure': 'とうちゃく',
+              'duplotrain.refill': 'きゅうすい',
+              'duplotrain.horn': 'きてき',
+              'duplotrain.steam': 'じょうき',
+              'duplotrain.blue': 'あお',
+              'duplotrain.lightGreen': 'みどり',
+              'duplotrain.yellow': 'きいろ',
+              'duplotrain.red': 'あか',
+              'duplotrain.white': 'しろ'
+            }
+          });
+        }
+      }], [{
+        key: "EXTENSION_ID",
+        get: function get() {
+          return 'duplotrain';
+        }
+      }, {
+        key: "extensionURL",
+        get: function get() {
+          return extensionURL;
+        },
+        set: function set(url) {
+          extensionURL = url;
+        }
+      }]);
+    }(); // Extension export for bundling
+    var ExtensionClass = Scratch3DuploTrainBlocks;
+    module.exports = ExtensionClass;
+    exports.blockClass = ExtensionClass;
+  })(_duplotrain, _duplotrain.exports);
+  return _duplotrain.exports;
 }
 
 require_duplotrain();
