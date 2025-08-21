@@ -40,6 +40,8 @@ cd scratch-lego-bluetooth-extensions
 npm install
 ```
 
+Note that some libraries imported in the project sources, especially Babel and Rollup related, are outdated. You might have to use `npm ci` instead and/or tweak around the specific versions and configs for the build script (originally from xcratch-build, we modified a few things only).
+
 ### 3. Fix Shared Libraries
 
 Several extensions in this project reuse code from the `legoble` extension by using what might result, on Windows, as merely a text-based reference file named `lib`. In this case, this file must be replaced with an actual copy of the library directory for the build to succeed.
