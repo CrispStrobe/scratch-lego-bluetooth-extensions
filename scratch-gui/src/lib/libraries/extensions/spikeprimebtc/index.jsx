@@ -14,7 +14,7 @@ const entry = {
     get name () {
         return formatMessage({
             id: 'gui.extension.spikeprime.name',
-            default: 'LEGO Education SPIKE Prime',
+            default: 'LEGO Education SPIKE Prime (BTC)',
             description: 'Name for the SPIKE Prime extension'
         });
     },
@@ -25,7 +25,7 @@ const entry = {
     get description () {
         return formatMessage({
             id: 'gui.extension.spikeprime.description',
-            default: 'Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with bluetooth classic). Supports motors, sensors, lights, and displays.',
+            default: 'Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with Bluetooth classic).',
             description: 'Description for the SPIKE Prime extension'
         });
     },
@@ -40,7 +40,7 @@ const entry = {
     get connectingMessage () {
         return formatMessage({
             id: 'gui.extension.spikeprime.connectingMessage',
-            default: 'Connecting to SPIKE Prime (over bluetooth classic SPP)...',
+            default: 'Connecting to SPIKE Prime (over BTC SPP)...',
             description: 'Message shown when connecting to SPIKE Prime'
         });
     },
