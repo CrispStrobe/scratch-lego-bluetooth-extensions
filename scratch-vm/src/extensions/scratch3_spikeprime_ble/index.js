@@ -1,1286 +1,492 @@
-const BleBaseBlocks = require('./lib/ble-base-blocks');
-const Hub = require('./lib/hub');
+const ArgumentType = require('../../extension-support/argument-type');
+const BlockType = require('../../extension-support/block-type');
+const Cast = require('../../util/cast');
+const BLE = require('../../io/ble'); // Use the official Scratch/xcratch BLE handler
+const Base64Util = require('../../util/base64-util'); // Use Scratch's Base64 utility
 
-const blockIconURI = '';
+// Set to true for extensive console logging of messages and states
+const DEBUG_MODE = false;
 
-let formatMessage = require('format-message');
-let extensionURL = 'https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprime_ble.mjs';
+// This class defines the Scratch blocks and their behavior.
+// It is the main entry point for the extension.
+class Scratch3SpikePrimeOfficialBlocks {
+    constructor(runtime) {
+        this.runtime = runtime;
+        // The hub object handles all low-level communication and protocol logic.
+        // It's created with a reference to the runtime to use the official BLE class.
+        this.hub = new SpikePrimeOfficialHub(this.runtime, this.constructor.EXTENSION_ID);
 
-// SPIKE Prime BLE UUIDs - YOUR WORKING APPROACH
-const SPIKE_PRIME_SERVICE_UUID = '0000fd02-0000-1000-8000-00805f9b34fb';
-const SPIKE_PRIME_WRITE_UUID = '0000fd02-0001-1000-8000-00805f9b34fb';
-const SPIKE_PRIME_NOTIFY_UUID = '0000fd02-0002-1000-8000-00805f9b34fb';
-
-// Standard LEGO UUIDs as fallback
-const LEGO_SERVICE_UUID = '00001623-1212-efde-1623-785feabcd123';
-const LEGO_CHAR_UUID = '00001624-1212-efde-1623-785feabcd123';
-
-// Constants from working BTC version
-const BTSendRateMax = 40;
-const SpikePorts = ['A', 'B', 'C', 'D', 'E', 'F'];
-const SpikeMotorStopMode = { float: 0, brake: 1, hold: 2 };
-const SpikeOrientation = { front: 1, back: 2, up: 3, down: 4, rightside: 5, leftside: 6 };
-
-// SPIKE Prime Motor Settings
-class SpikeMotorSetting {
-    constructor() {
-        this._speed = 75;
-        this._stopMode = SpikeMotorStopMode.brake;
-        this._stallDetection = true;
-    }
-    
-    get speed() { 
-        return this._speed; 
-    }
-    
-    set speed(value) { 
-        this._speed = this._clamp(value, -100, 100); 
-    }
-    
-    get stopMode() { 
-        return this._stopMode; 
-    }
-    
-    set stopMode(value) { 
-        if (value >= 0 && value <= 2) this._stopMode = value; 
-    }
-    
-    get stallDetection() { 
-        return this._stallDetection; 
-    }
-    
-    set stallDetection(value) { 
-        this._stallDetection = value; 
-    }
-    
-    _clamp(value, min, max) { 
-        return Math.max(min, Math.min(max, value)); 
-    }
-}
-
-// Complete BLE SPIKE Prime Hub
-class CompleteBLESpikePrimeHub extends Hub {
-    
-    constructor(runtime, extensionId) {
-        console.log('🚀 CompleteBLESpikePrimeHub: Initializing...');
-        
-        // Initialize without hub type for UUID scanning
-        super(runtime, extensionId, null);
-        
-        // Connection state
-        this._connectionAttempts = 0;
-        this._connectionMethod = 'none';
-        this._connected = false;
-        this._useSpikePrimeUUIDs = true;
-        
-        // Communication state
-        this._remainingText = '';
-        this._openRequests = {};
-        this._requestId = 0;
-        
-        // Python REPL state
-        this._pythonAvailable = false;
-        this._sensorLoopRunning = false;
-        this._replHistory = [];
-        this._replOutput = '';
-        
-        // Sensor data
-        this._sensors = {
-            buttons: [0, 0, 0, 0],
-            angle: { pitch: 0, roll: 0, yaw: 0 },
-            acceleration: { x: 0, y: 0, z: 0 },
-            gyro: { x: 0, y: 0, z: 0 },
-            orientation: SpikeOrientation.front,
-            battery: 100,
-            temperature: 25,
-            hubTemp: 25,
-            gestures: { tapped: false, doubletapped: false, shake: false, freefall: false },
-            motorPositions: {}
-        };
-        
-        this._portValues = {};
-        this._pixelBrightness = 100;
-        this._volume = 100;
-        
-        // Motor settings
-        this._motorSettings = {
-            A: new SpikeMotorSetting(),
-            B: new SpikeMotorSetting(),
-            C: new SpikeMotorSetting(),
-            D: new SpikeMotorSetting(),
-            E: new SpikeMotorSetting(),
-            F: new SpikeMotorSetting()
-        };
-        
-        // Movement and timer
-        this._movementMotors = ['A', 'B'];
-        this._timer = { start: Date.now(), current: 0 };
-        
-        // Rate limiting - safe loading
-        try {
-            const RateLimiter = require('../../../util/rateLimiter');
-            this._rateLimiter = new RateLimiter(BTSendRateMax);
-        } catch (e) {
-            this._rateLimiter = { okayToSend: function() { return true; } };
-        }
-        
-        // Connection monitoring
-        this._keepAliveInterval = null;
-        this._lastHeartbeat = Date.now();
-        
-        // Update timer safely
-        const self = this;
-        setInterval(function() {
-            self._timer.current = (Date.now() - self._timer.start) / 1000;
-        }, 10);
-        
-        console.log('✅ CompleteBLESpikePrimeHub: Initialization complete');
-    }
-
-    // Getters
-    get angle() { return this._sensors.angle; }
-    get orientation() { return this._sensors.orientation; }
-    get portValues() { return this._portValues; }
-    get pixelBrightness() { return this._pixelBrightness; }
-    set pixelBrightness(value) { this._pixelBrightness = this._clamp(value, 0, 100); }
-    get motorSettings() { return this._motorSettings; }
-    get acceleration() { return this._sensors.acceleration; }
-    get gyro() { return this._sensors.gyro; }
-    get battery() { return this._sensors.battery; }
-    get temperature() { return this._sensors.temperature; }
-    get hubTemp() { return this._sensors.hubTemp; }
-    get gestures() { return this._sensors.gestures; }
-    get movementMotors() { return this._movementMotors; }
-    get timer() { return this._timer.current; }
-    get volume() { return this._volume; }
-    get replOutput() { return this._replOutput; }
-    get replHistory() { return this._replHistory; }
-
-    // Override scan with UUID-first approach
-    scan() {
-        console.log('🔍 CompleteBLESpikePrimeHub: Starting BLE scan...');
-        this._connectionAttempts++;
-        
-        if (this._ble) {
-            console.log('📴 CompleteBLESpikePrimeHub: Cleaning up existing connection...');
-            this._ble.disconnect();
-        }
-
-        const self = this;
-        return this._attemptSpikePrimeUUIDs().catch(function(error) {
-            console.warn('⚠️ CompleteBLESpikePrimeHub: UUID method failed:', error.message);
-            self._useSpikePrimeUUIDs = false;
-            return self._attemptStandardLego();
-        }).catch(function(error) {
-            console.error('❌ CompleteBLESpikePrimeHub: All scan methods failed:', error);
-            throw error;
+        // Ensure motors stop when the Scratch project is stopped.
+        this.runtime.on('PROJECT_STOP_ALL', () => {
+            this.hub.stopAllMotors();
         });
     }
 
-    _attemptSpikePrimeUUIDs() {
-        console.log('🎯 CompleteBLESpikePrimeHub: PRIMARY - SPIKE Prime UUID scan');
-        this._connectionMethod = 'spike_uuids';
-        
-        try {
-            const BLE = require('../../../io/ble');
-            
-            const options = {
-                filters: [
-                    { services: [SPIKE_PRIME_SERVICE_UUID] },
-                    { namePrefix: 'LEGO Hub' },
-                    { namePrefix: 'Technic Hub' }
-                ],
-                optionalServices: [SPIKE_PRIME_SERVICE_UUID]
-            };
-            
-            console.log('📡 CompleteBLESpikePrimeHub: SPIKE UUID scan config:', JSON.stringify(options, null, 2));
-            
-            this._ble = new BLE(this._runtime, this._extensionId, options, this._onConnect, this.reset, this._onMessage);
-            
-            console.log('✅ CompleteBLESpikePrimeHub: SPIKE Prime UUID scanner ready');
-            return Promise.resolve();
-            
-        } catch (error) {
-            console.error('❌ CompleteBLESpikePrimeHub: UUID scan setup failed:', error);
-            throw error;
-        }
-    }
-
-    _attemptStandardLego() {
-        console.log('🔄 CompleteBLESpikePrimeHub: FALLBACK - Standard LEGO scan');
-        this._connectionMethod = 'standard_lego';
-        
-        try {
-            const BLE = require('../../../io/ble');
-            
-            const options = {
-                filters: [{ services: [LEGO_SERVICE_UUID] }],
-                optionalServices: [LEGO_SERVICE_UUID]
-            };
-            
-            console.log('📡 CompleteBLESpikePrimeHub: Standard LEGO scan config:', JSON.stringify(options, null, 2));
-            
-            this._ble = new BLE(this._runtime, this._extensionId, options, this._onConnect, this.reset, this._onMessage);
-            
-            console.log('✅ CompleteBLESpikePrimeHub: Standard LEGO scanner ready');
-            return Promise.resolve();
-            
-        } catch (error) {
-            console.error('❌ CompleteBLESpikePrimeHub: Standard scan setup failed:', error);
-            throw error;
-        }
-    }
-
-    // Enhanced connection handler
-    _onConnect() {
-        const timestamp = new Date().toLocaleTimeString();
-        console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: CONNECTION ESTABLISHED!');
-        console.log('📊 Connection details: Method=' + this._connectionMethod + ', Attempt=' + this._connectionAttempts + ', UUIDs=' + this._useSpikePrimeUUIDs);
-        
-        try {
-            if (this._useSpikePrimeUUIDs) {
-                console.log('🎯 CompleteBLESpikePrimeHub: Setting up SPIKE Prime communication...');
-                this._setupSpikePrimeCommunication();
-            } else {
-                console.log('🎯 CompleteBLESpikePrimeHub: Using standard LEGO communication...');
-                super._onConnect();
-            }
-            
-            // Start Python REPL initialization
-            const self = this;
-            setTimeout(function() {
-                self._initializePythonREPL();
-            }, 1000);
-            
-            // Start connection monitoring
-            this._startConnectionMonitoring();
-            
-            this._connected = true;
-            console.log('🎉 CompleteBLESpikePrimeHub: Connection fully established!');
-            
-        } catch (error) {
-            console.error('❌ CompleteBLESpikePrimeHub: Connection setup failed:', error);
-            this.reset();
-        }
-    }
-
-    _setupSpikePrimeCommunication() {
-        console.log('📡 CompleteBLESpikePrimeHub: Configuring SPIKE Prime characteristics...');
-        
-        try {
-            const self = this;
-            
-            // Start notifications
-            this._ble.startNotifications(
-                SPIKE_PRIME_SERVICE_UUID,
-                SPIKE_PRIME_NOTIFY_UUID,
-                function(base64) { 
-                    self._onMessage({ message: base64 }); 
-                }
-            );
-            
-            console.log('✅ CompleteBLESpikePrimeHub: Notifications enabled');
-            
-            // Send initial hub property requests
-            this._firstNotificationCallback = function() {
-                console.log('📤 CompleteBLESpikePrimeHub: Sending initial hub requests...');
-                self.sendMessage(0x01, [0x01, 0x02], false); // Name
-                self.sendMessage(0x01, [0x03, 0x05], false); // Firmware
-                self.sendMessage(0x01, [0x06, 0x05], false); // Battery
-                console.log('✅ CompleteBLESpikePrimeHub: Initial hub requests sent');
-            };
-            
-            this._startPollingBatteryLevel();
-            
-        } catch (error) {
-            console.error('❌ CompleteBLESpikePrimeHub: SPIKE Prime communication setup failed:', error);
-            throw error;
-        }
-    }
-
-    _initializePythonREPL() {
-        console.log('🐍 CompleteBLESpikePrimeHub: Initializing Python REPL...');
-        
-        // Send Ctrl-C to interrupt any running program
-        this.sendRaw('\x03');
-        
-        const self = this;
-        setTimeout(function() {
-            console.log('🐍 CompleteBLESpikePrimeHub: Confirming Python REPL availability...');
-            self.sendRaw('import hub\r\nprint("PYTHON_AVAILABLE")\r\n');
-        }, 500);
-    }
-
-    _startConnectionMonitoring() {
-        console.log('💓 CompleteBLESpikePrimeHub: Starting connection monitoring...');
-        
-        if (this._keepAliveInterval) {
-            clearInterval(this._keepAliveInterval);
-        }
-        
-        const self = this;
-        this._keepAliveInterval = setInterval(function() {
-            const now = Date.now();
-            const timeSinceLastMessage = now - self._lastHeartbeat;
-            
-            if (self.isConnected()) {
-                console.log('💓 CompleteBLESpikePrimeHub: Heartbeat - Last: ' + timeSinceLastMessage + 'ms, Method: ' + self._connectionMethod + ', Python: ' + self._pythonAvailable);
-                
-                if (timeSinceLastMessage > 10000) { // 10 seconds
-                    console.log('📡 CompleteBLESpikePrimeHub: Sending keep-alive...');
-                    self.sendMessage(0x01, [0x06, 0x05], false); // Battery request
-                }
-                
-                if (timeSinceLastMessage > 25000) { // 25 seconds
-                    console.error('💀 CompleteBLESpikePrimeHub: Connection timeout, recovering...');
-                    self._recoverConnection();
-                }
-            } else {
-                console.warn('⚠️ CompleteBLESpikePrimeHub: Connection lost during monitoring');
-                self._stopConnectionMonitoring();
-            }
-        }, 5000);
-        
-        console.log('✅ CompleteBLESpikePrimeHub: Connection monitoring active');
-    }
-
-    _stopConnectionMonitoring() {
-        if (this._keepAliveInterval) {
-            console.log('⏹️ CompleteBLESpikePrimeHub: Stopping connection monitoring');
-            clearInterval(this._keepAliveInterval);
-            this._keepAliveInterval = null;
-        }
-    }
-
-    _recoverConnection() {
-        console.log('🔧 CompleteBLESpikePrimeHub: Attempting connection recovery...');
-        
-        if (this.isConnected()) {
-            this.sendMessage(0x01, [0x01, 0x05], false); // Hub name request
-        } else {
-            console.log('🔄 CompleteBLESpikePrimeHub: Full reconnection needed');
-            this.reset();
-        }
-    }
-
-    // Enhanced message handling
-    _onMessage(params) {
-        const timestamp = new Date().toLocaleTimeString();
-        this._lastHeartbeat = Date.now();
-        
-        try {
-            let text;
-            let data;
-            
-            if (typeof params.message === 'string') {
-                // BLE base64 message
-                const Base64Util = require('../../../util/base64-util');
-                data = Base64Util.base64ToUint8Array(params.message);
-                text = (new TextDecoder()).decode(data);
-                
-                if (data.length >= 3) {
-                    const length = data[0];
-                    const messageType = data[2];
-                    const dataStr = Array.from(data.slice(0, Math.min(8, data.length))).map(function(b) { 
-                        return '0x' + b.toString(16).padStart(2, '0'); 
-                    }).join(',');
-                    const suffix = data.length > 8 ? '...' : '';
-                    console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: BLE MSG - Len:' + length + ', Type:0x' + messageType.toString(16) + ', Data:[' + dataStr + suffix + ']');
-                    
-                    // Process as LEGO BLE message
-                    super._onMessage(params.message);
-                    return;
-                }
-            } else {
-                text = params.message;
-            }
-            
-            // Process as Python REPL output
-            const responses = (this._remainingText + text).split('\r\n');
-            this._remainingText = responses.pop() || '';
-            
-            for (let i = 0; i < responses.length; i++) {
-                const responseText = responses[i];
-                const trimmedText = responseText.trim();
-                if (!trimmedText) continue;
-                
-                console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: PYTHON - "' + trimmedText + '"');
-                
-                // Try JSON parsing first
-                try {
-                    const json = JSON.parse(trimmedText);
-                    this._parseJSONResponse(json);
-                } catch (error) {
-                    // Process as raw Python output
-                    this._parsePythonData(trimmedText);
-                }
-            }
-            
-        } catch (error) {
-            console.error('❌ CompleteBLESpikePrimeHub: Message processing error:', error);
-        }
-    }
-
-    _parsePythonData(dataText) {
-        try {
-            if (dataText.indexOf('PYTHON_AVAILABLE') !== -1) {
-                if (!this._pythonAvailable) {
-                    this._pythonAvailable = true;
-                    console.log('🐍 CompleteBLESpikePrimeHub: Python REPL confirmed available!');
-                    this._initializeContinuousSensorMonitoring();
-                }
-            } else if (dataText.indexOf('SENSORS:') === 0) {
-                this._parseSensorData(dataText.substring(8));
-            } else if (dataText.indexOf('GESTURE:') === 0) {
-                const gesture = dataText.substring(8).toLowerCase();
-                if (this._sensors.gestures.hasOwnProperty(gesture)) {
-                    this._sensors.gestures[gesture] = true;
-                    const self = this;
-                    setTimeout(function() { 
-                        self._sensors.gestures[gesture] = false; 
-                    }, 100);
-                }
-            } else if (dataText.indexOf('>>>') === 0) {
-                this._replOutput += dataText + '\n';
-                if (this._replOutput.length > 1000) {
-                    this._replOutput = this._replOutput.substring(this._replOutput.length - 1000);
-                }
-            }
-        } catch (error) {
-            console.warn('⚠️ CompleteBLESpikePrimeHub: Error parsing Python data:', error);
-        }
-    }
-
-    _parseSensorData(sensorData) {
-        try {
-            const parts = sensorData.split('|');
-            if (parts.length >= 5) {
-                // Angles
-                const angles = parts[0].split(',').map(parseFloat);
-                if (angles.length === 3) {
-                    this._sensors.angle = { yaw: angles[0], pitch: angles[1], roll: angles[2] };
-                }
-                
-                // Acceleration
-                const accel = parts[1].split(',').map(parseFloat);
-                if (accel.length === 3) {
-                    this._sensors.acceleration = { x: accel[0], y: accel[1], z: accel[2] };
-                }
-                
-                // Orientation
-                this._sensors.orientation = parseInt(parts[2], 10);
-                
-                // Temperatures
-                const temps = parts[3].split(',').map(parseFloat);
-                if (temps.length >= 2) {
-                    this._sensors.temperature = temps[0];
-                    this._sensors.hubTemp = temps[1];
-                }
-                
-                // Motor positions
-                if (parts[4]) {
-                    const motorPairs = parts[4].split('|');
-                    for (let i = 0; i < motorPairs.length; i++) {
-                        const pair = motorPairs[i];
-                        const splitPair = pair.split(':');
-                        const port = splitPair[0];
-                        const values = splitPair[1];
-                        if (port && values) {
-                            const motorValues = values.split(',').map(parseFloat);
-                            const speed = motorValues[0];
-                            const relDeg = motorValues[1];
-                            const absDeg = motorValues[2];
-                            const pwm = motorValues[3];
-                            this._sensors.motorPositions[port] = {
-                                speed: speed, 
-                                relativePosition: relDeg, 
-                                absolutePosition: absDeg, 
-                                power: pwm
-                            };
-                        }
-                    }
-                }
-            }
-        } catch (error) {
-            console.warn('⚠️ CompleteBLESpikePrimeHub: Error parsing sensor data:', error);
-        }
-    }
-
-    _parseJSONResponse(response) {
-        // Handle JSON-RPC responses
-        if (response.hasOwnProperty('i')) {
-            const openRequest = this._openRequests[response.i];
-            if (openRequest) {
-                openRequest.resolve(response.r);
-                delete this._openRequests[response.i];
-            }
-        }
-        
-        if (response.hasOwnProperty('m')) {
-            // Handle hub status messages
-            this._parseHubStatusResponse(response);
-        }
-    }
-
-    _parseHubStatusResponse(response) {
-        // Hub status parsing
-        if (response.m === 0 && response.p) {
-            // Port data parsing
-            for (let i = 0; i < 6 && i < response.p.length; i++) {
-                const port = SpikePorts[i];
-                if (response.p[i] && response.p[i].length >= 2) {
-                    const deviceId = response.p[i][0];
-                    const values = response.p[i][1];
-                    
-                    switch (deviceId) {
-                        case 48: // Large motor
-                        case 49: // Medium motor
-                            this._portValues[port] = {
-                                type: 'motor',
-                                speed: values[0] || 0,
-                                degreesCounted: values[1] || 0,
-                                position: ((values[2] || 0) + 360) % 360,
-                                power: values[3] || 0,
-                                relativePosition: values[1] || 0,
-                                absolutePosition: values[2] || 0
-                            };
-                            break;
-                        case 61: // Color sensor
-                            this._portValues[port] = {
-                                type: 'color',
-                                color: values[0] || 0,
-                                reflection: values[1] || 0,
-                                ambient: values[2] || 0
-                            };
-                            break;
-                        case 62: // Distance sensor
-                            this._portValues[port] = {
-                                type: 'distance',
-                                distance: values[0] === -1 ? 0 : (values[0] || 0)
-                            };
-                            break;
-                        case 63: // Force sensor
-                            this._portValues[port] = {
-                                type: 'force',
-                                force: values[0] || 0,
-                                pressed: (values[1] || 0) > 0
-                            };
-                            break;
-                    }
-                }
-            }
-        }
-    }
-
-    _initializeContinuousSensorMonitoring() {
-        if (this._sensorLoopRunning) return;
-        
-        this._sensorLoopRunning = true;
-        console.log('🔄 CompleteBLESpikePrimeHub: Starting continuous sensor monitoring...');
-        
-        // Sensor monitoring script
-        const sensorScript = 'import hub, utime\n' +
-            'def continuous_sensor_loop():\n' +
-            '    while True:\n' +
-            '        try:\n' +
-            '            yaw_angle, pitch_angle, roll_angle = hub.motion.position()\n' +
-            '            accel_x, accel_y, accel_z = hub.motion.accelerometer()\n' +
-            '            orientation = hub.motion.orientation()\n' +
-            '            battery_temp = hub.battery.temperature()\n' +
-            '            hub_temp = hub.temperature()\n' +
-            '            motor_data = {}\n' +
-            '            for port in "ABCDEF":\n' +
-            '                if hasattr(hub.port[port], "motor"):\n' +
-            '                    try:\n' +
-            '                        speed, rel_deg, abs_deg, pwm = hub.port[port].motor.get()\n' +
-            '                        motor_data[port] = f"{speed},{rel_deg},{abs_deg},{pwm}"\n' +
-            '                    except: pass\n' +
-            '            motor_str = "|".join([f"{k}:{v}" for k, v in motor_data.items()])\n' +
-            '            print(f"SENSORS:{yaw_angle},{pitch_angle},{roll_angle}|{accel_x},{accel_y},{accel_z}|{orientation}|{battery_temp},{hub_temp}|{motor_str}")\n' +
-            '            for gesture in ["tapped", "doubletapped", "shake", "freefall"]:\n' +
-            '                if hub.motion.was_gesture(gesture):\n' +
-            '                    print(f"GESTURE:{gesture.upper()}")\n' +
-            '        except Exception as e:\n' +
-            '            pass\n' +
-            '        utime.sleep_ms(100)\n' +
-            'continuous_sensor_loop()\n';
-            
-        this.sendPythonCommand(sensorScript);
-    }
-
-    // Enhanced send method
-    send(data, useLimiter) {
-        if (useLimiter === undefined) useLimiter = true;
-        
-        const timestamp = new Date().toLocaleTimeString();
-        
-        if (!this.isConnected()) {
-            console.warn('⚠️ CompleteBLESpikePrimeHub: Cannot send - not connected');
-            return Promise.resolve();
-        }
-        
-        if (useLimiter && !this._rateLimiter.okayToSend()) {
-            console.log('⏳ CompleteBLESpikePrimeHub: Rate limited');
-            return Promise.resolve();
-        }
-        
-        const dataStr = Array.from(data.slice(0, Math.min(6, data.length))).map(function(b) { 
-            return '0x' + b.toString(16).padStart(2, '0'); 
-        }).join(',');
-        const suffix = data.length > 6 ? '...' : '';
-        console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: SEND - Method:' + this._connectionMethod + ', Len:' + data.length + ', Data:[' + dataStr + suffix + ']');
-        
-        try {
-            const serviceUUID = this._useSpikePrimeUUIDs ? 
-                SPIKE_PRIME_SERVICE_UUID : LEGO_SERVICE_UUID;
-            const writeUUID = this._useSpikePrimeUUIDs ? 
-                SPIKE_PRIME_WRITE_UUID : LEGO_CHAR_UUID;
-            
-            const Base64Util = require('../../../util/base64-util');
-            
-            return this._ble.write(
-                serviceUUID,
-                writeUUID,
-                Base64Util.uint8ArrayToBase64(data),
-                'base64',
-                true
-            ).then(function() {
-                console.log('✅ CompleteBLESpikePrimeHub: Data sent successfully');
-            }).catch(function(error) {
-                console.error('❌ CompleteBLESpikePrimeHub: Send failed:', error);
-                throw error;
-            });
-            
-        } catch (error) {
-            console.error('❌ CompleteBLESpikePrimeHub: Send setup failed:', error);
-            return Promise.reject(error);
-        }
-    }
-
-    // Python communication methods
-    sendRaw(text, useLimiter, id) {
-        if (useLimiter === undefined) useLimiter = false;
-        if (!this.isConnected()) return Promise.resolve();
-        
-        console.log('🐍 CompleteBLESpikePrimeHub: Sending raw Python: "' + text.replace(/\r\n/g, '\\r\\n') + '"');
-        
-        if (id) {
-            const self = this;
-            const promise = new Promise(function(resolve, reject) {
-                self._openRequests[id] = { resolve: resolve, reject: reject };
-            });
-            this._sendRawMessage(text);
-            return promise;
-        }
-        
-        return this._sendRawMessage(text);
-    }
-
-    sendPythonCommand(pythonCode) {
-        const codePreview = pythonCode.substring(0, 100);
-        const suffix = pythonCode.length > 100 ? '...' : '';
-        console.log('🐍 CompleteBLESpikePrimeHub: Python command: ' + codePreview + suffix);
-        return this.sendRaw(pythonCode + '\r\n');
-    }
-
-    sendReplCommand(pythonCode) {
-        this._replHistory.push(pythonCode);
-        if (this._replHistory.length > 50) {
-            this._replHistory.shift();
-        }
-        
-        const escapedCode = pythonCode.replace(/"/g, '\\"');
-        const wrappedCode = 'try:\n' +
-            '    _result = eval("' + escapedCode + '")\n' +
-            '    if _result is not None:\n' +
-            '        print(f">>> {_result}")\n' +
-            '    else:\n' +
-            '        exec("' + escapedCode + '")\n' +
-            '        print(">>> Command executed")\n' +
-            'except Exception as e:\n' +
-            '    print(f">>> Error: {e}")\n';
-            
-        return this.sendPythonCommand(wrappedCode);
-    }
-
-    _sendRawMessage(text) {
-        // For BLE, send as binary data
-        const encoder = new TextEncoder();
-        const data = encoder.encode(text);
-        return this.send(data, false);
-    }
-
-    // Utility methods
-    _clamp(value, min, max) {
-        return Math.max(min, Math.min(max, value));
-    }
-
-    // Override reset
-    reset() {
-        console.log('🔄 CompleteBLESpikePrimeHub: Comprehensive reset...');
-        
-        this._connected = false;
-        this._pythonAvailable = false;
-        this._sensorLoopRunning = false;
-        this._useSpikePrimeUUIDs = true;
-        this._remainingText = '';
-        this._replOutput = '';
-        this._replHistory = [];
-        this._openRequests = {};
-        
-        this._stopConnectionMonitoring();
-        
-        // Reset sensors
-        this._sensors = {
-            buttons: [0, 0, 0, 0],
-            angle: { pitch: 0, roll: 0, yaw: 0 },
-            acceleration: { x: 0, y: 0, z: 0 },
-            gyro: { x: 0, y: 0, z: 0 },
-            orientation: SpikeOrientation.front,
-            battery: 100,
-            temperature: 25,
-            hubTemp: 25,
-            gestures: { tapped: false, doubletapped: false, shake: false, freefall: false },
-            motorPositions: {}
-        };
-        
-        this._portValues = {};
-        this._timer.start = Date.now();
-        this._timer.current = 0;
-        
-        console.log('📊 CompleteBLESpikePrimeHub: Reset stats - Attempts:' + this._connectionAttempts + ', Method:' + this._connectionMethod);
-        
-        super.reset();
-        console.log('✅ CompleteBLESpikePrimeHub: Reset complete');
-    }
-
-    // Override isConnected
-    isConnected() {
-        const connected = this._connected && super.isConnected();
-        
-        if (Math.random() < 0.01) { // 1% logging
-            console.log('🔍 CompleteBLESpikePrimeHub: Status - Connected:' + connected + ', Python:' + this._pythonAvailable + ', Method:' + this._connectionMethod);
-        }
-        
-        return connected;
-    }
-
-    // Control methods
-    stopAll() {
-        this.stopAllMotors();
-        this.stopSound();
-    }
-
-    stopSound() {
-        this.sendPythonCommand('import hub; hub.sound.stop()');
-    }
-
-    stopAllMotors() {
-        this.sendPythonCommand('import hub; [hub.port[p].motor.stop() for p in "ABCDEF" if hasattr(hub.port[p], "motor")]');
-    }
-}
-
-// Main Extension Class
-class Scratch3SpikePrimeBlocks extends BleBaseBlocks {
-
     static get EXTENSION_ID() {
-        return 'spikeprime';
-    }
-
-    static get extensionURL() {
-        return extensionURL;
-    }
-
-    static set extensionURL(url) {
-        extensionURL = url;
-    }
-
-    constructor(runtime) {
-        console.log('🎯 Scratch3SpikePrimeBlocks: Initializing BLE SPIKE Prime extension...');
-        
-        // Use the complete BLE SPIKE Prime hub
-        super(new CompleteBLESpikePrimeHub(runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID));
-
-        if (runtime.formatMessage) {
-            formatMessage = runtime.formatMessage;
-        }
-
-        console.log('✅ Scratch3SpikePrimeBlocks: BLE extension initialized');
-    }
-
-    get externalPorts() {
-        return SpikePorts;
-    }
-
-    get multipleExternalPorts() {
-        return ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F'];
-    }
-
-    get hasInternalTiltSensorBlocks() {
-        return true;
-    }
-
-    get hasAdvancedBlocks() {
-        return true;
-    }
-
-    setupTranslations(formatMessage) {
-        const localeSetup = formatMessage.setup();
-
-        const translations = {
-            'en': {
-                'spikeprime.motorStart': '[PORT] start motor [DIRECTION]',
-                'spikeprime.motorStop': '[PORT] stop motor',
-                'spikeprime.motorSetSpeed': '[PORT] set speed to [SPEED] %',
-                'spikeprime.getPosition': '[PORT] position',
-                'spikeprime.displayText': 'write [TEXT]',
-                'spikeprime.displayImage': 'turn on [MATRIX]',
-                'spikeprime.displayClear': 'turn off pixels',
-                'spikeprime.getDistance': '[PORT] distance',
-                'spikeprime.getColor': '[PORT] color',
-                'spikeprime.getAngle': '[AXIS] angle',
-                'spikeprime.isGesture': 'hub [GESTURE]?',
-                'spikeprime.playBeep': 'beep [FREQUENCY] Hz for [DURATION] ms',
-                'spikeprime.getBatteryLevel': 'battery level %',
-                'spikeprime.isButtonPressed': '[BUTTON] button pressed?',
-                'spikeprime.runPythonCommand': 'run Python: [CODE]'
-            },
-            'de': {
-                'spikeprime.motorStart': '[PORT] Motor [DIRECTION] starten',
-                'spikeprime.motorStop': '[PORT] Motor stoppen',
-                'spikeprime.motorSetSpeed': '[PORT] Geschwindigkeit auf [SPEED] % setzen',
-                'spikeprime.getPosition': '[PORT] Position',
-                'spikeprime.displayText': '[TEXT] schreiben',
-                'spikeprime.displayImage': '[MATRIX] einschalten',
-                'spikeprime.displayClear': 'Pixel ausschalten',
-                'spikeprime.getDistance': '[PORT] Entfernung',
-                'spikeprime.getColor': '[PORT] Farbe',
-                'spikeprime.getAngle': '[AXIS] Winkel',
-                'spikeprime.isGesture': 'Hub [GESTURE]?',
-                'spikeprime.playBeep': '[FREQUENCY] Hz Piep für [DURATION] ms',
-                'spikeprime.getBatteryLevel': 'Batteriestand %',
-                'spikeprime.isButtonPressed': '[BUTTON] Taste gedrückt?',
-                'spikeprime.runPythonCommand': 'Python ausführen: [CODE]',
-                
-                // Menu item translations
-                'spikeprime.pitch': 'Neigung',
-                'spikeprime.roll': 'Rollen',
-                'spikeprime.yaw': 'Gieren',
-                'spikeprime.tapped': 'angetippt',
-                'spikeprime.doubletapped': 'doppelt angetippt',
-                'spikeprime.shake': 'geschüttelt',
-                'spikeprime.freefall': 'freier Fall',
-                'spikeprime.left': 'links',
-                'spikeprime.center': 'mitte',
-                'spikeprime.right': 'rechts'
-            }
-        };
-
-        for (const locale in translations) {
-            if (!localeSetup.translations[locale]) {
-                localeSetup.translations[locale] = {};
-            }
-            Object.assign(localeSetup.translations[locale], translations[locale]);
-        }
+        return 'spikePrimeOfficialProtocol';
     }
 
     getInfo() {
-        this.setupTranslations(formatMessage);
-
         return {
-            id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-            name: 'SPIKE Prime BLE',
-            extensionURL: Scratch3SpikePrimeBlocks.extensionURL,
-            blockIconURI: blockIconURI,
+            id: Scratch3SpikePrimeOfficialBlocks.EXTENSION_ID,
+            name: 'SPIKE Prime',
+            color1: '#FFD700',
+            color2: '#D4AF37',
+            blockIconURI: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjAuMDA1IDJDOS4wNDIgMiAyIDkuMDQyIDIgMjAuMDA1UzkuMDQyIDM4IDIwLjAwNSAzOCAzOCAyOS45NjcgMzggMjAuMDA1IDI5Ljk2NyAyIDIwLjAwNSAyek00LjQ2MyAyMC4wMDVjMC04LjU4MiA2Ljk2LTE1LjU0MSAxNS41NDItMTUuNTQxIDguNTgyIDAgMTUuNTQxIDYuOTU5IDE1LjU0MSAxNS41NDFzLTYuOTU5IDE1LjU0Mi0xNS41NDEgMTUuNTQyYy04LjU4MyAwLTE1LjU0Mi02Ljk2LTE1LjU0Mi0xNS41NDJ6IiBmaWxsPSIjRkZBNzAwIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNMjAgMTMuNzY1bC0yLjM5NiA0LjA2OC00LjcyNC4wOTggMy42NjUgMy4xMDctMS4zMjMgNC45MTMgNC43NzgtMi44NzQgNC43NzggMi44NzQtMS4zMjMtNC45MTMgMy42NjUtMy4xMDctNC43MjQtLjA5OEwyMCAxMy43NjV6IiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4=',
             showStatusButton: true,
             blocks: [
-                // Motor Control
                 {
-                    opcode: 'motorStart',
-                    text: formatMessage({
-                        id: 'spikeprime.motorStart',
-                        default: '[PORT] start motor [DIRECTION]'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
+                    opcode: 'isConnected',
+                    blockType: BlockType.BOOLEAN,
+                    text: 'is hub connected?',
+                },
+                '---',
+                {
+                    opcode: 'startMotor',
+                    blockType: BlockType.COMMAND,
+                    text: 'start motor [PORT] at [SPEED]%',
                     arguments: {
-                        PORT: { type: this.getArgumentType('STRING'), menu: 'MULTIPLE_PORT', defaultValue: 'A' },
-                        DIRECTION: { type: this.getArgumentType('NUMBER'), menu: 'DIRECTION', defaultValue: 1 }
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
+                        SPEED: { type: ArgumentType.NUMBER, defaultValue: 75 },
                     }
                 },
                 {
-                    opcode: 'motorStop',
-                    text: formatMessage({
-                        id: 'spikeprime.motorStop',
-                        default: '[PORT] stop motor'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
+                    opcode: 'stopMotor',
+                    blockType: BlockType.COMMAND,
+                    text: 'stop motor [PORT] with [ACTION]',
                     arguments: {
-                        PORT: { type: this.getArgumentType('STRING'), menu: 'MULTIPLE_PORT', defaultValue: 'A' }
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
+                        ACTION: { type: ArgumentType.STRING, menu: 'STOP_ACTION', defaultValue: 'brake' },
                     }
                 },
                 {
-                    opcode: 'motorSetSpeed',
-                    text: formatMessage({
-                        id: 'spikeprime.motorSetSpeed',
-                        default: '[PORT] set speed to [SPEED] %'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
+                    opcode: 'getMotorPosition',
+                    blockType: BlockType.REPORTER,
+                    text: 'motor [PORT] position',
                     arguments: {
-                        PORT: { type: this.getArgumentType('STRING'), menu: 'MULTIPLE_PORT', defaultValue: 'A' },
-                        SPEED: { type: this.getArgumentType('NUMBER'), defaultValue: 75 }
-                    }
-                },
-                {
-                    opcode: 'getPosition',
-                    text: formatMessage({
-                        id: 'spikeprime.getPosition',
-                        default: '[PORT] position'
-                    }),
-                    blockType: this.getBlockType('REPORTER'),
-                    arguments: {
-                        PORT: { type: this.getArgumentType('STRING'), menu: 'PORT', defaultValue: 'A' }
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'A' },
                     }
                 },
                 '---',
-                // Display Control
                 {
-                    opcode: 'displayText',
-                    text: formatMessage({
-                        id: 'spikeprime.displayText',
-                        default: 'write [TEXT]'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
+                    opcode: 'setLightMatrixPixel',
+                    blockType: BlockType.COMMAND,
+                    text: 'set 3x3 light [PORT] pixel x:[X] y:[Y] to brightness [BRIGHTNESS]%',
                     arguments: {
-                        TEXT: { type: this.getArgumentType('STRING'), defaultValue: 'Hello' }
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'C' },
+                        X: { type: ArgumentType.NUMBER, defaultValue: 1 },
+                        Y: { type: ArgumentType.NUMBER, defaultValue: 1 },
+                        BRIGHTNESS: { type: ArgumentType.NUMBER, defaultValue: 100 },
                     }
-                },
-                {
-                    opcode: 'displayImage',
-                    text: formatMessage({
-                        id: 'spikeprime.displayImage',
-                        default: 'turn on [MATRIX]'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
-                    arguments: {
-                        MATRIX: { type: this.getArgumentType('MATRIX'), defaultValue: '1101111011000001000101110' }
-                    }
-                },
-                {
-                    opcode: 'displayClear',
-                    text: formatMessage({
-                        id: 'spikeprime.displayClear',
-                        default: 'turn off pixels'
-                    }),
-                    blockType: this.getBlockType('COMMAND')
                 },
                 '---',
-                // Sensors
                 {
                     opcode: 'getDistance',
-                    text: formatMessage({
-                        id: 'spikeprime.getDistance',
-                        default: '[PORT] distance'
-                    }),
-                    blockType: this.getBlockType('REPORTER'),
+                    blockType: BlockType.REPORTER,
+                    text: 'distance sensor [PORT] (mm)',
                     arguments: {
-                        PORT: { type: this.getArgumentType('STRING'), menu: 'PORT', defaultValue: 'A' }
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'B' },
+                    }
+                },
+                {
+                    opcode: 'isForceSensorPressed',
+                    blockType: BlockType.BOOLEAN,
+                    text: 'force sensor [PORT] pressed?',
+                    arguments: {
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'D' },
+                    }
+                },
+                {
+                    opcode: 'getForceSensorValue',
+                    blockType: BlockType.REPORTER,
+                    text: 'force sensor [PORT] value (%)',
+                    arguments: {
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'D' },
                     }
                 },
                 {
                     opcode: 'getColor',
-                    text: formatMessage({
-                        id: 'spikeprime.getColor',
-                        default: '[PORT] color'
-                    }),
-                    blockType: this.getBlockType('REPORTER'),
+                    blockType: BlockType.REPORTER,
+                    text: 'color sensor [PORT] color',
                     arguments: {
-                        PORT: { type: this.getArgumentType('STRING'), menu: 'PORT', defaultValue: 'A' }
-                    }
-                },
-                {
-                    opcode: 'getAngle',
-                    text: formatMessage({
-                        id: 'spikeprime.getAngle',
-                        default: '[AXIS] angle'
-                    }),
-                    blockType: this.getBlockType('REPORTER'),
-                    arguments: {
-                        AXIS: { type: this.getArgumentType('STRING'), menu: 'AXIS', defaultValue: 'pitch' }
-                    }
-                },
-                {
-                    opcode: 'isGesture',
-                    text: formatMessage({
-                        id: 'spikeprime.isGesture',
-                        default: 'hub [GESTURE]?'
-                    }),
-                    blockType: this.getBlockType('BOOLEAN'),
-                    arguments: {
-                        GESTURE: { type: this.getArgumentType('STRING'), menu: 'GESTURE', defaultValue: 'tapped' }
+                        PORT: { type: ArgumentType.STRING, menu: 'PORT', defaultValue: 'E' },
                     }
                 },
                 '---',
-                // Sound
                 {
-                    opcode: 'playBeep',
-                    text: formatMessage({
-                        id: 'spikeprime.playBeep',
-                        default: 'beep [FREQUENCY] Hz for [DURATION] ms'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
+                    opcode: 'getOrientation',
+                    blockType: BlockType.REPORTER,
+                    text: 'hub orientation [AXIS]',
                     arguments: {
-                        FREQUENCY: { type: this.getArgumentType('NUMBER'), defaultValue: 440 },
-                        DURATION: { type: this.getArgumentType('NUMBER'), defaultValue: 500 }
+                        AXIS: { type: ArgumentType.STRING, menu: 'ORIENTATION_AXIS', defaultValue: 'yaw' }
                     }
                 },
+                {
+                    opcode: 'getAcceleration',
+                    blockType: BlockType.REPORTER,
+                    text: 'hub acceleration [AXIS]',
+                    arguments: {
+                        AXIS: { type: ArgumentType.STRING, menu: 'XYZ_AXIS', defaultValue: 'x' }
+                    }
+                },
+                {
+                    opcode: 'getFaceUp',
+                    blockType: BlockType.REPORTER,
+                    text: 'hub face up'
+                },
                 '---',
-                // Status
                 {
                     opcode: 'getBatteryLevel',
-                    text: formatMessage({
-                        id: 'spikeprime.getBatteryLevel',
-                        default: 'battery level %'
-                    }),
-                    blockType: this.getBlockType('REPORTER')
+                    blockType: BlockType.REPORTER,
+                    text: 'battery level',
                 },
-                {
-                    opcode: 'isButtonPressed',
-                    text: formatMessage({
-                        id: 'spikeprime.isButtonPressed',
-                        default: '[BUTTON] button pressed?'
-                    }),
-                    blockType: this.getBlockType('BOOLEAN'),
-                    arguments: {
-                        BUTTON: { type: this.getArgumentType('STRING'), menu: 'BUTTON', defaultValue: 'center' }
-                    }
-                },
-                '---',
-                // Python
-                {
-                    opcode: 'runPythonCommand',
-                    text: formatMessage({
-                        id: 'spikeprime.runPythonCommand',
-                        default: 'run Python: [CODE]'
-                    }),
-                    blockType: this.getBlockType('COMMAND'),
-                    arguments: {
-                        CODE: { type: this.getArgumentType('STRING'), defaultValue: 'print("Hello BLE!")' }
-                    }
-                }
             ],
             menus: {
-                PORT: { acceptReporters: true, items: SpikePorts },
-                MULTIPLE_PORT: { acceptReporters: true, items: ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F'] },
-                DIRECTION: { 
-                    acceptReporters: false, 
-                    items: [
-                        { text: '⬆️', value: '1' }, 
-                        { text: '⬇️', value: '-1' }
-                    ] 
-                },
-                AXIS: { 
-                    acceptReporters: false, 
-                    items: [
-                        {
-                            text: formatMessage({ id: 'spikeprime.pitch', default: 'pitch' }),
-                            value: 'pitch'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.roll', default: 'roll' }),
-                            value: 'roll'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.yaw', default: 'yaw' }),
-                            value: 'yaw'
-                        }
-                    ]
-                },
-                GESTURE: { 
-                    acceptReporters: false, 
-                    items: [
-                        {
-                            text: formatMessage({ id: 'spikeprime.tapped', default: 'tapped' }),
-                            value: 'tapped'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.doubletapped', default: 'doubletapped' }),
-                            value: 'doubletapped'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.shake', default: 'shake' }),
-                            value: 'shake'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.freefall', default: 'freefall' }),
-                            value: 'freefall'
-                        }
-                    ]
-                },
-                BUTTON: { 
-                    acceptReporters: false, 
-                    items: [
-                        {
-                            text: formatMessage({ id: 'spikeprime.left', default: 'left' }),
-                            value: 'left'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.center', default: 'center' }),
-                            value: 'center'
-                        },
-                        {
-                            text: formatMessage({ id: 'spikeprime.right', default: 'right' }),
-                            value: 'right'
-                        }
-                    ]
-                }
+                PORT: { acceptReporters: true, items: ['A', 'B', 'C', 'D', 'E', 'F'] },
+                STOP_ACTION: { acceptReporters: false, items: ['coast', 'brake', 'hold'] },
+                ORIENTATION_AXIS: { acceptReporters: false, items: ['yaw', 'pitch', 'roll'] },
+                XYZ_AXIS: { acceptReporters: false, items: ['x', 'y', 'z'] },
             }
         };
     }
 
-    // Helper methods
-    getBlockType(type) {
-        try {
-            const BlockType = require('../../extension-support/block-type');
-            return BlockType[type];
-        } catch (e) {
-            return type.toLowerCase();
-        }
-    }
-
-    getArgumentType(type) {
-        try {
-            const ArgumentType = require('../../extension-support/argument-type');
-            return ArgumentType[type];
-        } catch (e) {
-            return type.toLowerCase();
-        }
-    }
-
-    getCast() {
-        try {
-            return require('../../util/cast');
-        } catch (e) {
-            return {
-                toString: function(value) { return String(value); },
-                toNumber: function(value) { return Number(value) || 0; }
-            };
-        }
-    }
-
-    // Block implementations
-    motorStart(args) {
-        const direction = this.getCast().toNumber(args.DIRECTION);
-        const ports = this._validatePorts(this.getCast().toString(args.PORT));
-        
-        const self = this;
-        const promises = ports.map(function(port) {
-            const setting = self._peripheral.motorSettings[port];
-            return self._peripheral.sendPythonCommand('import hub; hub.port.' + port + '.motor.pwm(' + Math.round(setting.speed * direction) + ')');
-        });
-        
-        return Promise.all(promises);
-    }
-
-    motorStop(args) {
-        const ports = this._validatePorts(this.getCast().toString(args.PORT));
-        
-        const self = this;
-        const promises = ports.map(function(port) {
-            return self._peripheral.sendPythonCommand('import hub; hub.port.' + port + '.motor.stop()');
-        });
-        
-        return Promise.all(promises);
-    }
-
-    motorSetSpeed(args) {
-        const speed = this.getCast().toNumber(args.SPEED);
-        const ports = this._validatePorts(this.getCast().toString(args.PORT));
-        
-        const self = this;
-        ports.forEach(function(port) {
-            self._peripheral.motorSettings[port].speed = speed;
-        });
-    }
-
-    getPosition(args) {
-        const port = this.getCast().toString(args.PORT).trim().toUpperCase();
-        const portData = this._peripheral.portValues[port];
-        return (portData && portData.position) ? portData.position : 0;
-    }
-
-    displayText(args) {
-        const text = this.getCast().toString(args.TEXT);
-        const escapedText = text.replace(/"/g, '\\"');
-        return this._peripheral.sendPythonCommand('import hub; hub.display.show("' + escapedText + '")');
-    }
-
-    displayImage(args) {
-        const matrix = this.getCast().toString(args.MATRIX);
-        const brightness = Math.round(9 * this._peripheral.pixelBrightness / 100);
-        const symbol = (matrix.replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-        const altImage = symbol.replace(/1/g, '9').replace(/0/g, '_').match(/.{5}/g).join(':');
-        
-        return this._peripheral.sendPythonCommand('import hub; hub.display.show(hub.Image("' + altImage + '"))');
-    }
-
-    displayClear() {
-        return this._peripheral.sendPythonCommand('import hub; hub.display.clear()');
-    }
-
-    getDistance(args) {
-        const port = this.getCast().toString(args.PORT).trim().toUpperCase();
-        const portData = this._peripheral.portValues[port];
-        return (portData && portData.type === 'distance') ? portData.distance : 0;
-    }
-
+    // --- Block Implementations (Proxy Calls to the Hub Logic with Error Handling) ---
+    isConnected() { return this.hub.isConnected(); }
+    startMotor(args) { return this.hub.startMotor(args.PORT, Cast.toNumber(args.SPEED)); }
+    stopMotor(args) { return this.hub.stopMotor(args.PORT, args.ACTION); }
+    getMotorPosition(args) { return this.hub.getSensorValue(args.PORT, 'position'); }
+    setLightMatrixPixel(args) { return this.hub.setLightMatrixPixel(args.PORT, Cast.toNumber(args.X), Cast.toNumber(args.Y), Cast.toNumber(args.BRIGHTNESS)); }
+    getDistance(args) { return this.hub.getSensorValue(args.PORT, 'distance'); }
+    isForceSensorPressed(args) { return this.hub.getSensorValue(args.PORT, 'isPressed'); }
+    getForceSensorValue(args) { return this.hub.getSensorValue(args.PORT, 'force'); }
     getColor(args) {
-        const port = this.getCast().toString(args.PORT).trim().toUpperCase();
-        const portData = this._peripheral.portValues[port];
-        if (portData && portData.type === 'color') {
-            const colorNames = ['black', 'magenta', 'purple', 'blue', 'azure', 'turquoise', 'green', 'yellow', 'orange', 'red', 'white'];
-            return colorNames[portData.color] || 'none';
-        }
-        return 'none';
+        const colorId = this.hub.getSensorValue(args.PORT, 'color');
+        const colors = { 0: 'black', 1: 'magenta', 2: 'purple', 3: 'blue', 4: 'azure', 5: 'turquoise', 6: 'green', 7: 'yellow', 8: 'orange', 9: 'red', 10: 'white', 255: 'unknown' };
+        return colors[colorId] || 'unknown';
     }
-
-    getAngle(args) {
-        const axis = this.getCast().toString(args.AXIS);
-        return this._peripheral.angle[axis] || 0;
+    getOrientation(args) { return this.hub.getOrientation(args.AXIS); }
+    getAcceleration(args) { return this.hub.getAcceleration(args.AXIS); }
+    getFaceUp() {
+        const faceId = this.hub.getFaceUp();
+        const faces = { 0: 'top', 1: 'front', 2: 'right', 3: 'bottom', 4: 'back', 5: 'left' };
+        return faces[faceId] || 'unknown';
     }
-
-    isGesture(args) {
-        const gesture = this.getCast().toString(args.GESTURE);
-        return this._peripheral.gestures[gesture] || false;
-    }
-
-    playBeep(args) {
-        const frequency = this.getCast().toNumber(args.FREQUENCY);
-        const duration = this.getCast().toNumber(args.DURATION);
-        return this._peripheral.sendPythonCommand('import hub; hub.sound.beep(' + frequency + ', ' + duration + ')');
-    }
-
-    getBatteryLevel() {
-        return this._peripheral.battery || 100;
-    }
-
-    isButtonPressed(args) {
-        const button = this.getCast().toString(args.BUTTON);
-        const buttonIndex = { left: 0, center: 1, right: 2 }[button];
-        return buttonIndex !== undefined ? this._peripheral._sensors.buttons[buttonIndex] === 1 : false;
-    }
-
-    runPythonCommand(args) {
-        const code = this.getCast().toString(args.CODE);
-        return this._peripheral.sendPythonCommand(code);
-    }
-
-    _validatePorts(text) {
-        return text.toUpperCase().replace(/[^ABCDEF]/g, '')
-            .split('')
-            .filter(function(x, i, self) { return self.indexOf(x) === i; })
-            .sort();
-    }
+    getBatteryLevel() { return this.hub.getBatteryLevel(); }
 }
 
-exports.blockClass = Scratch3SpikePrimeBlocks;
-module.exports = Scratch3SpikePrimeBlocks;
+
+// ===================================================================================
+// === HUB COMMUNICATION LOGIC =======================================================
+// ===================================================================================
+
+const HUB_CONSTANTS = {
+    SERVICE_UUID: '0000fd02-0000-1000-8000-00805f9b34fb',
+    RX_UUID: '0000fd02-0001-1000-8000-00805f9b34fb',
+    TX_UUID: '0000fd02-0002-1000-8000-00805f9b34fb',
+    MSG_INFO_REQUEST: 0x00,
+    MSG_INFO_RESPONSE: 0x01,
+    MSG_TUNNEL: 0x32,
+    MSG_DEVICE_NOTIFICATION_REQUEST: 0x28,
+    MSG_DEVICE_NOTIFICATION_RESPONSE: 0x29,
+    MSG_DEVICE_NOTIFICATION: 0x3C,
+};
+const PORT_MAP = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
+const PORT_ID_TO_NAME = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+class SpikePrimeOfficialHub {
+    constructor(runtime, extensionId) {
+        this._runtime = runtime;
+        this._extensionId = extensionId;
+        this._ble = null;
+        this._log = DEBUG_MODE ? console.log : () => {}; // Conditional logging
+        
+        this.reset();
+        
+        // This makes the hub object compatible with the Scratch Link framework
+        this._runtime.registerPeripheralExtension(this._extensionId, this);
+    }
+
+    // --- Framework Methods (scan, connect, disconnect, isConnected) ---
+
+    scan() {
+        if (this._ble) {
+            this._ble.disconnect();
+        }
+        this._ble = new BLE(this._runtime, this._extensionId, {
+            filters: [{ services: [HUB_CONSTANTS.SERVICE_UUID] }],
+            optionalServices: [HUB_CONSTANTS.SERVICE_UUID]
+        }, this._onConnect.bind(this), this.reset.bind(this));
+    }
+
+    connect(id) {
+        if (this._ble) {
+            this._ble.connectPeripheral(id);
+        }
+    }
+
+    disconnect() {
+        if (this._ble) {
+            this._ble.disconnect();
+        }
+        this.reset();
+    }
+
+    isConnected() {
+        return this._connected && this._ble && this._ble.isConnected();
+    }
+
+    // --- Hub State Management ---
+
+    reset() {
+        console.log('🔄 Resetting Hub State.');
+        this._connected = false;
+        this.maxPacketSize = 20; // Default, updated from hub info
+        this.ports = {};
+        PORT_ID_TO_NAME.forEach(p => {
+            this.ports[p] = { value: {} };
+        });
+        this.batteryLevel = 100;
+        this.imu = { yaw: 0, pitch: 0, roll: 0, accX: 0, accY: 0, accZ: 0, faceUp: 0 };
+    }
+
+    // --- BLE Connection and Initialization ---
+
+    async _onConnect() {
+        this._connected = true;
+        
+        await this._ble.startNotifications(
+            HUB_CONSTANTS.SERVICE_UUID,
+            HUB_CONSTANTS.TX_UUID,
+            this._onMessage.bind(this)
+        );
+        
+        console.log('✅ Hub Connected! Initializing...');
+
+        // Official handshake and setup sequence
+        await this.sleep(200);
+        await this.sendMessage([HUB_CONSTANTS.MSG_INFO_REQUEST]);
+        await this.sleep(200);
+        await this.startSensorStreaming();
+    }
+
+    _onMessage(base64Message) {
+        const data = this.unpack(Base64Util.base64ToUint8Array(base64Message));
+        if (!data || data.length === 0) return;
+
+        const msgType = data[0];
+        
+        if (msgType === HUB_CONSTANTS.MSG_INFO_RESPONSE) {
+            if (data.length >= 13) {
+                const view = new DataView(data.buffer, data.byteOffset);
+                this.maxPacketSize = view.getUint16(9, true);
+            }
+        } else if (msgType === HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION) {
+            this.parseDeviceNotification(data);
+        }
+    }
+
+    parseDeviceNotification(data) {
+        let offset = 3; // Skip header and size
+        while (offset < data.length) {
+            if (offset >= data.length) break;
+            const deviceMsgType = data[offset];
+            const remaining = data.length - offset;
+            
+            try {
+                switch (deviceMsgType) {
+                    case 0x00: // Battery
+                        if (remaining >= 2) this.batteryLevel = data[offset + 1];
+                        offset += 2;
+                        break;
+                    case 0x01: // IMU
+                        if (remaining >= 21) {
+                            const imuView = new DataView(data.buffer, offset);
+                            this.imu.faceUp = imuView.getUint8(1);
+                            this.imu.yaw = imuView.getInt16(3, true);
+                            this.imu.pitch = imuView.getInt16(5, true);
+                            this.imu.roll = imuView.getInt16(7, true);
+                            this.imu.accX = imuView.getInt16(9, true);
+                            this.imu.accY = imuView.getInt16(11, true);
+                            this.imu.accZ = imuView.getInt16(13, true);
+                        }
+                        offset += 21;
+                        break;
+                    case 0x0A: // Motor
+                        if (remaining >= 11) {
+                            const portName = PORT_ID_TO_NAME[data[offset + 1]];
+                            if (portName) {
+                                const motorView = new DataView(data.buffer, offset);
+                                this.ports[portName].value.position = motorView.getInt32(7, true);
+                            }
+                        }
+                        offset += 11;
+                        break;
+                    case 0x0B: // Force Sensor
+                        if (remaining >= 4) {
+                            const portName = PORT_ID_TO_NAME[data[offset + 1]];
+                            if (portName) {
+                                this.ports[portName].value.force = data[offset + 2];
+                                this.ports[portName].value.isPressed = data[offset + 3] === 1;
+                            }
+                        }
+                        offset += 4;
+                        break;
+                    case 0x0C: // Color Sensor
+                        if (remaining >= 9) {
+                            const portName = PORT_ID_TO_NAME[data[offset + 1]];
+                            if (portName) this.ports[portName].value.color = data[offset + 2];
+                        }
+                        offset += 9;
+                        break;
+                    case 0x0D: // Distance Sensor
+                        if (remaining >= 4) {
+                            const portName = PORT_ID_TO_NAME[data[offset + 1]];
+                            if (portName) {
+                                const distView = new DataView(data.buffer, offset);
+                                this.ports[portName].value.distance = distView.getInt16(2, true);
+                            }
+                        }
+                        offset += 4;
+                        break;
+                    case 0x0E: // 3x3 Color Matrix (Output, skip)
+                        offset += 11;
+                        break;
+                    default:
+                        offset = data.length; // Stop parsing unknown device
+                        break;
+                }
+            } catch (e) {
+                console.error('Error parsing device notification:', e);
+                offset = data.length;
+            }
+        }
+    }
+
+    async startSensorStreaming() {
+        const payload = [0x64, 0x00]; // Interval 100ms
+        await this.sendMessage([HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION_REQUEST, ...payload]);
+    }
+    
+    // --- Public Command Methods ---
+    startMotor(port, speed) {
+        const portId = PORT_MAP[port];
+        if (portId === undefined) return;
+        const speedVal = Math.max(-100, Math.min(100, Math.round(speed)));
+        const json = `{"m":"motor","p":{"port":${portId},"speed":${speedVal}}}`;
+        return this.sendTunnelCommand(json);
+    }
+
+    stopMotor(port, action) {
+        const portId = PORT_MAP[port];
+        if (portId === undefined) return;
+        const endState = { 'coast': 0, 'brake': 1, 'hold': 2 }[action] || 1;
+        const json = `{"m":"motor","p":{"port":${portId},"speed":0,"end_state":${endState}}}`;
+        return this.sendTunnelCommand(json);
+    }
+    
+    stopAllMotors() { Object.keys(PORT_MAP).forEach(p => this.stopMotor(p, 'brake')); }
+    
+    setLightMatrixPixel(port, x, y, brightness) {
+        const portId = PORT_MAP[port];
+        if (portId === undefined) return;
+        const clampedX = Math.max(0, Math.min(2, Math.round(x)));
+        const clampedY = Math.max(0, Math.min(2, Math.round(y)));
+        const brightnessValue = Math.round(Math.max(0, Math.min(100, brightness)) / 10);
+        
+        const pixelValue = (brightnessValue << 4) | 9; // Red for visibility
+        const pixelIndex = clampedY * 3 + clampedX;
+        
+        const pixels = Array(9).fill(0);
+        pixels[pixelIndex] = pixelValue;
+        
+        const json = `{"m":"display_3x3","p":{"port":${portId},"data":${JSON.stringify(pixels)}}}`;
+        return this.sendTunnelCommand(json);
+    }
+
+    async sendTunnelCommand(command) {
+        const commandBytes = new TextEncoder().encode(command);
+        const payload = new Uint8Array(commandBytes.length + 2);
+        const view = new DataView(payload.buffer);
+        view.setUint16(0, commandBytes.length, true); // size, little-endian
+        payload.set(commandBytes, 2);
+        await this.sendMessage([HUB_CONSTANTS.MSG_TUNNEL, ...payload]);
+    }
+
+    // --- Message Framing & Encoding ---
+    async sendMessage(payloadArray) {
+        if (!this.isConnected()) return;
+        const packed = this.pack(new Uint8Array(payloadArray));
+        const base64Data = Base64Util.uint8ArrayToBase64(packed);
+        await this._ble.write(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.RX_UUID, base64Data, 'base64', true);
+    }
+
+    // This pack method is a direct JS translation of the official LEGO documentation's Python example
+    pack(data) {
+        const cobsEncoded = this._cobsEncode(data);
+        const xorEncoded = cobsEncoded.map(b => b ^ 0x03);
+        const final = new Uint8Array(xorEncoded.length + 1);
+        final.set(xorEncoded, 0);
+        final[final.length] = 0x02;
+        return final;
+    }
+
+    // This unpack method is the reverse of the pack method
+    unpack(buffer) {
+        const frame = new Uint8Array(buffer);
+        if (frame.length === 0 || frame[frame.length - 1] !== 0x02) return null;
+        const start = frame[0] === 0x01 ? 1 : 0;
+        const unframed = frame.slice(start, frame.length - 1);
+        const xorDecoded = unframed.map(b => b ^ 0x03);
+        return this._cobsDecode(xorDecoded);
+    }
+    
+    _cobsEncode(data) {
+        const buffer = [0]; let code_index = 0;
+        for (const byte of data) {
+            if (byte <= 2) {
+                buffer[code_index] = (buffer.length - code_index) + (byte * 84) + 2;
+                code_index = buffer.length; buffer.push(0);
+            } else {
+                buffer.push(byte);
+                if (buffer.length - code_index >= 84) {
+                    buffer[code_index] = (buffer.length - code_index) + 2;
+                    code_index = buffer.length; buffer.push(0);
+                }
+            }
+        }
+        buffer[code_index] = buffer.length - code_index + 2;
+        return new Uint8Array(buffer);
+    }
+    
+    _cobsDecode(data) {
+        const result = []; let i = 0;
+        if (data.length === 0) return new Uint8Array();
+        while (i < data.length) {
+            let code = data[i] - 2;
+            let delimiter = Math.floor(code / 84);
+            let len = code % 84;
+            for (let j = 1; j < len; j++) {
+                if (i + j < data.length) result.push(data[i + j]);
+            }
+            if (delimiter <= 2 && (i + len) <= data.length) result.push(delimiter);
+            i += len;
+        }
+        if (result.length > 0) result.pop();
+        return new Uint8Array(result);
+    }
+
+    // --- Getters & Utilities ---
+    getSensorValue(port, valueType) {
+        const portData = this.ports[port];
+        return (portData && portData.value.hasOwnProperty(valueType)) ? portData.value[valueType] : 0;
+    }
+    getBatteryLevel() { return this.batteryLevel; }
+    getOrientation(axis) { return this.imu[axis] || 0; }
+    getAcceleration(axis) { return this.imu[`acc${axis.toUpperCase()}`] || 0; }
+    getFaceUp() { return this.imu.faceUp; }
+    sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+}
+
+// Required for xcratch framework compatibility
+exports.blockClass = Scratch3SpikePrimeOfficialBlocks;
+module.exports = Scratch3SpikePrimeOfficialBlocks;

@@ -1,8 +1,6 @@
 import translations from './translations.json';
 import spikeprimeIconURL from './spikeprime.png';
 import spikeprimeInsetIconURL from './spikeprime-small.svg';
-import spikeprimeConnectionIconURL from './spikeprime-illustration.svg';
-import spikeprimeConnectionSmallIconURL from './spikeprime-small.svg';
 
 /**
  * @param {object} messageData - data for format-message
@@ -13,20 +11,20 @@ let formatMessage = messageData => messageData.defaultMessage;
 const entry = {
     get name () {
         return formatMessage({
-            id: 'gui.extension.spikeprime.name',
-            default: 'LEGO Education SPIKE Prime',
-            description: 'Name for the SPIKE Prime extension'
+            id: 'gui.extension.spikeprimeble.name',
+            default: 'SPIKE Prime BLE',
+            description: 'Name for the SPIKE Prime BLE extension'
         });
     },
-    extensionId: 'spikeprime',
+    extensionId: 'spikeprimeble',
     collaborator: 'CrispStrobe',
     iconURL: spikeprimeIconURL,
     insetIconURL: spikeprimeInsetIconURL,
     get description () {
         return formatMessage({
-            id: 'gui.extension.spikeprime.description',
-            default: 'Build with SPIKE Prime or Robot Inventor (v. 3 firmware with BLE). Supports motors, sensors, lights, and displays.',
-            description: 'Description for the SPIKE Prime extension'
+            id: 'gui.extension.spikeprimeble.description',
+            default: 'Build with SPIKE Prime or Robot Inventor using Bluetooth Low Energy. Supports motors, sensors, lights, and displays.',
+            description: 'Description for the SPIKE Prime BLE extension'
         });
     },
     featured: true,
@@ -35,13 +33,11 @@ const entry = {
     internetConnectionRequired: false,
     launchPeripheralConnectionFlow: true,
     useAutoScan: true,
-    connectionIconURL: spikeprimeConnectionIconURL,
-    connectionSmallIconURL: spikeprimeConnectionSmallIconURL,
     get connectingMessage () {
         return formatMessage({
-            id: 'gui.extension.spikeprime.connectingMessage',
-            default: 'Connecting to SPIKE Prime (over BLE)...',
-            description: 'Message shown when connecting to SPIKE Prime'
+            id: 'gui.extension.spikeprimeble.connectingMessage',
+            default: 'Connecting to SPIKE Prime via BLE...',
+            description: 'Message shown when connecting to SPIKE Prime via BLE'
         });
     },
     helpLink: 'https://education.lego.com/',

@@ -1,17 +1,17 @@
 {
   "en": {
-    "gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
-    "gui.extension.spikeprime.description": "Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with bluetooth classic). Supports motors, sensors, lights, and displays.",
-    "gui.extension.spikeprime.connectingMessage": "Connecting to SPIKE Prime..."
+    "gui.extension.spikeprimeble.name": "SPIKE Prime BLE",
+    "gui.extension.spikeprimeble.description": "Build with SPIKE Prime or Robot Inventor using Bluetooth Low Energy. Supports motors, sensors, lights, and displays.",
+    "gui.extension.spikeprimeble.connectingMessage": "Connecting to SPIKE Prime via BLE..."
   },
   "de": {
-    "gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
-    "gui.extension.spikeprime.description": "Baue mit SPIKE Prime or Robot Inventor (alte Firmware Version 2.x). Unterstützt Motoren, Sensoren, Lichter und Displays.",
-    "gui.extension.spikeprime.connectingMessage": "Verbinde mit SPIKE Prime..."
+    "gui.extension.spikeprimeble.name": "SPIKE Prime BLE",
+    "gui.extension.spikeprimeble.description": "Baue mit SPIKE Prime oder Robot Inventor über Bluetooth Low Energy. Unterstützt Motoren, Sensoren, Lichter und Displays.",
+    "gui.extension.spikeprimeble.connectingMessage": "Verbinde mit SPIKE Prime über BLE..."
   },
   "fr": {
-    "gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
-    "gui.extension.spikeprime.description": "Construisez avec SPIKE Prime ou Robot Inventor (v. 2 firmware). Prend en charge les moteurs, capteurs, lumières et écrans.",
-    "gui.extension.spikeprime.connectingMessage": "Connexion à SPIKE Prime..."
+    "gui.extension.spikeprimeble.name": "SPIKE Prime BLE",
+    "gui.extension.spikeprimeble.description": "Construisez avec SPIKE Prime ou Robot Inventor via Bluetooth Low Energy. Prend en charge les moteurs, capteurs, lumières et écrans.",
+    "gui.extension.spikeprimeble.connectingMessage": "Connexion à SPIKE Prime via BLE..."
   }
 }

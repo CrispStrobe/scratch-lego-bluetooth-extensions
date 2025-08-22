@@ -1,17 +1,17 @@
 var en = {
-	"gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
-	"gui.extension.spikeprime.description": "Build with SPIKE Prime or Robot Inventor (legacy v. 2 firmware with bluetooth classic). Supports motors, sensors, lights, and displays.",
-	"gui.extension.spikeprime.connectingMessage": "Connecting to SPIKE Prime..."
+	"gui.extension.spikeprimeble.name": "SPIKE Prime BLE",
+	"gui.extension.spikeprimeble.description": "Build with SPIKE Prime or Robot Inventor using Bluetooth Low Energy. Supports motors, sensors, lights, and displays.",
+	"gui.extension.spikeprimeble.connectingMessage": "Connecting to SPIKE Prime via BLE..."
 };
 var de = {
-	"gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
-	"gui.extension.spikeprime.description": "Baue mit SPIKE Prime or Robot Inventor (alte Firmware Version 2.x). Unterstützt Motoren, Sensoren, Lichter und Displays.",
-	"gui.extension.spikeprime.connectingMessage": "Verbinde mit SPIKE Prime..."
+	"gui.extension.spikeprimeble.name": "SPIKE Prime BLE",
+	"gui.extension.spikeprimeble.description": "Baue mit SPIKE Prime oder Robot Inventor über Bluetooth Low Energy. Unterstützt Motoren, Sensoren, Lichter und Displays.",
+	"gui.extension.spikeprimeble.connectingMessage": "Verbinde mit SPIKE Prime über BLE..."
 };
 var fr = {
-	"gui.extension.spikeprime.name": "LEGO Education SPIKE Prime",
-	"gui.extension.spikeprime.description": "Construisez avec SPIKE Prime ou Robot Inventor (v. 2 firmware). Prend en charge les moteurs, capteurs, lumières et écrans.",
-	"gui.extension.spikeprime.connectingMessage": "Connexion à SPIKE Prime..."
+	"gui.extension.spikeprimeble.name": "SPIKE Prime BLE",
+	"gui.extension.spikeprimeble.description": "Construisez avec SPIKE Prime ou Robot Inventor via Bluetooth Low Energy. Prend en charge les moteurs, capteurs, lumières et écrans.",
+	"gui.extension.spikeprimeble.connectingMessage": "Connexion à SPIKE Prime via BLE..."
 };
 var translations = {
 	en: en,
@@ -19,36 +19,34 @@ var translations = {
 	fr: fr
 };
 
-var img$2 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/4EcMAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAACWKADAAQAAAABAAABdAAAAAAO8RAJAAAU8ElEQVR4Ae3YQW5cOQxFUVfDq/H+t2JvpxrIMBN9wY8BJZ6epaEw+ocaXNTr/f3x/vAfAQIECBAgQIBATOC/2CSDCBAgQIAAAQIE/ggILA+BAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECnwgIEPgHAl/vf/CPBP+Jn1dw2IBR9jtgyT6RwJ6AX7D2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBQQWEsiBwgQIECAAAECewICa8/LaQIECBAgQIDAUkBgLYkcIECAAAECBAjsCQisPS+nCRAgQIAAAQJLAYG1JHKAAAECBAgQILAnILD2vJwmQIAAAQIECCwFBNaSyAECBAgQIECAwJ6AwNrzcpoAAQIECBAgsBR4vb8/3stTDhAgQIAAAQIECDwW8AvWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBATWMyenCBAgQIAAAQKPBQTWYyoHCRAgQIAAAQLPBD6fHXOKQFjg6x0eWDzu5/W7f8D3/s6v+m/b757wtPe8p+M0gT8CfsHyEAgQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFjg9f7+eIdnGkeAAAECBAgQGC3gF6zR6/fxBAgQIECAQIWAwKpQNZMAAQIECBAYLSCwRq/fxxMgQIAAAQIVAgKrQtVMAgQIECBAYLSAwBq9fh9PgAABAgQIVAgIrApVMwkQIECAAIHRAgJr9Pp9PAECBAgQIFAhILAqVM0kQIAAAQIERgsIrNHr9/EECBAgQIBAhYDAqlA1kwABAgQIEBgtILBGr9/HEyBAgAABAhUCAqtC1UwCBAgQIEBgtIDAGr1+H0+AAAECBAhUCAisClUzCRAgQIAAgdECAmv0+n08AQIECBAgUCHwWTHUTAJLga/38kirAz+v313H9/7Or/pv2++e8LT3vKfjNIE/An7B8hAIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBYQGCFQY0jQIAAAQIECAgsb4AAAQIECBAgEBYQWGFQ4wgQIECAAAECAssbIECAAAECBAiEBQRWGNQ4AgQIECBAgIDA8gYIECBAgAABAmEBgRUGNY4AAQIECBAgILC8AQIECBAgQIBAWEBghUGNI0CAAAECBAgILG+AAAECBAgQIBAWEFhhUOMIECBAgAABAgLLGyBAgAABAgQIhAUEVhjUOAIECBAgQICAwPIGCBAgQIAAAQJhAYEVBjWOAAECBAgQICCwvAECBAgQIECAQFhAYIVBjSNAgAABAgQICCxvgAABAgQIECAQFhBYYVDjCBAgQIAAAQICyxsgQIAAAQIECIQFBFYY1DgCBAgQIECAgMDyBggQIECAAAECYQGBFQY1jgABAgQIECAgsLwBAgQIECBAgEBY4PX+/niHZxpHgAABAgQIEBgt4Bes0ev38QQIECBAgECFgMCqUDWTAAECBAgQGC0gsEav38cTIECAAAECFQICq0LVTAIECBAgQGC0gMAavX4fT4AAAQIECFQICKwKVTMJECBAgACB0QICa/T6fTwBAgQIECBQISCwKlTNJECAAAECBEYLCKzR6/fxBAgQIECAQIWAwKpQNZMAAQIECBAYLSCwRq/fxxMgQIAAAQIVAgKrQtVMAgQIECBAYLSAwBq9fh9PgAABAgQIVAgIrApVMwkQIECAAIHRAgJr9Pp9PAECBAgQIFAh8Fkx1EwCBP4S+Hr/9T+a//Hn9bsL+t7f+VX/7d/ut/p+5hO4QMAvWBcs0ScQIECAAAECvQQEVq99uA0BAgQIECBwgYDAumCJPoEAAQIECBDoJSCweu3DbQgQIECAAIELBATWBUv0CQQIECBAgEAvAYHVax9uQ4AAAQIECFwgILAuWKJPIECAAAECBHoJCKxe+3AbAgQIECBA4AIBgXXBEn0CAQIECBAg0EtAYPXah9sQIECAAAECFwgIrAuW6BMIECBAgACBXgICq9c+3IYAAQIECBC4QEBgXbBEn0CAAAECBAj0EhBYvfbhNgQIECBAgMAFAgLrgiX6BAIECBAgQKCXgMDqtQ+3IUCAAAECBC4QEFgXLNEnECBAgAABAr0EBFavfbgNAQIECBAgcIGAwLpgiT6BAAECBAgQ6CUgsHrtw20IECBAgACBCwQE1gVL9AkECBAgQIBALwGB1WsfbkOAAAECBAhcICCwLliiTyBAgAABAgR6CQisXvtwGwIECBAgQOACAYF1wRJ9AgECBAgQINBLQGD12ofbECBAgAABAhcICKwLlugTCBAgQIAAgV4CAqvXPtyGAAECBAgQuEBAYF2wRJ9AgAABAgQI9BIQWL324TYECBAgQIDABQIC64Il+gQCBAgQIECgl4DA6rUPtyFAgAABAgQuEBBYFyzRJxAgQIAAAQK9BARWr324DQECBAgQIHCBgMC6YIk+gQABAgQIEOglILB67cNtCBAgQIAAgQsEBNYFS/QJBAgQIECAQC8BgdVrH25DgAABAgQIXCAgsC5Yok8gQIAAAQIEegkIrF77cBsCBAgQIEDgAgGBdcESfQIBAgQIECDQS0Bg9dqH2xAgQIAAAQIXCAisC5boEwgQIECAAIFeAq/398e715XchgABAgQIECBwtoBfsM7en9sTIECAAAECDQUEVsOluBIBAgQIECBwtoDAOnt/bk+AAAECBAg0FBBYDZfiSgQIECBAgMDZAgLr7P25PQECBAgQINBQQGA1XIorESBAgAABAmcLCKyz9+f2BAgQIECAQEMBgdVwKa5EgAABAgQInC0gsM7en9sTIECAAAECDQUEVsOluBIBAgQIECBwtoDAOnt/bk+AAAECBAg0FBBYDZfiSgQIECBAgMDZAgLr7P25PQECBAgQINBQQGA1XIorESBAgAABAmcLCKyz9+f2BAgQIECAQEOBz4Z3ciUCBE4X+Hqf9QU/r7Pu67YECLQX8AtW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCAuu0jbkvAQIECBAg0F5AYLVfkQsSIECAAAECpwkIrNM25r4ECBAgQIBAewGB1X5FLkiAAAECBAicJiCwTtuY+xIgQIAAAQLtBQRW+xW5IAECBAgQIHCagMA6bWPuS4AAAQIECLQXEFjtV+SCBAgQIECAwGkCn6dd2H0JEDhA4Od1wCVdkQABAnUCfsGqszWZAAECBAgQGCogsIYu3mcTIECAAAECdQICq87WZAIECBAgQGCogMAaunifTYAAAQIECNQJCKw6W5MJECBAgACBoQICa+jifTYBAgQIECBQJyCw6mxNJkCAAAECBIYKCKyhi/fZBAgQIECAQJ2AwKqzNZkAAQIECBAYKiCwhi7eZxMgQIAAAQJ1AgKrztZkAgQIECBAYKiAwBq6eJ9NgAABAgQI1AkIrDpbkwkQIECAAIGhAgJr6OJ9NgECBAgQIFAnILDqbE0mQIAAAQIEhgoIrKGL99kECBAgQIBAnYDAqrM1mQABAgQIEBgqILCGLt5nEyBAgAABAnUCAqvO1mQCBAgQIEBgqIDAGrp4n02AAAECBAjUCQisOluTCRAgQIAAgaECAmvo4n02AQIECBAgUCcgsOpsTSZAgAABAgSGCgisoYv32QQIECBAgECdgMCqszWZAAECBAgQGCogsIYu3mcTIECAAAECdQICq87WZAIECBAgQGCogMAaunifTYAAAQIECNQJCKw6W5MJECBAgACBoQICa+jifTYBAgQIECBQJyCw6mxNJkCAAAECBIYKCKyhi/fZBAgQIECAQJ2AwKqzNZkAAQIECBAYKiCwhi7eZxMgQIAAAQJ1AgKrztZkAgQIECBAYKiAwBq6eJ9NgAABAgQI1AkIrDpbkwkQIECAAIGhAgJr6OJ9NgECBAgQIFAnILDqbE0mQIAAAQIEhgoIrKGL99kECBAgQIBAnYDAqrM1mQABAgQIEBgqILCGLt5nEyBAgAABAnUCAqvO1mQCBAgQIEBgqMD/dCwx5rhX9OkAAAAASUVORK5CYII=";
+var img$1 = "data:image/png;base64,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";
 
-var img$1 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='40px' height='40px' viewBox='0 0 40 40' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-small%3c/title%3e %3cg id='spikeprime-small' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3crect id='body' stroke='%237C87A5' fill='white' x='9.5' y='4.5' width='21' height='31' rx='1.5'%3e%3c/rect%3e %3cg id='matrix' transform='translate(13.000000%2c 12.000000)' fill='%23FFD500'%3e %3crect id='d' x='6' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy' x='9' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-3' x='6' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-2' x='9' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-11' x='0' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-10' x='3' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-9' x='0' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-8' x='3' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-15' x='12' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-14' x='3' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-13' x='12' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-12' x='6' y='12' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-16' x='3' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-17' x='9' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-5' x='6' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-4' x='9' y='9' width='2' height='2'%3e%3c/rect%3e %3c/g%3e %3ccircle id='Oval' stroke='%234C97FF' cx='26.5' cy='8.5' r='1.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' cx='20' cy='31' r='2.5'%3e%3c/circle%3e %3c/g%3e%3c/svg%3e";
-
-var img = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='79px' height='123px' viewBox='0 0 79 123' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-illustration%3c/title%3e %3cg id='spikeprime-illustration' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3cg id='Group' transform='translate(1.000000%2c 1.000000)'%3e %3crect id='Rectangle' stroke='%237C87A5' fill='white' x='0' y='0' width='77' height='121' rx='5.5'%3e%3c/rect%3e %3ccircle id='Oval' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-3' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='5.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' stroke-width='0.5' cx='5.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy-5' stroke='%237C87A5' stroke-width='0.5' cx='71.5' cy='115.5' r='3.5'%3e%3c/circle%3e %3cpath d='M16.5%2c99 C13.4624339%2c99 11%2c101.462434 11%2c104.5 C11%2c107.537566 13.4624339%2c110 16.5%2c110 C38.5%2c110 38.5%2c110 60.5%2c110 C63.5375661%2c110 66%2c107.537566 66%2c104.5 C66%2c101.462434 63.5375661%2c99 60.5%2c99 C38.5%2c99 38.5%2c99 16.5%2c99 Z' id='Path' stroke='%237C87A5' stroke-width='0.5'%3e%3c/path%3e %3ccircle id='Center-Button' stroke='%237C87A5' stroke-width='1.5' fill='white' cx='38.5' cy='104.5' r='10.5'%3e%3c/circle%3e %3ccircle id='Bluetooth' stroke='%234C97FF' stroke-width='1.5' cx='60.5' cy='16.5' r='6.5'%3e%3c/circle%3e %3cg id='matrix' transform='translate(12.000000%2c 34.000000)' fill='%23FFD500'%3e %3crect id='Rectangle-Copy-24' x='0' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-26' x='11' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-25' x='11' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-29' x='22' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-28' x='33' y='0' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-27' x='33' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-31' x='44' y='11' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-42' x='0' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-40' x='11' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-39' x='11' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-38' x='22' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-37' x='22' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-36' x='33' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-35' x='33' y='33' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-34' x='44' y='22' width='9' height='9'%3e%3c/rect%3e %3crect id='Rectangle-Copy-45' x='22' y='44' width='9' height='9'%3e%3c/rect%3e %3c/g%3e %3c/g%3e %3c/g%3e%3c/svg%3e";
+var img = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e%3csvg width='40px' height='40px' viewBox='0 0 40 40' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3espikeprime-small%3c/title%3e %3cg id='spikeprime-small' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3crect id='body' stroke='%237C87A5' fill='white' x='9.5' y='4.5' width='21' height='31' rx='1.5'%3e%3c/rect%3e %3cg id='matrix' transform='translate(13.000000%2c 12.000000)' fill='%23FFD500'%3e %3crect id='d' x='6' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy' x='9' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-3' x='6' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-2' x='9' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-11' x='0' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-10' x='3' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-9' x='0' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-8' x='3' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-15' x='12' y='3' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-14' x='3' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-13' x='12' y='6' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-12' x='6' y='12' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-16' x='3' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-17' x='9' y='0' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-5' x='6' y='9' width='2' height='2'%3e%3c/rect%3e %3crect id='d-copy-4' x='9' y='9' width='2' height='2'%3e%3c/rect%3e %3c/g%3e %3ccircle id='Oval' stroke='%234C97FF' cx='26.5' cy='8.5' r='1.5'%3e%3c/circle%3e %3ccircle id='Oval-Copy' stroke='%237C87A5' cx='20' cy='31' r='2.5'%3e%3c/circle%3e %3c/g%3e%3c/svg%3e";
 
 /**
  * @param {object} messageData - data for format-message
  * @returns {string} - translated message for the current locale
  */
-var formatMessage$2 = function formatMessage(messageData) {
+var formatMessage = function formatMessage(messageData) {
   return messageData.defaultMessage;
 };
 var entry = {
   get name() {
-    return formatMessage$2({
-      id: 'gui.extension.spikeprime.name',
-      default: 'LEGO Education SPIKE Prime',
-      description: 'Name for the SPIKE Prime extension'
+    return formatMessage({
+      id: 'gui.extension.spikeprimeble.name',
+      default: 'SPIKE Prime BLE',
+      description: 'Name for the SPIKE Prime BLE extension'
     });
   },
-  extensionId: 'spikeprime',
+  extensionId: 'spikeprimeble',
   collaborator: 'CrispStrobe',
-  iconURL: img$2,
-  insetIconURL: img$1,
+  iconURL: img$1,
+  insetIconURL: img,
   get description() {
-    return formatMessage$2({
-      id: 'gui.extension.spikeprime.description',
-      default: 'Build with SPIKE Prime or Robot Inventor (v. 3 firmware with BLE). Supports motors, sensors, lights, and displays.',
-      description: 'Description for the SPIKE Prime extension'
+    return formatMessage({
+      id: 'gui.extension.spikeprimeble.description',
+      default: 'Build with SPIKE Prime or Robot Inventor using Bluetooth Low Energy. Supports motors, sensors, lights, and displays.',
+      description: 'Description for the SPIKE Prime BLE extension'
     });
   },
   featured: true,
@@ -57,103 +55,80 @@ var entry = {
   internetConnectionRequired: false,
   launchPeripheralConnectionFlow: true,
   useAutoScan: true,
-  connectionIconURL: img,
-  connectionSmallIconURL: img$1,
   get connectingMessage() {
-    return formatMessage$2({
-      id: 'gui.extension.spikeprime.connectingMessage',
-      default: 'Connecting to SPIKE Prime (over BLE)...',
-      description: 'Message shown when connecting to SPIKE Prime'
+    return formatMessage({
+      id: 'gui.extension.spikeprimeble.connectingMessage',
+      default: 'Connecting to SPIKE Prime via BLE...',
+      description: 'Message shown when connecting to SPIKE Prime via BLE'
     });
   },
   helpLink: 'https://education.lego.com/',
   setFormatMessage: function setFormatMessage(formatter) {
-    formatMessage$2 = formatter;
+    formatMessage = formatter;
   },
   translationMap: translations
 };
 
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
 }
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray$1(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray$1(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray$1(arr) || _nonIterableSpread();
+}
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
   }
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _superPropBase(object, property) {
-  while (!Object.prototype.hasOwnProperty.call(object, property)) {
-    object = _getPrototypeOf(object);
-    if (object === null) break;
-  }
-  return object;
-}
-
-function _get() {
-  if (typeof Reflect !== "undefined" && Reflect.get) {
-    _get = Reflect.get.bind();
+  if (info.done) {
+    resolve(value);
   } else {
-    _get = function _get(target, property, receiver) {
-      var base = _superPropBase(target, property);
-      if (!base) return;
-      var desc = Object.getOwnPropertyDescriptor(base, property);
-      if (desc.get) {
-        return desc.get.call(arguments.length < 3 ? target : receiver);
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+      args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
       }
-      return desc.value;
-    };
-  }
-  return _get.apply(this, arguments);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+      _next(undefined);
+    });
   };
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  Object.defineProperty(subClass, "prototype", {
-    writable: false
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
 }
 
 function _classCallCheck(instance, Constructor) {
@@ -162,12 +137,22 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
+function _typeof$1(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof$1(o);
+}
+
 function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
+  if ("object" != _typeof$1(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r || "default");
-    if ("object" != _typeof(i)) return i;
+    if ("object" != _typeof$1(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r ? String : Number)(t);
@@ -175,7 +160,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : String(i);
+  return "symbol" == _typeof$1(i) ? i : String(i);
 }
 
 function _defineProperties(target, props) {
@@ -196,7 +181,346 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+var regeneratorRuntime$1 = {exports: {}};
+
+var _typeof = {exports: {}};
+
+(function (module) {
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }
+  module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(_typeof);
+
+(function (module) {
+  var _typeof$1 = _typeof.exports["default"];
+  function _regeneratorRuntime() {
+
+    /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+    module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
+      return e;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+    var t,
+      e = {},
+      r = Object.prototype,
+      n = r.hasOwnProperty,
+      o = Object.defineProperty || function (t, e, r) {
+        t[e] = r.value;
+      },
+      i = "function" == typeof Symbol ? Symbol : {},
+      a = i.iterator || "@@iterator",
+      c = i.asyncIterator || "@@asyncIterator",
+      u = i.toStringTag || "@@toStringTag";
+    function define(t, e, r) {
+      return Object.defineProperty(t, e, {
+        value: r,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+      }), t[e];
+    }
+    try {
+      define({}, "");
+    } catch (t) {
+      define = function define(t, e, r) {
+        return t[e] = r;
+      };
+    }
+    function wrap(t, e, r, n) {
+      var i = e && e.prototype instanceof Generator ? e : Generator,
+        a = Object.create(i.prototype),
+        c = new Context(n || []);
+      return o(a, "_invoke", {
+        value: makeInvokeMethod(t, r, c)
+      }), a;
+    }
+    function tryCatch(t, e, r) {
+      try {
+        return {
+          type: "normal",
+          arg: t.call(e, r)
+        };
+      } catch (t) {
+        return {
+          type: "throw",
+          arg: t
+        };
+      }
+    }
+    e.wrap = wrap;
+    var h = "suspendedStart",
+      l = "suspendedYield",
+      f = "executing",
+      s = "completed",
+      y = {};
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+    var p = {};
+    define(p, a, function () {
+      return this;
+    });
+    var d = Object.getPrototypeOf,
+      v = d && d(d(values([])));
+    v && v !== r && n.call(v, a) && (p = v);
+    var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+    function defineIteratorMethods(t) {
+      ["next", "throw", "return"].forEach(function (e) {
+        define(t, e, function (t) {
+          return this._invoke(e, t);
+        });
+      });
+    }
+    function AsyncIterator(t, e) {
+      function invoke(r, o, i, a) {
+        var c = tryCatch(t[r], t, o);
+        if ("throw" !== c.type) {
+          var u = c.arg,
+            h = u.value;
+          return h && "object" == _typeof$1(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+            invoke("next", t, i, a);
+          }, function (t) {
+            invoke("throw", t, i, a);
+          }) : e.resolve(h).then(function (t) {
+            u.value = t, i(u);
+          }, function (t) {
+            return invoke("throw", t, i, a);
+          });
+        }
+        a(c.arg);
+      }
+      var r;
+      o(this, "_invoke", {
+        value: function value(t, n) {
+          function callInvokeWithMethodAndArg() {
+            return new e(function (e, r) {
+              invoke(t, n, e, r);
+            });
+          }
+          return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+        }
+      });
+    }
+    function makeInvokeMethod(e, r, n) {
+      var o = h;
+      return function (i, a) {
+        if (o === f) throw new Error("Generator is already running");
+        if (o === s) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: !0
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var c = n.delegate;
+          if (c) {
+            var u = maybeInvokeDelegate(c, n);
+            if (u) {
+              if (u === y) continue;
+              return u;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (o === h) throw o = s, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = f;
+          var p = tryCatch(e, r, n);
+          if ("normal" === p.type) {
+            if (o = n.done ? s : l, p.arg === y) continue;
+            return {
+              value: p.arg,
+              done: n.done
+            };
+          }
+          "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
+        }
+      };
+    }
+    function maybeInvokeDelegate(e, r) {
+      var n = r.method,
+        o = e.iterator[n];
+      if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+      var i = tryCatch(o, e.iterator, r.arg);
+      if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+      var a = i.arg;
+      return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+    }
+    function pushTryEntry(t) {
+      var e = {
+        tryLoc: t[0]
+      };
+      1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+    }
+    function resetTryEntry(t) {
+      var e = t.completion || {};
+      e.type = "normal", delete e.arg, t.completion = e;
+    }
+    function Context(t) {
+      this.tryEntries = [{
+        tryLoc: "root"
+      }], t.forEach(pushTryEntry, this), this.reset(!0);
+    }
+    function values(e) {
+      if (e || "" === e) {
+        var r = e[a];
+        if (r) return r.call(e);
+        if ("function" == typeof e.next) return e;
+        if (!isNaN(e.length)) {
+          var o = -1,
+            i = function next() {
+              for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+              return next.value = t, next.done = !0, next;
+            };
+          return i.next = i;
+        }
+      }
+      throw new TypeError(_typeof$1(e) + " is not iterable");
+    }
+    return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+      value: GeneratorFunctionPrototype,
+      configurable: !0
+    }), o(GeneratorFunctionPrototype, "constructor", {
+      value: GeneratorFunction,
+      configurable: !0
+    }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+      var e = "function" == typeof t && t.constructor;
+      return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+    }, e.mark = function (t) {
+      return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+    }, e.awrap = function (t) {
+      return {
+        __await: t
+      };
+    }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+      return this;
+    }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+      void 0 === i && (i = Promise);
+      var a = new AsyncIterator(wrap(t, r, n, o), i);
+      return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+        return t.done ? t.value : a.next();
+      });
+    }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+      return this;
+    }), define(g, "toString", function () {
+      return "[object Generator]";
+    }), e.keys = function (t) {
+      var e = Object(t),
+        r = [];
+      for (var n in e) r.push(n);
+      return r.reverse(), function next() {
+        for (; r.length;) {
+          var t = r.pop();
+          if (t in e) return next.value = t, next.done = !1, next;
+        }
+        return next.done = !0, next;
+      };
+    }, e.values = values, Context.prototype = {
+      constructor: Context,
+      reset: function reset(e) {
+        if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+      },
+      stop: function stop() {
+        this.done = !0;
+        var t = this.tryEntries[0].completion;
+        if ("throw" === t.type) throw t.arg;
+        return this.rval;
+      },
+      dispatchException: function dispatchException(e) {
+        if (this.done) throw e;
+        var r = this;
+        function handle(n, o) {
+          return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+        }
+        for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+          var i = this.tryEntries[o],
+            a = i.completion;
+          if ("root" === i.tryLoc) return handle("end");
+          if (i.tryLoc <= this.prev) {
+            var c = n.call(i, "catchLoc"),
+              u = n.call(i, "finallyLoc");
+            if (c && u) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            } else if (c) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+            } else {
+              if (!u) throw new Error("try statement without catch or finally");
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            }
+          }
+        }
+      },
+      abrupt: function abrupt(t, e) {
+        for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+          var o = this.tryEntries[r];
+          if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+            var i = o;
+            break;
+          }
+        }
+        i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+        var a = i ? i.completion : {};
+        return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+      },
+      complete: function complete(t, e) {
+        if ("throw" === t.type) throw t.arg;
+        return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+      },
+      finish: function finish(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+        }
+      },
+      "catch": function _catch(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.tryLoc === t) {
+            var n = r.completion;
+            if ("throw" === n.type) {
+              var o = n.arg;
+              resetTryEntry(r);
+            }
+            return o;
+          }
+        }
+        throw new Error("illegal catch attempt");
+      },
+      delegateYield: function delegateYield(e, r, n) {
+        return this.delegate = {
+          iterator: values(e),
+          resultName: r,
+          nextLoc: n
+        }, "next" === this.method && (this.arg = t), y;
+      }
+    }, e;
+  }
+  module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(regeneratorRuntime$1);
+
+// TODO(Babel 8): Remove this file.
+
+var runtime = regeneratorRuntime$1.exports();
+var regenerator = runtime;
+
+// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$1(globalThis)) === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
+}
 
 /**
  * Block argument types
@@ -281,7 +605,7 @@ var BlockType$1 = {
 };
 var blockType = BlockType$1;
 
-var Color$3 = /*#__PURE__*/function () {
+var Color$1 = /*#__PURE__*/function () {
   function Color() {
     _classCallCheck(this, Color);
   }
@@ -525,9 +849,9 @@ var Color$3 = /*#__PURE__*/function () {
   }]);
   return Color;
 }();
-var color$1 = Color$3;
+var color = Color$1;
 
-var Color$2 = color$1;
+var Color = color;
 
 /**
  * @fileoverview
@@ -632,7 +956,7 @@ var Cast$1 = /*#__PURE__*/function () {
     value: function toRgbColorObject(value) {
       var color;
       if (typeof value === 'string' && value.substring(0, 1) === '#') {
-        color = Color$2.hexToRgb(value);
+        color = Color.hexToRgb(value);
 
         // If the color wasn't *actually* a hex color, cast to black
         if (!color) color = {
@@ -642,7 +966,7 @@ var Cast$1 = /*#__PURE__*/function () {
           a: 255
         };
       } else {
-        color = Color$2.decimalToRgb(Cast.toNumber(value));
+        color = Color.decimalToRgb(Cast.toNumber(value));
       }
       return color;
     }
@@ -771,851 +1095,52 @@ var Cast$1 = /*#__PURE__*/function () {
 }();
 var cast = Cast$1;
 
-var Color$1 = {
-  BLACK: 0,
-  PINK: 1,
-  PURPLE: 2,
-  BLUE: 3,
-  LIGHT_BLUE: 4,
-  LIGHT_GREEN: 5,
-  GREEN: 6,
-  YELLOW: 7,
-  ORANGE: 8,
-  RED: 9,
-  WHITE: 10,
-  NONE: -1
-};
-var color = Color$1;
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
 
-var setupTranslations = function setupTranslations(formatMessage) {
-  var extTranslations = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var localeSetup = formatMessage.setup();
-  var translations = {
-    'en': {
-      'legobluetooth.motorPWM': '[PORT] start motor at [POWER] % power',
-      'legobluetooth.motorStop': '[PORT] stop motor',
-      'legobluetooth.motorRunFor': '[PORT] run [DIRECTION] for [VALUE] [UNIT]',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] go [DIRECTION] to position [POSITION]',
-      'legobluetooth.motorStart': '[PORT] start motor [DIRECTION]',
-      'legobluetooth.motorSetSpeed': '[PORT] set speed to [SPEED] %',
-      'legobluetooth.getRelativePosition': '[PORT] relative position',
-      'legobluetooth.getPosition': '[PORT] position',
-      'legobluetooth.motorResetRelativePosition': '[PORT] reset relative position to [RELATIVE_POSITION]',
-      'legobluetooth.displayImageFor': 'turn on [MATRIX] for [DURATION] seconds',
-      'legobluetooth.displayImage': 'turn on [MATRIX]',
-      'legobluetooth.displayText': 'write [TEXT]',
-      'legobluetooth.displayClear': 'turn off pixels',
-      'legobluetooth.displaySetBrightness': 'set pixel brightness to [BRIGHTNESS] %',
-      'legobluetooth.displaySetPixel': 'set pixel at [X] , [Y] to [BRIGHTNESS] %',
-      'legobluetooth.centerButtonLights': 'set center button light to [COLOR]',
-      'legobluetooth.ultrasonicLightUp': '[PORT] light up [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3]',
-      'legobluetooth.getColor': '[PORT] color',
-      'legobluetooth.getDistance': '[PORT] distance',
-      'legobluetooth.getForce': '[PORT] force',
-      'legobluetooth.getTilt': '[PORT] tilt [XY]',
-      'legobluetooth.setHubLEDColor': 'set hub LED color to [COLOR]',
-      'legobluetooth.getHubTilt': 'hub tilt [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] angle',
-      'legobluetooth.getName': 'name',
-      'legobluetooth.getFirmwareVersion': 'firmware version',
-      'legobluetooth.getBatteryLevel': 'battery level',
-      'legobluetooth.rotations': 'rotations',
-      'legobluetooth.degrees': 'degrees',
-      'legobluetooth.seconds': 'seconds',
-      'legobluetooth.shortestPath': 'shortest',
-      'legobluetooth.clockwise': 'clockwise',
-      'legobluetooth.counterclockwise': 'counterclockwise',
-      'legobluetooth.black': '(0) Black',
-      'legobluetooth.pink': '(1) Pink',
-      'legobluetooth.purple': '(2) Purple',
-      'legobluetooth.blue': '(3) Blue',
-      'legobluetooth.lightBlue': '(4) Light blue',
-      'legobluetooth.lightGreen': '(5) Light green',
-      'legobluetooth.green': '(6) Green',
-      'legobluetooth.yellow': '(7) Yellow',
-      'legobluetooth.orange': '(8) Orange',
-      'legobluetooth.red': '(9) Red',
-      'legobluetooth.white': '(10) White',
-      'legobluetooth.noColor': '(-1) No color',
-      'legobluetooth.pitch': 'pitch',
-      'legobluetooth.roll': 'roll',
-      'legobluetooth.yaw': 'yaw'
-    },
-    'it': {},
-    'ja': {
-      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーで回す',
-      'legobluetooth.motorStop': '[PORT] モーターを止める',
-      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] 方向に [VALUE] [UNIT] 回す',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] で位置 [POSITION] まで回す',
-      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] 方向に回す',
-      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
-      'legobluetooth.getRelativePosition': '[PORT] 相対位置',
-      'legobluetooth.getPosition': '[PORT] 位置',
-      'legobluetooth.motorResetRelativePosition': '[PORT] 相対位置を [RELATIVE_POSITION] にリセットする',
-      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] 秒間オンにする',
-      'legobluetooth.displayImage': '[MATRIX] をオンにする',
-      'legobluetooth.displayText': '[TEXT] を表示する',
-      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
-      'legobluetooth.displaySetBrightness': 'ピクセルの明るさを [BRIGHTNESS] %にする',
-      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルの明るさを [BRIGHTNESS] %にする',
-      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
-      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
-      'legobluetooth.getColor': '[PORT] 色',
-      'legobluetooth.getDistance': '[PORT] 距離',
-      'legobluetooth.getForce': '[PORT] 圧力',
-      'legobluetooth.getTilt': '[PORT] 傾き [XY]',
-      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
-      'legobluetooth.getHubTilt': 'ハブの傾き [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] 角',
-      'legobluetooth.getName': '名前',
-      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
-      'legobluetooth.getBatteryLevel': '電池残量',
-      'legobluetooth.rotations': '回転',
-      'legobluetooth.degrees': '度',
-      'legobluetooth.seconds': '秒',
-      'legobluetooth.shortestPath': '最短経路',
-      'legobluetooth.clockwise': '時計回り',
-      'legobluetooth.counterclockwise': '反時計回り',
-      'legobluetooth.black': '(0) 黒',
-      'legobluetooth.pink': '(1) ピンク',
-      'legobluetooth.purple': '(2) 紫',
-      'legobluetooth.blue': '(3) 青',
-      'legobluetooth.lightBlue': '(4) 水色',
-      'legobluetooth.lightGreen': '(5) 明るい緑',
-      'legobluetooth.green': '(6) 緑',
-      'legobluetooth.yellow': '(7) 黄色',
-      'legobluetooth.orange': '(8) オレンジ',
-      'legobluetooth.red': '(9) 赤',
-      'legobluetooth.white': '(10) 白',
-      'legobluetooth.noColor': '(-1) 色なし',
-      'legobluetooth.pitch': 'ピッチ',
-      'legobluetooth.roll': 'ロール',
-      'legobluetooth.yaw': 'ヨー'
-    },
-    'ja-Hira': {
-      'legobluetooth.motorPWM': '[PORT] モーターを [POWER] %のパワーでまわす',
-      'legobluetooth.motorStop': '[PORT] モーターをとめる',
-      'legobluetooth.motorRunFor': '[PORT] モーターを [DIRECTION] ほうこうに [VALUE] [UNIT] まわす',
-      'legobluetooth.motorGoDirectionToPosition': '[PORT] モーターを [DIRECTION] でいち [POSITION] までまわす',
-      'legobluetooth.motorStart': '[PORT] モーターを [DIRECTION] ほうこうにまわす',
-      'legobluetooth.motorSetSpeed': '[PORT] スピードを [SPEED] %にする',
-      'legobluetooth.getRelativePosition': '[PORT] そうたいいち',
-      'legobluetooth.getPosition': '[PORT] いち',
-      'legobluetooth.motorResetRelativePosition': '[PORT] そうたいいちを [RELATIVE_POSITION] にリセットする',
-      'legobluetooth.displayImageFor': '[MATRIX] を [DURATION] びょうかんオンにする',
-      'legobluetooth.displayImage': '[MATRIX] をオンにする',
-      'legobluetooth.displayText': '[TEXT] をひょうじする',
-      'legobluetooth.displayClear': 'すべてのピクセルをオフにする',
-      'legobluetooth.displaySetBrightness': 'ピクセルのあかるさを [BRIGHTNESS] %にする',
-      'legobluetooth.displaySetPixel': '[X] , [Y] のピクセルのあかるさを [BRIGHTNESS] %にする',
-      'legobluetooth.centerButtonLights': 'センターボタンのライトを [COLOR] にする',
-      'legobluetooth.ultrasonicLightUp': '[PORT] を [LIGHT0] [LIGHT1] [LIGHT2] [LIGHT3] でライトアップする',
-      'legobluetooth.getColor': '[PORT] いろ',
-      'legobluetooth.getDistance': '[PORT] きょり',
-      'legobluetooth.getForce': '[PORT] あつりょく',
-      'legobluetooth.getTilt': '[PORT] かたむき [XY]',
-      'legobluetooth.setHubLEDColor': 'ハブのLEDを [COLOR] にする',
-      'legobluetooth.getHubTilt': 'ハブのかたむき [XYZ]',
-      'legobluetooth.getAngle': '[AXIS] かく',
-      'legobluetooth.getName': 'なまえ',
-      'legobluetooth.getFirmwareVersion': 'ファームウェアバージョン',
-      'legobluetooth.getBatteryLevel': 'でんちざんりょう',
-      'legobluetooth.rotations': 'かいてん',
-      'legobluetooth.degrees': 'ど',
-      'legobluetooth.seconds': 'びょう',
-      'legobluetooth.shortestPath': 'さいたんきょり',
-      'legobluetooth.clockwise': 'とけいまわり',
-      'legobluetooth.counterclockwise': 'はんとけいまわり',
-      'legobluetooth.black': '(0) くろ',
-      'legobluetooth.pink': '(1) ピンク',
-      'legobluetooth.purple': '(2) むらさき',
-      'legobluetooth.blue': '(3) あお',
-      'legobluetooth.lightBlue': '(4) みずいろ',
-      'legobluetooth.lightGreen': '(5) あかるいみどり',
-      'legobluetooth.green': '(6) みどり',
-      'legobluetooth.yellow': '(7) きいろ',
-      'legobluetooth.orange': '(8) オレンジ',
-      'legobluetooth.red': '(9) あか',
-      'legobluetooth.white': '(10) しろ',
-      'legobluetooth.noColor': '(-1) いろなし',
-      'legobluetooth.pitch': 'ピッチ',
-      'legobluetooth.roll': 'ロール',
-      'legobluetooth.yaw': 'ヨー'
-    }
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
   };
-  for (var locale in translations) {
-    if (extTranslations[locale]) {
-      Object.assign(translations[locale], extTranslations[locale]);
-    }
-    if (!localeSetup.translations[locale]) {
-      localeSetup.translations[locale] = {};
-    }
-    Object.assign(localeSetup.translations[locale], translations[locale]);
-  }
-};
-var setupTranslations_1 = setupTranslations;
+  return _getPrototypeOf(o);
+}
 
-var ArgumentType = argumentType;
-var BlockType = blockType;
-var Cast = cast;
-var Color = color;
-var _setupTranslations = setupTranslations_1;
-var BLESendInterval = 100;
-var waitPromise = function waitPromise() {
-  return new Promise(function (resolve) {
-    return window.setTimeout(resolve, BLESendInterval);
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
   });
-};
-var BleBaseBlocks$1 = /*#__PURE__*/function () {
-  function BleBaseBlocks(peripheral) {
-    _classCallCheck(this, BleBaseBlocks);
-    this._peripheral = peripheral;
-  }
-  _createClass(BleBaseBlocks, [{
-    key: "externalPorts",
-    get: function get() {
-      return ['A', 'B', 'C', 'D'];
-    }
-  }, {
-    key: "multipleExternalPorts",
-    get: function get() {
-      return ['A', 'B', 'C', 'D', 'A+B', 'C+D', 'A+B+C+D'];
-    }
-  }, {
-    key: "hasInternalTiltSensorBlocks",
-    get: function get() {
-      return true;
-    }
-  }, {
-    key: "hasAdvancedBlocks",
-    get: function get() {
-      return false;
-    }
-  }, {
-    key: "getBlocks",
-    value: function getBlocks(formatMessage) {
-      var blocks = [{
-        opcode: 'motorPWM',
-        text: formatMessage({
-          id: 'legobluetooth.motorPWM',
-          default: '[PORT] start motor at [POWER] % power'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'MULTIPLE_PORT',
-            defaultValue: 'A'
-          },
-          POWER: {
-            type: ArgumentType.NUMBER,
-            defaultValue: 100
-          }
-        }
-      }, {
-        opcode: 'motorStop',
-        text: formatMessage({
-          id: 'legobluetooth.motorStop',
-          default: '[PORT] stop motor'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'MULTIPLE_PORT',
-            defaultValue: 'A'
-          }
-        }
-      }, '---', {
-        opcode: 'motorRunFor',
-        text: formatMessage({
-          id: 'legobluetooth.motorRunFor',
-          default: '[PORT] run [DIRECTION] for [VALUE] [UNIT]'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'MULTIPLE_PORT',
-            defaultValue: 'A'
-          },
-          DIRECTION: {
-            type: ArgumentType.NUMBER,
-            menu: 'DIRECTION',
-            defaultValue: 1
-          },
-          VALUE: {
-            type: ArgumentType.NUMBER,
-            defaultValue: 1
-          },
-          UNIT: {
-            type: ArgumentType.STRING,
-            menu: 'MOTOR_UNIT',
-            defaultValue: 'rotations'
-          }
-        }
-      }, {
-        opcode: 'motorStart',
-        text: formatMessage({
-          id: 'legobluetooth.motorStart',
-          default: '[PORT] start motor [DIRECTION]'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'MULTIPLE_PORT',
-            defaultValue: 'A'
-          },
-          DIRECTION: {
-            type: ArgumentType.NUMBER,
-            menu: 'DIRECTION',
-            defaultValue: 1
-          }
-        }
-      }, {
-        opcode: 'motorSetSpeed',
-        text: formatMessage({
-          id: 'legobluetooth.motorSetSpeed',
-          default: '[PORT] set speed to [SPEED] %'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'MULTIPLE_PORT',
-            defaultValue: 'A'
-          },
-          SPEED: {
-            type: ArgumentType.NUMBER,
-            defaultValue: 75
-          }
-        }
-      }, {
-        opcode: 'getRelativePosition',
-        text: formatMessage({
-          id: 'legobluetooth.getRelativePosition',
-          default: '[PORT] relative position'
-        }),
-        blockType: BlockType.REPORTER,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'PORT',
-            defaultValue: 'A'
-          }
-        }
-      }, {
-        opcode: 'motorResetRelativePosition',
-        text: formatMessage({
-          id: 'legobluetooth.motorResetRelativePosition',
-          default: '[PORT] reset relative position to [RELATIVE_POSITION]'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'MULTIPLE_PORT',
-            defaultValue: 'A'
-          },
-          RELATIVE_POSITION: {
-            type: ArgumentType.NUMBER,
-            defaultValue: 0
-          }
-        }
-      }, '---', {
-        opcode: 'getColor',
-        text: formatMessage({
-          id: 'legobluetooth.getColor',
-          default: '[PORT] color'
-        }),
-        blockType: BlockType.REPORTER,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'PORT',
-            defaultValue: 'A'
-          }
-        }
-      }, {
-        opcode: 'getDistance',
-        text: formatMessage({
-          id: 'legobluetooth.getDistance',
-          default: '[PORT] distance'
-        }),
-        blockType: BlockType.REPORTER,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'PORT',
-            defaultValue: 'A'
-          }
-        }
-      }, {
-        opcode: 'getForce',
-        text: formatMessage({
-          id: 'legobluetooth.getForce',
-          default: '[PORT] force'
-        }),
-        blockType: BlockType.REPORTER,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'PORT',
-            defaultValue: 'A'
-          }
-        }
-      }, {
-        opcode: 'getTilt',
-        text: formatMessage({
-          id: 'legobluetooth.getTilt',
-          default: '[PORT] tilt [XY]'
-        }),
-        blockType: BlockType.REPORTER,
-        arguments: {
-          PORT: {
-            type: ArgumentType.STRING,
-            menu: 'PORT',
-            defaultValue: 'A'
-          },
-          XY: {
-            type: ArgumentType.STRING,
-            menu: 'XY',
-            defaultValue: 'x'
-          }
-        }
-      }, '---', {
-        opcode: 'setHubLEDColor',
-        text: formatMessage({
-          id: 'legobluetooth.setHubLEDColor',
-          default: 'set hub LED color to [COLOR]'
-        }),
-        blockType: BlockType.COMMAND,
-        arguments: {
-          COLOR: {
-            type: ArgumentType.NUMBER,
-            menu: 'LED_COLOR',
-            defaultValue: Color.BLUE
-          }
-        }
-      }];
-      if (this.hasInternalTiltSensorBlocks) {
-        blocks.push({
-          opcode: 'getHubTilt',
-          text: formatMessage({
-            id: 'legobluetooth.getHubTilt',
-            default: 'hub tilt [XYZ]'
-          }),
-          blockType: BlockType.REPORTER,
-          arguments: {
-            XYZ: {
-              type: ArgumentType.STRING,
-              menu: 'XYZ',
-              defaultValue: 'x'
-            }
-          }
-        });
-      }
-      if (this.hasAdvancedBlocks) {
-        blocks.push({
-          opcode: 'getName',
-          text: formatMessage({
-            id: 'legobluetooth.getName',
-            default: 'name'
-          }),
-          blockType: BlockType.REPORTER
-        });
-        blocks.push({
-          opcode: 'getFirmwareVersion',
-          text: formatMessage({
-            id: 'legobluetooth.getFirmwareVersion',
-            default: 'firmware version'
-          }),
-          blockType: BlockType.REPORTER
-        });
-        blocks.push({
-          opcode: 'getBatteryLevel',
-          text: formatMessage({
-            id: 'legobluetooth.getBatteryLevel',
-            default: 'battery level'
-          }),
-          blockType: BlockType.REPORTER
-        });
-      }
-      return blocks;
-    }
-  }, {
-    key: "getMenus",
-    value: function getMenus(formatMessage) {
-      return {
-        PORT: {
-          acceptReporters: true,
-          items: this.externalPorts
-        },
-        MULTIPLE_PORT: {
-          acceptReporters: true,
-          items: this.multipleExternalPorts
-        },
-        MOTOR_UNIT: {
-          acceptReporters: false,
-          items: [{
-            text: formatMessage({
-              id: 'legobluetooth.rotations',
-              default: 'rotations'
-            }),
-            value: 'rotations'
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.degrees',
-              default: 'degrees'
-            }),
-            value: 'degrees'
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.seconds',
-              default: 'seconds'
-            }),
-            value: 'seconds'
-          }]
-        },
-        DIRECTION: {
-          acceptReporters: false,
-          items: [{
-            text: '⬆︎',
-            value: '1'
-          }, {
-            text: '⬇',
-            value: '-1'
-          }]
-        },
-        LED_COLOR: {
-          acceptReporters: true,
-          items: [{
-            text: formatMessage({
-              id: 'legobluetooth.black',
-              default: '(0) Black'
-            }),
-            value: String(Color.BLACK)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.pink',
-              default: '(1) Pink'
-            }),
-            value: String(Color.PINK)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.purple',
-              default: '(2) Purple'
-            }),
-            value: String(Color.PURPLE)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.blue',
-              default: '(3) Blue'
-            }),
-            value: String(Color.BLUE)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.lightBlue',
-              default: '(4) Light blue'
-            }),
-            value: String(Color.LIGHT_BLUE)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.lightGreen',
-              default: '(5) Light green'
-            }),
-            value: String(Color.LIGHT_GREEN)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.green',
-              default: '(6) Green'
-            }),
-            value: String(Color.GREEN)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.yellow',
-              default: '(7) Yellow'
-            }),
-            value: String(Color.YELLOW)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.orange',
-              default: '(8) Orange'
-            }),
-            value: String(Color.ORANGE)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.red',
-              default: '(9) Red'
-            }),
-            value: String(Color.RED)
-          }, {
-            text: formatMessage({
-              id: 'legobluetooth.white',
-              default: '(10) White'
-            }),
-            value: String(Color.WHITE)
-          }]
-        },
-        XY: {
-          acceptReporters: false,
-          items: ['x', 'y']
-        },
-        XYZ: {
-          acceptReporters: false,
-          items: ['x', 'y', 'z']
-        }
-      };
-    }
-  }, {
-    key: "_validatePorts",
-    value: function _validatePorts(text) {
-      return text.toUpperCase().replace(/[^ABCD]/g, '').split('').filter(function (x, i, self) {
-        return self.indexOf(x) === i;
-      }).sort();
-    }
-  }, {
-    key: "motorPWM",
-    value: function motorPWM(args) {
-      var _this = this;
-      var power = Cast.toNumber(args.POWER);
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var portId = _this.externalPorts.indexOf(port);
-        return _this._peripheral.motorPWM(portId, power);
-      });
-      return Promise.all(promises).then(waitPromise);
-    }
-  }, {
-    key: "motorStop",
-    value: function motorStop(args) {
-      var _this2 = this;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var portId = _this2.externalPorts.indexOf(port);
-        return _this2._peripheral.motorPWM(portId, 0);
-      });
-      return Promise.all(promises).then(waitPromise);
-    }
-  }, {
-    key: "motorRunFor",
-    value: function motorRunFor(args) {
-      var direction = args.DIRECTION;
-      var value = Cast.toNumber(args.VALUE);
-      var unit = args.UNIT;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      switch (unit) {
-        case 'rotations':
-          return this._motorRunForDegrees(ports, direction, value * 360);
-        case 'degrees':
-          return this._motorRunForDegrees(ports, direction, value);
-        case 'seconds':
-          return this._motorRunTimed(ports, direction, value);
-        default:
-          return Promise.resolve();
-      }
-    }
-  }, {
-    key: "_motorRunForDegrees",
-    value: function _motorRunForDegrees(ports, direction, degrees) {
-      var _this3 = this;
-      var promises = ports.map(function (port) {
-        var portId = _this3.externalPorts.indexOf(port);
-        return _this3._peripheral.motorRunForDegrees(portId, direction, degrees);
-      });
-      return Promise.all(promises).then(function () {});
-    }
-  }, {
-    key: "_motorRunTimed",
-    value: function _motorRunTimed(ports, direction, seconds) {
-      var _this4 = this;
-      var promises = ports.map(function (port) {
-        var portId = _this4.externalPorts.indexOf(port);
-        return _this4._peripheral.motorRunTimed(portId, direction, seconds);
-      });
-      return Promise.all(promises).then(function () {});
-    }
-  }, {
-    key: "motorStart",
-    value: function motorStart(args) {
-      var _this5 = this;
-      var direction = args.DIRECTION;
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var portId = _this5.externalPorts.indexOf(port);
-        return _this5._peripheral.motorStart(portId, direction);
-      });
-      return Promise.all(promises).then(waitPromise);
-    }
-  }, {
-    key: "motorSetSpeed",
-    value: function motorSetSpeed(args) {
-      var _this6 = this;
-      var speed = Cast.toNumber(args.SPEED);
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      ports.forEach(function (port) {
-        var portId = _this6.externalPorts.indexOf(port);
-        _this6._peripheral.motorSetSpeed(portId, speed);
-      });
-      return Promise.resolve();
-    }
-  }, {
-    key: "motorResetRelativePosition",
-    value: function motorResetRelativePosition(args) {
-      var _this7 = this;
-      var relativePosition = Cast.toNumber(args.RELATIVE_POSITION);
-      var ports = this._validatePorts(Cast.toString(args.PORT));
-      var promises = ports.map(function (port) {
-        var portId = _this7.externalPorts.indexOf(port);
-        return _this7._peripheral.motorResetRelativePosition(portId, relativePosition);
-      });
-      return Promise.all(promises).then(waitPromise);
-    }
-  }, {
-    key: "getRelativePosition",
-    value: function getRelativePosition(args) {
-      return this._getSensorValue(args, 'relativePosition', 0);
-    }
-  }, {
-    key: "getColor",
-    value: function getColor(args) {
-      return this._getSensorValue(args, 'color', -1);
-    }
-  }, {
-    key: "getDistance",
-    value: function getDistance(args) {
-      return this._getSensorValue(args, 'distance', 0);
-    }
-  }, {
-    key: "getForce",
-    value: function getForce(args) {
-      return this._getSensorValue(args, 'force', 0);
-    }
-  }, {
-    key: "getTilt",
-    value: function getTilt(args) {
-      var key = 'tilt' + args.XY.toUpperCase();
-      return this._getSensorValue(args, key, 0);
-    }
-  }, {
-    key: "_getSensorValue",
-    value: function _getSensorValue(args, key, defaultValue) {
-      var port = this._validatePorts(Cast.toString(args.PORT)).shift();
-      if (port) {
-        var portId = this.externalPorts.indexOf(port);
-        var value = this._peripheral.inputValue(portId, key);
-        return value != null ? value : defaultValue;
-      }
-      return defaultValue;
-    }
-  }, {
-    key: "setHubLEDColor",
-    value: function setHubLEDColor(args) {
-      var color = Cast.toNumber(args.COLOR);
-      return this._peripheral.setLEDColor(color).then(waitPromise);
-    }
-  }, {
-    key: "getHubTilt",
-    value: function getHubTilt(args) {
-      var key = 'tilt' + args.XYZ.toUpperCase();
-      var value = this._peripheral.internalInputValue(key);
-      return value != null ? value : 0;
-    }
-  }, {
-    key: "getName",
-    value: function getName() {
-      return this._peripheral.name ? this._peripheral.name : "";
-    }
-  }, {
-    key: "getFirmwareVersion",
-    value: function getFirmwareVersion() {
-      return this._peripheral.firmwareVersion ? this._peripheral.firmwareVersion : "";
-    }
-  }, {
-    key: "getBatteryLevel",
-    value: function getBatteryLevel() {
-      return this._peripheral.batteryLevel;
-    }
-  }, {
-    key: "setupTranslations",
-    value: function setupTranslations(formatMessage) {
-      _setupTranslations(formatMessage);
-    }
-  }]);
-  return BleBaseBlocks;
-}();
-var bleBaseBlocks = BleBaseBlocks$1;
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(r, l) {
-  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
-  if (null != t) {
-    var e,
-      n,
-      i,
-      u,
-      a = [],
-      f = !0,
-      o = !1;
-    try {
-      if (i = (t = t.call(r)).next, 0 === l) {
-        if (Object(t) !== t) return;
-        f = !1;
-      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
-    } catch (r) {
-      o = !0, n = r;
-    } finally {
-      try {
-        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
-      } finally {
-        if (o) throw n;
-      }
-    }
-    return a;
-  }
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
 }
 
 var JSONRPC$1 = /*#__PURE__*/function () {
@@ -1750,8 +1275,8 @@ var JSONRPC$1 = /*#__PURE__*/function () {
 }();
 var jsonrpc = JSONRPC$1;
 
-function _callSuper$2(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$2() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _isNativeReflectConstruct$2() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$2 = function _isNativeReflectConstruct() { return !!t; })(); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 var JSONRPC = jsonrpc;
 var BLE$1 = /*#__PURE__*/function (_JSONRPC) {
   _inherits(BLE, _JSONRPC);
@@ -1768,7 +1293,7 @@ var BLE$1 = /*#__PURE__*/function (_JSONRPC) {
     var _this;
     var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
     _classCallCheck(this, BLE);
-    _this = _callSuper$2(this, BLE);
+    _this = _callSuper(this, BLE);
     _this._socket = runtime.getScratchLinkSocket('BLE');
     _this._socket.setOnOpen(_this.requestPeripheral.bind(_assertThisInitialized(_this)));
     _this._socket.setOnClose(_this.handleDisconnectError.bind(_assertThisInitialized(_this)));
@@ -3731,7 +3256,7 @@ var browserAtob = {exports: {}};
       }
 
       // ios web worker with base64js
-      if ('object' === _typeof(w.base64js)) {
+      if ('object' === _typeof$1(w.base64js)) {
         // bufferToBinaryString
         // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
         return function atobWebWorker_iOS(a) {
@@ -3827,765 +3352,353 @@ var Base64Util$1 = /*#__PURE__*/function () {
 }();
 var base64Util = Base64Util$1;
 
-var MathUtil$2 = /*#__PURE__*/function () {
-  function MathUtil() {
-    _classCallCheck(this, MathUtil);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+var ArgumentType = argumentType;
+var BlockType = blockType;
+var Cast = cast;
+var BLE = ble; // Use the official Scratch/xcratch BLE handler
+var Base64Util = base64Util; // Use Scratch's Base64 utility
+
+// This class defines the Scratch blocks and their behavior.
+// It is the main entry point for the extension.
+var Scratch3SpikePrimeOfficialBlocks = /*#__PURE__*/function () {
+  function Scratch3SpikePrimeOfficialBlocks(runtime) {
+    var _this = this;
+    _classCallCheck(this, Scratch3SpikePrimeOfficialBlocks);
+    this.runtime = runtime;
+    // The hub object handles all low-level communication and protocol logic.
+    // It's created with a reference to the runtime to use the official BLE class.
+    this.hub = new SpikePrimeOfficialHub(this.runtime, this.constructor.EXTENSION_ID);
+
+    // Ensure motors stop when the Scratch project is stopped.
+    this.runtime.on('PROJECT_STOP_ALL', function () {
+      _this.hub.stopAllMotors();
+    });
   }
-  _createClass(MathUtil, null, [{
-    key: "degToRad",
-    value:
-    /**
-     * Convert a value from degrees to radians.
-     * @param {!number} deg Value in degrees.
-     * @return {!number} Equivalent value in radians.
-     */
-    function degToRad(deg) {
-      return deg * Math.PI / 180;
-    }
-
-    /**
-     * Convert a value from radians to degrees.
-     * @param {!number} rad Value in radians.
-     * @return {!number} Equivalent value in degrees.
-     */
-  }, {
-    key: "radToDeg",
-    value: function radToDeg(rad) {
-      return rad * 180 / Math.PI;
-    }
-
-    /**
-     * Clamp a number between two limits.
-     * If n < min, return min. If n > max, return max. Else, return n.
-     * @param {!number} n Number to clamp.
-     * @param {!number} min Minimum limit.
-     * @param {!number} max Maximum limit.
-     * @return {!number} Value of n clamped to min and max.
-     */
-  }, {
-    key: "clamp",
-    value: function clamp(n, min, max) {
-      return Math.min(Math.max(n, min), max);
-    }
-
-    /**
-     * Keep a number between two limits, wrapping "extra" into the range.
-     * e.g., wrapClamp(7, 1, 5) == 2
-     * wrapClamp(0, 1, 5) == 5
-     * wrapClamp(-11, -10, 6) == 6, etc.
-     * @param {!number} n Number to wrap.
-     * @param {!number} min Minimum limit.
-     * @param {!number} max Maximum limit.
-     * @return {!number} Value of n wrapped between min and max.
-     */
-  }, {
-    key: "wrapClamp",
-    value: function wrapClamp(n, min, max) {
-      var range = max - min + 1;
-      return n - Math.floor((n - min) / range) * range;
-    }
-
-    /**
-     * Convert a value from tan function in degrees.
-     * @param {!number} angle in degrees
-     * @return {!number} Correct tan value
-     */
-  }, {
-    key: "tan",
-    value: function tan(angle) {
-      angle = angle % 360;
-      switch (angle) {
-        case -270:
-        case 90:
-          return Infinity;
-        case -90:
-        case 270:
-          return -Infinity;
-        default:
-          return parseFloat(Math.tan(Math.PI * angle / 180).toFixed(10));
-      }
-    }
-
-    /**
-     * Given an array of unique numbers,
-     * returns a reduced array such that each element of the reduced array
-     * represents the position of that element in a sorted version of the
-     * original array.
-     * E.g. [5, 19. 13, 1] => [1, 3, 2, 0]
-     * @param {Array<number>} elts The elements to sort and reduce
-     * @return {Array<number>} The array of reduced orderings
-     */
-  }, {
-    key: "reducedSortOrdering",
-    value: function reducedSortOrdering(elts) {
-      var sorted = elts.slice(0).sort(function (a, b) {
-        return a - b;
-      });
-      return elts.map(function (e) {
-        return sorted.indexOf(e);
-      });
-    }
-
-    /**
-     * Return a random number given an inclusive range and a number in that
-     * range that should be excluded.
-     *
-     * For instance, (1, 5, 3) will only pick 1, 2, 4, or 5 (with equal
-     * probability)
-     *
-     * @param {number} lower - The lower bound (inlcusive)
-     * @param {number} upper - The upper bound (inclusive), such that lower <= upper
-     * @param {number} excluded - The number to exclude (MUST be in the range)
-     * @return {number} A random integer in the range [lower, upper] that is not "excluded"
-     */
-  }, {
-    key: "inclusiveRandIntWithout",
-    value: function inclusiveRandIntWithout(lower, upper, excluded) {
-      // Note that subtraction is the number of items in the
-      // inclusive range [lower, upper] minus 1 already
-      // (e.g. in the set {3, 4, 5}, 5 - 3 = 2).
-      var possibleOptions = upper - lower;
-      var randInt = lower + Math.floor(Math.random() * possibleOptions);
-      if (randInt >= excluded) {
-        return randInt + 1;
-      }
-      return randInt;
-    }
-
-    /**
-     * Scales a number from one range to another.
-     * @param {number} i number to be scaled
-     * @param {number} iMin input range minimum
-     * @param {number} iMax input range maximum
-     * @param {number} oMin output range minimum
-     * @param {number} oMax output range maximum
-     * @return {number} scaled number
-     */
-  }, {
-    key: "scale",
-    value: function scale(i, iMin, iMax, oMin, oMax) {
-      var p = (i - iMin) / (iMax - iMin);
-      return p * (oMax - oMin) + oMin;
-    }
-  }]);
-  return MathUtil;
-}();
-var mathUtil = MathUtil$2;
-
-var Timer$1 = /*#__PURE__*/function () {
-  function Timer() {
-    var nowObj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Timer.nowObj;
-    _classCallCheck(this, Timer);
-    /**
-     * Used to store the start time of a timer action.
-     * Updated when calling `timer.start`.
-     */
-    this.startTime = 0;
-
-    /**
-     * Used to pass custom logic for determining the value for "now",
-     * which is sometimes useful for compatibility with Scratch 2
-     */
-    this.nowObj = nowObj;
-  }
-
-  /**
-   * Disable use of self.performance for now as it results in lower performance
-   * However, instancing it like below (caching the self.performance to a local variable) negates most of the issues.
-   * @type {boolean}
-   */
-  _createClass(Timer, [{
-    key: "time",
-    value:
-    /**
-     * Return the currently known absolute time, in ms precision.
-     * @returns {number} ms elapsed since 1 January 1970 00:00:00 UTC.
-     */
-    function time() {
-      return this.nowObj.now();
-    }
-
-    /**
-     * Start a timer for measuring elapsed time,
-     * at the most accurate precision possible.
-     */
-  }, {
-    key: "start",
-    value: function start() {
-      this.startTime = this.nowObj.now();
-    }
-  }, {
-    key: "timeElapsed",
-    value: function timeElapsed() {
-      return this.nowObj.now() - this.startTime;
-    }
-
-    /**
-     * Call a handler function after a specified amount of time has elapsed.
-     * @param {function} handler - function to call after the timeout
-     * @param {number} timeout - number of milliseconds to delay before calling the handler
-     * @returns {number} - the ID of the new timeout
-     */
-  }, {
-    key: "setTimeout",
-    value: function setTimeout(handler, timeout) {
-      return commonjsGlobal.setTimeout(handler, timeout);
-    }
-
-    /**
-     * Clear a timeout from the pending timeout pool.
-     * @param {number} timeoutId - the ID returned by `setTimeout()`
-     * @memberof Timer
-     */
-  }, {
-    key: "clearTimeout",
-    value: function clearTimeout(timeoutId) {
-      commonjsGlobal.clearTimeout(timeoutId);
-    }
-  }], [{
-    key: "USE_PERFORMANCE",
-    get: function get() {
-      return false;
-    }
-
-    /**
-     * Legacy object to allow for us to call now to get the old style date time (for backwards compatibility)
-     * @deprecated This is only called via the nowObj.now() if no other means is possible...
-     */
-  }, {
-    key: "legacyDateCode",
-    get: function get() {
+  _createClass(Scratch3SpikePrimeOfficialBlocks, [{
+    key: "getInfo",
+    value: function getInfo() {
       return {
-        now: function now() {
-          return new Date().getTime();
+        id: Scratch3SpikePrimeOfficialBlocks.EXTENSION_ID,
+        name: 'SPIKE Prime',
+        color1: '#FFD700',
+        color2: '#D4AF37',
+        blockIconURI: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjAuMDA1IDJDOS4wNDIgMiAyIDkuMDQyIDIgMjAuMDA1UzkuMDQyIDM4IDIwLjAwNSAzOCAzOCAyOS45NjcgMzggMjAuMDA1IDI5Ljk2NyAyIDIwLjAwNSAyek00LjQ2MyAyMC4wMDVjMC04LjU4MiA2Ljk2LTE1LjU0MSAxNS41NDItMTUuNTQxIDguNTgyIDAgMTUuNTQxIDYuOTU5IDE1LjU0MSAxNS41NDFzLTYuOTU5IDE1LjU0Mi0xNS41NDEgMTUuNTQyYy04LjU4MyAwLTE1LjU0Mi02Ljk2LTE1LjU0Mi0xNS41NDJ6IiBmaWxsPSIjRkZBNzAwIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNMjAgMTMuNzY1bC0yLjM5NiA0LjA2OC00LjcyNC4wOTggMy42NjUgMy4xMDctMS4zMjMgNC45MTMgNC43NzgtMi44NzQgNC43NzggMi44NzQtMS4zMjMtNC45MTMgMy42NjUtMy4xMDctNC43MjQtLjA5OEwyMCAxMy43NjV6IiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4=',
+        showStatusButton: true,
+        blocks: [{
+          opcode: 'isConnected',
+          blockType: BlockType.BOOLEAN,
+          text: 'is hub connected?'
+        }, '---', {
+          opcode: 'startMotor',
+          blockType: BlockType.COMMAND,
+          text: 'start motor [PORT] at [SPEED]%',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            SPEED: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 75
+            }
+          }
+        }, {
+          opcode: 'stopMotor',
+          blockType: BlockType.COMMAND,
+          text: 'stop motor [PORT] with [ACTION]',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            },
+            ACTION: {
+              type: ArgumentType.STRING,
+              menu: 'STOP_ACTION',
+              defaultValue: 'brake'
+            }
+          }
+        }, {
+          opcode: 'getMotorPosition',
+          blockType: BlockType.REPORTER,
+          text: 'motor [PORT] position',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'A'
+            }
+          }
+        }, '---', {
+          opcode: 'setLightMatrixPixel',
+          blockType: BlockType.COMMAND,
+          text: 'set 3x3 light [PORT] pixel x:[X] y:[Y] to brightness [BRIGHTNESS]%',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'C'
+            },
+            X: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 1
+            },
+            Y: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 1
+            },
+            BRIGHTNESS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 100
+            }
+          }
+        }, '---', {
+          opcode: 'getDistance',
+          blockType: BlockType.REPORTER,
+          text: 'distance sensor [PORT] (mm)',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'B'
+            }
+          }
+        }, {
+          opcode: 'isForceSensorPressed',
+          blockType: BlockType.BOOLEAN,
+          text: 'force sensor [PORT] pressed?',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'D'
+            }
+          }
+        }, {
+          opcode: 'getForceSensorValue',
+          blockType: BlockType.REPORTER,
+          text: 'force sensor [PORT] value (%)',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'D'
+            }
+          }
+        }, {
+          opcode: 'getColor',
+          blockType: BlockType.REPORTER,
+          text: 'color sensor [PORT] color',
+          arguments: {
+            PORT: {
+              type: ArgumentType.STRING,
+              menu: 'PORT',
+              defaultValue: 'E'
+            }
+          }
+        }, '---', {
+          opcode: 'getOrientation',
+          blockType: BlockType.REPORTER,
+          text: 'hub orientation [AXIS]',
+          arguments: {
+            AXIS: {
+              type: ArgumentType.STRING,
+              menu: 'ORIENTATION_AXIS',
+              defaultValue: 'yaw'
+            }
+          }
+        }, {
+          opcode: 'getAcceleration',
+          blockType: BlockType.REPORTER,
+          text: 'hub acceleration [AXIS]',
+          arguments: {
+            AXIS: {
+              type: ArgumentType.STRING,
+              menu: 'XYZ_AXIS',
+              defaultValue: 'x'
+            }
+          }
+        }, {
+          opcode: 'getFaceUp',
+          blockType: BlockType.REPORTER,
+          text: 'hub face up'
+        }, '---', {
+          opcode: 'getBatteryLevel',
+          blockType: BlockType.REPORTER,
+          text: 'battery level'
+        }],
+        menus: {
+          PORT: {
+            acceptReporters: true,
+            items: ['A', 'B', 'C', 'D', 'E', 'F']
+          },
+          STOP_ACTION: {
+            acceptReporters: false,
+            items: ['coast', 'brake', 'hold']
+          },
+          ORIENTATION_AXIS: {
+            acceptReporters: false,
+            items: ['yaw', 'pitch', 'roll']
+          },
+          XYZ_AXIS: {
+            acceptReporters: false,
+            items: ['x', 'y', 'z']
+          }
         }
       };
     }
 
-    /**
-     * Use this object to route all time functions through single access points.
-     */
+    // --- Block Implementations (Proxy Calls to the Hub Logic with Error Handling) ---
   }, {
-    key: "nowObj",
+    key: "isConnected",
+    value: function isConnected() {
+      return this.hub.isConnected();
+    }
+  }, {
+    key: "startMotor",
+    value: function startMotor(args) {
+      return this.hub.startMotor(args.PORT, Cast.toNumber(args.SPEED));
+    }
+  }, {
+    key: "stopMotor",
+    value: function stopMotor(args) {
+      return this.hub.stopMotor(args.PORT, args.ACTION);
+    }
+  }, {
+    key: "getMotorPosition",
+    value: function getMotorPosition(args) {
+      return this.hub.getSensorValue(args.PORT, 'position');
+    }
+  }, {
+    key: "setLightMatrixPixel",
+    value: function setLightMatrixPixel(args) {
+      return this.hub.setLightMatrixPixel(args.PORT, Cast.toNumber(args.X), Cast.toNumber(args.Y), Cast.toNumber(args.BRIGHTNESS));
+    }
+  }, {
+    key: "getDistance",
+    value: function getDistance(args) {
+      return this.hub.getSensorValue(args.PORT, 'distance');
+    }
+  }, {
+    key: "isForceSensorPressed",
+    value: function isForceSensorPressed(args) {
+      return this.hub.getSensorValue(args.PORT, 'isPressed');
+    }
+  }, {
+    key: "getForceSensorValue",
+    value: function getForceSensorValue(args) {
+      return this.hub.getSensorValue(args.PORT, 'force');
+    }
+  }, {
+    key: "getColor",
+    value: function getColor(args) {
+      var colorId = this.hub.getSensorValue(args.PORT, 'color');
+      var colors = {
+        0: 'black',
+        1: 'magenta',
+        2: 'purple',
+        3: 'blue',
+        4: 'azure',
+        5: 'turquoise',
+        6: 'green',
+        7: 'yellow',
+        8: 'orange',
+        9: 'red',
+        10: 'white',
+        255: 'unknown'
+      };
+      return colors[colorId] || 'unknown';
+    }
+  }, {
+    key: "getOrientation",
+    value: function getOrientation(args) {
+      return this.hub.getOrientation(args.AXIS);
+    }
+  }, {
+    key: "getAcceleration",
+    value: function getAcceleration(args) {
+      return this.hub.getAcceleration(args.AXIS);
+    }
+  }, {
+    key: "getFaceUp",
+    value: function getFaceUp() {
+      var faceId = this.hub.getFaceUp();
+      var faces = {
+        0: 'top',
+        1: 'front',
+        2: 'right',
+        3: 'bottom',
+        4: 'back',
+        5: 'left'
+      };
+      return faces[faceId] || 'unknown';
+    }
+  }, {
+    key: "getBatteryLevel",
+    value: function getBatteryLevel() {
+      return this.hub.getBatteryLevel();
+    }
+  }], [{
+    key: "EXTENSION_ID",
     get: function get() {
-      if (Timer.USE_PERFORMANCE && typeof self !== 'undefined' && self.performance && 'now' in self.performance) {
-        return self.performance;
-      } else if (Date.now) {
-        return Date;
-      }
-      return Timer.legacyDateCode;
+      return 'spikePrimeOfficialProtocol';
     }
   }]);
-  return Timer;
-}();
-var timer = Timer$1;
-
-var Timer = timer;
-var RateLimiter$1 = /*#__PURE__*/function () {
-  /**
-   * A utility for limiting the rate of repetitive send operations, such as
-   * bluetooth messages being sent to hardware devices. It uses the token bucket
-   * strategy: a counter accumulates tokens at a steady rate, and each send costs
-   * a token. If no tokens remain, it's not okay to send.
-   * @param {number} maxRate the maximum number of sends allowed per second
-   * @constructor
-   */
-  function RateLimiter(maxRate) {
-    _classCallCheck(this, RateLimiter);
-    /**
-     * The maximum number of tokens.
-     * @type {number}
-     */
-    this._maxTokens = maxRate;
-
-    /**
-     * The interval in milliseconds for refilling one token. It is calculated
-     * so that the tokens will be filled to maximum in one second.
-     * @type {number}
-     */
-    this._refillInterval = 1000 / maxRate;
-
-    /**
-     * The current number of tokens in the bucket.
-     * @type {number}
-     */
-    this._count = this._maxTokens;
-    this._timer = new Timer();
-    this._timer.start();
-
-    /**
-     * The last time in milliseconds when the token count was updated.
-     * @type {number}
-     */
-    this._lastUpdateTime = this._timer.timeElapsed();
-  }
-
-  /**
-   * Check if it is okay to send a message, by updating the token count,
-   * taking a token and then checking if we are still under the rate limit.
-   * @return {boolean} true if we are under the rate limit
-   */
-  _createClass(RateLimiter, [{
-    key: "okayToSend",
-    value: function okayToSend() {
-      // Calculate the number of tokens to refill the bucket with, based on the
-      // amount of time since the last refill.
-      var now = this._timer.timeElapsed();
-      var timeSinceRefill = now - this._lastUpdateTime;
-      var refillCount = Math.floor(timeSinceRefill / this._refillInterval);
-
-      // If we're adding at least one token, reset _lastUpdateTime to now.
-      // Otherwise, don't reset it so that we can continue measuring time until
-      // the next refill.
-      if (refillCount > 0) {
-        this._lastUpdateTime = now;
-      }
-
-      // Refill the tokens up to the maximum
-      this._count = Math.min(this._maxTokens, this._count + refillCount);
-
-      // If we have at least one token, use one, and it's okay to send.
-      if (this._count > 0) {
-        this._count--;
-        return true;
-      }
-      return false;
-    }
-  }]);
-  return RateLimiter;
-}();
-var rateLimiter = RateLimiter$1;
-
-var IOType$2 = {
-  SIMPLE_MEDIUM_LINEAR_MOTOR: 0x01,
-  TRAIN_MOTOR: 0x02,
-  BUTTION: 0x05,
-  LIGHT: 0x08,
-  VOLTAGE: 0x14,
-  CURRENT: 0x15,
-  PIEZO_TONE: 0x16,
-  RGB_LIGHT: 0x17,
-  TILT_SENSOR: 0x22,
-  MOTION_SENSOR: 0x23,
-  COLOR_DISTANCE_SENSOR: 0x25,
-  MEDIUM_LINEAR_MOTOR: 0x26,
-  MOVE_HUB_MOTOR: 0x27,
-  MOVE_HUB_TILT_SENSOR: 0x28,
-  DUPLO_TRAIN_BASE_MOTOR: 0x29,
-  DUPLO_TRAIN_BASE_SPEAKER: 0x2a,
-  DUPLO_TRAIN_BASE_COLOR_SENSOR: 0x2b,
-  DUPLO_TRAIN_BASE_SPEEDOMETER: 0x2c,
-  TECHNIC_LARGE_MOTOR: 0x2e,
-  TECHNIC_XL_MOTOR: 0x2f,
-  TECHNIC_MEDIUM_ANGULAR_MOTOR: 0x30,
-  TECHNIC_LARGE_ANGULAR_MOTOR: 0x31,
-  REMOTE_POWER_CONTROL_BUTTON: 0x37,
-  TECHNIC_HUB_TILT_SENSOR: 0x3b,
-  TECHNIC_COLOR_SENSOR: 0x3d,
-  TECHNIC_DISTANCE_SENSOR: 0x3e,
-  TECHNIC_FORCE_SENSOR: 0x3f,
-  TECHNIC_SMALL_ANGULAR_MOTOR: 0x41,
-  MARIO_COLOR_BARCODE_SENSOR: 0x49,
-  MARIO_PANTS: 0x4a,
-  TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY: 0x4b,
-  TECHNIC_LARGE_ANGULAR_MOTOR_GRAY: 0x4c
+  return Scratch3SpikePrimeOfficialBlocks;
+}(); // ===================================================================================
+// === HUB COMMUNICATION LOGIC =======================================================
+// ===================================================================================
+var HUB_CONSTANTS = {
+  SERVICE_UUID: '0000fd02-0000-1000-8000-00805f9b34fb',
+  RX_UUID: '0000fd02-0001-1000-8000-00805f9b34fb',
+  TX_UUID: '0000fd02-0002-1000-8000-00805f9b34fb',
+  MSG_INFO_REQUEST: 0x00,
+  MSG_INFO_RESPONSE: 0x01,
+  MSG_TUNNEL: 0x32,
+  MSG_DEVICE_NOTIFICATION_REQUEST: 0x28,
+  MSG_DEVICE_NOTIFICATION_RESPONSE: 0x29,
+  MSG_DEVICE_NOTIFICATION: 0x3C
 };
-var ioType = IOType$2;
-
-var device = {};
-
-function _callSuper$1(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
-var MathUtil$1 = mathUtil;
-var IOType$1 = ioType;
-var GenericDevice = /*#__PURE__*/function () {
-  function GenericDevice(ioType) {
-    _classCallCheck(this, GenericDevice);
-    this._ioType = ioType;
-    this._inputValues = {};
-  }
-  _createClass(GenericDevice, [{
-    key: "ioType",
-    get: function get() {
-      return this._ioType;
-    }
-  }, {
-    key: "mode",
-    get: function get() {
-      switch (this._ioType) {
-        case IOType$1.MEDIUM_LINEAR_MOTOR:
-        case IOType$1.MOVE_HUB_MOTOR:
-        case IOType$1.TECHNIC_LARGE_MOTOR:
-        case IOType$1.TECHNIC_XL_MOTOR:
-        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
-        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
-        case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
-        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
-        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
-          return 2;
-        // Relative Position
-        case IOType$1.TILT_SENSOR:
-          return 0;
-        // Tilt X, Y
-        case IOType$1.MOTION_SENSOR:
-          return 0;
-        // Distance
-        case IOType$1.COLOR_DISTANCE_SENSOR:
-          return 8;
-        // Color and Distance
-        case IOType$1.MOVE_HUB_TILT_SENSOR:
-          return 0;
-        // Tilt X, Y
-        case IOType$1.DUPLO_TRAIN_BASE_SPEAKER:
-          return 1;
-        // Sound
-        case IOType$1.DUPLO_TRAIN_BASE_COLOR_SENSOR:
-          return 1;
-        // Color
-        case IOType$1.DUPLO_TRAIN_BASE_SPEEDOMETER:
-          return 1;
-        // Driving Distance
-        case IOType$1.REMOTE_POWER_CONTROL_BUTTON:
-          return 0;
-        // Button
-        case IOType$1.TECHNIC_HUB_TILT_SENSOR:
-          return 0;
-        // Tilt X, Y, Z
-        case IOType$1.TECHNIC_COLOR_SENSOR:
-          return 0;
-        // Color
-        case IOType$1.TECHNIC_DISTANCE_SENSOR:
-          return 0;
-        // Distance
-        case IOType$1.TECHNIC_FORCE_SENSOR:
-          return 0;
-        // Force
-        case IOType$1.MARIO_COLOR_BARCODE_SENSOR:
-          return 0;
-        case IOType$1.MARIO_PANTS:
-          return 0;
-        default:
-          return null;
-      }
-    }
-  }, {
-    key: "inputValues",
-    get: function get() {
-      return this._inputValues;
-    }
-  }, {
-    key: "updateInputValues",
-    value: function updateInputValues(data) {
-      var _this = this;
-      if (data.length == 0) {
-        this._inputValues = {};
-        return;
-      }
-      var buffer = Buffer.from(data);
-      switch (this._ioType) {
-        case IOType$1.MEDIUM_LINEAR_MOTOR:
-        case IOType$1.MOVE_HUB_MOTOR:
-        case IOType$1.TECHNIC_LARGE_MOTOR:
-        case IOType$1.TECHNIC_XL_MOTOR:
-        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
-        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
-        case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
-        case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
-        case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
-          this._inputValues = {
-            relativePosition: buffer.readInt32LE(0)
-          };
-          break;
-        case IOType$1.TILT_SENSOR:
-          this._inputValues = {
-            tiltX: buffer.readInt8(0),
-            tiltY: buffer.readInt8(1)
-          };
-          break;
-        case IOType$1.MOTION_SENSOR:
-          this._inputValues = {
-            distance: buffer.readInt8(0)
-          };
-          break;
-        case IOType$1.COLOR_DISTANCE_SENSOR:
-          this._inputValues = {
-            color: buffer.readInt8(0),
-            distance: buffer.readInt8(1)
-          };
-          break;
-        case IOType$1.MOVE_HUB_TILT_SENSOR:
-          this._inputValues = {
-            tiltX: buffer.readInt8(0),
-            tiltY: buffer.readInt8(1)
-          };
-          break;
-        case IOType$1.DUPLO_TRAIN_BASE_COLOR_SENSOR:
-          var value = buffer.readInt8(0);
-          if (value > -1) {
-            this._inputValues = {
-              color: value
-            };
-            setTimeout(function () {
-              _this._inputValues = {
-                color: -1
-              };
-            }, 100);
-          }
-          break;
-        case IOType$1.DUPLO_TRAIN_BASE_SPEEDOMETER:
-          this._inputValues = {
-            drivingDistance: buffer.readInt32LE(0)
-          };
-          break;
-        case IOType$1.REMOTE_POWER_CONTROL_BUTTON:
-          this._inputValues = {
-            button: buffer.readInt8(0)
-          };
-          break;
-        case IOType$1.TECHNIC_HUB_TILT_SENSOR:
-          this._inputValues = {
-            tiltX: buffer.readInt16LE(4),
-            tiltY: buffer.readInt16LE(2),
-            tiltZ: buffer.readInt16LE(0)
-          };
-          break;
-        case IOType$1.TECHNIC_COLOR_SENSOR:
-          this._inputValues = {
-            color: buffer.readInt8(0)
-          };
-          break;
-        case IOType$1.TECHNIC_DISTANCE_SENSOR:
-          this._inputValues = {
-            distance: buffer.readInt16LE(0)
-          };
-          break;
-        case IOType$1.TECHNIC_FORCE_SENSOR:
-          this._inputValues = {
-            force: buffer.readInt8(0)
-          };
-          break;
-        case IOType$1.MARIO_COLOR_BARCODE_SENSOR:
-          this._inputValues = {
-            barcode: buffer.readInt16LE(0),
-            color: buffer.readInt16LE(2)
-          };
-          break;
-        case IOType$1.MARIO_PANTS:
-          this._inputValues = {
-            pants: buffer.readInt8(0)
-          };
-          break;
-        default:
-          this._inputValues = {};
-          break;
-      }
-      this._inputValues.bytes = buffer;
-    }
-  }]);
-  return GenericDevice;
-}();
-var Motor = /*#__PURE__*/function (_GenericDevice) {
-  _inherits(Motor, _GenericDevice);
-  function Motor(ioType) {
-    var _this2;
-    _classCallCheck(this, Motor);
-    _this2 = _callSuper$1(this, Motor, [ioType]);
-    switch (ioType) {
-      case IOType$1.MEDIUM_LINEAR_MOTOR:
-      case IOType$1.MOVE_HUB_MOTOR:
-        _this2._canUseSpeed = true;
-        _this2._canUsePosition = false;
-        _this2._speed = 75;
-        break;
-      case IOType$1.TECHNIC_LARGE_MOTOR:
-      case IOType$1.TECHNIC_XL_MOTOR:
-      case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
-      case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
-      case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
-      case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
-      case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
-        _this2._canUseSpeed = true;
-        _this2._canUsePosition = true;
-        _this2._speed = 75;
-        break;
-      default:
-        _this2._canUseSpeed = false;
-        _this2._canUsePosition = false;
-        _this2._speed = 0;
-    }
-    return _this2;
-  }
-  _createClass(Motor, [{
-    key: "canUseSpeed",
-    get: function get() {
-      return this._canUseSpeed;
-    }
-  }, {
-    key: "canUsePosition",
-    get: function get() {
-      return this._canUsePosition;
-    }
-  }, {
-    key: "speed",
-    get: function get() {
-      return this._speed;
-    },
-    set: function set(value) {
-      if (this._canUseSpeed) {
-        this._speed = MathUtil$1.clamp(value, -100, 100);
-      }
-    }
-  }]);
-  return Motor;
-}(GenericDevice);
-var createDevice = function createDevice(ioType) {
-  switch (ioType) {
-    case IOType$1.SIMPLE_MEDIUM_LINEAR_MOTOR:
-    case IOType$1.TRAIN_MOTOR:
-    case IOType$1.LIGHT:
-    case IOType$1.MEDIUM_LINEAR_MOTOR:
-    case IOType$1.MOVE_HUB_MOTOR:
-    case IOType$1.DUPLO_TRAIN_BASE_MOTOR:
-    case IOType$1.TECHNIC_LARGE_MOTOR:
-    case IOType$1.TECHNIC_XL_MOTOR:
-    case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR:
-    case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR:
-    case IOType$1.TECHNIC_SMALL_ANGULAR_MOTOR:
-    case IOType$1.TECHNIC_MEDIUM_ANGULAR_MOTOR_GRAY:
-    case IOType$1.TECHNIC_LARGE_ANGULAR_MOTOR_GRAY:
-      return new Motor(ioType);
-    default:
-      return new GenericDevice(ioType);
-  }
+var PORT_MAP = {
+  A: 0,
+  B: 1,
+  C: 2,
+  D: 3,
+  E: 4,
+  F: 5
 };
-device.GenericDevice = GenericDevice;
-device.Motor = Motor;
-device.createDevice = createDevice;
-
-var BLE = ble;
-var Base64Util = base64Util;
-var MathUtil = mathUtil;
-var RateLimiter = rateLimiter;
-
-//const log = require('../../../util/log');
-
-var IOType = ioType;
-var Device = device;
-var _TextDecoder;
-if (typeof TextDecoder === 'undefined') {
-  _TextDecoder = null;
-} else {
-  _TextDecoder = TextDecoder;
-}
-var ServiceUUID = '00001623-1212-efde-1623-785feabcd123';
-var CharacteristicUUID = '00001624-1212-efde-1623-785feabcd123';
-var SendRateMax = 20;
-var PollingInterval = 3000;
-var MAX_INT32 = Math.pow(2, 31) - 1;
-var MIN_INT32 = Math.pow(2, 31) * -1;
-var MAX_INT16 = Math.pow(2, 15) - 1;
-var MessageType = {
-  HUB_PROPERTIES: 0x01,
-  HUB_ATTACHED_IO: 0x04,
-  GENERIC_ERROR_MESSAGES: 0x05,
-  PORT_INPUT_FORMAT_SETUP: 0x41,
-  PORT_INPUT_FORMAT_SETUP_COMBINED: 0x42,
-  PORT_VALUE: 0x45,
-  PORT_VALUE_COMBINED: 0x46,
-  PORT_OUTPUT_COMMAND: 0x81,
-  PORT_OUTPUT_COMMAND_FEEDBACK: 0x82
-};
-var HubPropertyReference = {
-  ADVERTISING_NAME: 0x01,
-  BUTTON: 0x02,
-  FW_VERSION: 0x03,
-  BATTERY_VOLTAGE: 0x06,
-  SPEAKER_VOLUME: 0x12
-};
-var HubPropertyOperation = {
-  SET: 0x01,
-  ENABLE_UPDATES: 0x02,
-  DISABLE_UPDATES: 0x03,
-  RESET: 0x04,
-  REQUEST_UPDATE: 0x05,
-  UPDATE: 0x06
-};
-var numberToInt32Array = function numberToInt32Array(number) {
-  var buffer = new ArrayBuffer(4);
-  var dataview = new DataView(buffer);
-  dataview.setInt32(0, number);
-  return [dataview.getUint8(3), dataview.getUint8(2), dataview.getUint8(1), dataview.getUint8(0)];
-};
-var numberToInt16Array = function numberToInt16Array(number) {
-  var buffer = new ArrayBuffer(2);
-  var dataview = new DataView(buffer);
-  dataview.setInt16(0, number);
-  return [dataview.getUint8(1), dataview.getUint8(0)];
-};
-var Hub$1 = /*#__PURE__*/function () {
-  function Hub(runtime, extensionId) {
-    var hubType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    _classCallCheck(this, Hub);
+var PORT_ID_TO_NAME = ['A', 'B', 'C', 'D', 'E', 'F'];
+var SpikePrimeOfficialHub = /*#__PURE__*/function () {
+  function SpikePrimeOfficialHub(runtime, extensionId) {
+    _classCallCheck(this, SpikePrimeOfficialHub);
     this._runtime = runtime;
     this._extensionId = extensionId;
-    this._hubType = hubType;
-    this._name = null;
-    this._firmwareVersion = null;
-    this._batteryLevel = 0;
-    this._devices = [];
-    this._firstNotificationCallback = null;
-    this._outputCommandFeedbackCallbacks = [];
-    this._outputCommandCompletionCallbacks = [];
     this._ble = null;
-    this._runtime.registerPeripheralExtension(extensionId, this);
-    this._runtime.on('PROJECT_STOP_ALL', this.stopAll.bind(this));
-    this._rateLimiter = new RateLimiter(SendRateMax);
-    this._pollingId = null;
-    this.reset = this.reset.bind(this);
-    this._onConnect = this._onConnect.bind(this);
-    this._onMessage = this._onMessage.bind(this);
-  }
-  _createClass(Hub, [{
-    key: "name",
-    get: function get() {
-      return this._name;
-    }
-  }, {
-    key: "firmwareVersion",
-    get: function get() {
-      return this._firmwareVersion;
-    }
-  }, {
-    key: "batteryLevel",
-    get: function get() {
-      return this._batteryLevel;
-    }
+    this._log = function () {}; // Conditional logging
 
-    // BLE
-  }, {
+    this.reset();
+
+    // This makes the hub object compatible with the Scratch Link framework
+    this._runtime.registerPeripheralExtension(this._extensionId, this);
+  }
+
+  // --- Framework Methods (scan, connect, disconnect, isConnected) ---
+  _createClass(SpikePrimeOfficialHub, [{
     key: "scan",
     value: function scan() {
       if (this._ble) {
         this._ble.disconnect();
       }
-      var hubTypeFilter = {
-        dataPrefix: []
-      };
-      if (this._hubType) {
-        hubTypeFilter = {
-          dataPrefix: [0x00, this._hubType],
-          mask: [0x00, 0xff]
-        };
-      }
       this._ble = new BLE(this._runtime, this._extensionId, {
         filters: [{
-          services: [ServiceUUID],
-          manufacturerData: {
-            0x0397: hubTypeFilter
-          }
+          services: [HUB_CONSTANTS.SERVICE_UUID]
         }],
-        optionalServices: []
-      }, this._onConnect, this.reset);
+        optionalServices: [HUB_CONSTANTS.SERVICE_UUID]
+      }, this._onConnect.bind(this), this.reset.bind(this));
     }
   }, {
     key: "connect",
@@ -4605,3597 +3718,408 @@ var Hub$1 = /*#__PURE__*/function () {
   }, {
     key: "isConnected",
     value: function isConnected() {
-      var connected = false;
-      if (this._ble) {
-        connected = this._ble.isConnected();
-      }
-      return connected;
-    }
-  }, {
-    key: "_onConnect",
-    value: function _onConnect() {
-      var _this = this;
-      this._ble.startNotifications(ServiceUUID, CharacteristicUUID, this._onMessage);
-      this._firstNotificationCallback = function () {
-        _this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.ADVERTISING_NAME, HubPropertyOperation.ENABLE_UPDATES], false);
-        _this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.FW_VERSION, HubPropertyOperation.REQUEST_UPDATE]);
-      };
-      this._startPollingBatteryLevel();
-    }
-  }, {
-    key: "_onMessage",
-    value: function _onMessage(base64) {
-      var data = Base64Util.base64ToUint8Array(base64);
-      //logByteArray('<<', data);
-
-      var length = data[0];
-      if (length > 127) {
-        //log.warn(`Unsupported message length: ${length}`);
-        return;
-      }
-      var messageType = data[2];
-      switch (messageType) {
-        case MessageType.HUB_PROPERTIES:
-          {
-            var property = data[3];
-            switch (property) {
-              case HubPropertyReference.ADVERTISING_NAME:
-                if (_TextDecoder) {
-                  var uint8Array = new Uint8Array(data.slice(5));
-                  this._name = new _TextDecoder().decode(uint8Array);
-                } else {
-                  this._name = 'unsupported';
-                }
-                break;
-              case HubPropertyReference.FW_VERSION:
-                var value = data.slice(5);
-                if (value.length == 4) {
-                  var s = value.reduce(function (output, elem) {
-                    return ('0' + (elem & 0xff).toString(16)).slice(-2) + output;
-                  }, '');
-                  this._firmwareVersion = s.slice(0, 1) + '.' + s.slice(1, 2) + '.' + s.slice(2, 4) + '.' + s.slice(4);
-                }
-                break;
-              case HubPropertyReference.BATTERY_VOLTAGE:
-                this._batteryLevel = data[5];
-                break;
-            }
-            break;
-          }
-        case MessageType.HUB_ATTACHED_IO:
-          {
-            var portId = data[3];
-            var event = data[4];
-            var ioType = data[5];
-            switch (event) {
-              case 0x00:
-                // Detached I/O
-                this._dettachDevice(portId);
-                break;
-              case 0x01:
-                // Attached I/O
-                this._attachDevice(portId, ioType);
-                break;
-            }
-            break;
-          }
-        case MessageType.PORT_VALUE:
-          {
-            var _portId = data[3];
-            var device = this._devices[_portId];
-            if (device) {
-              device.updateInputValues(data.slice(4));
-              //log.debug(portId, device.inputValues);
-            }
-            break;
-          }
-        case MessageType.PORT_OUTPUT_COMMAND_FEEDBACK:
-          {
-            var _portId2 = data[3];
-            var feedback = data[4];
-            var discarded = feedback & 0x04;
-            var completed = feedback & 0x02;
-            var inProgress = feedback & 0x01;
-            if (discarded) {
-              this._clearOutputCommandCompletionCallback(_portId2);
-            }
-            if (completed) {
-              this._clearOutputCommandFeedbackCallback(_portId2);
-              this._clearOutputCommandCompletionCallback(_portId2);
-            }
-            if (inProgress) {
-              this._moveOutputCommandFeedbackCallbackToCompletionCallback(_portId2);
-            }
-            break;
-          }
-      }
-      if (this._firstNotificationCallback) {
-        this._firstNotificationCallback();
-        this._firstNotificationCallback = null;
-      }
-    }
-  }, {
-    key: "_dettachDevice",
-    value: function _dettachDevice(portId) {
-      this._devices[portId] = null;
-    }
-  }, {
-    key: "_attachDevice",
-    value: function _attachDevice(portId, ioType) {
-      var _this2 = this;
-      var device = Device.createDevice(ioType);
-      this._devices[portId] = device;
-      var mode = device.mode;
-      if (mode !== null) {
-        setTimeout(function () {
-          _this2.sendMessage(MessageType.PORT_INPUT_FORMAT_SETUP, [portId, mode, 1, 0, 0, 0, 1], false);
-        }, 100);
-      }
-    }
-  }, {
-    key: "send",
-    value: function send(data) {
-      var useLimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      if (!this.isConnected()) {
-        return Promise.resolve();
-      }
-      if (useLimiter) {
-        if (!this._rateLimiter.okayToSend()) {
-          return Promise.resolve();
-        }
-      }
-
-      //logByteArray('>>', data);
-
-      return this._ble.write(ServiceUUID, CharacteristicUUID, Base64Util.uint8ArrayToBase64(data), 'base64', true);
-    }
-  }, {
-    key: "sendMessage",
-    value: function sendMessage(messageType, payload) {
-      var useLimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-      var command = [0x00,
-      // Hub ID: Always set to 0x00 (zero)
-      messageType].concat(_toConsumableArray(payload));
-      command.unshift(command.length + 1);
-      return this.send(command, useLimiter);
-    }
-  }, {
-    key: "sendOutputCommand",
-    value: function sendOutputCommand(portId, subCommand, payload) {
-      var needsFeedback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-      var useLimiter = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-      var flag = needsFeedback ? 0x11 : 0x10;
-      return this.sendMessage(MessageType.PORT_OUTPUT_COMMAND, [portId, flag, subCommand].concat(_toConsumableArray(payload)), useLimiter);
+      return this._connected && this._ble && this._ble.isConnected();
     }
 
-    // Reset and Stop
+    // --- Hub State Management ---
   }, {
     key: "reset",
     value: function reset() {
-      this._name = null;
-      this._firmwareVersion = null;
-      this._batteryLevel = 0;
-      this._devices = [];
-      this._outputCommandFeedbackCallbacks = [];
-      this._outputCommandCompletionCallbacks = [];
-      this._stopPollingBatteryLevel();
-    }
-  }, {
-    key: "stopAll",
-    value: function stopAll() {
-      if (this.isConnected()) {
-        this.stopAllMotors();
-      }
-    }
-  }, {
-    key: "stopAllMotors",
-    value: function stopAllMotors() {
-      for (var _i = 0, _Object$entries = Object.entries(this._devices); _i < _Object$entries.length; _i++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          portId = _Object$entries$_i[0],
-          device = _Object$entries$_i[1];
-        if (device instanceof Device.Motor) {
-          this.sendOutputCommand(portId, 0x51, [0x00, 0], false);
-          this._outputCommandFeedbackCallbacks[portId] = null;
-          this._outputCommandCompletionCallbacks[portId] = null;
-        }
-      }
-    }
-  }, {
-    key: "_startPollingBatteryLevel",
-    value: function _startPollingBatteryLevel() {
-      var _this3 = this;
-      this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.BATTERY_VOLTAGE, HubPropertyOperation.REQUEST_UPDATE]);
-      this._pollingId = window.setInterval(function () {
-        _this3.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.BATTERY_VOLTAGE, HubPropertyOperation.REQUEST_UPDATE]);
-      }, PollingInterval);
-    }
-  }, {
-    key: "_stopPollingBatteryLevel",
-    value: function _stopPollingBatteryLevel() {
-      if (this._pollingId) {
-        window.clearInterval(this._pollingId);
-        this._pollingId = null;
-      }
-    }
-
-    // Output Command Feedback
-  }, {
-    key: "_createOutputCommandFeedbackPromise",
-    value: function _createOutputCommandFeedbackPromise(portId) {
-      var _this4 = this;
-      return new Promise(function (resolve) {
-        _this4._outputCommandFeedbackCallbacks[portId] = resolve;
-      });
-    }
-  }, {
-    key: "_clearOutputCommandFeedbackCallback",
-    value: function _clearOutputCommandFeedbackCallback(portId) {
-      if (this._outputCommandFeedbackCallbacks[portId]) {
-        this._outputCommandFeedbackCallbacks[portId]();
-        this._outputCommandFeedbackCallbacks[portId] = null;
-      }
-    }
-  }, {
-    key: "_clearOutputCommandCompletionCallback",
-    value: function _clearOutputCommandCompletionCallback(portId) {
-      if (this._outputCommandCompletionCallbacks[portId]) {
-        this._outputCommandCompletionCallbacks[portId]();
-        this._outputCommandCompletionCallbacks[portId] = null;
-      }
-    }
-  }, {
-    key: "_moveOutputCommandFeedbackCallbackToCompletionCallback",
-    value: function _moveOutputCommandFeedbackCallbackToCompletionCallback(portId) {
-      this._outputCommandCompletionCallbacks[portId] = this._outputCommandFeedbackCallbacks[portId];
-      this._outputCommandFeedbackCallbacks[portId] = null;
-    }
-
-    // Motor
-  }, {
-    key: "getMotor",
-    value: function getMotor(portId) {
-      var device = this._devices[portId];
-      if (device instanceof Device.Motor) {
-        return device;
-      } else {
-        return null;
-      }
-    }
-  }, {
-    key: "motorPWM",
-    value: function motorPWM(portId, power) {
-      power = MathUtil.clamp(power, -100, 100);
-      var motor = this.getMotor(portId);
-      if (motor) {
-        return this.sendOutputCommand(portId, 0x51, [0x00, power]);
-      } else {
-        return Promise.resolve();
-      }
-    }
-  }, {
-    key: "motorRunForDegrees",
-    value: function motorRunForDegrees(portId, direction, degrees) {
-      direction = direction * Math.sign(degrees);
-      degrees = MathUtil.clamp(Math.abs(degrees), 1, MAX_INT32);
-      var motor = this.getMotor(portId);
-      if (motor && motor.canUseSpeed) {
-        var speed = motor.speed * direction;
-        return this.sendOutputCommand(portId, 0x0b, [].concat(_toConsumableArray(numberToInt32Array(degrees)), [speed, 100, 0x7f, 0x00])).then(this._createOutputCommandFeedbackPromise.bind(this, portId));
-      } else {
-        return Promise.resolve();
-      }
-    }
-  }, {
-    key: "motorRunTimed",
-    value: function motorRunTimed(portId, direction, seconds) {
-      var milliseconds = MathUtil.clamp(seconds * 1000, 0, MAX_INT16);
-      var motor = this.getMotor(portId);
-      if (motor && motor.canUseSpeed) {
-        var speed = motor.speed * direction;
-        return this.sendOutputCommand(portId, 0x09, [].concat(_toConsumableArray(numberToInt16Array(milliseconds)), [speed, 100, 0x7f, 0x00])).then(this._createOutputCommandFeedbackPromise.bind(this, portId));
-      } else {
-        return Promise.resolve();
-      }
-    }
-  }, {
-    key: "motorStart",
-    value: function motorStart(portId, direction) {
-      var motor = this.getMotor(portId);
-      if (motor && motor.canUseSpeed) {
-        var speed = motor.speed * direction;
-        return this.sendOutputCommand(portId, 0x07, [speed, 100, 0x00]);
-      } else {
-        return Promise.resolve();
-      }
-    }
-  }, {
-    key: "motorSetSpeed",
-    value: function motorSetSpeed(portId, speed) {
-      var motor = this.getMotor(portId);
-      if (motor && motor.canUseSpeed) {
-        motor.speed = speed;
-      }
-    }
-  }, {
-    key: "motorResetRelativePosition",
-    value: function motorResetRelativePosition(portId, relativePosition) {
-      relativePosition = MathUtil.clamp(relativePosition, MIN_INT32, MAX_INT32);
-      var motor = this.getMotor(portId);
-      if (motor && motor.canUseSpeed) {
-        return this.sendOutputCommand(portId, 0x51, [0x02].concat(_toConsumableArray(numberToInt32Array(relativePosition))));
-      } else {
-        return Promise.resolve();
-      }
-    }
-
-    // Input Values
-  }, {
-    key: "inputValue",
-    value: function inputValue(portId, key) {
-      var device = this._devices[portId];
-      if (device && device.inputValues.hasOwnProperty(key)) {
-        return device.inputValues[key];
-      }
-      return null;
-    }
-  }, {
-    key: "internalInputValue",
-    value: function internalInputValue(key) {
-      for (var _i2 = 0, _Object$entries2 = Object.entries(this._devices); _i2 < _Object$entries2.length; _i2++) {
-        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
-          portId = _Object$entries2$_i[0],
-          device = _Object$entries2$_i[1];
-        if (portId >= 0x32 && device.inputValues.hasOwnProperty(key)) {
-          return device.inputValues[key];
-        }
-      }
-      return null;
-    }
-
-    // Hub LED
-  }, {
-    key: "setLEDColor",
-    value: function setLEDColor(color) {
-      if (color < 0 || color > 10) {
-        color = 0;
-      }
-      var portId = this._devices.findIndex(function (device) {
-        return device && device.ioType == IOType.RGB_LIGHT;
-      });
-      if (portId != -1) {
-        return this.sendOutputCommand(portId, 0x51, [0x00, color]);
-      } else {
-        return Promise.resolve();
-      }
-    }
-  }, {
-    key: "setVolume",
-    value: function setVolume(volume) {
-      volume = MathUtil.clamp(volume, 0, 100);
-      return this.sendMessage(MessageType.HUB_PROPERTIES, [HubPropertyReference.SPEAKER_VOLUME, HubPropertyOperation.SET, volume]);
-    }
-  }]);
-  return Hub;
-}();
-var hub = Hub$1;
-
-var formatMessage$1 = {exports: {}};
-
-var formatMessageParse = {exports: {}};
-
-(function (module, exports) {
-
-  /*::
-  export type AST = Element[]
-  export type Element = string | Placeholder
-  export type Placeholder = Plural | Styled | Typed | Simple
-  export type Plural = [ string, 'plural' | 'selectordinal', number, SubMessages ]
-  export type Styled = [ string, string, string | SubMessages ]
-  export type Typed = [ string, string ]
-  export type Simple = [ string ]
-  export type SubMessages = { [string]: AST }
-  export type Token = [ TokenType, string ]
-  export type TokenType = 'text' | 'space' | 'id' | 'type' | 'style' | 'offset' | 'number' | 'selector' | 'syntax'
-  type Context = {|
-    pattern: string,
-    index: number,
-    tagsType: ?string,
-    tokens: ?Token[]
-  |}
-  */
-  var ARG_OPN = '{';
-  var ARG_CLS = '}';
-  var ARG_SEP = ',';
-  var NUM_ARG = '#';
-  var TAG_OPN = '<';
-  var TAG_CLS = '>';
-  var TAG_END = '</';
-  var TAG_SELF_CLS = '/>';
-  var ESC = '\'';
-  var OFFSET = 'offset:';
-  var simpleTypes = ['number', 'date', 'time', 'ordinal', 'duration', 'spellout'];
-  var submTypes = ['plural', 'select', 'selectordinal'];
-
-  /**
-   * parse
-   *
-   * Turns this:
-   *  `You have { numBananas, plural,
-   *       =0 {no bananas}
-   *      one {a banana}
-   *    other {# bananas}
-   *  } for sale`
-   *
-   * into this:
-   *  [ "You have ", [ "numBananas", "plural", 0, {
-   *       "=0": [ "no bananas" ],
-   *      "one": [ "a banana" ],
-   *    "other": [ [ '#' ], " bananas" ]
-   *  } ], " for sale." ]
-   *
-   * tokens:
-   *  [
-   *    [ "text", "You have " ],
-   *    [ "syntax", "{" ],
-   *    [ "space", " " ],
-   *    [ "id", "numBananas" ],
-   *    [ "syntax", ", " ],
-   *    [ "space", " " ],
-   *    [ "type", "plural" ],
-   *    [ "syntax", "," ],
-   *    [ "space", "\n     " ],
-   *    [ "selector", "=0" ],
-   *    [ "space", " " ],
-   *    [ "syntax", "{" ],
-   *    [ "text", "no bananas" ],
-   *    [ "syntax", "}" ],
-   *    [ "space", "\n    " ],
-   *    [ "selector", "one" ],
-   *    [ "space", " " ],
-   *    [ "syntax", "{" ],
-   *    [ "text", "a banana" ],
-   *    [ "syntax", "}" ],
-   *    [ "space", "\n  " ],
-   *    [ "selector", "other" ],
-   *    [ "space", " " ],
-   *    [ "syntax", "{" ],
-   *    [ "syntax", "#" ],
-   *    [ "text", " bananas" ],
-   *    [ "syntax", "}" ],
-   *    [ "space", "\n" ],
-   *    [ "syntax", "}" ],
-   *    [ "text", " for sale." ]
-   *  ]
-   **/
-  exports = module.exports = function parse(pattern /*: string */, options /*:: ?: { tagsType?: string, tokens?: Token[] } */) /*: AST */{
-    return parseAST({
-      pattern: String(pattern),
-      index: 0,
-      tagsType: options && options.tagsType || null,
-      tokens: options && options.tokens || null
-    }, '');
-  };
-  function parseAST(current /*: Context */, parentType /*: string */) /*: AST */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var elements /*: AST */ = [];
-    var start = current.index;
-    var text = parseText(current, parentType);
-    if (text) elements.push(text);
-    if (text && current.tokens) current.tokens.push(['text', pattern.slice(start, current.index)]);
-    while (current.index < length) {
-      if (pattern[current.index] === ARG_CLS) {
-        if (!parentType) throw expected(current);
-        break;
-      }
-      if (parentType && current.tagsType && pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) break;
-      elements.push(parsePlaceholder(current));
-      start = current.index;
-      text = parseText(current, parentType);
-      if (text) elements.push(text);
-      if (text && current.tokens) current.tokens.push(['text', pattern.slice(start, current.index)]);
-    }
-    return elements;
-  }
-  function parseText(current /*: Context */, parentType /*: string */) /*: string */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var isHashSpecial = parentType === 'plural' || parentType === 'selectordinal';
-    var isAngleSpecial = !!current.tagsType;
-    var isArgStyle = parentType === '{style}';
-    var text = '';
-    while (current.index < length) {
-      var char = pattern[current.index];
-      if (char === ARG_OPN || char === ARG_CLS || isHashSpecial && char === NUM_ARG || isAngleSpecial && char === TAG_OPN || isArgStyle && isWhitespace(char.charCodeAt(0))) {
-        break;
-      } else if (char === ESC) {
-        char = pattern[++current.index];
-        if (char === ESC) {
-          // double is always 1 '
-          text += char;
-          ++current.index;
-        } else if (
-        // only when necessary
-        char === ARG_OPN || char === ARG_CLS || isHashSpecial && char === NUM_ARG || isAngleSpecial && char === TAG_OPN || isArgStyle) {
-          text += char;
-          while (++current.index < length) {
-            char = pattern[current.index];
-            if (char === ESC && pattern[current.index + 1] === ESC) {
-              // double is always 1 '
-              text += ESC;
-              ++current.index;
-            } else if (char === ESC) {
-              // end of quoted
-              ++current.index;
-              break;
-            } else {
-              text += char;
-            }
-          }
-        } else {
-          // lone ' is just a '
-          text += ESC;
-          // already incremented
-        }
-      } else {
-        text += char;
-        ++current.index;
-      }
-    }
-    return text;
-  }
-  function isWhitespace(code /*: number */) /*: boolean */{
-    return code >= 0x09 && code <= 0x0D || code === 0x20 || code === 0x85 || code === 0xA0 || code === 0x180E || code >= 0x2000 && code <= 0x200D || code === 0x2028 || code === 0x2029 || code === 0x202F || code === 0x205F || code === 0x2060 || code === 0x3000 || code === 0xFEFF;
-  }
-  function skipWhitespace(current /*: Context */) /*: void */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var start = current.index;
-    while (current.index < length && isWhitespace(pattern.charCodeAt(current.index))) {
-      ++current.index;
-    }
-    if (start < current.index && current.tokens) {
-      current.tokens.push(['space', current.pattern.slice(start, current.index)]);
-    }
-  }
-  function parsePlaceholder(current /*: Context */) /*: Placeholder */{
-    var pattern = current.pattern;
-    if (pattern[current.index] === NUM_ARG) {
-      if (current.tokens) current.tokens.push(['syntax', NUM_ARG]);
-      ++current.index; // move passed #
-      return [NUM_ARG];
-    }
-    var tag = parseTag(current);
-    if (tag) return tag;
-
-    /* istanbul ignore if should be unreachable if parseAST and parseText are right */
-    if (pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN);
-    if (current.tokens) current.tokens.push(['syntax', ARG_OPN]);
-    ++current.index; // move passed {
-    skipWhitespace(current);
-    var id = parseId(current);
-    if (!id) throw expected(current, 'placeholder id');
-    if (current.tokens) current.tokens.push(['id', id]);
-    skipWhitespace(current);
-    var char = pattern[current.index];
-    if (char === ARG_CLS) {
-      // end placeholder
-      if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-      ++current.index; // move passed }
-      return [id];
-    }
-    if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', ARG_SEP]);
-    ++current.index; // move passed ,
-    skipWhitespace(current);
-    var type = parseId(current);
-    if (!type) throw expected(current, 'placeholder type');
-    if (current.tokens) current.tokens.push(['type', type]);
-    skipWhitespace(current);
-    char = pattern[current.index];
-    if (char === ARG_CLS) {
-      // end placeholder
-      if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-      if (type === 'plural' || type === 'selectordinal' || type === 'select') {
-        throw expected(current, type + ' sub-messages');
-      }
-      ++current.index; // move passed }
-      return [id, type];
-    }
-    if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', ARG_SEP]);
-    ++current.index; // move passed ,
-    skipWhitespace(current);
-    var arg;
-    if (type === 'plural' || type === 'selectordinal') {
-      var offset = parsePluralOffset(current);
-      skipWhitespace(current);
-      arg = [id, type, offset, parseSubMessages(current, type)];
-    } else if (type === 'select') {
-      arg = [id, type, parseSubMessages(current, type)];
-    } else if (simpleTypes.indexOf(type) >= 0) {
-      arg = [id, type, parseSimpleFormat(current)];
-    } else {
-      // custom placeholder type
-      var index = current.index;
-      var format /*: string | SubMessages */ = parseSimpleFormat(current);
-      skipWhitespace(current);
-      if (pattern[current.index] === ARG_OPN) {
-        current.index = index; // rewind, since should have been submessages
-        format = parseSubMessages(current, type);
-      }
-      arg = [id, type, format];
-    }
-    skipWhitespace(current);
-    if (pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-    ++current.index; // move passed }
-    return arg;
-  }
-  function parseTag(current /*: Context */) /*: ?Placeholder */{
-    var tagsType = current.tagsType;
-    if (!tagsType || current.pattern[current.index] !== TAG_OPN) return;
-    if (current.pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) {
-      throw expected(current, null, 'closing tag without matching opening tag');
-    }
-    if (current.tokens) current.tokens.push(['syntax', TAG_OPN]);
-    ++current.index; // move passed <
-
-    var id = parseId(current, true);
-    if (!id) throw expected(current, 'placeholder id');
-    if (current.tokens) current.tokens.push(['id', id]);
-    skipWhitespace(current);
-    if (current.pattern.slice(current.index, current.index + TAG_SELF_CLS.length) === TAG_SELF_CLS) {
-      if (current.tokens) current.tokens.push(['syntax', TAG_SELF_CLS]);
-      current.index += TAG_SELF_CLS.length;
-      return [id, tagsType];
-    }
-    if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', TAG_CLS]);
-    ++current.index; // move passed >
-
-    var children = parseAST(current, tagsType);
-    var end = current.index;
-    if (current.pattern.slice(current.index, current.index + TAG_END.length) !== TAG_END) throw expected(current, TAG_END + id + TAG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', TAG_END]);
-    current.index += TAG_END.length;
-    var closeId = parseId(current, true);
-    if (closeId && current.tokens) current.tokens.push(['id', closeId]);
-    if (id !== closeId) {
-      current.index = end; // rewind for better error message
-      throw expected(current, TAG_END + id + TAG_CLS, TAG_END + closeId + TAG_CLS);
-    }
-    skipWhitespace(current);
-    if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS);
-    if (current.tokens) current.tokens.push(['syntax', TAG_CLS]);
-    ++current.index; // move passed >
-
-    return [id, tagsType, {
-      children: children
-    }];
-  }
-  function parseId(current /*: Context */, isTag /*:: ?: boolean */) /*: string */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var id = '';
-    while (current.index < length) {
-      var char = pattern[current.index];
-      if (char === ARG_OPN || char === ARG_CLS || char === ARG_SEP || char === NUM_ARG || char === ESC || isWhitespace(char.charCodeAt(0)) || isTag && (char === TAG_OPN || char === TAG_CLS || char === '/')) break;
-      id += char;
-      ++current.index;
-    }
-    return id;
-  }
-  function parseSimpleFormat(current /*: Context */) /*: string */{
-    var start = current.index;
-    var style = parseText(current, '{style}');
-    if (!style) throw expected(current, 'placeholder style name');
-    if (current.tokens) current.tokens.push(['style', current.pattern.slice(start, current.index)]);
-    return style;
-  }
-  function parsePluralOffset(current /*: Context */) /*: number */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var offset = 0;
-    if (pattern.slice(current.index, current.index + OFFSET.length) === OFFSET) {
-      if (current.tokens) current.tokens.push(['offset', 'offset'], ['syntax', ':']);
-      current.index += OFFSET.length; // move passed offset:
-      skipWhitespace(current);
-      var start = current.index;
-      while (current.index < length && isDigit(pattern.charCodeAt(current.index))) {
-        ++current.index;
-      }
-      if (start === current.index) throw expected(current, 'offset number');
-      if (current.tokens) current.tokens.push(['number', pattern.slice(start, current.index)]);
-      offset = +pattern.slice(start, current.index);
-    }
-    return offset;
-  }
-  function isDigit(code /*: number */) /*: boolean */{
-    return code >= 0x30 && code <= 0x39;
-  }
-  function parseSubMessages(current /*: Context */, parentType /*: string */) /*: SubMessages */{
-    var pattern = current.pattern;
-    var length = pattern.length;
-    var options /*: SubMessages */ = {};
-    while (current.index < length && pattern[current.index] !== ARG_CLS) {
-      var selector = parseId(current);
-      if (!selector) throw expected(current, 'sub-message selector');
-      if (current.tokens) current.tokens.push(['selector', selector]);
-      skipWhitespace(current);
-      options[selector] = parseSubMessage(current, parentType);
-      skipWhitespace(current);
-    }
-    if (!options.other && submTypes.indexOf(parentType) >= 0) {
-      throw expected(current, null, null, '"other" sub-message must be specified in ' + parentType);
-    }
-    return options;
-  }
-  function parseSubMessage(current /*: Context */, parentType /*: string */) /*: AST */{
-    if (current.pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN + ' to start sub-message');
-    if (current.tokens) current.tokens.push(['syntax', ARG_OPN]);
-    ++current.index; // move passed {
-    var message = parseAST(current, parentType);
-    if (current.pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS + ' to end sub-message');
-    if (current.tokens) current.tokens.push(['syntax', ARG_CLS]);
-    ++current.index; // move passed }
-    return message;
-  }
-  function expected(current /*: Context */, expected /*:: ?: ?string */, found /*:: ?: ?string */, message /*:: ?: string */) {
-    var pattern = current.pattern;
-    var lines = pattern.slice(0, current.index).split(/\r?\n/);
-    var offset = current.index;
-    var line = lines.length;
-    var column = lines.slice(-1)[0].length;
-    found = found || (current.index >= pattern.length ? 'end of message pattern' : parseId(current) || pattern[current.index]);
-    if (!message) message = errorMessage(expected, found);
-    message += ' in ' + pattern.replace(/\r?\n/g, '\n');
-    return new SyntaxError(message, expected, found, offset, line, column);
-  }
-  function errorMessage(expected /*: ?string */, found /* string */) {
-    if (!expected) return 'Unexpected ' + found + ' found';
-    return 'Expected ' + expected + ' but found ' + found;
-  }
-
-  /**
-   * SyntaxError
-   *  Holds information about bad syntax found in a message pattern
-   **/
-  function SyntaxError(message /*: string */, expected /*: ?string */, found /*: ?string */, offset /*: number */, line /*: number */, column /*: number */) {
-    Error.call(this, message);
-    this.name = 'SyntaxError';
-    this.message = message;
-    this.expected = expected;
-    this.found = found;
-    this.offset = offset;
-    this.line = line;
-    this.column = column;
-  }
-  SyntaxError.prototype = Object.create(Error.prototype);
-  exports.SyntaxError = SyntaxError;
-})(formatMessageParse, formatMessageParse.exports);
-
-var formatMessageInterpret = {exports: {}};
-
-// @flow
-var LONG = 'long';
-var SHORT = 'short';
-var NARROW = 'narrow';
-var NUMERIC = 'numeric';
-var TWODIGIT = '2-digit';
-
-/**
- * formatting information
- **/
-var formatMessageFormats = {
-  number: {
-    decimal: {
-      style: 'decimal'
-    },
-    integer: {
-      style: 'decimal',
-      maximumFractionDigits: 0
-    },
-    currency: {
-      style: 'currency',
-      currency: 'USD'
-    },
-    percent: {
-      style: 'percent'
-    },
-    default: {
-      style: 'decimal'
-    }
-  },
-  date: {
-    short: {
-      month: NUMERIC,
-      day: NUMERIC,
-      year: TWODIGIT
-    },
-    medium: {
-      month: SHORT,
-      day: NUMERIC,
-      year: NUMERIC
-    },
-    long: {
-      month: LONG,
-      day: NUMERIC,
-      year: NUMERIC
-    },
-    full: {
-      month: LONG,
-      day: NUMERIC,
-      year: NUMERIC,
-      weekday: LONG
-    },
-    default: {
-      month: SHORT,
-      day: NUMERIC,
-      year: NUMERIC
-    }
-  },
-  time: {
-    short: {
-      hour: NUMERIC,
-      minute: NUMERIC
-    },
-    medium: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC
-    },
-    long: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC,
-      timeZoneName: SHORT
-    },
-    full: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC,
-      timeZoneName: SHORT
-    },
-    default: {
-      hour: NUMERIC,
-      minute: NUMERIC,
-      second: NUMERIC
-    }
-  },
-  duration: {
-    default: {
-      hours: {
-        minimumIntegerDigits: 1,
-        maximumFractionDigits: 0
-      },
-      minutes: {
-        minimumIntegerDigits: 2,
-        maximumFractionDigits: 0
-      },
-      seconds: {
-        minimumIntegerDigits: 2,
-        maximumFractionDigits: 3
-      }
-    }
-  },
-  parseNumberPattern: function parseNumberPattern(pattern /*: ?string */) {
-    if (!pattern) return;
-    var options = {};
-    var currency = pattern.match(/\b[A-Z]{3}\b/i);
-    var syms = pattern.replace(/[^¤]/g, '').length;
-    if (!syms && currency) syms = 1;
-    if (syms) {
-      options.style = 'currency';
-      options.currencyDisplay = syms === 1 ? 'symbol' : syms === 2 ? 'code' : 'name';
-      options.currency = currency ? currency[0].toUpperCase() : 'USD';
-    } else if (pattern.indexOf('%') >= 0) {
-      options.style = 'percent';
-    }
-    if (!/[@#0]/.test(pattern)) return options.style ? options : undefined;
-    options.useGrouping = pattern.indexOf(',') >= 0;
-    if (/E\+?[@#0]+/i.test(pattern) || pattern.indexOf('@') >= 0) {
-      var size = pattern.replace(/E\+?[@#0]+|[^@#0]/gi, '');
-      options.minimumSignificantDigits = Math.min(Math.max(size.replace(/[^@0]/g, '').length, 1), 21);
-      options.maximumSignificantDigits = Math.min(Math.max(size.length, 1), 21);
-    } else {
-      var parts = pattern.replace(/[^#0.]/g, '').split('.');
-      var integer = parts[0];
-      var n = integer.length - 1;
-      while (integer[n] === '0') --n;
-      options.minimumIntegerDigits = Math.min(Math.max(integer.length - 1 - n, 1), 21);
-      var fraction = parts[1] || '';
-      n = 0;
-      while (fraction[n] === '0') ++n;
-      options.minimumFractionDigits = Math.min(Math.max(n, 0), 20);
-      while (fraction[n] === '#') ++n;
-      options.maximumFractionDigits = Math.min(Math.max(n, 0), 20);
-    }
-    return options;
-  },
-  parseDatePattern: function parseDatePattern(pattern /*: ?string */) {
-    if (!pattern) return;
-    var options = {};
-    for (var i = 0; i < pattern.length;) {
-      var current = pattern[i];
-      var n = 1;
-      while (pattern[++i] === current) ++n;
-      switch (current) {
-        case 'G':
-          options.era = n === 5 ? NARROW : n === 4 ? LONG : SHORT;
-          break;
-        case 'y':
-        case 'Y':
-          options.year = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'M':
-        case 'L':
-          n = Math.min(Math.max(n - 1, 0), 4);
-          options.month = [NUMERIC, TWODIGIT, SHORT, LONG, NARROW][n];
-          break;
-        case 'E':
-        case 'e':
-        case 'c':
-          options.weekday = n === 5 ? NARROW : n === 4 ? LONG : SHORT;
-          break;
-        case 'd':
-        case 'D':
-          options.day = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'h':
-        case 'K':
-          options.hour12 = true;
-          options.hour = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'H':
-        case 'k':
-          options.hour12 = false;
-          options.hour = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'm':
-          options.minute = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 's':
-        case 'S':
-          options.second = n === 2 ? TWODIGIT : NUMERIC;
-          break;
-        case 'z':
-        case 'Z':
-        case 'v':
-        case 'V':
-          options.timeZoneName = n === 1 ? SHORT : LONG;
-          break;
-      }
-    }
-    return Object.keys(options).length ? options : undefined;
-  }
-};
-
-// @flow
-// "lookup" algorithm http://tools.ietf.org/html/rfc4647#section-3.4
-// assumes normalized language tags, and matches in a case sensitive manner
-var lookupClosestLocale = function lookupClosestLocale(locale /*: string | string[] | void */, available /*: { [string]: any } */) /*: ?string */{
-  if (typeof locale === 'string' && available[locale]) return locale;
-  var locales = [].concat(locale || []);
-  for (var l = 0, ll = locales.length; l < ll; ++l) {
-    var current = locales[l].split('-');
-    while (current.length) {
-      var candidate = current.join('-');
-      if (available[candidate]) return candidate;
-      current.pop();
-    }
-  }
-};
-
-/*:: export type Rule = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other' */
-var zero = 'zero',
-  one = 'one',
-  two = 'two',
-  few = 'few',
-  many = 'many',
-  other = 'other';
-var f = [function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return 0 <= n && n <= 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var n = +s;
-  return i === 0 || n === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 ? zero : n === 1 ? one : n === 2 ? two : 3 <= n % 100 && n % 100 <= 10 ? few : 11 <= n % 100 && n % 100 <= 99 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return i === 1 && v === 0 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 1 && n % 100 !== 11 ? one : 2 <= n % 10 && n % 10 <= 4 && (n % 100 < 12 || 14 < n % 100) ? few : n % 10 === 0 || 5 <= n % 10 && n % 10 <= 9 || 11 <= n % 100 && n % 100 <= 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 1 && n % 100 !== 11 && n % 100 !== 71 && n % 100 !== 91 ? one : n % 10 === 2 && n % 100 !== 12 && n % 100 !== 72 && n % 100 !== 92 ? two : (3 <= n % 10 && n % 10 <= 4 || n % 10 === 9) && (n % 100 < 10 || 19 < n % 100) && (n % 100 < 70 || 79 < n % 100) && (n % 100 < 90 || 99 < n % 100) ? few : n !== 0 && n % 1000000 === 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && i % 10 === 1 && i % 100 !== 11 || f % 10 === 1 && f % 100 !== 11 ? one : v === 0 && 2 <= i % 10 && i % 10 <= 4 && (i % 100 < 12 || 14 < i % 100) || 2 <= f % 10 && f % 10 <= 4 && (f % 100 < 12 || 14 < f % 100) ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return i === 1 && v === 0 ? one : 2 <= i && i <= 4 && v === 0 ? few : v !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 ? zero : n === 1 ? one : n === 2 ? two : n === 3 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var t = +('' + s).replace(/^[^.]*.?|0+$/g, '');
-  var n = +s;
-  return n === 1 || t !== 0 && (i === 0 || i === 1) ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && i % 100 === 1 || f % 100 === 1 ? one : v === 0 && i % 100 === 2 || f % 100 === 2 ? two : v === 0 && 3 <= i % 100 && i % 100 <= 4 || 3 <= f % 100 && f % 100 <= 4 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i === 0 || i === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && (i === 1 || i === 2 || i === 3) || v === 0 && i % 10 !== 4 && i % 10 !== 6 && i % 10 !== 9 || v !== 0 && f % 10 !== 4 && f % 10 !== 6 && f % 10 !== 9 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 ? two : 3 <= n && n <= 6 ? few : 7 <= n && n <= 10 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 11 ? one : n === 2 || n === 12 ? two : 3 <= n && n <= 10 || 13 <= n && n <= 19 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return v === 0 && i % 10 === 1 ? one : v === 0 && i % 10 === 2 ? two : v === 0 && (i % 100 === 0 || i % 100 === 20 || i % 100 === 40 || i % 100 === 60 || i % 100 === 80) ? few : v !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var n = +s;
-  return i === 1 && v === 0 ? one : i === 2 && v === 0 ? two : v === 0 && (n < 0 || 10 < n) && n % 10 === 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var t = +('' + s).replace(/^[^.]*.?|0+$/g, '');
-  return t === 0 && i % 10 === 1 && i % 100 !== 11 || t !== 0 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 ? two : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 ? zero : n === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var n = +s;
-  return n === 0 ? zero : (i === 0 || i === 1) && n !== 0 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var f = +(s + '.').split('.')[1];
-  var n = +s;
-  return n % 10 === 1 && (n % 100 < 11 || 19 < n % 100) ? one : 2 <= n % 10 && n % 10 <= 9 && (n % 100 < 11 || 19 < n % 100) ? few : f !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  var n = +s;
-  return n % 10 === 0 || 11 <= n % 100 && n % 100 <= 19 || v === 2 && 11 <= f % 100 && f % 100 <= 19 ? zero : n % 10 === 1 && n % 100 !== 11 || v === 2 && f % 10 === 1 && f % 100 !== 11 || v !== 2 && f % 10 === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var f = +(s + '.').split('.')[1];
-  return v === 0 && i % 10 === 1 && i % 100 !== 11 || f % 10 === 1 && f % 100 !== 11 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  var n = +s;
-  return i === 1 && v === 0 ? one : v !== 0 || n === 0 || n !== 1 && 1 <= n % 100 && n % 100 <= 19 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 0 || 2 <= n % 100 && n % 100 <= 10 ? few : 11 <= n % 100 && n % 100 <= 19 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return i === 1 && v === 0 ? one : v === 0 && 2 <= i % 10 && i % 10 <= 4 && (i % 100 < 12 || 14 < i % 100) ? few : v === 0 && i !== 1 && 0 <= i % 10 && i % 10 <= 1 || v === 0 && 5 <= i % 10 && i % 10 <= 9 || v === 0 && 12 <= i % 100 && i % 100 <= 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return 0 <= i && i <= 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return v === 0 && i % 10 === 1 && i % 100 !== 11 ? one : v === 0 && 2 <= i % 10 && i % 10 <= 4 && (i % 100 < 12 || 14 < i % 100) ? few : v === 0 && i % 10 === 0 || v === 0 && 5 <= i % 10 && i % 10 <= 9 || v === 0 && 11 <= i % 100 && i % 100 <= 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var n = +s;
-  return i === 0 || n === 1 ? one : 2 <= n && n <= 10 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var f = +(s + '.').split('.')[1];
-  var n = +s;
-  return n === 0 || n === 1 || i === 0 && f === 1 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  var v = (s + '.').split('.')[1].length;
-  return v === 0 && i % 100 === 1 ? one : v === 0 && i % 100 === 2 ? two : v === 0 && 3 <= i % 100 && i % 100 <= 4 || v !== 0 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return 0 <= n && n <= 1 || 11 <= n && n <= 99 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 5 || n === 7 || n === 8 || n === 9 || n === 10 ? one : n === 2 || n === 3 ? two : n === 4 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i % 10 === 1 || i % 10 === 2 || i % 10 === 5 || i % 10 === 7 || i % 10 === 8 || i % 100 === 20 || i % 100 === 50 || i % 100 === 70 || i % 100 === 80 ? one : i % 10 === 3 || i % 10 === 4 || i % 1000 === 100 || i % 1000 === 200 || i % 1000 === 300 || i % 1000 === 400 || i % 1000 === 500 || i % 1000 === 600 || i % 1000 === 700 || i % 1000 === 800 || i % 1000 === 900 ? few : i === 0 || i % 10 === 6 || i % 100 === 40 || i % 100 === 60 || i % 100 === 90 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return (n % 10 === 2 || n % 10 === 3) && n % 100 !== 12 && n % 100 !== 13 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 3 ? one : n === 2 ? two : n === 4 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 0 || n === 7 || n === 8 || n === 9 ? zero : n === 1 ? one : n === 2 ? two : n === 3 || n === 4 ? few : n === 5 || n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 1 && n % 100 !== 11 ? one : n % 10 === 2 && n % 100 !== 12 ? two : n % 10 === 3 && n % 100 !== 13 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 11 ? one : n === 2 || n === 12 ? two : n === 3 || n === 13 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 || n === 3 ? two : n === 4 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 5 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 11 || n === 8 || n === 80 || n === 800 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i === 1 ? one : i === 0 || 2 <= i % 100 && i % 100 <= 20 || i % 100 === 40 || i % 100 === 60 || i % 100 === 80 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 6 || n % 10 === 9 || n % 10 === 0 && n !== 0 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var i = Math.floor(Math.abs(+s));
-  return i % 10 === 1 && i % 100 !== 11 ? one : i % 10 === 2 && i % 100 !== 12 ? two : (i % 10 === 7 || i % 10 === 8) && i % 100 !== 17 && i % 100 !== 18 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n === 2 || n === 3 ? two : n === 4 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return 1 <= n && n <= 4 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 || n === 5 || 7 <= n && n <= 9 ? one : n === 2 || n === 3 ? two : n === 4 ? few : n === 6 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n === 1 ? one : n % 10 === 4 && n % 100 !== 14 ? many : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return (n % 10 === 1 || n % 10 === 2) && n % 100 !== 11 && n % 100 !== 12 ? one : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 6 || n % 10 === 9 || n === 10 ? few : other;
-}, function (s /*: string | number */) /*: Rule */{
-  var n = +s;
-  return n % 10 === 3 && n % 100 !== 13 ? few : other;
-}];
-var plurals = {
-  af: {
-    cardinal: f[0]
-  },
-  ak: {
-    cardinal: f[1]
-  },
-  am: {
-    cardinal: f[2]
-  },
-  ar: {
-    cardinal: f[3]
-  },
-  ars: {
-    cardinal: f[3]
-  },
-  as: {
-    cardinal: f[2],
-    ordinal: f[34]
-  },
-  asa: {
-    cardinal: f[0]
-  },
-  ast: {
-    cardinal: f[4]
-  },
-  az: {
-    cardinal: f[0],
-    ordinal: f[35]
-  },
-  be: {
-    cardinal: f[5],
-    ordinal: f[36]
-  },
-  bem: {
-    cardinal: f[0]
-  },
-  bez: {
-    cardinal: f[0]
-  },
-  bg: {
-    cardinal: f[0]
-  },
-  bh: {
-    cardinal: f[1]
-  },
-  bn: {
-    cardinal: f[2],
-    ordinal: f[34]
-  },
-  br: {
-    cardinal: f[6]
-  },
-  brx: {
-    cardinal: f[0]
-  },
-  bs: {
-    cardinal: f[7]
-  },
-  ca: {
-    cardinal: f[4],
-    ordinal: f[37]
-  },
-  ce: {
-    cardinal: f[0]
-  },
-  cgg: {
-    cardinal: f[0]
-  },
-  chr: {
-    cardinal: f[0]
-  },
-  ckb: {
-    cardinal: f[0]
-  },
-  cs: {
-    cardinal: f[8]
-  },
-  cy: {
-    cardinal: f[9],
-    ordinal: f[38]
-  },
-  da: {
-    cardinal: f[10]
-  },
-  de: {
-    cardinal: f[4]
-  },
-  dsb: {
-    cardinal: f[11]
-  },
-  dv: {
-    cardinal: f[0]
-  },
-  ee: {
-    cardinal: f[0]
-  },
-  el: {
-    cardinal: f[0]
-  },
-  en: {
-    cardinal: f[4],
-    ordinal: f[39]
-  },
-  eo: {
-    cardinal: f[0]
-  },
-  es: {
-    cardinal: f[0]
-  },
-  et: {
-    cardinal: f[4]
-  },
-  eu: {
-    cardinal: f[0]
-  },
-  fa: {
-    cardinal: f[2]
-  },
-  ff: {
-    cardinal: f[12]
-  },
-  fi: {
-    cardinal: f[4]
-  },
-  fil: {
-    cardinal: f[13],
-    ordinal: f[0]
-  },
-  fo: {
-    cardinal: f[0]
-  },
-  fr: {
-    cardinal: f[12],
-    ordinal: f[0]
-  },
-  fur: {
-    cardinal: f[0]
-  },
-  fy: {
-    cardinal: f[4]
-  },
-  ga: {
-    cardinal: f[14],
-    ordinal: f[0]
-  },
-  gd: {
-    cardinal: f[15],
-    ordinal: f[40]
-  },
-  gl: {
-    cardinal: f[4]
-  },
-  gsw: {
-    cardinal: f[0]
-  },
-  gu: {
-    cardinal: f[2],
-    ordinal: f[41]
-  },
-  guw: {
-    cardinal: f[1]
-  },
-  gv: {
-    cardinal: f[16]
-  },
-  ha: {
-    cardinal: f[0]
-  },
-  haw: {
-    cardinal: f[0]
-  },
-  he: {
-    cardinal: f[17]
-  },
-  hi: {
-    cardinal: f[2],
-    ordinal: f[41]
-  },
-  hr: {
-    cardinal: f[7]
-  },
-  hsb: {
-    cardinal: f[11]
-  },
-  hu: {
-    cardinal: f[0],
-    ordinal: f[42]
-  },
-  hy: {
-    cardinal: f[12],
-    ordinal: f[0]
-  },
-  ia: {
-    cardinal: f[4]
-  },
-  io: {
-    cardinal: f[4]
-  },
-  is: {
-    cardinal: f[18]
-  },
-  it: {
-    cardinal: f[4],
-    ordinal: f[43]
-  },
-  iu: {
-    cardinal: f[19]
-  },
-  iw: {
-    cardinal: f[17]
-  },
-  jgo: {
-    cardinal: f[0]
-  },
-  ji: {
-    cardinal: f[4]
-  },
-  jmc: {
-    cardinal: f[0]
-  },
-  ka: {
-    cardinal: f[0],
-    ordinal: f[44]
-  },
-  kab: {
-    cardinal: f[12]
-  },
-  kaj: {
-    cardinal: f[0]
-  },
-  kcg: {
-    cardinal: f[0]
-  },
-  kk: {
-    cardinal: f[0],
-    ordinal: f[45]
-  },
-  kkj: {
-    cardinal: f[0]
-  },
-  kl: {
-    cardinal: f[0]
-  },
-  kn: {
-    cardinal: f[2]
-  },
-  ks: {
-    cardinal: f[0]
-  },
-  ksb: {
-    cardinal: f[0]
-  },
-  ksh: {
-    cardinal: f[20]
-  },
-  ku: {
-    cardinal: f[0]
-  },
-  kw: {
-    cardinal: f[19]
-  },
-  ky: {
-    cardinal: f[0]
-  },
-  lag: {
-    cardinal: f[21]
-  },
-  lb: {
-    cardinal: f[0]
-  },
-  lg: {
-    cardinal: f[0]
-  },
-  ln: {
-    cardinal: f[1]
-  },
-  lt: {
-    cardinal: f[22]
-  },
-  lv: {
-    cardinal: f[23]
-  },
-  mas: {
-    cardinal: f[0]
-  },
-  mg: {
-    cardinal: f[1]
-  },
-  mgo: {
-    cardinal: f[0]
-  },
-  mk: {
-    cardinal: f[24],
-    ordinal: f[46]
-  },
-  ml: {
-    cardinal: f[0]
-  },
-  mn: {
-    cardinal: f[0]
-  },
-  mo: {
-    cardinal: f[25],
-    ordinal: f[0]
-  },
-  mr: {
-    cardinal: f[2],
-    ordinal: f[47]
-  },
-  mt: {
-    cardinal: f[26]
-  },
-  nah: {
-    cardinal: f[0]
-  },
-  naq: {
-    cardinal: f[19]
-  },
-  nb: {
-    cardinal: f[0]
-  },
-  nd: {
-    cardinal: f[0]
-  },
-  ne: {
-    cardinal: f[0],
-    ordinal: f[48]
-  },
-  nl: {
-    cardinal: f[4]
-  },
-  nn: {
-    cardinal: f[0]
-  },
-  nnh: {
-    cardinal: f[0]
-  },
-  no: {
-    cardinal: f[0]
-  },
-  nr: {
-    cardinal: f[0]
-  },
-  nso: {
-    cardinal: f[1]
-  },
-  ny: {
-    cardinal: f[0]
-  },
-  nyn: {
-    cardinal: f[0]
-  },
-  om: {
-    cardinal: f[0]
-  },
-  or: {
-    cardinal: f[0],
-    ordinal: f[49]
-  },
-  os: {
-    cardinal: f[0]
-  },
-  pa: {
-    cardinal: f[1]
-  },
-  pap: {
-    cardinal: f[0]
-  },
-  pl: {
-    cardinal: f[27]
-  },
-  prg: {
-    cardinal: f[23]
-  },
-  ps: {
-    cardinal: f[0]
-  },
-  pt: {
-    cardinal: f[28]
-  },
-  'pt-PT': {
-    cardinal: f[4]
-  },
-  rm: {
-    cardinal: f[0]
-  },
-  ro: {
-    cardinal: f[25],
-    ordinal: f[0]
-  },
-  rof: {
-    cardinal: f[0]
-  },
-  ru: {
-    cardinal: f[29]
-  },
-  rwk: {
-    cardinal: f[0]
-  },
-  saq: {
-    cardinal: f[0]
-  },
-  sc: {
-    cardinal: f[4],
-    ordinal: f[43]
-  },
-  scn: {
-    cardinal: f[4],
-    ordinal: f[43]
-  },
-  sd: {
-    cardinal: f[0]
-  },
-  sdh: {
-    cardinal: f[0]
-  },
-  se: {
-    cardinal: f[19]
-  },
-  seh: {
-    cardinal: f[0]
-  },
-  sh: {
-    cardinal: f[7]
-  },
-  shi: {
-    cardinal: f[30]
-  },
-  si: {
-    cardinal: f[31]
-  },
-  sk: {
-    cardinal: f[8]
-  },
-  sl: {
-    cardinal: f[32]
-  },
-  sma: {
-    cardinal: f[19]
-  },
-  smi: {
-    cardinal: f[19]
-  },
-  smj: {
-    cardinal: f[19]
-  },
-  smn: {
-    cardinal: f[19]
-  },
-  sms: {
-    cardinal: f[19]
-  },
-  sn: {
-    cardinal: f[0]
-  },
-  so: {
-    cardinal: f[0]
-  },
-  sq: {
-    cardinal: f[0],
-    ordinal: f[50]
-  },
-  sr: {
-    cardinal: f[7]
-  },
-  ss: {
-    cardinal: f[0]
-  },
-  ssy: {
-    cardinal: f[0]
-  },
-  st: {
-    cardinal: f[0]
-  },
-  sv: {
-    cardinal: f[4],
-    ordinal: f[51]
-  },
-  sw: {
-    cardinal: f[4]
-  },
-  syr: {
-    cardinal: f[0]
-  },
-  ta: {
-    cardinal: f[0]
-  },
-  te: {
-    cardinal: f[0]
-  },
-  teo: {
-    cardinal: f[0]
-  },
-  ti: {
-    cardinal: f[1]
-  },
-  tig: {
-    cardinal: f[0]
-  },
-  tk: {
-    cardinal: f[0],
-    ordinal: f[52]
-  },
-  tl: {
-    cardinal: f[13],
-    ordinal: f[0]
-  },
-  tn: {
-    cardinal: f[0]
-  },
-  tr: {
-    cardinal: f[0]
-  },
-  ts: {
-    cardinal: f[0]
-  },
-  tzm: {
-    cardinal: f[33]
-  },
-  ug: {
-    cardinal: f[0]
-  },
-  uk: {
-    cardinal: f[29],
-    ordinal: f[53]
-  },
-  ur: {
-    cardinal: f[4]
-  },
-  uz: {
-    cardinal: f[0]
-  },
-  ve: {
-    cardinal: f[0]
-  },
-  vo: {
-    cardinal: f[0]
-  },
-  vun: {
-    cardinal: f[0]
-  },
-  wa: {
-    cardinal: f[1]
-  },
-  wae: {
-    cardinal: f[0]
-  },
-  xh: {
-    cardinal: f[0]
-  },
-  xog: {
-    cardinal: f[0]
-  },
-  yi: {
-    cardinal: f[4]
-  },
-  zu: {
-    cardinal: f[2]
-  },
-  lo: {
-    ordinal: f[0]
-  },
-  ms: {
-    ordinal: f[0]
-  },
-  vi: {
-    ordinal: f[0]
-  }
-};
-
-(function (module, exports) {
-
-  var formats = formatMessageFormats;
-  var lookupClosestLocale$1 = lookupClosestLocale;
-  var plurals$1 = plurals;
-
-  /*::
-  import type {
-    AST,
-    SubMessages
-  } from '../format-message-parse'
-  type Locale = string
-  type Locales = Locale | Locale[]
-  type Placeholder = any[] // https://github.com/facebook/flow/issues/4050
-  export type Type = (Placeholder, Locales) => (any, ?Object) => any
-  export type Types = { [string]: Type }
-  */
-
-  exports = module.exports = function interpret(ast /*: AST */, locale /*:: ?: Locales */, types /*:: ?: Types */) /*: (args?: Object) => string */{
-    return interpretAST(ast, null, locale || 'en', types || {}, true);
-  };
-  exports.toParts = function toParts(ast /*: AST */, locale /*:: ?: Locales */, types /*:: ?: Types */) /*: (args?: Object) => any[] */{
-    return interpretAST(ast, null, locale || 'en', types || {}, false);
-  };
-  function interpretAST(elements /*: any[] */, parent /*: ?Placeholder */, locale /*: Locales */, types /*: Types */, join /*: boolean */) /*: Function */{
-    var parts = elements.map(function (element) {
-      return interpretElement(element, parent, locale, types, join);
-    });
-    if (!join) {
-      return function format(args) {
-        return parts.reduce(function (parts, part) {
-          return parts.concat(part(args));
-        }, []);
-      };
-    }
-    if (parts.length === 1) return parts[0];
-    return function format(args) {
-      var message = '';
-      for (var e = 0; e < parts.length; ++e) {
-        message += parts[e](args);
-      }
-      return message;
-    };
-  }
-  function interpretElement(element /*: Placeholder */, parent /*: ?Placeholder */, locale /*: Locales */, types /*: Types */, join /*: boolean */) /*: Function */{
-    if (typeof element === 'string') {
-      var value /*: string */ = element;
-      return function format() {
-        return value;
-      };
-    }
-    var id = element[0];
-    var type = element[1];
-    if (parent && element[0] === '#') {
-      id = parent[0];
-      var offset = parent[2];
-      var formatter = (types.number || defaults.number)([id, 'number'], locale);
-      return function format(args) {
-        return formatter(getArg(id, args) - offset, args);
-      };
-    }
-
-    // pre-process children
-    var children;
-    if (type === 'plural' || type === 'selectordinal') {
-      children = {};
-      Object.keys(element[3]).forEach(function (key) {
-        children[key] = interpretAST(element[3][key], element, locale, types, join);
-      });
-      element = [element[0], element[1], element[2], children];
-    } else if (element[2] && _typeof(element[2]) === 'object') {
-      children = {};
-      Object.keys(element[2]).forEach(function (key) {
-        children[key] = interpretAST(element[2][key], element, locale, types, join);
-      });
-      element = [element[0], element[1], children];
-    }
-    var getFrmt = type && (types[type] || defaults[type]);
-    if (getFrmt) {
-      var frmt = getFrmt(element, locale);
-      return function format(args) {
-        return frmt(getArg(id, args), args);
-      };
-    }
-    return join ? function format(args) {
-      return String(getArg(id, args));
-    } : function format(args) {
-      return getArg(id, args);
-    };
-  }
-  function getArg(id /*: string */, args /*: ?Object */) /*: any */{
-    if (args && id in args) return args[id];
-    var parts = id.split('.');
-    var a = args;
-    for (var i = 0, ii = parts.length; a && i < ii; ++i) {
-      a = a[parts[i]];
-    }
-    return a;
-  }
-  function interpretNumber(element /*: Placeholder */, locales /*: Locales */) {
-    var style = element[2];
-    var options = formats.number[style] || formats.parseNumberPattern(style) || formats.number.default;
-    return new Intl.NumberFormat(locales, options).format;
-  }
-  function interpretDuration(element /*: Placeholder */, locales /*: Locales */) {
-    var style = element[2];
-    var options = formats.duration[style] || formats.duration.default;
-    var fs = new Intl.NumberFormat(locales, options.seconds).format;
-    var fm = new Intl.NumberFormat(locales, options.minutes).format;
-    var fh = new Intl.NumberFormat(locales, options.hours).format;
-    var sep = /^fi$|^fi-|^da/.test(String(locales)) ? '.' : ':';
-    return function (s, args) {
-      s = +s;
-      if (!isFinite(s)) return fs(s);
-      var h = ~~(s / 60 / 60); // ~~ acts much like Math.trunc
-      var m = ~~(s / 60 % 60);
-      var dur = (h ? fh(Math.abs(h)) + sep : '') + fm(Math.abs(m)) + sep + fs(Math.abs(s % 60));
-      return s < 0 ? fh(-1).replace(fh(1), dur) : dur;
-    };
-  }
-  function interpretDateTime(element /*: Placeholder */, locales /*: Locales */) {
-    var type = element[1];
-    var style = element[2];
-    var options = formats[type][style] || formats.parseDatePattern(style) || formats[type].default;
-    return new Intl.DateTimeFormat(locales, options).format;
-  }
-  function interpretPlural(element /*: Placeholder */, locales /*: Locales */) {
-    var type = element[1];
-    var pluralType = type === 'selectordinal' ? 'ordinal' : 'cardinal';
-    var offset = element[2];
-    var children = element[3];
-    var pluralRules;
-    if (Intl.PluralRules && Intl.PluralRules.supportedLocalesOf(locales).length > 0) {
-      pluralRules = new Intl.PluralRules(locales, {
-        type: pluralType
-      });
-    } else {
-      var locale = lookupClosestLocale$1(locales, plurals$1);
-      var select = locale && plurals$1[locale][pluralType] || returnOther;
-      pluralRules = {
-        select: select
-      };
-    }
-    return function (value, args) {
-      var clause = children['=' + +value] || children[pluralRules.select(value - offset)] || children.other;
-      return clause(args);
-    };
-  }
-  function returnOther( /*:: n:number */) {
-    return 'other';
-  }
-  function interpretSelect(element /*: Placeholder */, locales /*: Locales */) {
-    var children = element[2];
-    return function (value, args) {
-      var clause = children[value] || children.other;
-      return clause(args);
-    };
-  }
-  var defaults /*: Types */ = {
-    number: interpretNumber,
-    ordinal: interpretNumber,
-    // TODO: support rbnf
-    spellout: interpretNumber,
-    // TODO: support rbnf
-    duration: interpretDuration,
-    date: interpretDateTime,
-    time: interpretDateTime,
-    plural: interpretPlural,
-    selectordinal: interpretPlural,
-    select: interpretSelect
-  };
-  exports.types = defaults;
-})(formatMessageInterpret, formatMessageInterpret.exports);
-
-(function (module, exports) {
-
-  var parse = formatMessageParse.exports;
-  var interpret = formatMessageInterpret.exports;
-  var plurals$1 = plurals;
-  var lookupClosestLocale$1 = lookupClosestLocale;
-  var origFormats = formatMessageFormats;
-
-  /*::
-  import type { Types } from 'format-message-interpret'
-  type Locale = string
-  type Locales = Locale | Locale[]
-  type Message = string | {|
-    id?: string,
-    default: string,
-    description?: string
-  |}
-  type Translations = { [string]: ?{ [string]: string | Translation } }
-  type Translation = {
-    message: string,
-    format?: (args?: Object) => string,
-    toParts?: (args?: Object) => any[],
-  }
-  type Replacement = ?string | (string, string, locales?: Locales) => ?string
-  type GenerateId = (string) => string
-  type MissingTranslation = 'ignore' | 'warning' | 'error'
-  type FormatObject = { [string]: * }
-  type Options = {
-    locale?: Locales,
-    translations?: ?Translations,
-    generateId?: GenerateId,
-    missingReplacement?: Replacement,
-    missingTranslation?: MissingTranslation,
-    formats?: {
-      number?: FormatObject,
-      date?: FormatObject,
-      time?: FormatObject
-    },
-    types?: Types
-  }
-  type Setup = {|
-    locale: Locales,
-    translations: Translations,
-    generateId: GenerateId,
-    missingReplacement: Replacement,
-    missingTranslation: MissingTranslation,
-    formats: {
-      number: FormatObject,
-      date: FormatObject,
-      time: FormatObject
-    },
-    types: Types
-  |}
-  type FormatMessage = {
-    (msg: Message, args?: Object, locales?: Locales): string,
-    rich (msg: Message, args?: Object, locales?: Locales): any[],
-    setup (opt?: Options): Setup,
-    number (value: number, style?: string, locales?: Locales): string,
-    date (value: number | Date, style?: string, locales?: Locales): string,
-    time (value: number | Date, style?: string, locales?: Locales): string,
-    select (value: any, options: Object): any,
-    custom (placeholder: any[], locales: Locales, value: any, args: Object): any,
-    plural (value: number, offset: any, options: any, locale: any): any,
-    selectordinal (value: number, offset: any, options: any, locale: any): any,
-    namespace (): FormatMessage
-  }
-  */
-
-  function assign /*:: <T: Object> */(target /*: T */, source /*: Object */) {
-    Object.keys(source).forEach(function (key) {
-      target[key] = source[key];
-    });
-    return target;
-  }
-  function namespace() /*: FormatMessage */{
-    var formats = assign({}, origFormats);
-    var currentLocales /*: Locales */ = 'en';
-    var translations /*: Translations */ = {};
-    var generateId /*: GenerateId */ = function generateId(pattern) {
-      return pattern;
-    };
-    var missingReplacement /*: Replacement */ = null;
-    var missingTranslation /*: MissingTranslation */ = 'warning';
-    var types /*: Types */ = {};
-    function formatMessage(msg /*: Message */, args /*:: ?: Object */, locales /*:: ?: Locales */) {
-      var pattern = typeof msg === 'string' ? msg : msg.default;
-      var id = _typeof(msg) === 'object' && msg.id || generateId(pattern);
-      var translated = translate(pattern, id, locales || currentLocales);
-      var format = translated.format || (translated.format = interpret(parse(translated.message), locales || currentLocales, types));
-      return format(args);
-    }
-    formatMessage.rich = function rich(msg /*: Message */, args /*:: ?: Object */, locales /*:: ?: Locales */) {
-      var pattern = typeof msg === 'string' ? msg : msg.default;
-      var id = _typeof(msg) === 'object' && msg.id || generateId(pattern);
-      var translated = translate(pattern, id, locales || currentLocales);
-      var format = translated.toParts || (translated.toParts = interpret.toParts(parse(translated.message, {
-        tagsType: tagsType
-      }), locales || currentLocales, types));
-      return format(args);
-    };
-    var tagsType = '<>';
-    function richType(node /*: any[] */, locales /*: Locales */) {
-      var style = node[2];
-      return function (fn, args) {
-        var props = _typeof(style) === 'object' ? mapObject(style, args) : style;
-        return typeof fn === 'function' ? fn(props) : fn;
-      };
-    }
-    types[tagsType] = richType;
-    function mapObject(object /* { [string]: (args?: Object) => any } */, args /*: ?Object */) {
-      return Object.keys(object).reduce(function (mapped, key) {
-        mapped[key] = object[key](args);
-        return mapped;
-      }, {});
-    }
-    function translate(pattern /*: string */, id /*: string */, locales /*: Locales */) /*: Translation */{
-      var locale = lookupClosestLocale$1(locales, translations) || 'en';
-      var messages = translations[locale] || (translations[locale] = {});
-      var translated = messages[id];
-      if (typeof translated === 'string') {
-        translated = messages[id] = {
-          message: translated
+      var _this2 = this;
+      console.log('🔄 Resetting Hub State.');
+      this._connected = false;
+      this.maxPacketSize = 20; // Default, updated from hub info
+      this.ports = {};
+      PORT_ID_TO_NAME.forEach(function (p) {
+        _this2.ports[p] = {
+          value: {}
         };
-      }
-      if (!translated) {
-        var message = 'Translation for "' + id + '" in "' + locale + '" is missing';
-        if (missingTranslation === 'warning') {
-          /* istanbul ignore else */
-          if (typeof console !== 'undefined') console.warn(message);
-        } else if (missingTranslation !== 'ignore') {
-          // 'error'
-          throw new Error(message);
-        }
-        var replacement = typeof missingReplacement === 'function' ? missingReplacement(pattern, id, locale) || pattern : missingReplacement || pattern;
-        translated = messages[id] = {
-          message: replacement
-        };
-      }
-      return translated;
-    }
-    formatMessage.setup = function setup(opt /*:: ?: Options */) {
-      opt = opt || {};
-      if (opt.locale) currentLocales = opt.locale;
-      if ('translations' in opt) translations = opt.translations || {};
-      if (opt.generateId) generateId = opt.generateId;
-      if ('missingReplacement' in opt) missingReplacement = opt.missingReplacement;
-      if (opt.missingTranslation) missingTranslation = opt.missingTranslation;
-      if (opt.formats) {
-        if (opt.formats.number) assign(formats.number, opt.formats.number);
-        if (opt.formats.date) assign(formats.date, opt.formats.date);
-        if (opt.formats.time) assign(formats.time, opt.formats.time);
-      }
-      if (opt.types) {
-        types = opt.types;
-        types[tagsType] = richType;
-      }
-      return {
-        locale: currentLocales,
-        translations: translations,
-        generateId: generateId,
-        missingReplacement: missingReplacement,
-        missingTranslation: missingTranslation,
-        formats: formats,
-        types: types
-      };
-    };
-    formatMessage.number = function (value /*: number */, style /*:: ?: string */, locales /*:: ?: Locales */) {
-      var options = style && formats.number[style] || formats.parseNumberPattern(style) || formats.number.default;
-      return new Intl.NumberFormat(locales || currentLocales, options).format(value);
-    };
-    formatMessage.date = function (value /*:: ?: number | Date */, style /*:: ?: string */, locales /*:: ?: Locales */) {
-      var options = style && formats.date[style] || formats.parseDatePattern(style) || formats.date.default;
-      return new Intl.DateTimeFormat(locales || currentLocales, options).format(value);
-    };
-    formatMessage.time = function (value /*:: ?: number | Date */, style /*:: ?: string */, locales /*:: ?: Locales */) {
-      var options = style && formats.time[style] || formats.parseDatePattern(style) || formats.time.default;
-      return new Intl.DateTimeFormat(locales || currentLocales, options).format(value);
-    };
-    formatMessage.select = function (value /*: any */, options /*: Object */) {
-      return options[value] || options.other;
-    };
-    formatMessage.custom = function (placeholder /*: any[] */, locales /*: Locales */, value /*: any */, args /*: Object */) {
-      if (!(placeholder[1] in types)) return value;
-      return types[placeholder[1]](placeholder, locales)(value, args);
-    };
-    formatMessage.plural = plural.bind(null, 'cardinal');
-    formatMessage.selectordinal = plural.bind(null, 'ordinal');
-    function plural(pluralType /*: 'cardinal' | 'ordinal' */, value /*: number */, offset /*: any */, options /*: any */, locale /*: any */) {
-      if (_typeof(offset) === 'object' && _typeof(options) !== 'object') {
-        // offset is optional
-        locale = options;
-        options = offset;
-        offset = 0;
-      }
-      var closest = lookupClosestLocale$1(locale || currentLocales, plurals$1);
-      var plural = closest && plurals$1[closest][pluralType] || returnOther;
-      return options['=' + +value] || options[plural(value - offset)] || options.other;
-    }
-    function returnOther( /*:: n:number */) {
-      return 'other';
-    }
-    formatMessage.namespace = namespace;
-    return formatMessage;
-  }
-  module.exports = namespace();
-})(formatMessage$1);
-
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-var BleBaseBlocks = bleBaseBlocks;
-var Hub = hub;
-var blockIconURI = '';
-var formatMessage = formatMessage$1.exports;
-var extensionURL = 'https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprime_ble.mjs';
-
-// SPIKE Prime BLE UUIDs - YOUR WORKING APPROACH
-var SPIKE_PRIME_SERVICE_UUID = '0000fd02-0000-1000-8000-00805f9b34fb';
-var SPIKE_PRIME_WRITE_UUID = '0000fd02-0001-1000-8000-00805f9b34fb';
-var SPIKE_PRIME_NOTIFY_UUID = '0000fd02-0002-1000-8000-00805f9b34fb';
-
-// Standard LEGO UUIDs as fallback
-var LEGO_SERVICE_UUID = '00001623-1212-efde-1623-785feabcd123';
-var LEGO_CHAR_UUID = '00001624-1212-efde-1623-785feabcd123';
-
-// Constants from working BTC version
-var BTSendRateMax = 40;
-var SpikePorts = ['A', 'B', 'C', 'D', 'E', 'F'];
-var SpikeMotorStopMode = {
-  float: 0,
-  brake: 1,
-  hold: 2
-};
-var SpikeOrientation = {
-  front: 1,
-  back: 2,
-  up: 3,
-  down: 4,
-  rightside: 5,
-  leftside: 6
-};
-
-// SPIKE Prime Motor Settings
-var SpikeMotorSetting = /*#__PURE__*/function () {
-  function SpikeMotorSetting() {
-    _classCallCheck(this, SpikeMotorSetting);
-    this._speed = 75;
-    this._stopMode = SpikeMotorStopMode.brake;
-    this._stallDetection = true;
-  }
-  _createClass(SpikeMotorSetting, [{
-    key: "speed",
-    get: function get() {
-      return this._speed;
-    },
-    set: function set(value) {
-      this._speed = this._clamp(value, -100, 100);
-    }
-  }, {
-    key: "stopMode",
-    get: function get() {
-      return this._stopMode;
-    },
-    set: function set(value) {
-      if (value >= 0 && value <= 2) this._stopMode = value;
-    }
-  }, {
-    key: "stallDetection",
-    get: function get() {
-      return this._stallDetection;
-    },
-    set: function set(value) {
-      this._stallDetection = value;
-    }
-  }, {
-    key: "_clamp",
-    value: function _clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-    }
-  }]);
-  return SpikeMotorSetting;
-}(); // Complete BLE SPIKE Prime Hub
-var CompleteBLESpikePrimeHub = /*#__PURE__*/function (_Hub) {
-  _inherits(CompleteBLESpikePrimeHub, _Hub);
-  function CompleteBLESpikePrimeHub(runtime, extensionId) {
-    var _this;
-    _classCallCheck(this, CompleteBLESpikePrimeHub);
-    console.log('🚀 CompleteBLESpikePrimeHub: Initializing...');
-
-    // Initialize without hub type for UUID scanning
-    _this = _callSuper(this, CompleteBLESpikePrimeHub, [runtime, extensionId, null]);
-
-    // Connection state
-    _this._connectionAttempts = 0;
-    _this._connectionMethod = 'none';
-    _this._connected = false;
-    _this._useSpikePrimeUUIDs = true;
-
-    // Communication state
-    _this._remainingText = '';
-    _this._openRequests = {};
-    _this._requestId = 0;
-
-    // Python REPL state
-    _this._pythonAvailable = false;
-    _this._sensorLoopRunning = false;
-    _this._replHistory = [];
-    _this._replOutput = '';
-
-    // Sensor data
-    _this._sensors = {
-      buttons: [0, 0, 0, 0],
-      angle: {
+      });
+      this.batteryLevel = 100;
+      this.imu = {
+        yaw: 0,
         pitch: 0,
         roll: 0,
-        yaw: 0
-      },
-      acceleration: {
-        x: 0,
-        y: 0,
-        z: 0
-      },
-      gyro: {
-        x: 0,
-        y: 0,
-        z: 0
-      },
-      orientation: SpikeOrientation.front,
-      battery: 100,
-      temperature: 25,
-      hubTemp: 25,
-      gestures: {
-        tapped: false,
-        doubletapped: false,
-        shake: false,
-        freefall: false
-      },
-      motorPositions: {}
-    };
-    _this._portValues = {};
-    _this._pixelBrightness = 100;
-    _this._volume = 100;
-
-    // Motor settings
-    _this._motorSettings = {
-      A: new SpikeMotorSetting(),
-      B: new SpikeMotorSetting(),
-      C: new SpikeMotorSetting(),
-      D: new SpikeMotorSetting(),
-      E: new SpikeMotorSetting(),
-      F: new SpikeMotorSetting()
-    };
-
-    // Movement and timer
-    _this._movementMotors = ['A', 'B'];
-    _this._timer = {
-      start: Date.now(),
-      current: 0
-    };
-
-    // Rate limiting - safe loading
-    try {
-      var RateLimiter = require('../../../util/rateLimiter');
-      _this._rateLimiter = new RateLimiter(BTSendRateMax);
-    } catch (e) {
-      _this._rateLimiter = {
-        okayToSend: function okayToSend() {
-          return true;
-        }
+        accX: 0,
+        accY: 0,
+        accZ: 0,
+        faceUp: 0
       };
     }
 
-    // Connection monitoring
-    _this._keepAliveInterval = null;
-    _this._lastHeartbeat = Date.now();
-
-    // Update timer safely
-    var self = _assertThisInitialized(_this);
-    setInterval(function () {
-      self._timer.current = (Date.now() - self._timer.start) / 1000;
-    }, 10);
-    console.log('✅ CompleteBLESpikePrimeHub: Initialization complete');
-    return _this;
-  }
-
-  // Getters
-  _createClass(CompleteBLESpikePrimeHub, [{
-    key: "angle",
-    get: function get() {
-      return this._sensors.angle;
-    }
-  }, {
-    key: "orientation",
-    get: function get() {
-      return this._sensors.orientation;
-    }
-  }, {
-    key: "portValues",
-    get: function get() {
-      return this._portValues;
-    }
-  }, {
-    key: "pixelBrightness",
-    get: function get() {
-      return this._pixelBrightness;
-    },
-    set: function set(value) {
-      this._pixelBrightness = this._clamp(value, 0, 100);
-    }
-  }, {
-    key: "motorSettings",
-    get: function get() {
-      return this._motorSettings;
-    }
-  }, {
-    key: "acceleration",
-    get: function get() {
-      return this._sensors.acceleration;
-    }
-  }, {
-    key: "gyro",
-    get: function get() {
-      return this._sensors.gyro;
-    }
-  }, {
-    key: "battery",
-    get: function get() {
-      return this._sensors.battery;
-    }
-  }, {
-    key: "temperature",
-    get: function get() {
-      return this._sensors.temperature;
-    }
-  }, {
-    key: "hubTemp",
-    get: function get() {
-      return this._sensors.hubTemp;
-    }
-  }, {
-    key: "gestures",
-    get: function get() {
-      return this._sensors.gestures;
-    }
-  }, {
-    key: "movementMotors",
-    get: function get() {
-      return this._movementMotors;
-    }
-  }, {
-    key: "timer",
-    get: function get() {
-      return this._timer.current;
-    }
-  }, {
-    key: "volume",
-    get: function get() {
-      return this._volume;
-    }
-  }, {
-    key: "replOutput",
-    get: function get() {
-      return this._replOutput;
-    }
-  }, {
-    key: "replHistory",
-    get: function get() {
-      return this._replHistory;
-    }
-
-    // Override scan with UUID-first approach
-  }, {
-    key: "scan",
-    value: function scan() {
-      console.log('🔍 CompleteBLESpikePrimeHub: Starting BLE scan...');
-      this._connectionAttempts++;
-      if (this._ble) {
-        console.log('📴 CompleteBLESpikePrimeHub: Cleaning up existing connection...');
-        this._ble.disconnect();
-      }
-      var self = this;
-      return this._attemptSpikePrimeUUIDs().catch(function (error) {
-        console.warn('⚠️ CompleteBLESpikePrimeHub: UUID method failed:', error.message);
-        self._useSpikePrimeUUIDs = false;
-        return self._attemptStandardLego();
-      }).catch(function (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: All scan methods failed:', error);
-        throw error;
-      });
-    }
-  }, {
-    key: "_attemptSpikePrimeUUIDs",
-    value: function _attemptSpikePrimeUUIDs() {
-      console.log('🎯 CompleteBLESpikePrimeHub: PRIMARY - SPIKE Prime UUID scan');
-      this._connectionMethod = 'spike_uuids';
-      try {
-        var BLE = require('../../../io/ble');
-        var options = {
-          filters: [{
-            services: [SPIKE_PRIME_SERVICE_UUID]
-          }, {
-            namePrefix: 'LEGO Hub'
-          }, {
-            namePrefix: 'Technic Hub'
-          }],
-          optionalServices: [SPIKE_PRIME_SERVICE_UUID]
-        };
-        console.log('📡 CompleteBLESpikePrimeHub: SPIKE UUID scan config:', JSON.stringify(options, null, 2));
-        this._ble = new BLE(this._runtime, this._extensionId, options, this._onConnect, this.reset, this._onMessage);
-        console.log('✅ CompleteBLESpikePrimeHub: SPIKE Prime UUID scanner ready');
-        return Promise.resolve();
-      } catch (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: UUID scan setup failed:', error);
-        throw error;
-      }
-    }
-  }, {
-    key: "_attemptStandardLego",
-    value: function _attemptStandardLego() {
-      console.log('🔄 CompleteBLESpikePrimeHub: FALLBACK - Standard LEGO scan');
-      this._connectionMethod = 'standard_lego';
-      try {
-        var BLE = require('../../../io/ble');
-        var options = {
-          filters: [{
-            services: [LEGO_SERVICE_UUID]
-          }],
-          optionalServices: [LEGO_SERVICE_UUID]
-        };
-        console.log('📡 CompleteBLESpikePrimeHub: Standard LEGO scan config:', JSON.stringify(options, null, 2));
-        this._ble = new BLE(this._runtime, this._extensionId, options, this._onConnect, this.reset, this._onMessage);
-        console.log('✅ CompleteBLESpikePrimeHub: Standard LEGO scanner ready');
-        return Promise.resolve();
-      } catch (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: Standard scan setup failed:', error);
-        throw error;
-      }
-    }
-
-    // Enhanced connection handler
+    // --- BLE Connection and Initialization ---
   }, {
     key: "_onConnect",
-    value: function _onConnect() {
-      var timestamp = new Date().toLocaleTimeString();
-      console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: CONNECTION ESTABLISHED!');
-      console.log('📊 Connection details: Method=' + this._connectionMethod + ', Attempt=' + this._connectionAttempts + ', UUIDs=' + this._useSpikePrimeUUIDs);
-      try {
-        if (this._useSpikePrimeUUIDs) {
-          console.log('🎯 CompleteBLESpikePrimeHub: Setting up SPIKE Prime communication...');
-          this._setupSpikePrimeCommunication();
-        } else {
-          console.log('🎯 CompleteBLESpikePrimeHub: Using standard LEGO communication...');
-          _get(_getPrototypeOf(CompleteBLESpikePrimeHub.prototype), "_onConnect", this).call(this);
-        }
+    value: function () {
+      var _onConnect2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              this._connected = true;
+              _context.next = 3;
+              return this._ble.startNotifications(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.TX_UUID, this._onMessage.bind(this));
+            case 3:
+              console.log('✅ Hub Connected! Initializing...');
 
-        // Start Python REPL initialization
-        var self = this;
-        setTimeout(function () {
-          self._initializePythonREPL();
-        }, 1000);
-
-        // Start connection monitoring
-        this._startConnectionMonitoring();
-        this._connected = true;
-        console.log('🎉 CompleteBLESpikePrimeHub: Connection fully established!');
-      } catch (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: Connection setup failed:', error);
-        this.reset();
-      }
-    }
-  }, {
-    key: "_setupSpikePrimeCommunication",
-    value: function _setupSpikePrimeCommunication() {
-      console.log('📡 CompleteBLESpikePrimeHub: Configuring SPIKE Prime characteristics...');
-      try {
-        var self = this;
-
-        // Start notifications
-        this._ble.startNotifications(SPIKE_PRIME_SERVICE_UUID, SPIKE_PRIME_NOTIFY_UUID, function (base64) {
-          self._onMessage({
-            message: base64
-          });
-        });
-        console.log('✅ CompleteBLESpikePrimeHub: Notifications enabled');
-
-        // Send initial hub property requests
-        this._firstNotificationCallback = function () {
-          console.log('📤 CompleteBLESpikePrimeHub: Sending initial hub requests...');
-          self.sendMessage(0x01, [0x01, 0x02], false); // Name
-          self.sendMessage(0x01, [0x03, 0x05], false); // Firmware
-          self.sendMessage(0x01, [0x06, 0x05], false); // Battery
-          console.log('✅ CompleteBLESpikePrimeHub: Initial hub requests sent');
-        };
-        this._startPollingBatteryLevel();
-      } catch (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: SPIKE Prime communication setup failed:', error);
-        throw error;
-      }
-    }
-  }, {
-    key: "_initializePythonREPL",
-    value: function _initializePythonREPL() {
-      console.log('🐍 CompleteBLESpikePrimeHub: Initializing Python REPL...');
-
-      // Send Ctrl-C to interrupt any running program
-      this.sendRaw('\x03');
-      var self = this;
-      setTimeout(function () {
-        console.log('🐍 CompleteBLESpikePrimeHub: Confirming Python REPL availability...');
-        self.sendRaw('import hub\r\nprint("PYTHON_AVAILABLE")\r\n');
-      }, 500);
-    }
-  }, {
-    key: "_startConnectionMonitoring",
-    value: function _startConnectionMonitoring() {
-      console.log('💓 CompleteBLESpikePrimeHub: Starting connection monitoring...');
-      if (this._keepAliveInterval) {
-        clearInterval(this._keepAliveInterval);
-      }
-      var self = this;
-      this._keepAliveInterval = setInterval(function () {
-        var now = Date.now();
-        var timeSinceLastMessage = now - self._lastHeartbeat;
-        if (self.isConnected()) {
-          console.log('💓 CompleteBLESpikePrimeHub: Heartbeat - Last: ' + timeSinceLastMessage + 'ms, Method: ' + self._connectionMethod + ', Python: ' + self._pythonAvailable);
-          if (timeSinceLastMessage > 10000) {
-            // 10 seconds
-            console.log('📡 CompleteBLESpikePrimeHub: Sending keep-alive...');
-            self.sendMessage(0x01, [0x06, 0x05], false); // Battery request
+              // Official handshake and setup sequence
+              _context.next = 6;
+              return this.sleep(200);
+            case 6:
+              _context.next = 8;
+              return this.sendMessage([HUB_CONSTANTS.MSG_INFO_REQUEST]);
+            case 8:
+              _context.next = 10;
+              return this.sleep(200);
+            case 10:
+              _context.next = 12;
+              return this.startSensorStreaming();
+            case 12:
+            case "end":
+              return _context.stop();
           }
-          if (timeSinceLastMessage > 25000) {
-            // 25 seconds
-            console.error('💀 CompleteBLESpikePrimeHub: Connection timeout, recovering...');
-            self._recoverConnection();
-          }
-        } else {
-          console.warn('⚠️ CompleteBLESpikePrimeHub: Connection lost during monitoring');
-          self._stopConnectionMonitoring();
-        }
-      }, 5000);
-      console.log('✅ CompleteBLESpikePrimeHub: Connection monitoring active');
-    }
-  }, {
-    key: "_stopConnectionMonitoring",
-    value: function _stopConnectionMonitoring() {
-      if (this._keepAliveInterval) {
-        console.log('⏹️ CompleteBLESpikePrimeHub: Stopping connection monitoring');
-        clearInterval(this._keepAliveInterval);
-        this._keepAliveInterval = null;
+        }, _callee, this);
+      }));
+      function _onConnect() {
+        return _onConnect2.apply(this, arguments);
       }
-    }
-  }, {
-    key: "_recoverConnection",
-    value: function _recoverConnection() {
-      console.log('🔧 CompleteBLESpikePrimeHub: Attempting connection recovery...');
-      if (this.isConnected()) {
-        this.sendMessage(0x01, [0x01, 0x05], false); // Hub name request
-      } else {
-        console.log('🔄 CompleteBLESpikePrimeHub: Full reconnection needed');
-        this.reset();
-      }
-    }
-
-    // Enhanced message handling
+      return _onConnect;
+    }()
   }, {
     key: "_onMessage",
-    value: function _onMessage(params) {
-      var timestamp = new Date().toLocaleTimeString();
-      this._lastHeartbeat = Date.now();
-      try {
-        var text;
-        var data;
-        if (typeof params.message === 'string') {
-          // BLE base64 message
-          var Base64Util = require('../../../util/base64-util');
-          data = Base64Util.base64ToUint8Array(params.message);
-          text = new TextDecoder().decode(data);
-          if (data.length >= 3) {
-            var length = data[0];
-            var messageType = data[2];
-            var dataStr = Array.from(data.slice(0, Math.min(8, data.length))).map(function (b) {
-              return '0x' + b.toString(16).padStart(2, '0');
-            }).join(',');
-            var suffix = data.length > 8 ? '...' : '';
-            console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: BLE MSG - Len:' + length + ', Type:0x' + messageType.toString(16) + ', Data:[' + dataStr + suffix + ']');
-
-            // Process as LEGO BLE message
-            _get(_getPrototypeOf(CompleteBLESpikePrimeHub.prototype), "_onMessage", this).call(this, params.message);
-            return;
-          }
-        } else {
-          text = params.message;
+    value: function _onMessage(base64Message) {
+      var data = this.unpack(Base64Util.base64ToUint8Array(base64Message));
+      if (!data || data.length === 0) return;
+      var msgType = data[0];
+      if (msgType === HUB_CONSTANTS.MSG_INFO_RESPONSE) {
+        if (data.length >= 13) {
+          var view = new DataView(data.buffer, data.byteOffset);
+          this.maxPacketSize = view.getUint16(9, true);
         }
-
-        // Process as Python REPL output
-        var responses = (this._remainingText + text).split('\r\n');
-        this._remainingText = responses.pop() || '';
-        for (var i = 0; i < responses.length; i++) {
-          var responseText = responses[i];
-          var trimmedText = responseText.trim();
-          if (!trimmedText) continue;
-          console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: PYTHON - "' + trimmedText + '"');
-
-          // Try JSON parsing first
-          try {
-            var json = JSON.parse(trimmedText);
-            this._parseJSONResponse(json);
-          } catch (error) {
-            // Process as raw Python output
-            this._parsePythonData(trimmedText);
-          }
-        }
-      } catch (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: Message processing error:', error);
+      } else if (msgType === HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION) {
+        this.parseDeviceNotification(data);
       }
     }
   }, {
-    key: "_parsePythonData",
-    value: function _parsePythonData(dataText) {
-      try {
-        if (dataText.indexOf('PYTHON_AVAILABLE') !== -1) {
-          if (!this._pythonAvailable) {
-            this._pythonAvailable = true;
-            console.log('🐍 CompleteBLESpikePrimeHub: Python REPL confirmed available!');
-            this._initializeContinuousSensorMonitoring();
-          }
-        } else if (dataText.indexOf('SENSORS:') === 0) {
-          this._parseSensorData(dataText.substring(8));
-        } else if (dataText.indexOf('GESTURE:') === 0) {
-          var gesture = dataText.substring(8).toLowerCase();
-          if (this._sensors.gestures.hasOwnProperty(gesture)) {
-            this._sensors.gestures[gesture] = true;
-            var self = this;
-            setTimeout(function () {
-              self._sensors.gestures[gesture] = false;
-            }, 100);
-          }
-        } else if (dataText.indexOf('>>>') === 0) {
-          this._replOutput += dataText + '\n';
-          if (this._replOutput.length > 1000) {
-            this._replOutput = this._replOutput.substring(this._replOutput.length - 1000);
-          }
-        }
-      } catch (error) {
-        console.warn('⚠️ CompleteBLESpikePrimeHub: Error parsing Python data:', error);
-      }
-    }
-  }, {
-    key: "_parseSensorData",
-    value: function _parseSensorData(sensorData) {
-      try {
-        var parts = sensorData.split('|');
-        if (parts.length >= 5) {
-          // Angles
-          var angles = parts[0].split(',').map(parseFloat);
-          if (angles.length === 3) {
-            this._sensors.angle = {
-              yaw: angles[0],
-              pitch: angles[1],
-              roll: angles[2]
-            };
-          }
-
-          // Acceleration
-          var accel = parts[1].split(',').map(parseFloat);
-          if (accel.length === 3) {
-            this._sensors.acceleration = {
-              x: accel[0],
-              y: accel[1],
-              z: accel[2]
-            };
-          }
-
-          // Orientation
-          this._sensors.orientation = parseInt(parts[2], 10);
-
-          // Temperatures
-          var temps = parts[3].split(',').map(parseFloat);
-          if (temps.length >= 2) {
-            this._sensors.temperature = temps[0];
-            this._sensors.hubTemp = temps[1];
-          }
-
-          // Motor positions
-          if (parts[4]) {
-            var motorPairs = parts[4].split('|');
-            for (var i = 0; i < motorPairs.length; i++) {
-              var pair = motorPairs[i];
-              var splitPair = pair.split(':');
-              var port = splitPair[0];
-              var values = splitPair[1];
-              if (port && values) {
-                var motorValues = values.split(',').map(parseFloat);
-                var speed = motorValues[0];
-                var relDeg = motorValues[1];
-                var absDeg = motorValues[2];
-                var pwm = motorValues[3];
-                this._sensors.motorPositions[port] = {
-                  speed: speed,
-                  relativePosition: relDeg,
-                  absolutePosition: absDeg,
-                  power: pwm
-                };
+    key: "parseDeviceNotification",
+    value: function parseDeviceNotification(data) {
+      var offset = 3; // Skip header and size
+      while (offset < data.length) {
+        if (offset >= data.length) break;
+        var deviceMsgType = data[offset];
+        var remaining = data.length - offset;
+        try {
+          switch (deviceMsgType) {
+            case 0x00:
+              // Battery
+              if (remaining >= 2) this.batteryLevel = data[offset + 1];
+              offset += 2;
+              break;
+            case 0x01:
+              // IMU
+              if (remaining >= 21) {
+                var imuView = new DataView(data.buffer, offset);
+                this.imu.faceUp = imuView.getUint8(1);
+                this.imu.yaw = imuView.getInt16(3, true);
+                this.imu.pitch = imuView.getInt16(5, true);
+                this.imu.roll = imuView.getInt16(7, true);
+                this.imu.accX = imuView.getInt16(9, true);
+                this.imu.accY = imuView.getInt16(11, true);
+                this.imu.accZ = imuView.getInt16(13, true);
               }
-            }
+              offset += 21;
+              break;
+            case 0x0A:
+              // Motor
+              if (remaining >= 11) {
+                var portName = PORT_ID_TO_NAME[data[offset + 1]];
+                if (portName) {
+                  var motorView = new DataView(data.buffer, offset);
+                  this.ports[portName].value.position = motorView.getInt32(7, true);
+                }
+              }
+              offset += 11;
+              break;
+            case 0x0B:
+              // Force Sensor
+              if (remaining >= 4) {
+                var _portName = PORT_ID_TO_NAME[data[offset + 1]];
+                if (_portName) {
+                  this.ports[_portName].value.force = data[offset + 2];
+                  this.ports[_portName].value.isPressed = data[offset + 3] === 1;
+                }
+              }
+              offset += 4;
+              break;
+            case 0x0C:
+              // Color Sensor
+              if (remaining >= 9) {
+                var _portName2 = PORT_ID_TO_NAME[data[offset + 1]];
+                if (_portName2) this.ports[_portName2].value.color = data[offset + 2];
+              }
+              offset += 9;
+              break;
+            case 0x0D:
+              // Distance Sensor
+              if (remaining >= 4) {
+                var _portName3 = PORT_ID_TO_NAME[data[offset + 1]];
+                if (_portName3) {
+                  var distView = new DataView(data.buffer, offset);
+                  this.ports[_portName3].value.distance = distView.getInt16(2, true);
+                }
+              }
+              offset += 4;
+              break;
+            case 0x0E:
+              // 3x3 Color Matrix (Output, skip)
+              offset += 11;
+              break;
+            default:
+              offset = data.length; // Stop parsing unknown device
+              break;
           }
+        } catch (e) {
+          console.error('Error parsing device notification:', e);
+          offset = data.length;
         }
-      } catch (error) {
-        console.warn('⚠️ CompleteBLESpikePrimeHub: Error parsing sensor data:', error);
       }
     }
   }, {
-    key: "_parseJSONResponse",
-    value: function _parseJSONResponse(response) {
-      // Handle JSON-RPC responses
-      if (response.hasOwnProperty('i')) {
-        var openRequest = this._openRequests[response.i];
-        if (openRequest) {
-          openRequest.resolve(response.r);
-          delete this._openRequests[response.i];
-        }
-      }
-      if (response.hasOwnProperty('m')) {
-        // Handle hub status messages
-        this._parseHubStatusResponse(response);
-      }
-    }
-  }, {
-    key: "_parseHubStatusResponse",
-    value: function _parseHubStatusResponse(response) {
-      // Hub status parsing
-      if (response.m === 0 && response.p) {
-        // Port data parsing
-        for (var i = 0; i < 6 && i < response.p.length; i++) {
-          var port = SpikePorts[i];
-          if (response.p[i] && response.p[i].length >= 2) {
-            var deviceId = response.p[i][0];
-            var values = response.p[i][1];
-            switch (deviceId) {
-              case 48: // Large motor
-              case 49:
-                // Medium motor
-                this._portValues[port] = {
-                  type: 'motor',
-                  speed: values[0] || 0,
-                  degreesCounted: values[1] || 0,
-                  position: ((values[2] || 0) + 360) % 360,
-                  power: values[3] || 0,
-                  relativePosition: values[1] || 0,
-                  absolutePosition: values[2] || 0
-                };
-                break;
-              case 61:
-                // Color sensor
-                this._portValues[port] = {
-                  type: 'color',
-                  color: values[0] || 0,
-                  reflection: values[1] || 0,
-                  ambient: values[2] || 0
-                };
-                break;
-              case 62:
-                // Distance sensor
-                this._portValues[port] = {
-                  type: 'distance',
-                  distance: values[0] === -1 ? 0 : values[0] || 0
-                };
-                break;
-              case 63:
-                // Force sensor
-                this._portValues[port] = {
-                  type: 'force',
-                  force: values[0] || 0,
-                  pressed: (values[1] || 0) > 0
-                };
-                break;
-            }
+    key: "startSensorStreaming",
+    value: function () {
+      var _startSensorStreaming = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        var payload;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              payload = [0x64, 0x00]; // Interval 100ms
+              _context2.next = 3;
+              return this.sendMessage([HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION_REQUEST].concat(payload));
+            case 3:
+            case "end":
+              return _context2.stop();
           }
-        }
+        }, _callee2, this);
+      }));
+      function startSensorStreaming() {
+        return _startSensorStreaming.apply(this, arguments);
       }
+      return startSensorStreaming;
+    }() // --- Public Command Methods ---
+  }, {
+    key: "startMotor",
+    value: function startMotor(port, speed) {
+      var portId = PORT_MAP[port];
+      if (portId === undefined) return;
+      var speedVal = Math.max(-100, Math.min(100, Math.round(speed)));
+      var json = "{\"m\":\"motor\",\"p\":{\"port\":".concat(portId, ",\"speed\":").concat(speedVal, "}}");
+      return this.sendTunnelCommand(json);
     }
   }, {
-    key: "_initializeContinuousSensorMonitoring",
-    value: function _initializeContinuousSensorMonitoring() {
-      if (this._sensorLoopRunning) return;
-      this._sensorLoopRunning = true;
-      console.log('🔄 CompleteBLESpikePrimeHub: Starting continuous sensor monitoring...');
-
-      // Sensor monitoring script
-      var sensorScript = 'import hub, utime\n' + 'def continuous_sensor_loop():\n' + '    while True:\n' + '        try:\n' + '            yaw_angle, pitch_angle, roll_angle = hub.motion.position()\n' + '            accel_x, accel_y, accel_z = hub.motion.accelerometer()\n' + '            orientation = hub.motion.orientation()\n' + '            battery_temp = hub.battery.temperature()\n' + '            hub_temp = hub.temperature()\n' + '            motor_data = {}\n' + '            for port in "ABCDEF":\n' + '                if hasattr(hub.port[port], "motor"):\n' + '                    try:\n' + '                        speed, rel_deg, abs_deg, pwm = hub.port[port].motor.get()\n' + '                        motor_data[port] = f"{speed},{rel_deg},{abs_deg},{pwm}"\n' + '                    except: pass\n' + '            motor_str = "|".join([f"{k}:{v}" for k, v in motor_data.items()])\n' + '            print(f"SENSORS:{yaw_angle},{pitch_angle},{roll_angle}|{accel_x},{accel_y},{accel_z}|{orientation}|{battery_temp},{hub_temp}|{motor_str}")\n' + '            for gesture in ["tapped", "doubletapped", "shake", "freefall"]:\n' + '                if hub.motion.was_gesture(gesture):\n' + '                    print(f"GESTURE:{gesture.upper()}")\n' + '        except Exception as e:\n' + '            pass\n' + '        utime.sleep_ms(100)\n' + 'continuous_sensor_loop()\n';
-      this.sendPythonCommand(sensorScript);
-    }
-
-    // Enhanced send method
-  }, {
-    key: "send",
-    value: function send(data, useLimiter) {
-      if (useLimiter === undefined) useLimiter = true;
-      var timestamp = new Date().toLocaleTimeString();
-      if (!this.isConnected()) {
-        console.warn('⚠️ CompleteBLESpikePrimeHub: Cannot send - not connected');
-        return Promise.resolve();
-      }
-      if (useLimiter && !this._rateLimiter.okayToSend()) {
-        console.log('⏳ CompleteBLESpikePrimeHub: Rate limited');
-        return Promise.resolve();
-      }
-      var dataStr = Array.from(data.slice(0, Math.min(6, data.length))).map(function (b) {
-        return '0x' + b.toString(16).padStart(2, '0');
-      }).join(',');
-      var suffix = data.length > 6 ? '...' : '';
-      console.log('[' + timestamp + '] CompleteBLESpikePrimeHub: SEND - Method:' + this._connectionMethod + ', Len:' + data.length + ', Data:[' + dataStr + suffix + ']');
-      try {
-        var serviceUUID = this._useSpikePrimeUUIDs ? SPIKE_PRIME_SERVICE_UUID : LEGO_SERVICE_UUID;
-        var writeUUID = this._useSpikePrimeUUIDs ? SPIKE_PRIME_WRITE_UUID : LEGO_CHAR_UUID;
-        var Base64Util = require('../../../util/base64-util');
-        return this._ble.write(serviceUUID, writeUUID, Base64Util.uint8ArrayToBase64(data), 'base64', true).then(function () {
-          console.log('✅ CompleteBLESpikePrimeHub: Data sent successfully');
-        }).catch(function (error) {
-          console.error('❌ CompleteBLESpikePrimeHub: Send failed:', error);
-          throw error;
-        });
-      } catch (error) {
-        console.error('❌ CompleteBLESpikePrimeHub: Send setup failed:', error);
-        return Promise.reject(error);
-      }
-    }
-
-    // Python communication methods
-  }, {
-    key: "sendRaw",
-    value: function sendRaw(text, useLimiter, id) {
-      if (!this.isConnected()) return Promise.resolve();
-      console.log('🐍 CompleteBLESpikePrimeHub: Sending raw Python: "' + text.replace(/\r\n/g, '\\r\\n') + '"');
-      if (id) {
-        var self = this;
-        var promise = new Promise(function (resolve, reject) {
-          self._openRequests[id] = {
-            resolve: resolve,
-            reject: reject
-          };
-        });
-        this._sendRawMessage(text);
-        return promise;
-      }
-      return this._sendRawMessage(text);
-    }
-  }, {
-    key: "sendPythonCommand",
-    value: function sendPythonCommand(pythonCode) {
-      var codePreview = pythonCode.substring(0, 100);
-      var suffix = pythonCode.length > 100 ? '...' : '';
-      console.log('🐍 CompleteBLESpikePrimeHub: Python command: ' + codePreview + suffix);
-      return this.sendRaw(pythonCode + '\r\n');
-    }
-  }, {
-    key: "sendReplCommand",
-    value: function sendReplCommand(pythonCode) {
-      this._replHistory.push(pythonCode);
-      if (this._replHistory.length > 50) {
-        this._replHistory.shift();
-      }
-      var escapedCode = pythonCode.replace(/"/g, '\\"');
-      var wrappedCode = 'try:\n' + '    _result = eval("' + escapedCode + '")\n' + '    if _result is not None:\n' + '        print(f">>> {_result}")\n' + '    else:\n' + '        exec("' + escapedCode + '")\n' + '        print(">>> Command executed")\n' + 'except Exception as e:\n' + '    print(f">>> Error: {e}")\n';
-      return this.sendPythonCommand(wrappedCode);
-    }
-  }, {
-    key: "_sendRawMessage",
-    value: function _sendRawMessage(text) {
-      // For BLE, send as binary data
-      var encoder = new TextEncoder();
-      var data = encoder.encode(text);
-      return this.send(data, false);
-    }
-
-    // Utility methods
-  }, {
-    key: "_clamp",
-    value: function _clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-    }
-
-    // Override reset
-  }, {
-    key: "reset",
-    value: function reset() {
-      console.log('🔄 CompleteBLESpikePrimeHub: Comprehensive reset...');
-      this._connected = false;
-      this._pythonAvailable = false;
-      this._sensorLoopRunning = false;
-      this._useSpikePrimeUUIDs = true;
-      this._remainingText = '';
-      this._replOutput = '';
-      this._replHistory = [];
-      this._openRequests = {};
-      this._stopConnectionMonitoring();
-
-      // Reset sensors
-      this._sensors = {
-        buttons: [0, 0, 0, 0],
-        angle: {
-          pitch: 0,
-          roll: 0,
-          yaw: 0
-        },
-        acceleration: {
-          x: 0,
-          y: 0,
-          z: 0
-        },
-        gyro: {
-          x: 0,
-          y: 0,
-          z: 0
-        },
-        orientation: SpikeOrientation.front,
-        battery: 100,
-        temperature: 25,
-        hubTemp: 25,
-        gestures: {
-          tapped: false,
-          doubletapped: false,
-          shake: false,
-          freefall: false
-        },
-        motorPositions: {}
-      };
-      this._portValues = {};
-      this._timer.start = Date.now();
-      this._timer.current = 0;
-      console.log('📊 CompleteBLESpikePrimeHub: Reset stats - Attempts:' + this._connectionAttempts + ', Method:' + this._connectionMethod);
-      _get(_getPrototypeOf(CompleteBLESpikePrimeHub.prototype), "reset", this).call(this);
-      console.log('✅ CompleteBLESpikePrimeHub: Reset complete');
-    }
-
-    // Override isConnected
-  }, {
-    key: "isConnected",
-    value: function isConnected() {
-      var connected = this._connected && _get(_getPrototypeOf(CompleteBLESpikePrimeHub.prototype), "isConnected", this).call(this);
-      if (Math.random() < 0.01) {
-        // 1% logging
-        console.log('🔍 CompleteBLESpikePrimeHub: Status - Connected:' + connected + ', Python:' + this._pythonAvailable + ', Method:' + this._connectionMethod);
-      }
-      return connected;
-    }
-
-    // Control methods
-  }, {
-    key: "stopAll",
-    value: function stopAll() {
-      this.stopAllMotors();
-      this.stopSound();
-    }
-  }, {
-    key: "stopSound",
-    value: function stopSound() {
-      this.sendPythonCommand('import hub; hub.sound.stop()');
+    key: "stopMotor",
+    value: function stopMotor(port, action) {
+      var portId = PORT_MAP[port];
+      if (portId === undefined) return;
+      var endState = {
+        'coast': 0,
+        'brake': 1,
+        'hold': 2
+      }[action] || 1;
+      var json = "{\"m\":\"motor\",\"p\":{\"port\":".concat(portId, ",\"speed\":0,\"end_state\":").concat(endState, "}}");
+      return this.sendTunnelCommand(json);
     }
   }, {
     key: "stopAllMotors",
     value: function stopAllMotors() {
-      this.sendPythonCommand('import hub; [hub.port[p].motor.stop() for p in "ABCDEF" if hasattr(hub.port[p], "motor")]');
-    }
-  }]);
-  return CompleteBLESpikePrimeHub;
-}(Hub); // Main Extension Class
-var Scratch3SpikePrimeBlocks = /*#__PURE__*/function (_BleBaseBlocks) {
-  _inherits(Scratch3SpikePrimeBlocks, _BleBaseBlocks);
-  function Scratch3SpikePrimeBlocks(runtime) {
-    var _this2;
-    _classCallCheck(this, Scratch3SpikePrimeBlocks);
-    console.log('🎯 Scratch3SpikePrimeBlocks: Initializing BLE SPIKE Prime extension...');
-
-    // Use the complete BLE SPIKE Prime hub
-    _this2 = _callSuper(this, Scratch3SpikePrimeBlocks, [new CompleteBLESpikePrimeHub(runtime, Scratch3SpikePrimeBlocks.EXTENSION_ID)]);
-    if (runtime.formatMessage) {
-      formatMessage = runtime.formatMessage;
-    }
-    console.log('✅ Scratch3SpikePrimeBlocks: BLE extension initialized');
-    return _this2;
-  }
-  _createClass(Scratch3SpikePrimeBlocks, [{
-    key: "externalPorts",
-    get: function get() {
-      return SpikePorts;
-    }
-  }, {
-    key: "multipleExternalPorts",
-    get: function get() {
-      return ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F', 'A+B+C+D+E+F'];
-    }
-  }, {
-    key: "hasInternalTiltSensorBlocks",
-    get: function get() {
-      return true;
-    }
-  }, {
-    key: "hasAdvancedBlocks",
-    get: function get() {
-      return true;
-    }
-  }, {
-    key: "setupTranslations",
-    value: function setupTranslations(formatMessage) {
-      var localeSetup = formatMessage.setup();
-      var translations = {
-        'en': {
-          'spikeprime.motorStart': '[PORT] start motor [DIRECTION]',
-          'spikeprime.motorStop': '[PORT] stop motor',
-          'spikeprime.motorSetSpeed': '[PORT] set speed to [SPEED] %',
-          'spikeprime.getPosition': '[PORT] position',
-          'spikeprime.displayText': 'write [TEXT]',
-          'spikeprime.displayImage': 'turn on [MATRIX]',
-          'spikeprime.displayClear': 'turn off pixels',
-          'spikeprime.getDistance': '[PORT] distance',
-          'spikeprime.getColor': '[PORT] color',
-          'spikeprime.getAngle': '[AXIS] angle',
-          'spikeprime.isGesture': 'hub [GESTURE]?',
-          'spikeprime.playBeep': 'beep [FREQUENCY] Hz for [DURATION] ms',
-          'spikeprime.getBatteryLevel': 'battery level %',
-          'spikeprime.isButtonPressed': '[BUTTON] button pressed?',
-          'spikeprime.runPythonCommand': 'run Python: [CODE]'
-        },
-        'de': {
-          'spikeprime.motorStart': '[PORT] Motor [DIRECTION] starten',
-          'spikeprime.motorStop': '[PORT] Motor stoppen',
-          'spikeprime.motorSetSpeed': '[PORT] Geschwindigkeit auf [SPEED] % setzen',
-          'spikeprime.getPosition': '[PORT] Position',
-          'spikeprime.displayText': '[TEXT] schreiben',
-          'spikeprime.displayImage': '[MATRIX] einschalten',
-          'spikeprime.displayClear': 'Pixel ausschalten',
-          'spikeprime.getDistance': '[PORT] Entfernung',
-          'spikeprime.getColor': '[PORT] Farbe',
-          'spikeprime.getAngle': '[AXIS] Winkel',
-          'spikeprime.isGesture': 'Hub [GESTURE]?',
-          'spikeprime.playBeep': '[FREQUENCY] Hz Piep für [DURATION] ms',
-          'spikeprime.getBatteryLevel': 'Batteriestand %',
-          'spikeprime.isButtonPressed': '[BUTTON] Taste gedrückt?',
-          'spikeprime.runPythonCommand': 'Python ausführen: [CODE]',
-          // Menu item translations
-          'spikeprime.pitch': 'Neigung',
-          'spikeprime.roll': 'Rollen',
-          'spikeprime.yaw': 'Gieren',
-          'spikeprime.tapped': 'angetippt',
-          'spikeprime.doubletapped': 'doppelt angetippt',
-          'spikeprime.shake': 'geschüttelt',
-          'spikeprime.freefall': 'freier Fall',
-          'spikeprime.left': 'links',
-          'spikeprime.center': 'mitte',
-          'spikeprime.right': 'rechts'
-        }
-      };
-      for (var locale in translations) {
-        if (!localeSetup.translations[locale]) {
-          localeSetup.translations[locale] = {};
-        }
-        Object.assign(localeSetup.translations[locale], translations[locale]);
-      }
-    }
-  }, {
-    key: "getInfo",
-    value: function getInfo() {
-      this.setupTranslations(formatMessage);
-      return {
-        id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
-        name: 'SPIKE Prime BLE',
-        extensionURL: Scratch3SpikePrimeBlocks.extensionURL,
-        blockIconURI: blockIconURI,
-        showStatusButton: true,
-        blocks: [
-        // Motor Control
-        {
-          opcode: 'motorStart',
-          text: formatMessage({
-            id: 'spikeprime.motorStart',
-            default: '[PORT] start motor [DIRECTION]'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            PORT: {
-              type: this.getArgumentType('STRING'),
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            DIRECTION: {
-              type: this.getArgumentType('NUMBER'),
-              menu: 'DIRECTION',
-              defaultValue: 1
-            }
-          }
-        }, {
-          opcode: 'motorStop',
-          text: formatMessage({
-            id: 'spikeprime.motorStop',
-            default: '[PORT] stop motor'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            PORT: {
-              type: this.getArgumentType('STRING'),
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, {
-          opcode: 'motorSetSpeed',
-          text: formatMessage({
-            id: 'spikeprime.motorSetSpeed',
-            default: '[PORT] set speed to [SPEED] %'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            PORT: {
-              type: this.getArgumentType('STRING'),
-              menu: 'MULTIPLE_PORT',
-              defaultValue: 'A'
-            },
-            SPEED: {
-              type: this.getArgumentType('NUMBER'),
-              defaultValue: 75
-            }
-          }
-        }, {
-          opcode: 'getPosition',
-          text: formatMessage({
-            id: 'spikeprime.getPosition',
-            default: '[PORT] position'
-          }),
-          blockType: this.getBlockType('REPORTER'),
-          arguments: {
-            PORT: {
-              type: this.getArgumentType('STRING'),
-              menu: 'PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, '---',
-        // Display Control
-        {
-          opcode: 'displayText',
-          text: formatMessage({
-            id: 'spikeprime.displayText',
-            default: 'write [TEXT]'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            TEXT: {
-              type: this.getArgumentType('STRING'),
-              defaultValue: 'Hello'
-            }
-          }
-        }, {
-          opcode: 'displayImage',
-          text: formatMessage({
-            id: 'spikeprime.displayImage',
-            default: 'turn on [MATRIX]'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            MATRIX: {
-              type: this.getArgumentType('MATRIX'),
-              defaultValue: '1101111011000001000101110'
-            }
-          }
-        }, {
-          opcode: 'displayClear',
-          text: formatMessage({
-            id: 'spikeprime.displayClear',
-            default: 'turn off pixels'
-          }),
-          blockType: this.getBlockType('COMMAND')
-        }, '---',
-        // Sensors
-        {
-          opcode: 'getDistance',
-          text: formatMessage({
-            id: 'spikeprime.getDistance',
-            default: '[PORT] distance'
-          }),
-          blockType: this.getBlockType('REPORTER'),
-          arguments: {
-            PORT: {
-              type: this.getArgumentType('STRING'),
-              menu: 'PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, {
-          opcode: 'getColor',
-          text: formatMessage({
-            id: 'spikeprime.getColor',
-            default: '[PORT] color'
-          }),
-          blockType: this.getBlockType('REPORTER'),
-          arguments: {
-            PORT: {
-              type: this.getArgumentType('STRING'),
-              menu: 'PORT',
-              defaultValue: 'A'
-            }
-          }
-        }, {
-          opcode: 'getAngle',
-          text: formatMessage({
-            id: 'spikeprime.getAngle',
-            default: '[AXIS] angle'
-          }),
-          blockType: this.getBlockType('REPORTER'),
-          arguments: {
-            AXIS: {
-              type: this.getArgumentType('STRING'),
-              menu: 'AXIS',
-              defaultValue: 'pitch'
-            }
-          }
-        }, {
-          opcode: 'isGesture',
-          text: formatMessage({
-            id: 'spikeprime.isGesture',
-            default: 'hub [GESTURE]?'
-          }),
-          blockType: this.getBlockType('BOOLEAN'),
-          arguments: {
-            GESTURE: {
-              type: this.getArgumentType('STRING'),
-              menu: 'GESTURE',
-              defaultValue: 'tapped'
-            }
-          }
-        }, '---',
-        // Sound
-        {
-          opcode: 'playBeep',
-          text: formatMessage({
-            id: 'spikeprime.playBeep',
-            default: 'beep [FREQUENCY] Hz for [DURATION] ms'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            FREQUENCY: {
-              type: this.getArgumentType('NUMBER'),
-              defaultValue: 440
-            },
-            DURATION: {
-              type: this.getArgumentType('NUMBER'),
-              defaultValue: 500
-            }
-          }
-        }, '---',
-        // Status
-        {
-          opcode: 'getBatteryLevel',
-          text: formatMessage({
-            id: 'spikeprime.getBatteryLevel',
-            default: 'battery level %'
-          }),
-          blockType: this.getBlockType('REPORTER')
-        }, {
-          opcode: 'isButtonPressed',
-          text: formatMessage({
-            id: 'spikeprime.isButtonPressed',
-            default: '[BUTTON] button pressed?'
-          }),
-          blockType: this.getBlockType('BOOLEAN'),
-          arguments: {
-            BUTTON: {
-              type: this.getArgumentType('STRING'),
-              menu: 'BUTTON',
-              defaultValue: 'center'
-            }
-          }
-        }, '---',
-        // Python
-        {
-          opcode: 'runPythonCommand',
-          text: formatMessage({
-            id: 'spikeprime.runPythonCommand',
-            default: 'run Python: [CODE]'
-          }),
-          blockType: this.getBlockType('COMMAND'),
-          arguments: {
-            CODE: {
-              type: this.getArgumentType('STRING'),
-              defaultValue: 'print("Hello BLE!")'
-            }
-          }
-        }],
-        menus: {
-          PORT: {
-            acceptReporters: true,
-            items: SpikePorts
-          },
-          MULTIPLE_PORT: {
-            acceptReporters: true,
-            items: ['A', 'B', 'C', 'D', 'E', 'F', 'A+B', 'C+D', 'E+F']
-          },
-          DIRECTION: {
-            acceptReporters: false,
-            items: [{
-              text: '⬆️',
-              value: '1'
-            }, {
-              text: '⬇️',
-              value: '-1'
-            }]
-          },
-          AXIS: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'spikeprime.pitch',
-                default: 'pitch'
-              }),
-              value: 'pitch'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.roll',
-                default: 'roll'
-              }),
-              value: 'roll'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.yaw',
-                default: 'yaw'
-              }),
-              value: 'yaw'
-            }]
-          },
-          GESTURE: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'spikeprime.tapped',
-                default: 'tapped'
-              }),
-              value: 'tapped'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.doubletapped',
-                default: 'doubletapped'
-              }),
-              value: 'doubletapped'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.shake',
-                default: 'shake'
-              }),
-              value: 'shake'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.freefall',
-                default: 'freefall'
-              }),
-              value: 'freefall'
-            }]
-          },
-          BUTTON: {
-            acceptReporters: false,
-            items: [{
-              text: formatMessage({
-                id: 'spikeprime.left',
-                default: 'left'
-              }),
-              value: 'left'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.center',
-                default: 'center'
-              }),
-              value: 'center'
-            }, {
-              text: formatMessage({
-                id: 'spikeprime.right',
-                default: 'right'
-              }),
-              value: 'right'
-            }]
-          }
-        }
-      };
-    }
-
-    // Helper methods
-  }, {
-    key: "getBlockType",
-    value: function getBlockType(type) {
-      try {
-        var BlockType = require('../../extension-support/block-type');
-        return BlockType[type];
-      } catch (e) {
-        return type.toLowerCase();
-      }
-    }
-  }, {
-    key: "getArgumentType",
-    value: function getArgumentType(type) {
-      try {
-        var ArgumentType = require('../../extension-support/argument-type');
-        return ArgumentType[type];
-      } catch (e) {
-        return type.toLowerCase();
-      }
-    }
-  }, {
-    key: "getCast",
-    value: function getCast() {
-      try {
-        return require('../../util/cast');
-      } catch (e) {
-        return {
-          toString: function toString(value) {
-            return String(value);
-          },
-          toNumber: function toNumber(value) {
-            return Number(value) || 0;
-          }
-        };
-      }
-    }
-
-    // Block implementations
-  }, {
-    key: "motorStart",
-    value: function motorStart(args) {
-      var direction = this.getCast().toNumber(args.DIRECTION);
-      var ports = this._validatePorts(this.getCast().toString(args.PORT));
-      var self = this;
-      var promises = ports.map(function (port) {
-        var setting = self._peripheral.motorSettings[port];
-        return self._peripheral.sendPythonCommand('import hub; hub.port.' + port + '.motor.pwm(' + Math.round(setting.speed * direction) + ')');
-      });
-      return Promise.all(promises);
-    }
-  }, {
-    key: "motorStop",
-    value: function motorStop(args) {
-      var ports = this._validatePorts(this.getCast().toString(args.PORT));
-      var self = this;
-      var promises = ports.map(function (port) {
-        return self._peripheral.sendPythonCommand('import hub; hub.port.' + port + '.motor.stop()');
-      });
-      return Promise.all(promises);
-    }
-  }, {
-    key: "motorSetSpeed",
-    value: function motorSetSpeed(args) {
-      var speed = this.getCast().toNumber(args.SPEED);
-      var ports = this._validatePorts(this.getCast().toString(args.PORT));
-      var self = this;
-      ports.forEach(function (port) {
-        self._peripheral.motorSettings[port].speed = speed;
+      var _this3 = this;
+      Object.keys(PORT_MAP).forEach(function (p) {
+        return _this3.stopMotor(p, 'brake');
       });
     }
   }, {
-    key: "getPosition",
-    value: function getPosition(args) {
-      var port = this.getCast().toString(args.PORT).trim().toUpperCase();
-      var portData = this._peripheral.portValues[port];
-      return portData && portData.position ? portData.position : 0;
+    key: "setLightMatrixPixel",
+    value: function setLightMatrixPixel(port, x, y, brightness) {
+      var portId = PORT_MAP[port];
+      if (portId === undefined) return;
+      var clampedX = Math.max(0, Math.min(2, Math.round(x)));
+      var clampedY = Math.max(0, Math.min(2, Math.round(y)));
+      var brightnessValue = Math.round(Math.max(0, Math.min(100, brightness)) / 10);
+      var pixelValue = brightnessValue << 4 | 9; // Red for visibility
+      var pixelIndex = clampedY * 3 + clampedX;
+      var pixels = Array(9).fill(0);
+      pixels[pixelIndex] = pixelValue;
+      var json = "{\"m\":\"display_3x3\",\"p\":{\"port\":".concat(portId, ",\"data\":").concat(JSON.stringify(pixels), "}}");
+      return this.sendTunnelCommand(json);
     }
   }, {
-    key: "displayText",
-    value: function displayText(args) {
-      var text = this.getCast().toString(args.TEXT);
-      var escapedText = text.replace(/"/g, '\\"');
-      return this._peripheral.sendPythonCommand('import hub; hub.display.show("' + escapedText + '")');
-    }
-  }, {
-    key: "displayImage",
-    value: function displayImage(args) {
-      var matrix = this.getCast().toString(args.MATRIX);
-      Math.round(9 * this._peripheral.pixelBrightness / 100);
-      var symbol = (matrix.replace(/\D/g, '') + '0'.repeat(25)).slice(0, 25);
-      var altImage = symbol.replace(/1/g, '9').replace(/0/g, '_').match(/.{5}/g).join(':');
-      return this._peripheral.sendPythonCommand('import hub; hub.display.show(hub.Image("' + altImage + '"))');
-    }
-  }, {
-    key: "displayClear",
-    value: function displayClear() {
-      return this._peripheral.sendPythonCommand('import hub; hub.display.clear()');
-    }
-  }, {
-    key: "getDistance",
-    value: function getDistance(args) {
-      var port = this.getCast().toString(args.PORT).trim().toUpperCase();
-      var portData = this._peripheral.portValues[port];
-      return portData && portData.type === 'distance' ? portData.distance : 0;
-    }
-  }, {
-    key: "getColor",
-    value: function getColor(args) {
-      var port = this.getCast().toString(args.PORT).trim().toUpperCase();
-      var portData = this._peripheral.portValues[port];
-      if (portData && portData.type === 'color') {
-        var colorNames = ['black', 'magenta', 'purple', 'blue', 'azure', 'turquoise', 'green', 'yellow', 'orange', 'red', 'white'];
-        return colorNames[portData.color] || 'none';
+    key: "sendTunnelCommand",
+    value: function () {
+      var _sendTunnelCommand = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(command) {
+        var commandBytes, payload, view;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              commandBytes = new TextEncoder().encode(command);
+              payload = new Uint8Array(commandBytes.length + 2);
+              view = new DataView(payload.buffer);
+              view.setUint16(0, commandBytes.length, true); // size, little-endian
+              payload.set(commandBytes, 2);
+              _context3.next = 7;
+              return this.sendMessage([HUB_CONSTANTS.MSG_TUNNEL].concat(_toConsumableArray(payload)));
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function sendTunnelCommand(_x) {
+        return _sendTunnelCommand.apply(this, arguments);
       }
-      return 'none';
+      return sendTunnelCommand;
+    }() // --- Message Framing & Encoding ---
+  }, {
+    key: "sendMessage",
+    value: function () {
+      var _sendMessage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(payloadArray) {
+        var packed, base64Data;
+        return regenerator.wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              if (this.isConnected()) {
+                _context4.next = 2;
+                break;
+              }
+              return _context4.abrupt("return");
+            case 2:
+              packed = this.pack(new Uint8Array(payloadArray));
+              base64Data = Base64Util.uint8ArrayToBase64(packed);
+              _context4.next = 6;
+              return this._ble.write(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.RX_UUID, base64Data, 'base64', true);
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function sendMessage(_x2) {
+        return _sendMessage.apply(this, arguments);
+      }
+      return sendMessage;
+    }() // This pack method is a direct JS translation of the official LEGO documentation's Python example
+  }, {
+    key: "pack",
+    value: function pack(data) {
+      var cobsEncoded = this._cobsEncode(data);
+      var xorEncoded = cobsEncoded.map(function (b) {
+        return b ^ 0x03;
+      });
+      var final = new Uint8Array(xorEncoded.length + 1);
+      final.set(xorEncoded, 0);
+      final[final.length] = 0x02;
+      return final;
+    }
+
+    // This unpack method is the reverse of the pack method
+  }, {
+    key: "unpack",
+    value: function unpack(buffer) {
+      var frame = new Uint8Array(buffer);
+      if (frame.length === 0 || frame[frame.length - 1] !== 0x02) return null;
+      var start = frame[0] === 0x01 ? 1 : 0;
+      var unframed = frame.slice(start, frame.length - 1);
+      var xorDecoded = unframed.map(function (b) {
+        return b ^ 0x03;
+      });
+      return this._cobsDecode(xorDecoded);
     }
   }, {
-    key: "getAngle",
-    value: function getAngle(args) {
-      var axis = this.getCast().toString(args.AXIS);
-      return this._peripheral.angle[axis] || 0;
+    key: "_cobsEncode",
+    value: function _cobsEncode(data) {
+      var buffer = [0];
+      var code_index = 0;
+      var _iterator = _createForOfIteratorHelper(data),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var byte = _step.value;
+          if (byte <= 2) {
+            buffer[code_index] = buffer.length - code_index + byte * 84 + 2;
+            code_index = buffer.length;
+            buffer.push(0);
+          } else {
+            buffer.push(byte);
+            if (buffer.length - code_index >= 84) {
+              buffer[code_index] = buffer.length - code_index + 2;
+              code_index = buffer.length;
+              buffer.push(0);
+            }
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      buffer[code_index] = buffer.length - code_index + 2;
+      return new Uint8Array(buffer);
     }
   }, {
-    key: "isGesture",
-    value: function isGesture(args) {
-      var gesture = this.getCast().toString(args.GESTURE);
-      return this._peripheral.gestures[gesture] || false;
+    key: "_cobsDecode",
+    value: function _cobsDecode(data) {
+      var result = [];
+      var i = 0;
+      if (data.length === 0) return new Uint8Array();
+      while (i < data.length) {
+        var code = data[i] - 2;
+        var delimiter = Math.floor(code / 84);
+        var len = code % 84;
+        for (var j = 1; j < len; j++) {
+          if (i + j < data.length) result.push(data[i + j]);
+        }
+        if (delimiter <= 2 && i + len <= data.length) result.push(delimiter);
+        i += len;
+      }
+      if (result.length > 0) result.pop();
+      return new Uint8Array(result);
     }
+
+    // --- Getters & Utilities ---
   }, {
-    key: "playBeep",
-    value: function playBeep(args) {
-      var frequency = this.getCast().toNumber(args.FREQUENCY);
-      var duration = this.getCast().toNumber(args.DURATION);
-      return this._peripheral.sendPythonCommand('import hub; hub.sound.beep(' + frequency + ', ' + duration + ')');
+    key: "getSensorValue",
+    value: function getSensorValue(port, valueType) {
+      var portData = this.ports[port];
+      return portData && portData.value.hasOwnProperty(valueType) ? portData.value[valueType] : 0;
     }
   }, {
     key: "getBatteryLevel",
     value: function getBatteryLevel() {
-      return this._peripheral.battery || 100;
+      return this.batteryLevel;
     }
   }, {
-    key: "isButtonPressed",
-    value: function isButtonPressed(args) {
-      var button = this.getCast().toString(args.BUTTON);
-      var buttonIndex = {
-        left: 0,
-        center: 1,
-        right: 2
-      }[button];
-      return buttonIndex !== undefined ? this._peripheral._sensors.buttons[buttonIndex] === 1 : false;
+    key: "getOrientation",
+    value: function getOrientation(axis) {
+      return this.imu[axis] || 0;
     }
   }, {
-    key: "runPythonCommand",
-    value: function runPythonCommand(args) {
-      var code = this.getCast().toString(args.CODE);
-      return this._peripheral.sendPythonCommand(code);
+    key: "getAcceleration",
+    value: function getAcceleration(axis) {
+      return this.imu["acc".concat(axis.toUpperCase())] || 0;
     }
   }, {
-    key: "_validatePorts",
-    value: function _validatePorts(text) {
-      return text.toUpperCase().replace(/[^ABCDEF]/g, '').split('').filter(function (x, i, self) {
-        return self.indexOf(x) === i;
-      }).sort();
-    }
-  }], [{
-    key: "EXTENSION_ID",
-    get: function get() {
-      return 'spikeprime';
+    key: "getFaceUp",
+    value: function getFaceUp() {
+      return this.imu.faceUp;
     }
   }, {
-    key: "extensionURL",
-    get: function get() {
-      return extensionURL;
-    },
-    set: function set(url) {
-      extensionURL = url;
+    key: "sleep",
+    value: function sleep(ms) {
+      return new Promise(function (resolve) {
+        return setTimeout(resolve, ms);
+      });
     }
   }]);
-  return Scratch3SpikePrimeBlocks;
-}(BleBaseBlocks);
-var blockClass = Scratch3SpikePrimeBlocks;
-blockClass = Scratch3SpikePrimeBlocks;
+  return SpikePrimeOfficialHub;
+}(); // Required for xcratch framework compatibility
+var blockClass = Scratch3SpikePrimeOfficialBlocks;
+blockClass = Scratch3SpikePrimeOfficialBlocks;
 
 export { blockClass, entry };
