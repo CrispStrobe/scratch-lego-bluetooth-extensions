@@ -1,0 +1,10 @@
+{
+  "en": {
+    "gui.extension.gamepad.name": "Universal Gamepad",
+    "gui.extension.gamepad.description": "Control your Scratch projects with any gamepad controller - Xbox, PlayStation, Nintendo Pro, or 3rd party controllers."
+  },
+  "de": {
+    "gui.extension.gamepad.name": "Universal-Gamepad",
+    "gui.extension.gamepad.description": "Steuere deine Scratch-Projekte mit einem beliebigen Gamepad-Controller – Xbox, PlayStation, Nintendo Pro oder Controller von Drittanbietern."
+  }
+}
