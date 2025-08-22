@@ -9,11 +9,11 @@ const DEBUG_TUNNEL_COMMANDS = false;
 
 // This is the main class Scratch will load. It defines the blocks and menus.
 // It does NOT inherit from BleBaseBlocks to avoid LWP3/SPIKE Prime protocol conflicts.
-class Scratch3SpikePrimeOfficialBlocks {
+class Scratch3SpikePrimeBlocks {
     constructor(runtime) {
         this.runtime = runtime;
         // The hub object handles all low-level communication and state management.
-        this.hub = new SpikePrimeOfficialHub(this.runtime, this.constructor.EXTENSION_ID);
+        this.hub = new SpikePrimeHub(this.runtime, this.constructor.EXTENSION_ID);
 
         this.runtime.on('PROJECT_STOP_ALL', () => {
             try {
@@ -27,12 +27,12 @@ class Scratch3SpikePrimeOfficialBlocks {
     }
 
     static get EXTENSION_ID() {
-        return 'spikePrimeOfficialProtocol';
+        return 'spikeprimeble';
     }
 
     getInfo() {
         return {
-            id: Scratch3SpikePrimeOfficialBlocks.EXTENSION_ID,
+            id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
             name: 'SPIKE Prime',
             color1: '#FFD700',
             color2: '#D4AF37',
@@ -311,7 +311,7 @@ var HUB_CONSTANTS = {
 var PORT_MAP = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
 var PORT_ID_TO_NAME = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-class SpikePrimeOfficialHub {
+class SpikePrimeHub {
     constructor(runtime, extensionId) {
         this._runtime = runtime;
         this._extensionId = extensionId;
@@ -1208,5 +1208,5 @@ class SpikePrimeOfficialHub {
 }
 
 // Required for xcratch framework compatibility
-exports.blockClass = Scratch3SpikePrimeOfficialBlocks;
-module.exports = Scratch3SpikePrimeOfficialBlocks;
+exports.blockClass = Scratch3SpikePrimeBlocks;
+module.exports = Scratch3SpikePrimeBlocks;

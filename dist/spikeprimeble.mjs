@@ -2960,13 +2960,13 @@ var DEBUG_TUNNEL_COMMANDS = false;
 
 // This is the main class Scratch will load. It defines the blocks and menus.
 // It does NOT inherit from BleBaseBlocks to avoid LWP3/SPIKE Prime protocol conflicts.
-var Scratch3SpikePrimeOfficialBlocks = /*#__PURE__*/function () {
-  function Scratch3SpikePrimeOfficialBlocks(runtime) {
+var Scratch3SpikePrimeBlocks = /*#__PURE__*/function () {
+  function Scratch3SpikePrimeBlocks(runtime) {
     var _this = this;
-    _classCallCheck(this, Scratch3SpikePrimeOfficialBlocks);
+    _classCallCheck(this, Scratch3SpikePrimeBlocks);
     this.runtime = runtime;
     // The hub object handles all low-level communication and state management.
-    this.hub = new SpikePrimeOfficialHub(this.runtime, this.constructor.EXTENSION_ID);
+    this.hub = new SpikePrimeHub(this.runtime, this.constructor.EXTENSION_ID);
     this.runtime.on('PROJECT_STOP_ALL', function () {
       try {
         _this.hub.stopAllMotors();
@@ -2976,11 +2976,11 @@ var Scratch3SpikePrimeOfficialBlocks = /*#__PURE__*/function () {
     });
     console.log('SPIKE Prime Extension: Initialized successfully');
   }
-  _createClass(Scratch3SpikePrimeOfficialBlocks, [{
+  _createClass(Scratch3SpikePrimeBlocks, [{
     key: "getInfo",
     value: function getInfo() {
       return {
-        id: Scratch3SpikePrimeOfficialBlocks.EXTENSION_ID,
+        id: Scratch3SpikePrimeBlocks.EXTENSION_ID,
         name: 'SPIKE Prime',
         color1: '#FFD700',
         color2: '#D4AF37',
@@ -3309,10 +3309,10 @@ var Scratch3SpikePrimeOfficialBlocks = /*#__PURE__*/function () {
   }], [{
     key: "EXTENSION_ID",
     get: function get() {
-      return 'spikePrimeOfficialProtocol';
+      return 'spikeprimeble';
     }
   }]);
-  return Scratch3SpikePrimeOfficialBlocks;
+  return Scratch3SpikePrimeBlocks;
 }(); // ===================================================================================
 // === HUB COMMUNICATION LOGIC =======================================================
 // ===================================================================================
@@ -3348,9 +3348,9 @@ var PORT_MAP = {
   F: 5
 };
 var PORT_ID_TO_NAME = ['A', 'B', 'C', 'D', 'E', 'F'];
-var SpikePrimeOfficialHub = /*#__PURE__*/function () {
-  function SpikePrimeOfficialHub(runtime, extensionId) {
-    _classCallCheck(this, SpikePrimeOfficialHub);
+var SpikePrimeHub = /*#__PURE__*/function () {
+  function SpikePrimeHub(runtime, extensionId) {
+    _classCallCheck(this, SpikePrimeHub);
     this._runtime = runtime;
     this._extensionId = extensionId;
     this._ble = null;
@@ -3368,7 +3368,7 @@ var SpikePrimeOfficialHub = /*#__PURE__*/function () {
   /**
    * Scan for SPIKE Prime hubs - called by Scratch's device selection UI
    */
-  _createClass(SpikePrimeOfficialHub, [{
+  _createClass(SpikePrimeHub, [{
     key: "scan",
     value: function scan() {
       try {
@@ -4178,9 +4178,9 @@ var SpikePrimeOfficialHub = /*#__PURE__*/function () {
       });
     }
   }]);
-  return SpikePrimeOfficialHub;
+  return SpikePrimeHub;
 }(); // Required for xcratch framework compatibility
-var blockClass = Scratch3SpikePrimeOfficialBlocks;
-blockClass = Scratch3SpikePrimeOfficialBlocks;
+var blockClass = Scratch3SpikePrimeBlocks;
+blockClass = Scratch3SpikePrimeBlocks;
 
 export { blockClass, entry };
