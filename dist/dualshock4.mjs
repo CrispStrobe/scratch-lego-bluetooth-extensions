@@ -15,25 +15,31 @@ var img$1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAg4AAAGQCAYAAADGP+iXA
 
 var img = "data:image/svg+xml,%3csvg height='32' width='32' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3clinearGradient id='g' gradientTransform='rotate(-90 24 10)' gradientUnits='userSpaceOnUse' x1='22.9' x2='25.1' y1='10' y2='10'%3e%3cstop offset='0' stop-color='%23fdae23'/%3e%3cstop offset='1' stop-color='%23fdca73'/%3e%3c/linearGradient%3e%3clinearGradient id='h' gradientTransform='rotate(-90 26 12)' gradientUnits='userSpaceOnUse' x1='24.9' x2='27.1' y1='12' y2='12'%3e%3cstop offset='0' stop-color='%23da4453'/%3e%3cstop offset='1' stop-color='%23e47681'/%3e%3c/linearGradient%3e%3clinearGradient id='i' gradientTransform='rotate(-90 24 14)' gradientUnits='userSpaceOnUse' x1='22.9' x2='25.1' y1='14' y2='14'%3e%3cstop offset='0' stop-color='%2327ab5f'/%3e%3cstop offset='1' stop-color='%234bd786'/%3e%3c/linearGradient%3e%3clinearGradient id='j' gradientTransform='rotate(-90 22 12)' gradientUnits='userSpaceOnUse' x1='20.9' x2='23.1' y1='12' y2='12'%3e%3cstop offset='0' stop-color='%230c85dc'/%3e%3cstop offset='1' stop-color='%2343aaf5'/%3e%3c/linearGradient%3e%3clinearGradient id='a'%3e%3cstop offset='0' stop-color='%230f1419'/%3e%3cstop offset='1' stop-color='%2322282e'/%3e%3c/linearGradient%3e%3cradialGradient id='k' cx='2' cy='20.835' gradientTransform='matrix(1.998 0 .00002 11.988 -1.996 -223.769)' gradientUnits='userSpaceOnUse' r='1.001' xlink:href='%23a'/%3e%3cradialGradient id='n' cx='3.001' cy='19.834' gradientTransform='matrix(-1.998 0 0 11.988 35.996 -211.768)' gradientUnits='userSpaceOnUse' r='1.001' xlink:href='%23a'/%3e%3clinearGradient id='b'%3e%3cstop offset='0' stop-color='%236f7881'/%3e%3cstop offset='1' stop-color='%23b0b4b8'/%3e%3c/linearGradient%3e%3clinearGradient id='c'%3e%3cstop offset='0' stop-color='%23171e25'/%3e%3cstop offset='1' stop-color='%23333c45'/%3e%3c/linearGradient%3e%3clinearGradient id='d' gradientUnits='userSpaceOnUse' x1='16' x2='16' y1='26' y2='6'%3e%3cstop offset='0' stop-color='%23535a61'/%3e%3cstop offset='.25' stop-color='%236f7881'/%3e%3cstop offset='1' stop-color='%23adb6bb'/%3e%3c/linearGradient%3e%3clinearGradient id='l' gradientUnits='userSpaceOnUse' x1='19' x2='19' xlink:href='%23b' y1='22' y2='16'/%3e%3clinearGradient id='m' gradientUnits='userSpaceOnUse' x1='19' x2='19' xlink:href='%23c' y1='21' y2='17'/%3e%3clinearGradient id='f' gradientUnits='userSpaceOnUse' x1='8' x2='8' xlink:href='%23c' y1='15' y2='9'/%3e%3clinearGradient id='e' gradientUnits='userSpaceOnUse' x1='6' x2='6' xlink:href='%23b' y1='15' y2='9'/%3e%3cpath d='M7 6c-2.761 0-5 3.358-5 7.5v.5l1 1v10l-.021.482a2.5 2.5 0 0 0 3.289-.214L10.535 21h10.93l4.267 4.268a2.5 2.5 0 0 0 3.29.212L29 25V15l1-1v-.5C30 9.358 27.761 6 25 6z' fill='url(%23d)'/%3e%3cpath d='M28 12a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4zm-16 0a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4z' fill='%236f7881'/%3e%3ccircle cx='8' cy='12' fill='url(%23e)' r='3'/%3e%3cpath d='M8 9a3 3 0 0 0-1 .174V11H5.176A3 3 0 0 0 5 12a3 3 0 0 0 .174 1H7v1.824A3 3 0 0 0 8 15a3 3 0 0 0 1-.174V13h1.824A3 3 0 0 0 11 12a3 3 0 0 0-.174-1H9V9.176A3 3 0 0 0 8 9z' fill='url(%23f)'/%3e%3cpath d='M24 8.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1A1.1 1.1 0 0 1 24 8.9z' fill='url(%23g)'/%3e%3cpath d='M26 10.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z' fill='url(%23h)'/%3e%3cpath d='M24 12.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z' fill='url(%23i)'/%3e%3cpath d='M22 10.9a1.1 1.1 0 0 1 1.1 1.1 1.1 1.1 0 0 1-1.1 1.1 1.1 1.1 0 0 1-1.1-1.1 1.1 1.1 0 0 1 1.1-1.1z' fill='url(%23j)'/%3e%3cpath d='M10.535 20l-4.267 4.268A2.5 2.5 0 0 1 3 24.496V25l-.021.482a2.5 2.5 0 0 0 3.289-.214L10.535 21h10.93l4.267 4.268a2.5 2.5 0 0 0 3.29.212L29 25v-.502a2.5 2.5 0 0 1-3.268-.23L21.465 20z' fill='%23292c2f' opacity='.2'/%3e%3cpath d='M2 14a2 4 0 0 1 2 4v4l-.002.002a2 4 0 0 1 0 .004 2 4 0 0 1-1.02 3.484 2.5 2.5 0 0 1-.98-1.984A2.5 2.5 0 0 1 2 23.465V18z' fill='url(%23k)'/%3e%3cpath d='M23 19a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3zm-8 0a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3z' fill='url(%23l)'/%3e%3cpath d='M22 19a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2zm-8 0a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z' fill='url(%23m)'/%3e%3cpath d='M30 14a2 4 0 0 0-2 4v4l.002.002a2 4 0 0 0 0 .004 2 4 0 0 0 1.02 3.484 2.5 2.5 0 0 0 .98-1.984 2.5 2.5 0 0 0-.002-.041V18z' fill='url(%23n)'/%3e%3c/svg%3e";
 
-var formatMessage = function formatMessage(messageData) {
+/**
+ * @param {object} messageData - data for format-message
+ * @returns {string} - translated message for the current locale
+ */
+var formatMessage$1 = function formatMessage(messageData) {
   return messageData.defaultMessage;
 };
 var entry = {
   get name() {
-    return formatMessage({
+    return formatMessage$1({
       id: 'gui.extension.gamepad.name',
-      default: 'Universal Gamepad'
+      default: 'Universal Gamepad',
+      description: 'Name for the Universal Gamepad extension'
     });
   },
   extensionId: 'dualshock4',
-  // Changed to match your directory
+  // Must match the VM extension id
   collaborator: 'CrispStrobe',
   iconURL: img$1,
   insetIconURL: img,
   get description() {
-    return formatMessage({
+    return formatMessage$1({
       id: 'gui.extension.gamepad.description',
-      default: 'Control your Scratch projects with any gamepad controller - Xbox, PlayStation, Nintendo Pro, or 3rd party controllers.'
+      default: 'Control your Scratch projects with any gamepad controller - Xbox, PlayStation, Nintendo Pro, or 3rd party controllers.',
+      description: 'Description for the Universal Gamepad extension'
     });
   },
   featured: true,
@@ -41,7 +47,7 @@ var entry = {
   bluetoothRequired: false,
   internetConnectionRequired: false,
   setFormatMessage: function setFormatMessage(formatter) {
-    formatMessage = formatter;
+    formatMessage$1 = formatter;
   },
   translationMap: translations$1
 };
@@ -744,31 +750,69 @@ var translations = {
     "gamepad.axes.y": "y-Achse"
   }
 };
+var formatMessage = function formatMessage(messageData) {
+  return messageData.defaultMessage;
+};
+
+// Simple translation setup that works with the build system
+var setupTranslations = function setupTranslations() {
+  try {
+    var localeSetup = formatMessage.setup();
+    if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
+      Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
+    }
+  } catch (e) {
+    // Fails silently, which is fine.
+  }
+};
 var blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAORJREFUeF7t2DEKwjAYQOG/qIMH8BbewNvY1Vt4A2/hDXQV3EQHwQOIOgiCiIODiIOLiCCCiAgOjooHD/BvhLyEjxmSH5CEJCRJkiRJkiRJkiRJkiSNB0mSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJGlSSJIkSZIkSZIkSZIkSZL+A2ggCAwANDVJREFUeF7t1jcQAAA=';
+
+// Universal button mappings for different controller types
 var GAMEPAD_BUTTONS = {
   A: 0,
+  // Bottom face button (Cross on PS, A on Xbox)
   B: 1,
+  // Right face button (Circle on PS, B on Xbox)  
   X: 2,
+  // Left face button (Square on PS, X on Xbox)
   Y: 3,
+  // Top face button (Triangle on PS, Y on Xbox)
   LB: 4,
+  // Left bumper (L1)
   RB: 5,
+  // Right bumper (R1)
   LT: 6,
+  // Left trigger (L2)
   RT: 7,
+  // Right trigger (R2)
   SELECT: 8,
+  // Select/Share/Back
   START: 9,
+  // Start/Options/Menu
   LS: 10,
+  // Left stick press (L3)
   RS: 11,
+  // Right stick press (R3)
   UP: 12,
+  // D-pad up
   DOWN: 13,
+  // D-pad down
   LEFT: 14,
+  // D-pad left
   RIGHT: 15,
-  HOME: 16
+  // D-pad right
+  HOME: 16 // Home/PS/Xbox button
 };
 var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   function Scratch3GamepadBlocks(runtime) {
     var _this = this;
     _classCallCheck(this, Scratch3GamepadBlocks);
     this.runtime = runtime;
+
+    // Use runtime formatMessage if available
+    if (runtime.formatMessage) {
+      formatMessage = runtime.formatMessage;
+    }
     this.activeController = null;
     this.previousButtons = [];
     this.virtualCursor = {
@@ -779,6 +823,8 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       maxY: 180,
       minY: -180
     };
+
+    // Set up polling
     this.runtime.on('PROJECT_RUN_START', function () {
       _this._startPolling();
     });
@@ -789,21 +835,7 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   _createClass(Scratch3GamepadBlocks, [{
     key: "getInfo",
     value: function getInfo() {
-      // --- This is the working "blueprint" for your build system ---
-      var formatMessage = function formatMessage(messageData) {
-        return messageData.defaultMessage;
-      };
-      if (this.runtime.formatMessage) {
-        formatMessage = this.runtime.formatMessage;
-        try {
-          var localeSetup = formatMessage.setup();
-          if (localeSetup && localeSetup.translations && localeSetup.translations[localeSetup.locale]) {
-            Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
-          }
-        } catch (e) {/* Fails silently, which is fine */}
-      }
-      // --- End of translation setup ---
-
+      setupTranslations();
       return {
         id: 'dualshock4',
         name: formatMessage({
@@ -935,6 +967,13 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
               defaultValue: 50
             }
           }
+        }, '---', {
+          opcode: 'showDebugInfo',
+          text: formatMessage({
+            id: 'gamepad.showDebugInfo',
+            defaultMessage: 'show gamepad debug info'
+          }),
+          blockType: BlockType.COMMAND
         }],
         menus: {
           BUTTONS: {
@@ -991,7 +1030,7 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       if (this._pollInterval) return;
       this._pollInterval = setInterval(function () {
         _this2._pollGamepads();
-      }, 16);
+      }, 16); // ~60 FPS
     }
   }, {
     key: "_stopPolling",
@@ -1005,11 +1044,14 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
     value: function _pollGamepads() {
       try {
         var gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
-        this.activeController = Array.from(gamepads).find(function (g) {
+        var firstActive = Array.from(gamepads).find(function (g) {
           return g;
-        }) || null;
-        if (this.activeController) {
+        });
+        if (firstActive) {
+          this.activeController = firstActive;
           this._updateVirtualCursor(this.activeController);
+        } else {
+          this.activeController = null;
         }
       } catch (e) {
         this.activeController = null;
@@ -1023,7 +1065,7 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       var leftY = this._normalizeAxis(gamepad.axes[1] || 0);
       var speed = 5;
       this.virtualCursor.x += leftX * speed;
-      this.virtualCursor.y -= leftY * speed; // Y is inverted
+      this.virtualCursor.y -= leftY * speed; // Y is often inverted
 
       this.virtualCursor.x = Math.max(this.virtualCursor.minX, Math.min(this.virtualCursor.maxX, this.virtualCursor.x));
       this.virtualCursor.y = Math.max(this.virtualCursor.minY, Math.min(this.virtualCursor.maxY, this.virtualCursor.y));
@@ -1038,23 +1080,21 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   }, {
     key: "whenButtonPressed",
     value: function whenButtonPressed(args) {
-      var _this$activeControlle;
       if (!this.activeController) return false;
       var buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
       if (buttonIndex === undefined) return false;
       var wasPressed = this.previousButtons[buttonIndex] || false;
-      var isPressed = ((_this$activeControlle = this.activeController.buttons[buttonIndex]) === null || _this$activeControlle === void 0 ? void 0 : _this$activeControlle.pressed) || false;
+      var isPressed = this.activeController.buttons[buttonIndex] && this.activeController.buttons[buttonIndex].pressed || false;
       this.previousButtons[buttonIndex] = isPressed;
       return !wasPressed && isPressed;
     }
   }, {
     key: "isButtonPressed",
     value: function isButtonPressed(args) {
-      var _this$activeControlle2;
       if (!this.activeController) return false;
       var buttonIndex = GAMEPAD_BUTTONS[args.BUTTON];
       if (buttonIndex === undefined) return false;
-      var isPressed = ((_this$activeControlle2 = this.activeController.buttons[buttonIndex]) === null || _this$activeControlle2 === void 0 ? void 0 : _this$activeControlle2.pressed) || false;
+      var isPressed = this.activeController.buttons[buttonIndex] && this.activeController.buttons[buttonIndex].pressed || false;
       this.previousButtons[buttonIndex] = isPressed;
       return isPressed;
     }
@@ -1066,7 +1106,8 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   }, {
     key: "getControllerInfo",
     value: function getControllerInfo() {
-      return this.activeController ? this.activeController.id : 'No controller';
+      if (!this.activeController) return 'No controller';
+      return this.activeController.id;
     }
   }, {
     key: "getStickValue",
@@ -1112,10 +1153,11 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
       var x = this._normalizeAxis(this.activeController.axes[stickAxes.x] || 0);
       var y = this._normalizeAxis(this.activeController.axes[stickAxes.y] || 0);
       if (x === 0 && y === 0) return 90; // Default to pointing up
+
       var radians = Math.atan2(-y, x);
-      var degrees = radians * (180 / Math.PI);
-      if (degrees < 0) degrees += 360;
-      return Math.round(degrees);
+      var degrees = radians * 180 / Math.PI;
+      var normalizedDegrees = (degrees + 360) % 360;
+      return Math.round(normalizedDegrees);
     }
   }, {
     key: "getCursorX",
@@ -1138,17 +1180,42 @@ var Scratch3GamepadBlocks = /*#__PURE__*/function () {
   }, {
     key: "vibrate",
     value: function vibrate(args) {
-      if (!this.activeController || !this.activeController.vibrationActuator) return;
+      if (!this.activeController) return;
       var duration = Cast.toNumber(args.DURATION);
       var intensity = Cast.toNumber(args.INTENSITY) / 100;
+      var actuator = this.activeController.vibrationActuator;
+      if (!actuator) {
+        console.log('Vibration not supported on this controller');
+        return;
+      }
       try {
-        this.activeController.vibrationActuator.playEffect('dual-rumble', {
+        actuator.playEffect('dual-rumble', {
           duration: duration,
           weakMagnitude: intensity,
           strongMagnitude: intensity
         });
       } catch (error) {
-        // Silently fail if vibration is not supported or fails
+        console.log('Vibration failed:', error);
+      }
+    }
+  }, {
+    key: "showDebugInfo",
+    value: function showDebugInfo() {
+      console.log('🔧 === UNIVERSAL GAMEPAD DEBUG INFO ===');
+      console.log('🎮 Connected: ' + (this.isConnected() ? 'YES (' + this.activeController.id + ')' : 'NO'));
+      if (this.activeController) {
+        console.log('🎮 === CONTROLLER INFO ===');
+        var buttonStates = this.activeController.buttons.map(function (b, i) {
+          return i + ':' + (b.pressed ? 'P' : 'R');
+        }).join(' ');
+        console.log('🔘 Buttons:', buttonStates);
+        var axisValues = this.activeController.axes.map(function (a) {
+          return a.toFixed(2);
+        }).join(', ');
+        console.log('📊 Axes:', axisValues);
+        console.log('🖱 Cursor: x=' + this.virtualCursor.x.toFixed(1) + ', y=' + this.virtualCursor.y.toFixed(1));
+      } else {
+        console.log('⚠️ Connect a controller and press a button to begin.');
       }
     }
   }]);
