@@ -69,28 +69,90 @@ var entry = {
   translationMap: translations
 };
 
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray$1(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray$1(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray$1(arr) || _nonIterableSpread();
+}
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+      args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+      _next(undefined);
+    });
+  };
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
 
-function _typeof(o) {
+function _typeof$1(o) {
   "@babel/helpers - typeof";
 
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
+  }, _typeof$1(o);
 }
 
 function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
+  if ("object" != _typeof$1(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r || "default");
-    if ("object" != _typeof(i)) return i;
+    if ("object" != _typeof$1(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r ? String : Number)(t);
@@ -98,7 +160,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : String(i);
+  return "symbol" == _typeof$1(i) ? i : String(i);
 }
 
 function _defineProperties(target, props) {
@@ -117,6 +179,347 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
+}
+
+var regeneratorRuntime$1 = {exports: {}};
+
+var _typeof = {exports: {}};
+
+(function (module) {
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }
+  module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(_typeof);
+
+(function (module) {
+  var _typeof$1 = _typeof.exports["default"];
+  function _regeneratorRuntime() {
+
+    /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+    module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
+      return e;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+    var t,
+      e = {},
+      r = Object.prototype,
+      n = r.hasOwnProperty,
+      o = Object.defineProperty || function (t, e, r) {
+        t[e] = r.value;
+      },
+      i = "function" == typeof Symbol ? Symbol : {},
+      a = i.iterator || "@@iterator",
+      c = i.asyncIterator || "@@asyncIterator",
+      u = i.toStringTag || "@@toStringTag";
+    function define(t, e, r) {
+      return Object.defineProperty(t, e, {
+        value: r,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+      }), t[e];
+    }
+    try {
+      define({}, "");
+    } catch (t) {
+      define = function define(t, e, r) {
+        return t[e] = r;
+      };
+    }
+    function wrap(t, e, r, n) {
+      var i = e && e.prototype instanceof Generator ? e : Generator,
+        a = Object.create(i.prototype),
+        c = new Context(n || []);
+      return o(a, "_invoke", {
+        value: makeInvokeMethod(t, r, c)
+      }), a;
+    }
+    function tryCatch(t, e, r) {
+      try {
+        return {
+          type: "normal",
+          arg: t.call(e, r)
+        };
+      } catch (t) {
+        return {
+          type: "throw",
+          arg: t
+        };
+      }
+    }
+    e.wrap = wrap;
+    var h = "suspendedStart",
+      l = "suspendedYield",
+      f = "executing",
+      s = "completed",
+      y = {};
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+    var p = {};
+    define(p, a, function () {
+      return this;
+    });
+    var d = Object.getPrototypeOf,
+      v = d && d(d(values([])));
+    v && v !== r && n.call(v, a) && (p = v);
+    var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+    function defineIteratorMethods(t) {
+      ["next", "throw", "return"].forEach(function (e) {
+        define(t, e, function (t) {
+          return this._invoke(e, t);
+        });
+      });
+    }
+    function AsyncIterator(t, e) {
+      function invoke(r, o, i, a) {
+        var c = tryCatch(t[r], t, o);
+        if ("throw" !== c.type) {
+          var u = c.arg,
+            h = u.value;
+          return h && "object" == _typeof$1(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+            invoke("next", t, i, a);
+          }, function (t) {
+            invoke("throw", t, i, a);
+          }) : e.resolve(h).then(function (t) {
+            u.value = t, i(u);
+          }, function (t) {
+            return invoke("throw", t, i, a);
+          });
+        }
+        a(c.arg);
+      }
+      var r;
+      o(this, "_invoke", {
+        value: function value(t, n) {
+          function callInvokeWithMethodAndArg() {
+            return new e(function (e, r) {
+              invoke(t, n, e, r);
+            });
+          }
+          return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+        }
+      });
+    }
+    function makeInvokeMethod(e, r, n) {
+      var o = h;
+      return function (i, a) {
+        if (o === f) throw new Error("Generator is already running");
+        if (o === s) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: !0
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var c = n.delegate;
+          if (c) {
+            var u = maybeInvokeDelegate(c, n);
+            if (u) {
+              if (u === y) continue;
+              return u;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (o === h) throw o = s, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = f;
+          var p = tryCatch(e, r, n);
+          if ("normal" === p.type) {
+            if (o = n.done ? s : l, p.arg === y) continue;
+            return {
+              value: p.arg,
+              done: n.done
+            };
+          }
+          "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
+        }
+      };
+    }
+    function maybeInvokeDelegate(e, r) {
+      var n = r.method,
+        o = e.iterator[n];
+      if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+      var i = tryCatch(o, e.iterator, r.arg);
+      if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+      var a = i.arg;
+      return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+    }
+    function pushTryEntry(t) {
+      var e = {
+        tryLoc: t[0]
+      };
+      1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+    }
+    function resetTryEntry(t) {
+      var e = t.completion || {};
+      e.type = "normal", delete e.arg, t.completion = e;
+    }
+    function Context(t) {
+      this.tryEntries = [{
+        tryLoc: "root"
+      }], t.forEach(pushTryEntry, this), this.reset(!0);
+    }
+    function values(e) {
+      if (e || "" === e) {
+        var r = e[a];
+        if (r) return r.call(e);
+        if ("function" == typeof e.next) return e;
+        if (!isNaN(e.length)) {
+          var o = -1,
+            i = function next() {
+              for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+              return next.value = t, next.done = !0, next;
+            };
+          return i.next = i;
+        }
+      }
+      throw new TypeError(_typeof$1(e) + " is not iterable");
+    }
+    return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+      value: GeneratorFunctionPrototype,
+      configurable: !0
+    }), o(GeneratorFunctionPrototype, "constructor", {
+      value: GeneratorFunction,
+      configurable: !0
+    }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+      var e = "function" == typeof t && t.constructor;
+      return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+    }, e.mark = function (t) {
+      return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+    }, e.awrap = function (t) {
+      return {
+        __await: t
+      };
+    }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+      return this;
+    }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+      void 0 === i && (i = Promise);
+      var a = new AsyncIterator(wrap(t, r, n, o), i);
+      return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+        return t.done ? t.value : a.next();
+      });
+    }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+      return this;
+    }), define(g, "toString", function () {
+      return "[object Generator]";
+    }), e.keys = function (t) {
+      var e = Object(t),
+        r = [];
+      for (var n in e) r.push(n);
+      return r.reverse(), function next() {
+        for (; r.length;) {
+          var t = r.pop();
+          if (t in e) return next.value = t, next.done = !1, next;
+        }
+        return next.done = !0, next;
+      };
+    }, e.values = values, Context.prototype = {
+      constructor: Context,
+      reset: function reset(e) {
+        if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+      },
+      stop: function stop() {
+        this.done = !0;
+        var t = this.tryEntries[0].completion;
+        if ("throw" === t.type) throw t.arg;
+        return this.rval;
+      },
+      dispatchException: function dispatchException(e) {
+        if (this.done) throw e;
+        var r = this;
+        function handle(n, o) {
+          return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+        }
+        for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+          var i = this.tryEntries[o],
+            a = i.completion;
+          if ("root" === i.tryLoc) return handle("end");
+          if (i.tryLoc <= this.prev) {
+            var c = n.call(i, "catchLoc"),
+              u = n.call(i, "finallyLoc");
+            if (c && u) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            } else if (c) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+            } else {
+              if (!u) throw new Error("try statement without catch or finally");
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            }
+          }
+        }
+      },
+      abrupt: function abrupt(t, e) {
+        for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+          var o = this.tryEntries[r];
+          if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+            var i = o;
+            break;
+          }
+        }
+        i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+        var a = i ? i.completion : {};
+        return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+      },
+      complete: function complete(t, e) {
+        if ("throw" === t.type) throw t.arg;
+        return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+      },
+      finish: function finish(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+        }
+      },
+      "catch": function _catch(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.tryLoc === t) {
+            var n = r.completion;
+            if ("throw" === n.type) {
+              var o = n.arg;
+              resetTryEntry(r);
+            }
+            return o;
+          }
+        }
+        throw new Error("illegal catch attempt");
+      },
+      delegateYield: function delegateYield(e, r, n) {
+        return this.delegate = {
+          iterator: values(e),
+          resultName: r,
+          nextLoc: n
+        }, "next" === this.method && (this.arg = t), y;
+      }
+    }, e;
+  }
+  module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(regeneratorRuntime$1);
+
+// TODO(Babel 8): Remove this file.
+
+var runtime = regeneratorRuntime$1.exports();
+var regenerator = runtime;
+
+// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$1(globalThis)) === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
 }
 
 /**
@@ -700,7 +1103,7 @@ function _assertThisInitialized(self) {
 }
 
 function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
@@ -2853,7 +3256,7 @@ var browserAtob = {exports: {}};
       }
 
       // ios web worker with base64js
-      if ('object' === _typeof(w.base64js)) {
+      if ('object' === _typeof$1(w.base64js)) {
         // bufferToBinaryString
         // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
         return function atobWebWorker_iOS(a) {
@@ -2949,32 +3352,30 @@ var Base64Util$1 = /*#__PURE__*/function () {
 }();
 var base64Util = Base64Util$1;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var ArgumentType = argumentType;
 var BlockType = blockType;
 var Cast = cast;
-var BLE = ble;
-var Base64Util = base64Util;
+var BLE = ble; // Use the official Scratch/xcratch BLE handler
+var Base64Util = base64Util; // Use Scratch's Base64 utility
 
-// Debug flag - set to true for extensive logging and tunnel command experimentation
-var DEBUG_TUNNEL_COMMANDS = false;
-
-// This is the main class Scratch will load. It defines the blocks and menus.
-// It does NOT inherit from BleBaseBlocks to avoid LWP3/SPIKE Prime protocol conflicts.
+// This class defines the Scratch blocks and their behavior.
+// It is the main entry point for the extension.
 var Scratch3SpikePrimeOfficialBlocks = /*#__PURE__*/function () {
   function Scratch3SpikePrimeOfficialBlocks(runtime) {
     var _this = this;
     _classCallCheck(this, Scratch3SpikePrimeOfficialBlocks);
     this.runtime = runtime;
-    // The hub object handles all low-level communication and state management.
+    // The hub object handles all low-level communication and protocol logic.
+    // It's created with a reference to the runtime to use the official BLE class.
     this.hub = new SpikePrimeOfficialHub(this.runtime, this.constructor.EXTENSION_ID);
+
+    // Ensure motors stop when the Scratch project is stopped.
     this.runtime.on('PROJECT_STOP_ALL', function () {
-      try {
-        _this.hub.stopAllMotors();
-      } catch (error) {
-        console.error('SPIKE Prime: Error stopping motors on project stop:', error);
-      }
+      _this.hub.stopAllMotors();
     });
-    console.log('SPIKE Prime Extension: Initialized successfully');
   }
   _createClass(Scratch3SpikePrimeOfficialBlocks, [{
     key: "getInfo",
@@ -3151,160 +3552,95 @@ var Scratch3SpikePrimeOfficialBlocks = /*#__PURE__*/function () {
       };
     }
 
-    // --- Block Implementations (Proxy Calls to the Hub Logic) ---
+    // --- Block Implementations (Proxy Calls to the Hub Logic with Error Handling) ---
   }, {
     key: "isConnected",
     value: function isConnected() {
-      try {
-        return this.hub.isConnected();
-      } catch (error) {
-        console.error('SPIKE Prime: Error checking connection:', error);
-        return false;
-      }
+      return this.hub.isConnected();
     }
   }, {
     key: "startMotor",
     value: function startMotor(args) {
-      try {
-        return this.hub.startMotor(args.PORT, Cast.toNumber(args.SPEED));
-      } catch (error) {
-        console.error('SPIKE Prime: Error starting motor:', error);
-        return Promise.resolve();
-      }
+      return this.hub.startMotor(args.PORT, Cast.toNumber(args.SPEED));
     }
   }, {
     key: "stopMotor",
     value: function stopMotor(args) {
-      try {
-        return this.hub.stopMotor(args.PORT, args.ACTION);
-      } catch (error) {
-        console.error('SPIKE Prime: Error stopping motor:', error);
-        return Promise.resolve();
-      }
+      return this.hub.stopMotor(args.PORT, args.ACTION);
     }
   }, {
     key: "getMotorPosition",
     value: function getMotorPosition(args) {
-      try {
-        return this.hub.getSensorValue(args.PORT, 'position');
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting motor position:', error);
-        return 0;
-      }
+      return this.hub.getSensorValue(args.PORT, 'position');
     }
   }, {
     key: "setLightMatrixPixel",
     value: function setLightMatrixPixel(args) {
-      try {
-        return this.hub.setLightMatrixPixel(args.PORT, Cast.toNumber(args.X), Cast.toNumber(args.Y), Cast.toNumber(args.BRIGHTNESS));
-      } catch (error) {
-        console.error('SPIKE Prime: Error setting light matrix pixel:', error);
-        return Promise.resolve();
-      }
+      return this.hub.setLightMatrixPixel(args.PORT, Cast.toNumber(args.X), Cast.toNumber(args.Y), Cast.toNumber(args.BRIGHTNESS));
     }
   }, {
     key: "getDistance",
     value: function getDistance(args) {
-      try {
-        return this.hub.getSensorValue(args.PORT, 'distance');
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting distance:', error);
-        return 0;
-      }
+      return this.hub.getSensorValue(args.PORT, 'distance');
     }
   }, {
     key: "isForceSensorPressed",
     value: function isForceSensorPressed(args) {
-      try {
-        return this.hub.getSensorValue(args.PORT, 'isPressed');
-      } catch (error) {
-        console.error('SPIKE Prime: Error checking force sensor:', error);
-        return false;
-      }
+      return this.hub.getSensorValue(args.PORT, 'isPressed');
     }
   }, {
     key: "getForceSensorValue",
     value: function getForceSensorValue(args) {
-      try {
-        return this.hub.getSensorValue(args.PORT, 'force');
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting force value:', error);
-        return 0;
-      }
+      return this.hub.getSensorValue(args.PORT, 'force');
     }
   }, {
     key: "getColor",
     value: function getColor(args) {
-      try {
-        var colorId = this.hub.getSensorValue(args.PORT, 'color');
-        var colors = {
-          0: 'black',
-          1: 'magenta',
-          2: 'purple',
-          3: 'blue',
-          4: 'azure',
-          5: 'turquoise',
-          6: 'green',
-          7: 'yellow',
-          8: 'orange',
-          9: 'red',
-          10: 'white',
-          255: 'unknown'
-        };
-        return colors[colorId] || 'unknown';
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting color:', error);
-        return 'unknown';
-      }
+      var colorId = this.hub.getSensorValue(args.PORT, 'color');
+      var colors = {
+        0: 'black',
+        1: 'magenta',
+        2: 'purple',
+        3: 'blue',
+        4: 'azure',
+        5: 'turquoise',
+        6: 'green',
+        7: 'yellow',
+        8: 'orange',
+        9: 'red',
+        10: 'white',
+        255: 'unknown'
+      };
+      return colors[colorId] || 'unknown';
     }
   }, {
     key: "getOrientation",
     value: function getOrientation(args) {
-      try {
-        return this.hub.getOrientation(args.AXIS);
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting orientation:', error);
-        return 0;
-      }
+      return this.hub.getOrientation(args.AXIS);
     }
   }, {
     key: "getAcceleration",
     value: function getAcceleration(args) {
-      try {
-        return this.hub.getAcceleration(args.AXIS);
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting acceleration:', error);
-        return 0;
-      }
+      return this.hub.getAcceleration(args.AXIS);
     }
   }, {
     key: "getFaceUp",
     value: function getFaceUp() {
-      try {
-        var faceId = this.hub.getFaceUp();
-        var faces = {
-          0: 'top',
-          1: 'front',
-          2: 'right',
-          3: 'bottom',
-          4: 'back',
-          5: 'left'
-        };
-        return faces[faceId] || 'unknown';
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting face up:', error);
-        return 'unknown';
-      }
+      var faceId = this.hub.getFaceUp();
+      var faces = {
+        0: 'top',
+        1: 'front',
+        2: 'right',
+        3: 'bottom',
+        4: 'back',
+        5: 'left'
+      };
+      return faces[faceId] || 'unknown';
     }
   }, {
     key: "getBatteryLevel",
     value: function getBatteryLevel() {
-      try {
-        return this.hub.getBatteryLevel();
-      } catch (error) {
-        console.error('SPIKE Prime: Error getting battery level:', error);
-        return 0;
-      }
+      return this.hub.getBatteryLevel();
     }
   }], [{
     key: "EXTENSION_ID",
@@ -3320,24 +3656,12 @@ var HUB_CONSTANTS = {
   SERVICE_UUID: '0000fd02-0000-1000-8000-00805f9b34fb',
   RX_UUID: '0000fd02-0001-1000-8000-00805f9b34fb',
   TX_UUID: '0000fd02-0002-1000-8000-00805f9b34fb',
-  // Message types from official LEGO documentation
   MSG_INFO_REQUEST: 0x00,
   MSG_INFO_RESPONSE: 0x01,
   MSG_TUNNEL: 0x32,
   MSG_DEVICE_NOTIFICATION_REQUEST: 0x28,
   MSG_DEVICE_NOTIFICATION_RESPONSE: 0x29,
-  MSG_DEVICE_NOTIFICATION: 0x3C,
-  // Device types from official documentation  
-  DEVICE_BATTERY: 0x00,
-  DEVICE_IMU: 0x01,
-  DEVICE_MOTOR: 0x0A,
-  DEVICE_FORCE_SENSOR: 0x0B,
-  DEVICE_COLOR_SENSOR: 0x0C,
-  DEVICE_DISTANCE_SENSOR: 0x0D,
-  DEVICE_3X3_COLOR_MATRIX: 0x0E,
-  // COBS constants from official documentation
-  MAX_BLOCK_SIZE: 84,
-  COBS_CODE_OFFSET: 2
+  MSG_DEVICE_NOTIFICATION: 0x3C
 };
 var PORT_MAP = {
   A: 0,
@@ -3354,827 +3678,442 @@ var SpikePrimeOfficialHub = /*#__PURE__*/function () {
     this._runtime = runtime;
     this._extensionId = extensionId;
     this._ble = null;
-    this._debugLog = function () {};
+    this._log = function () {}; // Conditional logging
+
     this.reset();
-    try {
-      // Register with Scratch's peripheral system for device selection UI
-      this._runtime.registerPeripheralExtension(this._extensionId, this);
-      console.log('SPIKE Prime Hub: Successfully registered with peripheral system');
-    } catch (error) {
-      console.error('SPIKE Prime Hub: Failed to register with peripheral system:', error);
-    }
+
+    // This makes the hub object compatible with the Scratch Link framework
+    this._runtime.registerPeripheralExtension(this._extensionId, this);
   }
 
-  /**
-   * Scan for SPIKE Prime hubs - called by Scratch's device selection UI
-   */
+  // --- Framework Methods (scan, connect, disconnect, isConnected) ---
   _createClass(SpikePrimeOfficialHub, [{
     key: "scan",
     value: function scan() {
-      try {
-        console.log('SPIKE Prime Hub: Starting scan for devices');
-        if (this._ble) {
-          this._ble.disconnect();
-        }
-        this._ble = new BLE(this._runtime, this._extensionId, {
-          filters: [{
-            services: [HUB_CONSTANTS.SERVICE_UUID]
-          }],
-          optionalServices: [HUB_CONSTANTS.SERVICE_UUID]
-        }, this._onConnect.bind(this), this.reset.bind(this));
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error during scan setup:', error);
+      if (this._ble) {
+        this._ble.disconnect();
       }
+      this._ble = new BLE(this._runtime, this._extensionId, {
+        filters: [{
+          services: [HUB_CONSTANTS.SERVICE_UUID]
+        }],
+        optionalServices: [HUB_CONSTANTS.SERVICE_UUID]
+      }, this._onConnect.bind(this), this.reset.bind(this));
     }
-
-    /**
-     * Connect to specific peripheral - called by Scratch after user selects device
-     */
   }, {
     key: "connect",
     value: function connect(id) {
-      try {
-        console.log('SPIKE Prime Hub: Attempting to connect to device ' + id);
-        if (this._ble) {
-          this._ble.connectPeripheral(id);
-        } else {
-          console.error('SPIKE Prime Hub: BLE not initialized for connection');
-        }
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error during connection attempt:', error);
+      if (this._ble) {
+        this._ble.connectPeripheral(id);
       }
     }
-
-    /**
-     * Disconnect from hub
-     */
   }, {
     key: "disconnect",
     value: function disconnect() {
-      try {
-        console.log('SPIKE Prime Hub: Disconnecting');
-        if (this._ble) {
-          this._ble.disconnect();
-        }
-        this.reset();
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error during disconnect:', error);
-        this.reset(); // Reset anyway
+      if (this._ble) {
+        this._ble.disconnect();
       }
+      this.reset();
     }
-
-    /**
-     * Check connection status
-     */
   }, {
     key: "isConnected",
     value: function isConnected() {
-      try {
-        return this._connected && this._ble && this._ble.isConnected();
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error checking connection status:', error);
-        return false;
-      }
+      return this._connected && this._ble && this._ble.isConnected();
     }
 
-    /**
-     * Reset hub state with comprehensive error handling
-     */
+    // --- Hub State Management ---
   }, {
     key: "reset",
     value: function reset() {
-      try {
-        console.log('SPIKE Prime Hub: Resetting state');
-        this._connected = false;
-        this.maxPacketSize = 20;
-        this.maxChunkSize = 100;
-
-        // Initialize port data storage
-        this.ports = {};
-        var self = this;
-        PORT_ID_TO_NAME.forEach(function (p) {
-          self.ports[p] = {
-            value: {
-              position: 0,
-              distance: 0,
-              color: 255,
-              // Unknown color
-              force: 0,
-              isPressed: false
-            }
-          };
-        });
-
-        // Initialize IMU data
-        this.batteryLevel = 100;
-        this.imu = {
-          yaw: 0,
-          pitch: 0,
-          roll: 0,
-          accX: 0,
-          accY: 0,
-          accZ: 0,
-          faceUp: 0
+      var _this2 = this;
+      console.log('🔄 Resetting Hub State.');
+      this._connected = false;
+      this.maxPacketSize = 20; // Default, updated from hub info
+      this.ports = {};
+      PORT_ID_TO_NAME.forEach(function (p) {
+        _this2.ports[p] = {
+          value: {}
         };
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error during reset:', error);
-      }
+      });
+      this.batteryLevel = 100;
+      this.imu = {
+        yaw: 0,
+        pitch: 0,
+        roll: 0,
+        accX: 0,
+        accY: 0,
+        accZ: 0,
+        faceUp: 0
+      };
     }
 
-    /**
-     * Connection handler with proper error handling and initialization sequence
-     */
+    // --- BLE Connection and Initialization ---
   }, {
     key: "_onConnect",
-    value: function _onConnect() {
-      var self = this;
-      try {
-        this._connected = true;
-        console.log('SPIKE Prime Hub: Connected successfully, starting initialization');
+    value: function () {
+      var _onConnect2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              this._connected = true;
+              _context.next = 3;
+              return this._ble.startNotifications(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.TX_UUID, this._onMessage.bind(this));
+            case 3:
+              console.log('✅ Hub Connected! Initializing...');
 
-        // Start notifications for receiving data from hub
-        this._ble.startNotifications(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.TX_UUID, this._onMessage.bind(this)).then(function () {
-          console.log('SPIKE Prime Hub: Notifications started');
-          // Initialize with proper sequencing
-          self._initializeHub();
-        }).catch(function (error) {
-          console.error('SPIKE Prime Hub: Error starting notifications:', error);
-          self.reset();
-        });
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error during connection setup:', error);
-        this.reset();
+              // Official handshake and setup sequence
+              _context.next = 6;
+              return this.sleep(200);
+            case 6:
+              _context.next = 8;
+              return this.sendMessage([HUB_CONSTANTS.MSG_INFO_REQUEST]);
+            case 8:
+              _context.next = 10;
+              return this.sleep(200);
+            case 10:
+              _context.next = 12;
+              return this.startSensorStreaming();
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function _onConnect() {
+        return _onConnect2.apply(this, arguments);
       }
-    }
-
-    /**
-     * Hub initialization sequence following official documentation
-     */
-  }, {
-    key: "_initializeHub",
-    value: function _initializeHub() {
-      var self = this;
-      try {
-        console.log('SPIKE Prime Hub: Starting initialization sequence');
-
-        // Step 1: Send InfoRequest (required first step per docs)
-        this.sleep(200).then(function () {
-          return self.sendMessage([HUB_CONSTANTS.MSG_INFO_REQUEST]);
-        }).then(function () {
-          console.log('SPIKE Prime Hub: InfoRequest sent');
-          // Step 2: Wait for InfoResponse, then enable device notifications  
-          return self.sleep(200);
-        }).then(function () {
-          return self.startSensorStreaming();
-        }).then(function () {
-          console.log('SPIKE Prime Hub: Sensor streaming enabled');
-          // Step 3: Test tunnel capabilities if debugging enabled
-          if (DEBUG_TUNNEL_COMMANDS) ;
-        }).then(function () {
-          console.log('SPIKE Prime Hub: Initialization complete');
-        }).catch(function (error) {
-          console.error('SPIKE Prime Hub: Initialization failed:', error);
-        });
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Initialization failed:', error);
-      }
-    }
-
-    /**
-     * Experimental tunnel command testing (debug mode only)
-     */
-  }, {
-    key: "_experimentWithTunnelCommands",
-    value: function _experimentWithTunnelCommands() {
-      return Promise.resolve();
-    }
-
-    /**
-     * Message handler with comprehensive error handling and protocol validation
-     */
+      return _onConnect;
+    }()
   }, {
     key: "_onMessage",
     value: function _onMessage(base64Message) {
-      try {
-        if (!base64Message) {
-          console.warn('SPIKE Prime Hub: Received empty message');
-          return;
+      var data = this.unpack(Base64Util.base64ToUint8Array(base64Message));
+      if (!data || data.length === 0) return;
+      var msgType = data[0];
+      if (msgType === HUB_CONSTANTS.MSG_INFO_RESPONSE) {
+        if (data.length >= 13) {
+          var view = new DataView(data.buffer, data.byteOffset);
+          this.maxPacketSize = view.getUint16(9, true);
         }
-
-        // Decode and unpack message using official protocol
-        var rawData = Base64Util.base64ToUint8Array(base64Message);
-        var data = this.unpack(rawData);
-        if (!data || data.length === 0) {
-          console.warn('SPIKE Prime Hub: Failed to unpack message or empty data');
-          return;
-        }
-        var msgType = data[0];
-        this._debugLog('SPIKE Prime Hub: Received message type 0x' + msgType.toString(16) + ', length: ' + data.length);
-        switch (msgType) {
-          case HUB_CONSTANTS.MSG_INFO_RESPONSE:
-            this._handleInfoResponse(data);
-            break;
-          case HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION:
-            this.parseDeviceNotification(data);
-            break;
-          case HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION_RESPONSE:
-            console.log('SPIKE Prime Hub: Device notification request acknowledged');
-            break;
-          case HUB_CONSTANTS.MSG_TUNNEL:
-            this._handleTunnelResponse(data);
-            break;
-          default:
-            console.warn('SPIKE Prime Hub: Unknown message type: 0x' + msgType.toString(16));
-            if (DEBUG_TUNNEL_COMMANDS) ;
-            break;
-        }
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error handling message:', error);
+      } else if (msgType === HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION) {
+        this.parseDeviceNotification(data);
       }
     }
-
-    /**
-     * Handle InfoResponse message with validation
-     */
-  }, {
-    key: "_handleInfoResponse",
-    value: function _handleInfoResponse(data) {
-      try {
-        if (data.length < 13) {
-          console.warn('SPIKE Prime Hub: InfoResponse message too short: ' + data.length);
-          return;
-        }
-
-        // Parse according to official InfoResponse format
-        var view = new DataView(data.buffer, data.byteOffset);
-        var rpcMajor = data[1];
-        var rpcMinor = data[2];
-        var rpcBuild = view.getUint16(3, true);
-        var fwMajor = data[5];
-        var fwMinor = data[6];
-        var fwBuild = view.getUint16(7, true);
-        this.maxPacketSize = view.getUint16(9, true);
-        var maxMessageSize = view.getUint16(11, true);
-        this.maxChunkSize = view.getUint16(13, true);
-        console.log('SPIKE Prime Hub: InfoResponse received');
-        console.log('  RPC Version: ' + rpcMajor + '.' + rpcMinor + '.' + rpcBuild);
-        console.log('  Firmware Version: ' + fwMajor + '.' + fwMinor + '.' + fwBuild);
-        console.log('  Max Packet Size: ' + this.maxPacketSize);
-        console.log('  Max Message Size: ' + maxMessageSize);
-        console.log('  Max Chunk Size: ' + this.maxChunkSize);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error parsing InfoResponse:', error);
-      }
-    }
-
-    /**
-     * Handle tunnel response messages (debug mode)
-     */
-  }, {
-    key: "_handleTunnelResponse",
-    value: function _handleTunnelResponse(data) {
-      return;
-    }
-
-    /**
-     * Parse device notifications with robust error handling per official format
-     */
   }, {
     key: "parseDeviceNotification",
     value: function parseDeviceNotification(data) {
-      try {
-        if (data.length < 3) {
-          console.warn('SPIKE Prime Hub: Device notification too short');
-          return;
-        }
-
-        // Parse payload size (little-endian uint16)
-        var view = new DataView(data.buffer, data.byteOffset);
-        var payloadSize = view.getUint16(1, true);
-        if (3 + payloadSize > data.length) {
-          console.warn('SPIKE Prime Hub: Device notification payload size exceeds message length');
-          return;
-        }
-        var payload = data.slice(3, 3 + payloadSize);
-        this._debugLog('SPIKE Prime Hub: Device notification payload size: ' + payloadSize);
-
-        // Parse individual device messages within payload
-        var offset = 0;
-        while (offset < payload.length) {
-          try {
-            var deviceMsgType = payload[offset];
-            var remaining = payload.length - offset;
-            switch (deviceMsgType) {
-              case HUB_CONSTANTS.DEVICE_BATTERY:
-                if (remaining >= 2) {
-                  this.batteryLevel = payload[offset + 1];
-                  this._debugLog('SPIKE Prime Hub: Battery level: ' + this.batteryLevel + '%');
-                  offset += 2;
-                } else {
-                  console.warn('SPIKE Prime Hub: Battery message too short');
-                  offset = payload.length;
+      var offset = 3; // Skip header and size
+      while (offset < data.length) {
+        if (offset >= data.length) break;
+        var deviceMsgType = data[offset];
+        var remaining = data.length - offset;
+        try {
+          switch (deviceMsgType) {
+            case 0x00:
+              // Battery
+              if (remaining >= 2) this.batteryLevel = data[offset + 1];
+              offset += 2;
+              break;
+            case 0x01:
+              // IMU
+              if (remaining >= 21) {
+                var imuView = new DataView(data.buffer, offset);
+                this.imu.faceUp = imuView.getUint8(1);
+                this.imu.yaw = imuView.getInt16(3, true);
+                this.imu.pitch = imuView.getInt16(5, true);
+                this.imu.roll = imuView.getInt16(7, true);
+                this.imu.accX = imuView.getInt16(9, true);
+                this.imu.accY = imuView.getInt16(11, true);
+                this.imu.accZ = imuView.getInt16(13, true);
+              }
+              offset += 21;
+              break;
+            case 0x0A:
+              // Motor
+              if (remaining >= 11) {
+                var portName = PORT_ID_TO_NAME[data[offset + 1]];
+                if (portName) {
+                  var motorView = new DataView(data.buffer, offset);
+                  this.ports[portName].value.position = motorView.getInt32(7, true);
                 }
-                break;
-              case HUB_CONSTANTS.DEVICE_IMU:
-                if (remaining >= 21) {
-                  var imuView = new DataView(payload.buffer, payload.byteOffset + offset);
-                  this.imu.faceUp = imuView.getUint8(1);
-                  var yawFace = imuView.getUint8(2);
-                  this.imu.yaw = imuView.getInt16(3, true);
-                  this.imu.pitch = imuView.getInt16(5, true);
-                  this.imu.roll = imuView.getInt16(7, true);
-                  this.imu.accX = imuView.getInt16(9, true);
-                  this.imu.accY = imuView.getInt16(11, true);
-                  this.imu.accZ = imuView.getInt16(13, true);
-                  this._debugLog('SPIKE Prime Hub: IMU - Face up: ' + this.imu.faceUp + ', Yaw: ' + this.imu.yaw + ', Pitch: ' + this.imu.pitch + ', Roll: ' + this.imu.roll);
-                  offset += 21;
-                } else {
-                  console.warn('SPIKE Prime Hub: IMU message too short');
-                  offset = payload.length;
+              }
+              offset += 11;
+              break;
+            case 0x0B:
+              // Force Sensor
+              if (remaining >= 4) {
+                var _portName = PORT_ID_TO_NAME[data[offset + 1]];
+                if (_portName) {
+                  this.ports[_portName].value.force = data[offset + 2];
+                  this.ports[_portName].value.isPressed = data[offset + 3] === 1;
                 }
-                break;
-              case HUB_CONSTANTS.DEVICE_MOTOR:
-                if (remaining >= 11) {
-                  var portId = payload[offset + 1];
-                  var portName = PORT_ID_TO_NAME[portId];
-                  if (portName) {
-                    var motorView = new DataView(payload.buffer, payload.byteOffset + offset);
-                    var deviceType = motorView.getUint8(2);
-                    var absolutePos = motorView.getInt16(3, true);
-                    var power = motorView.getInt16(5, true);
-                    var speed = motorView.getInt8(7);
-                    this.ports[portName].value.position = motorView.getInt32(8, true);
-                    this._debugLog('SPIKE Prime Hub: Motor ' + portName + ' - Position: ' + this.ports[portName].value.position + ', Speed: ' + speed + ', Power: ' + power);
-                  }
-                  offset += 11;
-                } else {
-                  console.warn('SPIKE Prime Hub: Motor message too short');
-                  offset = payload.length;
+              }
+              offset += 4;
+              break;
+            case 0x0C:
+              // Color Sensor
+              if (remaining >= 9) {
+                var _portName2 = PORT_ID_TO_NAME[data[offset + 1]];
+                if (_portName2) this.ports[_portName2].value.color = data[offset + 2];
+              }
+              offset += 9;
+              break;
+            case 0x0D:
+              // Distance Sensor
+              if (remaining >= 4) {
+                var _portName3 = PORT_ID_TO_NAME[data[offset + 1]];
+                if (_portName3) {
+                  var distView = new DataView(data.buffer, offset);
+                  this.ports[_portName3].value.distance = distView.getInt16(2, true);
                 }
-                break;
-              case HUB_CONSTANTS.DEVICE_FORCE_SENSOR:
-                if (remaining >= 4) {
-                  var portId = payload[offset + 1];
-                  var portName = PORT_ID_TO_NAME[portId];
-                  if (portName) {
-                    this.ports[portName].value.force = payload[offset + 2];
-                    this.ports[portName].value.isPressed = payload[offset + 3] === 1;
-                    this._debugLog('SPIKE Prime Hub: Force sensor ' + portName + ' - Force: ' + this.ports[portName].value.force + '%, Pressed: ' + this.ports[portName].value.isPressed);
-                  }
-                  offset += 4;
-                } else {
-                  console.warn('SPIKE Prime Hub: Force sensor message too short');
-                  offset = payload.length;
-                }
-                break;
-              case HUB_CONSTANTS.DEVICE_COLOR_SENSOR:
-                if (remaining >= 9) {
-                  var portId = payload[offset + 1];
-                  var portName = PORT_ID_TO_NAME[portId];
-                  if (portName) {
-                    this.ports[portName].value.color = payload[offset + 2];
-                    // Additional color data available in bytes 3-8 (RGB values)
-
-                    var colorNames = {
-                      0: 'black',
-                      1: 'magenta',
-                      2: 'purple',
-                      3: 'blue',
-                      4: 'azure',
-                      5: 'turquoise',
-                      6: 'green',
-                      7: 'yellow',
-                      8: 'orange',
-                      9: 'red',
-                      10: 'white',
-                      255: 'unknown'
-                    };
-                    this._debugLog('SPIKE Prime Hub: Color sensor ' + portName + ' - Color: ' + (colorNames[this.ports[portName].value.color] || 'unknown') + ' (' + this.ports[portName].value.color + ')');
-                  }
-                  offset += 9;
-                } else {
-                  console.warn('SPIKE Prime Hub: Color sensor message too short');
-                  offset = payload.length;
-                }
-                break;
-              case HUB_CONSTANTS.DEVICE_DISTANCE_SENSOR:
-                if (remaining >= 4) {
-                  var portId = payload[offset + 1];
-                  var portName = PORT_ID_TO_NAME[portId];
-                  if (portName) {
-                    var distView = new DataView(payload.buffer, payload.byteOffset + offset);
-                    this.ports[portName].value.distance = distView.getInt16(2, true);
-                    this._debugLog('SPIKE Prime Hub: Distance sensor ' + portName + ' - Distance: ' + this.ports[portName].value.distance + 'mm');
-                  }
-                  offset += 4;
-                } else {
-                  console.warn('SPIKE Prime Hub: Distance sensor message too short');
-                  offset = payload.length;
-                }
-                break;
-              case HUB_CONSTANTS.DEVICE_3X3_COLOR_MATRIX:
-                // This is an output device, skip the data
-                if (remaining >= 11) {
-                  offset += 11;
-                } else {
-                  offset = payload.length;
-                }
-                break;
-              default:
-                console.warn('SPIKE Prime Hub: Unknown device type: 0x' + deviceMsgType.toString(16));
-                offset = payload.length; // Skip to end to prevent infinite loop
-                break;
-            }
-          } catch (deviceError) {
-            console.error('SPIKE Prime Hub: Error parsing individual device message:', deviceError);
-            offset = payload.length; // Skip to end on error
+              }
+              offset += 4;
+              break;
+            case 0x0E:
+              // 3x3 Color Matrix (Output, skip)
+              offset += 11;
+              break;
+            default:
+              offset = data.length; // Stop parsing unknown device
+              break;
           }
+        } catch (e) {
+          console.error('Error parsing device notification:', e);
+          offset = data.length;
         }
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error parsing device notification:', error);
       }
     }
-
-    /**
-     * Start sensor streaming with device notification request
-     */
   }, {
     key: "startSensorStreaming",
-    value: function startSensorStreaming() {
-      try {
-        console.log('SPIKE Prime Hub: Enabling sensor streaming');
-
-        // Send DeviceNotificationRequest with 100ms interval (per official docs)
-        var message = new Uint8Array(3);
-        message[0] = HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION_REQUEST;
-        message[1] = 100 & 0xFF; // Low byte of interval
-        message[2] = 100 >> 8 & 0xFF; // High byte of interval
-
-        return this.sendMessage(Array.from(message));
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error starting sensor streaming:', error);
-        return Promise.resolve();
+    value: function () {
+      var _startSensorStreaming = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        var payload;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              payload = [0x64, 0x00]; // Interval 100ms
+              _context2.next = 3;
+              return this.sendMessage([HUB_CONSTANTS.MSG_DEVICE_NOTIFICATION_REQUEST].concat(payload));
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function startSensorStreaming() {
+        return _startSensorStreaming.apply(this, arguments);
       }
-    }
-
-    /**
-     * Motor control with multiple tunnel command format attempts
-     */
+      return startSensorStreaming;
+    }() // --- Public Command Methods ---
   }, {
     key: "startMotor",
     value: function startMotor(port, speed) {
-      try {
-        var portId = PORT_MAP[port];
-        if (portId === undefined) {
-          console.warn('SPIKE Prime Hub: Invalid port for motor: ' + port);
-          return Promise.resolve();
-        }
-        var speedVal = Math.max(-100, Math.min(100, Math.round(speed)));
-        console.log('SPIKE Prime Hub: Starting motor ' + port + ' at ' + speedVal + '% speed');
-
-        // Try multiple command formats to find what works
-        if (DEBUG_TUNNEL_COMMANDS) ;
-
-        // Primary command format (JSON-like structure commonly used)
-        var json = '{"m":"motor","p":{"port":' + portId + ',"speed":' + speedVal + '}}';
-        return this.sendTunnelCommand(json);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error starting motor:', error);
-        return Promise.resolve();
-      }
+      var portId = PORT_MAP[port];
+      if (portId === undefined) return;
+      var speedVal = Math.max(-100, Math.min(100, Math.round(speed)));
+      var json = "{\"m\":\"motor\",\"p\":{\"port\":".concat(portId, ",\"speed\":").concat(speedVal, "}}");
+      return this.sendTunnelCommand(json);
     }
-
-    /**
-     * Stop motor with multiple command format attempts
-     */
   }, {
     key: "stopMotor",
     value: function stopMotor(port, action) {
-      try {
-        var portId = PORT_MAP[port];
-        if (portId === undefined) {
-          console.warn('SPIKE Prime Hub: Invalid port for motor stop: ' + port);
-          return Promise.resolve();
-        }
-        var endStateMap = {
-          'coast': 0,
-          'brake': 1,
-          'hold': 2
-        };
-        var endState = endStateMap[action] || 1;
-        console.log('SPIKE Prime Hub: Stopping motor ' + port + ' with action: ' + action);
-        if (DEBUG_TUNNEL_COMMANDS) ;
-
-        // Primary command format
-        var json = '{"m":"motor","p":{"port":' + portId + ',"speed":0,"end_state":' + endState + '}}';
-        return this.sendTunnelCommand(json);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error stopping motor:', error);
-        return Promise.resolve();
-      }
+      var portId = PORT_MAP[port];
+      if (portId === undefined) return;
+      var endState = {
+        'coast': 0,
+        'brake': 1,
+        'hold': 2
+      }[action] || 1;
+      var json = "{\"m\":\"motor\",\"p\":{\"port\":".concat(portId, ",\"speed\":0,\"end_state\":").concat(endState, "}}");
+      return this.sendTunnelCommand(json);
     }
-
-    /**
-     * Stop all motors
-     */
   }, {
     key: "stopAllMotors",
     value: function stopAllMotors() {
-      try {
-        console.log('SPIKE Prime Hub: Stopping all motors');
-        var self = this;
-        Object.keys(PORT_MAP).forEach(function (port) {
-          self.stopMotor(port, 'brake');
-        });
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error stopping all motors:', error);
-      }
+      var _this3 = this;
+      Object.keys(PORT_MAP).forEach(function (p) {
+        return _this3.stopMotor(p, 'brake');
+      });
     }
-
-    /**
-     * Set 3x3 light matrix pixel
-     */
   }, {
     key: "setLightMatrixPixel",
     value: function setLightMatrixPixel(port, x, y, brightness) {
-      try {
-        var portId = PORT_MAP[port];
-        if (portId === undefined) {
-          console.warn('SPIKE Prime Hub: Invalid port for light matrix: ' + port);
-          return Promise.resolve();
-        }
-        var clampedX = Math.max(0, Math.min(2, Math.round(x)));
-        var clampedY = Math.max(0, Math.min(2, Math.round(y)));
-        var brightnessValue = Math.round(Math.max(0, Math.min(100, brightness)) / 10);
-        console.log('SPIKE Prime Hub: Setting light matrix ' + port + ' pixel (' + clampedX + ',' + clampedY + ') to ' + brightness + '% brightness');
-
-        // Create 3x3 pixel array with single pixel set
-        var pixelValue = brightnessValue << 4 | 9; // Red color (9) for visibility
-        var pixelIndex = clampedY * 3 + clampedX;
-        var pixels = Array(9).fill(0);
-        pixels[pixelIndex] = pixelValue;
-        if (DEBUG_TUNNEL_COMMANDS) ;
-
-        // Primary command format
-        var json = '{"m":"display_3x3","p":{"port":' + portId + ',"data":' + JSON.stringify(pixels) + '}}';
-        return this.sendTunnelCommand(json);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error setting light matrix pixel:', error);
-        return Promise.resolve();
-      }
+      var portId = PORT_MAP[port];
+      if (portId === undefined) return;
+      var clampedX = Math.max(0, Math.min(2, Math.round(x)));
+      var clampedY = Math.max(0, Math.min(2, Math.round(y)));
+      var brightnessValue = Math.round(Math.max(0, Math.min(100, brightness)) / 10);
+      var pixelValue = brightnessValue << 4 | 9; // Red for visibility
+      var pixelIndex = clampedY * 3 + clampedX;
+      var pixels = Array(9).fill(0);
+      pixels[pixelIndex] = pixelValue;
+      var json = "{\"m\":\"display_3x3\",\"p\":{\"port\":".concat(portId, ",\"data\":").concat(JSON.stringify(pixels), "}}");
+      return this.sendTunnelCommand(json);
     }
-
-    /**
-     * Send tunnel command with proper message formatting
-     */
   }, {
     key: "sendTunnelCommand",
-    value: function sendTunnelCommand(command) {
-      try {
-        this._debugLog('SPIKE Prime Hub: Sending tunnel command: ' + command);
-        var commandBytes = new TextEncoder().encode(command);
-        var message = new Uint8Array(3 + commandBytes.length);
-        message[0] = HUB_CONSTANTS.MSG_TUNNEL;
-
-        // Set payload size in little-endian format
-        var view = new DataView(message.buffer);
-        view.setUint16(1, commandBytes.length, true);
-
-        // Set command payload
-        message.set(commandBytes, 3);
-        return this.sendMessage(Array.from(message));
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error sending tunnel command:', error);
-        return Promise.resolve();
+    value: function () {
+      var _sendTunnelCommand = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(command) {
+        var commandBytes, payload, view;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              commandBytes = new TextEncoder().encode(command);
+              payload = new Uint8Array(commandBytes.length + 2);
+              view = new DataView(payload.buffer);
+              view.setUint16(0, commandBytes.length, true); // size, little-endian
+              payload.set(commandBytes, 2);
+              _context3.next = 7;
+              return this.sendMessage([HUB_CONSTANTS.MSG_TUNNEL].concat(_toConsumableArray(payload)));
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function sendTunnelCommand(_x) {
+        return _sendTunnelCommand.apply(this, arguments);
       }
-    }
-
-    /**
-     * Send message using official SPIKE Prime protocol (COBS + XOR + Delimiter)
-     */
+      return sendTunnelCommand;
+    }() // --- Message Framing & Encoding ---
   }, {
     key: "sendMessage",
-    value: function sendMessage(payloadArray) {
-      try {
-        if (!this.isConnected()) {
-          console.warn('SPIKE Prime Hub: Cannot send message - not connected');
-          return Promise.resolve();
-        }
-
-        // Pack using official protocol: COBS -> XOR -> Delimiter
-        var packed = this.pack(new Uint8Array(payloadArray));
-        var base64Data = Base64Util.uint8ArrayToBase64(packed);
-        this._debugLog('SPIKE Prime Hub: Sending ' + packed.length + ' bytes');
-        return this._ble.write(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.RX_UUID, base64Data, 'base64', true);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error sending message:', error);
-        return Promise.resolve();
+    value: function () {
+      var _sendMessage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(payloadArray) {
+        var packed, base64Data;
+        return regenerator.wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              if (this.isConnected()) {
+                _context4.next = 2;
+                break;
+              }
+              return _context4.abrupt("return");
+            case 2:
+              packed = this.pack(new Uint8Array(payloadArray));
+              base64Data = Base64Util.uint8ArrayToBase64(packed);
+              _context4.next = 6;
+              return this._ble.write(HUB_CONSTANTS.SERVICE_UUID, HUB_CONSTANTS.RX_UUID, base64Data, 'base64', true);
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function sendMessage(_x2) {
+        return _sendMessage.apply(this, arguments);
       }
-    }
-
-    /**
-     * Message packing following official 3-step process: COBS -> XOR -> Delimiter
-     */
+      return sendMessage;
+    }() // This pack method is a direct JS translation of the official LEGO documentation's Python example
   }, {
     key: "pack",
     value: function pack(data) {
-      try {
-        // Step 1: COBS encode to escape delimiters 0x00, 0x01, 0x02
-        var cobsEncoded = this._cobsEncode(data);
-
-        // Step 2: XOR all bytes with 0x03 to avoid control characters
-        var xorEncoded = new Uint8Array(cobsEncoded.length);
-        for (var i = 0; i < cobsEncoded.length; i++) {
-          xorEncoded[i] = cobsEncoded[i] ^ 0x03;
-        }
-
-        // Step 3: Add delimiter 0x02 to mark end of message
-        var final = new Uint8Array(xorEncoded.length + 1);
-        final.set(xorEncoded, 0);
-        final[final.length - 1] = 0x02;
-        return final;
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error packing message:', error);
-        return new Uint8Array();
-      }
+      var cobsEncoded = this._cobsEncode(data);
+      var xorEncoded = cobsEncoded.map(function (b) {
+        return b ^ 0x03;
+      });
+      var final = new Uint8Array(xorEncoded.length + 1);
+      final.set(xorEncoded, 0);
+      final[final.length] = 0x02;
+      return final;
     }
 
-    /**
-     * Message unpacking - reverse of pack process
-     */
+    // This unpack method is the reverse of the pack method
   }, {
     key: "unpack",
     value: function unpack(buffer) {
-      try {
-        var frame = new Uint8Array(buffer);
-        if (frame.length === 0) {
-          console.warn('SPIKE Prime Hub: Empty frame received');
-          return null;
-        }
-        if (frame[frame.length - 1] !== 0x02) {
-          console.warn('SPIKE Prime Hub: Frame missing delimiter 0x02');
-          return null;
-        }
-
-        // Remove priority byte if present and delimiter
-        var start = frame[0] === 0x01 ? 1 : 0;
-        var unframed = frame.slice(start, -1);
-
-        // Reverse XOR with 0x03
-        var xorDecoded = new Uint8Array(unframed.length);
-        for (var i = 0; i < unframed.length; i++) {
-          xorDecoded[i] = unframed[i] ^ 0x03;
-        }
-
-        // COBS decode
-        return this._cobsDecode(xorDecoded);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error unpacking message:', error);
-        return null;
-      }
+      var frame = new Uint8Array(buffer);
+      if (frame.length === 0 || frame[frame.length - 1] !== 0x02) return null;
+      var start = frame[0] === 0x01 ? 1 : 0;
+      var unframed = frame.slice(start, frame.length - 1);
+      var xorDecoded = unframed.map(function (b) {
+        return b ^ 0x03;
+      });
+      return this._cobsDecode(xorDecoded);
     }
-
-    /**
-     * COBS encoding - direct translation of official Python implementation
-     * Escapes delimiters 0x00, 0x01, 0x02 using code words
-     */
   }, {
     key: "_cobsEncode",
     value: function _cobsEncode(data) {
+      var buffer = [0];
+      var code_index = 0;
+      var _iterator = _createForOfIteratorHelper(data),
+        _step;
       try {
-        var buffer = [0]; // Start with placeholder for first code word
-        var code_index = 0; // Index of current code word being built
-
-        for (var i = 0; i < data.length; i++) {
-          var byte = data[i];
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var byte = _step.value;
           if (byte <= 2) {
-            // Found delimiter - complete current block
-            // Calculate code word: delimiter_base + block_offset
-            var delimiter_base = byte * HUB_CONSTANTS.MAX_BLOCK_SIZE;
-            var block_offset = buffer.length - code_index + HUB_CONSTANTS.COBS_CODE_OFFSET;
-            buffer[code_index] = delimiter_base + block_offset;
-
-            // Start new block
+            buffer[code_index] = buffer.length - code_index + byte * 84 + 2;
             code_index = buffer.length;
             buffer.push(0);
           } else {
-            // Non-delimiter byte - add to current block
             buffer.push(byte);
-
-            // Check if block size limit reached
-            if (buffer.length - code_index >= HUB_CONSTANTS.MAX_BLOCK_SIZE) {
-              // Complete block due to size limit
-              buffer[code_index] = buffer.length - code_index + HUB_CONSTANTS.COBS_CODE_OFFSET;
+            if (buffer.length - code_index >= 84) {
+              buffer[code_index] = buffer.length - code_index + 2;
               code_index = buffer.length;
               buffer.push(0);
             }
           }
         }
-
-        // Complete final block
-        buffer[code_index] = buffer.length - code_index + HUB_CONSTANTS.COBS_CODE_OFFSET;
-        return new Uint8Array(buffer);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: COBS encoding error:', error);
-        return new Uint8Array();
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
+      buffer[code_index] = buffer.length - code_index + 2;
+      return new Uint8Array(buffer);
     }
-
-    /**
-     * COBS decoding - direct translation of official Python implementation
-     */
   }, {
     key: "_cobsDecode",
     value: function _cobsDecode(data) {
-      try {
-        var result = [];
-        var i = 0;
-        if (data.length === 0) return new Uint8Array();
-        while (i < data.length) {
-          var code = data[i] - HUB_CONSTANTS.COBS_CODE_OFFSET;
-          var delimiter = Math.floor(code / HUB_CONSTANTS.MAX_BLOCK_SIZE);
-          var len = code % HUB_CONSTANTS.MAX_BLOCK_SIZE;
-
-          // Copy non-delimiter bytes from block
-          for (var j = 1; j < len; j++) {
-            if (i + j < data.length) {
-              result.push(data[i + j]);
-            }
-          }
-
-          // Add delimiter if present (except for last block)
-          if (delimiter <= 2 && i + len < data.length) {
-            result.push(delimiter);
-          }
-          i += len;
+      var result = [];
+      var i = 0;
+      if (data.length === 0) return new Uint8Array();
+      while (i < data.length) {
+        var code = data[i] - 2;
+        var delimiter = Math.floor(code / 84);
+        var len = code % 84;
+        for (var j = 1; j < len; j++) {
+          if (i + j < data.length) result.push(data[i + j]);
         }
-        return new Uint8Array(result);
-      } catch (error) {
-        console.error('SPIKE Prime Hub: COBS decoding error:', error);
-        return new Uint8Array();
+        if (delimiter <= 2 && i + len <= data.length) result.push(delimiter);
+        i += len;
       }
+      if (result.length > 0) result.pop();
+      return new Uint8Array(result);
     }
 
-    // --- Getter methods for sensor values ---
+    // --- Getters & Utilities ---
   }, {
     key: "getSensorValue",
     value: function getSensorValue(port, valueType) {
-      try {
-        if (this.ports[port] && this.ports[port].value && this.ports[port].value[valueType] !== undefined) {
-          return this.ports[port].value[valueType];
-        }
-        return 0;
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error getting sensor value:', error);
-        return 0;
-      }
+      var portData = this.ports[port];
+      return portData && portData.value.hasOwnProperty(valueType) ? portData.value[valueType] : 0;
     }
   }, {
     key: "getBatteryLevel",
     value: function getBatteryLevel() {
-      try {
-        return this.batteryLevel;
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error getting battery level:', error);
-        return 0;
-      }
+      return this.batteryLevel;
     }
   }, {
     key: "getOrientation",
     value: function getOrientation(axis) {
-      try {
-        return this.imu[axis] || 0;
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error getting orientation:', error);
-        return 0;
-      }
+      return this.imu[axis] || 0;
     }
   }, {
     key: "getAcceleration",
     value: function getAcceleration(axis) {
-      try {
-        var axisKey = 'acc' + axis.toUpperCase();
-        return this.imu[axisKey] || 0;
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error getting acceleration:', error);
-        return 0;
-      }
+      return this.imu["acc".concat(axis.toUpperCase())] || 0;
     }
   }, {
     key: "getFaceUp",
     value: function getFaceUp() {
-      try {
-        return this.imu.faceUp;
-      } catch (error) {
-        console.error('SPIKE Prime Hub: Error getting face up:', error);
-        return 0;
-      }
+      return this.imu.faceUp;
     }
   }, {
     key: "sleep",
     value: function sleep(ms) {
       return new Promise(function (resolve) {
-        setTimeout(resolve, ms);
+        return setTimeout(resolve, ms);
       });
     }
   }]);
