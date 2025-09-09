@@ -1202,6 +1202,29 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
               defaultValue: 'sqrt'
             }
           }
+        }, {
+          opcode: 'angleconvert',
+          text: formatMessage({
+            id: 'pm.angleconvert',
+            default: 'convert [NUM1] from [FROM] to [TO]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '90'
+            },
+            FROM: {
+              type: ArgumentType.STRING,
+              menu: 'ANGLE_UNITS',
+              defaultValue: 'degrees'
+            },
+            TO: {
+              type: ArgumentType.STRING,
+              menu: 'ANGLE_UNITS',
+              defaultValue: 'radians'
+            }
+          }
         }, '---', {
           opcode: 'mathopdiv',
           text: formatMessage({
@@ -1340,11 +1363,31 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
               defaultValue: ' '
             }
           }
+        }, {
+          opcode: 'factorial',
+          text: formatMessage({
+            id: 'pm.factorial',
+            default: 'factorial of [NUM1]'
+          }),
+          blockType: BlockType.REPORTER,
+          arguments: {
+            NUM1: {
+              type: ArgumentType.NUMBER,
+              defaultValue: '5'
+            }
+          }
         }, '---', {
           opcode: 'nombre_pi',
           text: formatMessage({
             id: 'pm.pi',
             default: 'π'
+          }),
+          blockType: BlockType.REPORTER
+        }, {
+          opcode: 'nombre_e',
+          text: formatMessage({
+            id: 'pm.e',
+            default: 'e'
           }),
           blockType: BlockType.REPORTER
         }, {
@@ -1816,12 +1859,72 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
             }]
           },
           LIST_MATHOP: {
-            items: [{
+            items: [
+            // Basic functions
+            {
               text: formatMessage({
                 id: 'text.sqrt',
                 default: '√'
               }),
               value: 'sqrt'
+            }, {
+              text: formatMessage({
+                id: 'text.abs',
+                default: 'abs'
+              }),
+              value: 'abs'
+            }, {
+              text: formatMessage({
+                id: 'text.sign',
+                default: 'sign'
+              }),
+              value: 'sign'
+            }, {
+              text: formatMessage({
+                id: 'text.floor',
+                default: 'floor'
+              }),
+              value: 'floor'
+            }, {
+              text: formatMessage({
+                id: 'text.ceil',
+                default: 'ceil'
+              }),
+              value: 'ceil'
+            },
+            // Logarithms and exponentials
+            {
+              text: formatMessage({
+                id: 'text.ln',
+                default: 'ln'
+              }),
+              value: 'ln'
+            }, {
+              text: formatMessage({
+                id: 'text.log',
+                default: 'log'
+              }),
+              value: 'log'
+            }, {
+              text: formatMessage({
+                id: 'text.exp',
+                default: 'e^'
+              }),
+              value: 'exp'
+            }, {
+              text: formatMessage({
+                id: 'text.pow10',
+                default: '10^'
+              }),
+              value: '10^'
+            },
+            // Standard trigonometric functions (degrees)
+            {
+              text: formatMessage({
+                id: 'text.sin',
+                default: 'sin'
+              }),
+              value: 'sin'
             }, {
               text: formatMessage({
                 id: 'text.cos',
@@ -1830,16 +1933,36 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
               value: 'cos'
             }, {
               text: formatMessage({
-                id: 'text.sin',
-                default: 'sin'
-              }),
-              value: 'sin'
-            }, {
-              text: formatMessage({
                 id: 'text.tan',
                 default: 'tan'
               }),
               value: 'tan'
+            }, {
+              text: formatMessage({
+                id: 'text.sec',
+                default: 'sec'
+              }),
+              value: 'sec'
+            }, {
+              text: formatMessage({
+                id: 'text.csc',
+                default: 'csc'
+              }),
+              value: 'csc'
+            }, {
+              text: formatMessage({
+                id: 'text.cot',
+                default: 'cot'
+              }),
+              value: 'cot'
+            },
+            // Inverse trigonometric functions (return degrees)
+            {
+              text: formatMessage({
+                id: 'text.asin',
+                default: 'arcsin'
+              }),
+              value: 'asin'
             }, {
               text: formatMessage({
                 id: 'text.acos',
@@ -1848,22 +1971,83 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
               value: 'acos'
             }, {
               text: formatMessage({
-                id: 'text.asin',
-                default: 'arcsin'
-              }),
-              value: 'asin'
-            }, {
-              text: formatMessage({
                 id: 'text.atan',
                 default: 'arctan'
               }),
               value: 'atan'
             }, {
               text: formatMessage({
-                id: 'text.pow10',
-                default: '10 ^'
+                id: 'text.asec',
+                default: 'arcsec'
               }),
-              value: '10 ^'
+              value: 'asec'
+            }, {
+              text: formatMessage({
+                id: 'text.acsc',
+                default: 'arccsc'
+              }),
+              value: 'acsc'
+            }, {
+              text: formatMessage({
+                id: 'text.acot',
+                default: 'arccot'
+              }),
+              value: 'acot'
+            },
+            // Hyperbolic functions
+            {
+              text: formatMessage({
+                id: 'text.sinh',
+                default: 'sinh'
+              }),
+              value: 'sinh'
+            }, {
+              text: formatMessage({
+                id: 'text.cosh',
+                default: 'cosh'
+              }),
+              value: 'cosh'
+            }, {
+              text: formatMessage({
+                id: 'text.tanh',
+                default: 'tanh'
+              }),
+              value: 'tanh'
+            },
+            // Inverse hyperbolic functions
+            {
+              text: formatMessage({
+                id: 'text.asinh',
+                default: 'arcsinh'
+              }),
+              value: 'asinh'
+            }, {
+              text: formatMessage({
+                id: 'text.acosh',
+                default: 'arccosh'
+              }),
+              value: 'acosh'
+            }, {
+              text: formatMessage({
+                id: 'text.atanh',
+                default: 'arctanh'
+              }),
+              value: 'atanh'
+            }]
+          },
+          ANGLE_UNITS: {
+            items: [{
+              text: formatMessage({
+                id: 'text.degrees',
+                default: 'degrees'
+              }),
+              value: 'degrees'
+            }, {
+              text: formatMessage({
+                id: 'text.radians',
+                default: 'radians'
+              }),
+              value: 'radians'
             }]
           },
           LIST_MATHOP2: {
@@ -2044,24 +2228,87 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
       var operator = Cast.toString(args.OPERATOR).toLowerCase();
       var n = Cast.toNumber(args.NUM1);
       switch (operator) {
+        // Basic functions
         case 'sqrt':
           return Math.sqrt(n);
+        case 'abs':
+          return Math.abs(n);
+        case 'sign':
+          return Math.sign(n);
+        case 'floor':
+          return Math.floor(n);
+        case 'ceil':
+          return Math.ceil(n);
+
+        // Logarithms and exponentials
+        case 'ln':
+          return Math.log(n);
+        case 'log':
+          return Math.log10(n);
+        case 'exp':
+          return Math.exp(n);
+        case '10^':
+          return Math.pow(10, n);
+
+        // Standard trigonometric functions (input in degrees)
         case 'sin':
           return parseFloat(Math.sin(Math.PI * n / 180).toFixed(10));
         case 'cos':
           return parseFloat(Math.cos(Math.PI * n / 180).toFixed(10));
         case 'tan':
           return MathUtil.tan(n);
+        case 'sec':
+          return 1 / parseFloat(Math.cos(Math.PI * n / 180).toFixed(10));
+        case 'csc':
+          return 1 / parseFloat(Math.sin(Math.PI * n / 180).toFixed(10));
+        case 'cot':
+          return 1 / MathUtil.tan(n);
+
+        // Inverse trigonometric functions (output in degrees)
         case 'asin':
           return Math.asin(n) * 180 / Math.PI;
         case 'acos':
           return Math.acos(n) * 180 / Math.PI;
         case 'atan':
           return Math.atan(n) * 180 / Math.PI;
-        case '10 ^':
-          return Math.pow(10, n);
+        case 'asec':
+          return Math.acos(1 / n) * 180 / Math.PI;
+        case 'acsc':
+          return Math.asin(1 / n) * 180 / Math.PI;
+        case 'acot':
+          return Math.atan(1 / n) * 180 / Math.PI;
+
+        // Hyperbolic functions
+        case 'sinh':
+          return Math.sinh(n);
+        case 'cosh':
+          return Math.cosh(n);
+        case 'tanh':
+          return Math.tanh(n);
+
+        // Inverse hyperbolic functions
+        case 'asinh':
+          return Math.asinh(n);
+        case 'acosh':
+          return Math.acosh(n);
+        case 'atanh':
+          return Math.atanh(n);
       }
       return 0;
+    }
+  }, {
+    key: "angleconvert",
+    value: function angleconvert(args) {
+      var value = Cast.toNumber(args.NUM1);
+      var from = Cast.toString(args.FROM).toLowerCase();
+      var to = Cast.toString(args.TO).toLowerCase();
+      if (from === to) return value;
+      if (from === 'degrees' && to === 'radians') {
+        return value * Math.PI / 180;
+      } else if (from === 'radians' && to === 'degrees') {
+        return value * 180 / Math.PI;
+      }
+      return value;
     }
   }, {
     key: "mathop2",
@@ -2154,6 +2401,20 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
       return '';
     }
   }, {
+    key: "factorial",
+    value: function factorial(args) {
+      var n = Cast.toNumber(args.NUM1);
+      if (!Number.isInteger(n) || n < 0) return '';
+      if (n === 0 || n === 1) return 1;
+      if (n > 170) return Infinity; // JavaScript limit for factorial
+
+      var result = 1;
+      for (var i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+  }, {
     key: "pgcd",
     value: function pgcd(a, b) {
       if (b) {
@@ -2165,6 +2426,11 @@ var Scratch3PMBlocks = /*#__PURE__*/function () {
     key: "nombre_pi",
     value: function nombre_pi() {
       return Math.PI;
+    }
+  }, {
+    key: "nombre_e",
+    value: function nombre_e() {
+      return Math.E;
     }
   }, {
     key: "join",

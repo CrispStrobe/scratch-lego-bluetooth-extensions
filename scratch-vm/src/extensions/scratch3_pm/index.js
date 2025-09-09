@@ -78,6 +78,16 @@ class Scratch3PMBlocks {
                         OPERATOR: { type: ArgumentType.STRING, menu: 'LIST_MATHOP', defaultValue: 'sqrt' }
                     }
                 },
+                {
+                    opcode: 'angleconvert',
+                    text: formatMessage({ id: 'pm.angleconvert', default: 'convert [NUM1] from [FROM] to [TO]' }),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        NUM1: { type: ArgumentType.NUMBER, defaultValue: '90' },
+                        FROM: { type: ArgumentType.STRING, menu: 'ANGLE_UNITS', defaultValue: 'degrees' },
+                        TO: { type: ArgumentType.STRING, menu: 'ANGLE_UNITS', defaultValue: 'radians' }
+                    }
+                },
                 '---',
                 {
                     opcode: 'mathopdiv',
@@ -145,10 +155,21 @@ class Scratch3PMBlocks {
                     blockType: BlockType.REPORTER,
                     arguments: { NUM1: { type: ArgumentType.NUMBER, defaultValue: ' ' } }
                 },
+                {
+                    opcode: 'factorial',
+                    text: formatMessage({ id: 'pm.factorial', default: 'factorial of [NUM1]' }),
+                    blockType: BlockType.REPORTER,
+                    arguments: { NUM1: { type: ArgumentType.NUMBER, defaultValue: '5' } }
+                },
                 '---',
                 {
                     opcode: 'nombre_pi',
                     text: formatMessage({ id: 'pm.pi', default: 'π' }),
+                    blockType: BlockType.REPORTER
+                },
+                {
+                    opcode: 'nombre_e',
+                    text: formatMessage({ id: 'pm.e', default: 'e' }),
                     blockType: BlockType.REPORTER
                 },
                 {
@@ -357,14 +378,50 @@ class Scratch3PMBlocks {
                 },
                 LIST_MATHOP: {
                     items: [
+                        // Basic functions
                         { text: formatMessage({ id: 'text.sqrt', default: '√' }), value: 'sqrt' },
-                        { text: formatMessage({ id: 'text.cos', default: 'cos' }), value: 'cos' },
+                        { text: formatMessage({ id: 'text.abs', default: 'abs' }), value: 'abs' },
+                        { text: formatMessage({ id: 'text.sign', default: 'sign' }), value: 'sign' },
+                        { text: formatMessage({ id: 'text.floor', default: 'floor' }), value: 'floor' },
+                        { text: formatMessage({ id: 'text.ceil', default: 'ceil' }), value: 'ceil' },
+                        
+                        // Logarithms and exponentials
+                        { text: formatMessage({ id: 'text.ln', default: 'ln' }), value: 'ln' },
+                        { text: formatMessage({ id: 'text.log', default: 'log' }), value: 'log' },
+                        { text: formatMessage({ id: 'text.exp', default: 'e^' }), value: 'exp' },
+                        { text: formatMessage({ id: 'text.pow10', default: '10^' }), value: '10^' },
+                        
+                        // Standard trigonometric functions (degrees)
                         { text: formatMessage({ id: 'text.sin', default: 'sin' }), value: 'sin' },
+                        { text: formatMessage({ id: 'text.cos', default: 'cos' }), value: 'cos' },
                         { text: formatMessage({ id: 'text.tan', default: 'tan' }), value: 'tan' },
-                        { text: formatMessage({ id: 'text.acos', default: 'arccos' }), value: 'acos' },
+                        { text: formatMessage({ id: 'text.sec', default: 'sec' }), value: 'sec' },
+                        { text: formatMessage({ id: 'text.csc', default: 'csc' }), value: 'csc' },
+                        { text: formatMessage({ id: 'text.cot', default: 'cot' }), value: 'cot' },
+                        
+                        // Inverse trigonometric functions (return degrees)
                         { text: formatMessage({ id: 'text.asin', default: 'arcsin' }), value: 'asin' },
+                        { text: formatMessage({ id: 'text.acos', default: 'arccos' }), value: 'acos' },
                         { text: formatMessage({ id: 'text.atan', default: 'arctan' }), value: 'atan' },
-                        { text: formatMessage({ id: 'text.pow10', default: '10 ^' }), value: '10 ^' }
+                        { text: formatMessage({ id: 'text.asec', default: 'arcsec' }), value: 'asec' },
+                        { text: formatMessage({ id: 'text.acsc', default: 'arccsc' }), value: 'acsc' },
+                        { text: formatMessage({ id: 'text.acot', default: 'arccot' }), value: 'acot' },
+                        
+                        // Hyperbolic functions
+                        { text: formatMessage({ id: 'text.sinh', default: 'sinh' }), value: 'sinh' },
+                        { text: formatMessage({ id: 'text.cosh', default: 'cosh' }), value: 'cosh' },
+                        { text: formatMessage({ id: 'text.tanh', default: 'tanh' }), value: 'tanh' },
+                        
+                        // Inverse hyperbolic functions
+                        { text: formatMessage({ id: 'text.asinh', default: 'arcsinh' }), value: 'asinh' },
+                        { text: formatMessage({ id: 'text.acosh', default: 'arccosh' }), value: 'acosh' },
+                        { text: formatMessage({ id: 'text.atanh', default: 'arctanh' }), value: 'atanh' }
+                    ]
+                },
+                ANGLE_UNITS: {
+                    items: [
+                        { text: formatMessage({ id: 'text.degrees', default: 'degrees' }), value: 'degrees' },
+                        { text: formatMessage({ id: 'text.radians', default: 'radians' }), value: 'radians' }
                     ]
                 },
                 LIST_MATHOP2: {
@@ -425,21 +482,70 @@ class Scratch3PMBlocks {
     or (args) { return Cast.toBoolean(args.OPERAND1) || Cast.toBoolean(args.OPERAND2); }
     not (args) { return !Cast.toBoolean(args.OPERAND1); }
     pourcent (args) { return Cast.toNumber(args.NUM1) / 100; }
+    
     mathop (args) {
         const operator = Cast.toString(args.OPERATOR).toLowerCase();
         const n = Cast.toNumber(args.NUM1);
+        
         switch (operator) {
+        // Basic functions
         case 'sqrt': return Math.sqrt(n);
+        case 'abs': return Math.abs(n);
+        case 'sign': return Math.sign(n);
+        case 'floor': return Math.floor(n);
+        case 'ceil': return Math.ceil(n);
+        
+        // Logarithms and exponentials
+        case 'ln': return Math.log(n);
+        case 'log': return Math.log10(n);
+        case 'exp': return Math.exp(n);
+        case '10^': return Math.pow(10, n);
+        
+        // Standard trigonometric functions (input in degrees)
         case 'sin': return parseFloat(Math.sin((Math.PI * n) / 180).toFixed(10));
         case 'cos': return parseFloat(Math.cos((Math.PI * n) / 180).toFixed(10));
         case 'tan': return MathUtil.tan(n);
+        case 'sec': return 1 / parseFloat(Math.cos((Math.PI * n) / 180).toFixed(10));
+        case 'csc': return 1 / parseFloat(Math.sin((Math.PI * n) / 180).toFixed(10));
+        case 'cot': return 1 / MathUtil.tan(n);
+        
+        // Inverse trigonometric functions (output in degrees)
         case 'asin': return (Math.asin(n) * 180) / Math.PI;
         case 'acos': return (Math.acos(n) * 180) / Math.PI;
         case 'atan': return (Math.atan(n) * 180) / Math.PI;
-        case '10 ^': return Math.pow(10, n);
+        case 'asec': return (Math.acos(1/n) * 180) / Math.PI;
+        case 'acsc': return (Math.asin(1/n) * 180) / Math.PI;
+        case 'acot': return (Math.atan(1/n) * 180) / Math.PI;
+        
+        // Hyperbolic functions
+        case 'sinh': return Math.sinh(n);
+        case 'cosh': return Math.cosh(n);
+        case 'tanh': return Math.tanh(n);
+        
+        // Inverse hyperbolic functions
+        case 'asinh': return Math.asinh(n);
+        case 'acosh': return Math.acosh(n);
+        case 'atanh': return Math.atanh(n);
         }
         return 0;
     }
+    
+    angleconvert (args) {
+        const value = Cast.toNumber(args.NUM1);
+        const from = Cast.toString(args.FROM).toLowerCase();
+        const to = Cast.toString(args.TO).toLowerCase();
+        
+        if (from === to) return value;
+        
+        if (from === 'degrees' && to === 'radians') {
+            return (value * Math.PI) / 180;
+        } else if (from === 'radians' && to === 'degrees') {
+            return (value * 180) / Math.PI;
+        }
+        
+        return value;
+    }
+    
     mathop2 (args) {
         const operator = Cast.toString(args.OPERATOR).toLowerCase();
         const n1 = Cast.toNumber(args.NUM1);
@@ -452,6 +558,7 @@ class Scratch3PMBlocks {
         }
         return '';
     }
+    
     mathopdiv (args) {
         const operator = Cast.toString(args.OPERATOR).toLowerCase();
         const n1 = Cast.toNumber(args.NUM1);
@@ -465,6 +572,7 @@ class Scratch3PMBlocks {
         }
         return '';
     }
+    
     arrondis (args) {
         const type = Cast.toString(args.TYPE).toLowerCase();
         const n1 = Cast.toNumber(args.NUM1);
@@ -477,8 +585,17 @@ class Scratch3PMBlocks {
         }
         return 0;
     }
-    chiffre_pentiere (args) { return Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1))) - (Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1) + 1)) * 10); }
-    chiffre_pdecimale (args) { return Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1))) - (Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1) - 1)) * 10); }
+    
+    chiffre_pentiere (args) { 
+        return Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1))) - 
+               (Math.floor(Cast.toNumber(args.NUM1) / Math.pow(10, Cast.toNumber(args.choix1) + 1)) * 10); 
+    }
+    
+    chiffre_pdecimale (args) { 
+        return Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1))) - 
+               (Math.floor(Cast.toNumber(args.NUM1) * Math.pow(10, Cast.toNumber(args.choix1) - 1)) * 10); 
+    }
+    
     multiple (args) {
         const type = Cast.toString(args.choix1).toLowerCase();
         const n1 = Cast.toNumber(args.NUM1);
@@ -491,6 +608,7 @@ class Scratch3PMBlocks {
         }
         return false;
     }
+    
     sommechiffres (args) {
         let value = Math.abs(Cast.toNumber(args.NUM1));
         let somme = 0;
@@ -503,29 +621,51 @@ class Scratch3PMBlocks {
         }
         return '';
     }
+    
+    factorial (args) {
+        const n = Cast.toNumber(args.NUM1);
+        if (!Number.isInteger(n) || n < 0) return '';
+        if (n === 0 || n === 1) return 1;
+        if (n > 170) return Infinity; // JavaScript limit for factorial
+        
+        let result = 1;
+        for (let i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+    
     pgcd (a, b) {
         if (b) { return this.pgcd(b, a % b); }
         return Math.abs(a);
     }
+    
     nombre_pi () { return Math.PI; }
+    nombre_e () { return Math.E; }
+    
     join (args) { return Cast.toString(args.STRING1) + Cast.toString(args.STRING2); }
+    
     letterOf (args) {
         const index = Cast.toNumber(args.LETTER) - 1;
         const str = Cast.toString(args.STRING);
         if (index < 0 || index >= str.length) { return ''; }
         return str.charAt(index);
     }
+    
     length (args) { return Cast.toString(args.STRING).length; }
+    
     contains (args) {
         const format = function (string) {
             return Cast.toString(string).toLowerCase();
         };
         return format(args.STRING1).includes(format(args.STRING2));
     }
+    
     reverseString (str) {
         if (str === '') return '';
         return this.reverseString(str.substr(1)) + str.charAt(0);
     }
+    
     extract (args) {
         const from = Cast.toNumber(args.NUM1) - 1;
         const to = Cast.toNumber(args.NUM2) - from;
