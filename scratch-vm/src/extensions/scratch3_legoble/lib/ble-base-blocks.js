@@ -251,6 +251,28 @@ class BleBaseBlocks {
                         defaultValue: Color.BLUE
                     }
                 }
+            },
+            {
+                opcode: 'setHubLEDColorRGB',
+                text: formatMessage({
+                    id: 'legobluetooth.setHubLEDColorRGB',
+                    default: 'set hub LED color to R[RED] G[GREEN] B[BLUE]',
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    RED: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 255
+                    },
+                    GREEN: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 255
+                    },
+                    BLUE: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 255
+                    }
+                }
             }
         ];
 
@@ -596,6 +618,13 @@ class BleBaseBlocks {
     setHubLEDColor(args) {
         const color = Cast.toNumber(args.COLOR);
         return this._peripheral.setLEDColor(color).then(waitPromise);
+    }
+
+    setHubLEDColorRGB(args) {
+        const red = Cast.toNumber(args.RED);
+        const green = Cast.toNumber(args.GREEN);
+        const blue = Cast.toNumber(args.BLUE);
+        return this._peripheral.setLEDColorRGB(red, green, blue).then(waitPromise);
     }
 
     getHubTilt(args) {

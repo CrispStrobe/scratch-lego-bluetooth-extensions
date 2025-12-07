@@ -27,6 +27,7 @@ const setupTranslations = function (formatMessage, extTranslations = {}) {
             'legobluetooth.getForce': '[PORT] force',
             'legobluetooth.getTilt': '[PORT] tilt [XY]',
             'legobluetooth.setHubLEDColor': 'set hub LED color to [COLOR]',
+            'legobluetooth.setHubLEDColorRGB': 'set hub LED color to R[RED] G[GREEN] B[BLUE]',
             'legobluetooth.getHubTilt': 'hub tilt [XYZ]',
             'legobluetooth.getAngle': '[AXIS] angle',
 
