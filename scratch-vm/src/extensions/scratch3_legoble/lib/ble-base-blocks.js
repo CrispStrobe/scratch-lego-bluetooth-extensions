@@ -1,6 +1,7 @@
 const ArgumentType = require('../../../extension-support/argument-type');
 const BlockType = require('../../../extension-support/block-type');
 const Cast = require('../../../util/cast');
+const UtilColor = require('../../../util/color');
 
 const Color = require('./color');
 
@@ -271,6 +272,28 @@ class BleBaseBlocks {
                     BLUE: {
                         type: ArgumentType.NUMBER,
                         defaultValue: 255
+                    }
+                }
+            },
+            {
+                opcode: 'setHubLEDColorHSV',
+                text: formatMessage({
+                    id: 'legobluetooth.setHubLEDColorHSV',
+                    default: 'set hub LED color to H[HUE] S[SATURATION] V[VALUE]',
+                }),
+                blockType: BlockType.COMMAND,
+                arguments: {
+                    HUE: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 360
+                    },
+                    SATURATION: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 100
+                    },
+                    VALUE: {
+                        type: ArgumentType.NUMBER,
+                        defaultValue: 100
                     }
                 }
             }
@@ -625,6 +648,15 @@ class BleBaseBlocks {
         const green = Cast.toNumber(args.GREEN);
         const blue = Cast.toNumber(args.BLUE);
         return this._peripheral.setLEDColorRGB(red, green, blue).then(waitPromise);
+    }
+
+    setHubLEDColorHSV(args) {
+        const rgb = UtilColor.hsvToRgb({
+            h: Cast.toNumber(args.HUE),
+            s: Cast.toNumber(args.SATURATION) / 100,
+            v: Cast.toNumber(args.VALUE) / 100
+        });
+        return this._peripheral.setLEDColorRGB(rgb.r, rgb.g, rgb.b).then(waitPromise);
     }
 
     getHubTilt(args) {
