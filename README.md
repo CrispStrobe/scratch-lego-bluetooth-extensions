@@ -54,3 +54,7 @@ Bluetooth Classic (SPP)
 also (not LEGO related, but might prove useful):
 - Gamepad (universal controller support): https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/dualshock4.mjs
 - Planet Maths (from CodePM by https://www.ac-grenoble.fr/maths): https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/planetemaths.mjs
+
+## Turbowarp
+
+Here are two experimental (mostly untested) LEGO Education SPIKE Prime Hub Extensions for TurboWarp: [for newer BLE firmware](https://gist.github.com/CrispStrobe/eb7a2a3a1337e016a31afb2e8852c8ea) and [for older BTC firmware](https://gist.github.com/CrispStrobe/a0664af6bc533228b8e048115955f0fb)
