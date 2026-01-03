@@ -57,4 +57,6 @@ also (not LEGO related, but might prove useful):
 
 ## Turbowarp
 
-Here are two experimental (mostly untested) LEGO Education SPIKE Prime Hub Extensions for TurboWarp: [for newer BLE firmware](https://gist.github.com/CrispStrobe/eb7a2a3a1337e016a31afb2e8852c8ea) and [for older BTC firmware](https://gist.github.com/CrispStrobe/a0664af6bc533228b8e048115955f0fb)
+Check this other repo: https://github.com/CrispStrobe/lego-nxt-bt
+
+Here are also two older intermediate experimental (mostly untested) LEGO Education SPIKE Prime Hub Extensions for TurboWarp: [for newer BLE firmware](https://gist.github.com/CrispStrobe/eb7a2a3a1337e016a31afb2e8852c8ea) and [for older BTC firmware](https://gist.github.com/CrispStrobe/a0664af6bc533228b8e048115955f0fb)
