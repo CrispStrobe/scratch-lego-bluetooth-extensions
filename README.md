@@ -1,62 +1,111 @@
 # scratch-lego-bluetooth-extensions
-Scratch 3.0 extensions, mostly for LEGO Bluetooth devices.
-This builds on bricklife's excellent work. It adds a few more Xcratch extensions which support LEGO Devices, both for Legacy Bluetooth Classic (as for EV3 or Spike Prime Hub / Mindstorms Robot Inventor Hub with 2.x firmware), as for (newer) BLE bluetooth (as for Spike Prime Hub with new firmware, as it comes with LEGO Spike Prime App).
-Also there are non-LEGO-related Scratch extensions, which might came in handy, like for Gamepad Controllers, or for Maths operations.
 
-Intended usage is to load these extensions (their .mjs files, which reside in the dist/ folder, which can be loaded per prefixing https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/ ) from the "Extension Loader" that the xcratch environment (https://xcratch.github.io/ or (https://crispstrobe.github.io/scratch-gui/ e.g.) provides (click on the bottom left corner icon there, click on Extension Loader, enter the url, like https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprimebtc.mjs e.g.).
+Xcratch-style `.mjs` extensions for LEGO Bluetooth devices, plus a few
+non-LEGO utility extensions. Builds on
+[bricklife/scratch-lego-bluetooth-extensions](https://github.com/bricklife/scratch-lego-bluetooth-extensions)
+and adds Spike Prime / Mindstorms Robot Inventor / Boost / Gamepad / Maths.
 
-Note that for most of these to work, you need the Scratch Link app running, or a wrapping App, like Scrub on iOS devices. But these will not work in all web browsers, and especially not uner iOS connecting to non-Apple-approved devices, like EV3 over Bluetooth Classic, or Spime Prime Hub with legacy firmware. (You could only make these work per your own Xcode debug builds of Scrub, or other variants.)
+> **Note:** This is the older Xcratch `.mjs` distribution. The newer,
+> actively-maintained TurboWarp `.js` versions (with transpilation, on-device
+> bridges, and per-language i18n) live in
+> [`CrispStrobe/extensions`](https://github.com/CrispStrobe/extensions/tree/main/extensions/CrispStrobe)
+> and [`CrispStrobe/turbowarp-lego`](https://github.com/CrispStrobe/turbowarp-lego).
 
-(Technical note: Some of these extensions are multilingual, by leveraging a translations.json file, both for the gui as for the vm part of the extension. For these to work, the package.json was changed to leverage not the official xcratch-build but a slightly modified scripts/build.js. 
-TODOs: Adjust to newer babel/rollup setup. Adapt to the newer Scratch/Xcratch framework, like scratch-editor and xcratch-create.)
+## Related repos
 
-## Extension List
-Bluetooth LE (BLE)
-- [x] LEGO Powered UP Hub
-- [x] LEGO Powered UP Remote Control
-- [x] LEGO Technic CONTROL+ Hub
-- [x] LEGO DUPLO Train
-- [x] LEGO Mario
-- [x] LEGO Luigi
-- [x] LEGO Peach
-- [x] LEGO Education SPIKE Essential Hub
-- [x] LEGO Education SPIKE Prime Hub (new firmware) (work in progress)
-- [x] LEGO Boost with enhanced capabilities (work in progress)
-- [x] General LEGO BLE Device
+| Repo | Role |
+|------|------|
+| **`scratch-lego-bluetooth-extensions` (this)** | Xcratch `.mjs` LEGO BLE/BTC extensions. |
+| [`CrispStrobe/extensions`](https://github.com/CrispStrobe/extensions) | Newer TurboWarp gallery (`.js` files). The maintained EV3/NXT/Spike work lives here. |
+| [`CrispStrobe/turbowarp-lego`](https://github.com/CrispStrobe/turbowarp-lego) | Working sandbox + Python bridges for the TurboWarp extensions. |
+| [`CrispStrobe/scratch-gui`](https://github.com/CrispStrobe/scratch-gui) | TurboWarp editor fork that loads the gallery above. |
 
-Bluetooth Classic (SPP)
-- [x] LEGO Education SPIKE Prime Hub (Legacy) (old firmware)
-- [x] LEGO MINDSTORMS Robot Inventor Hub
+## Quick start (use it)
 
-## (Original) Scratch 3.0 installed LEGO Bluetooth extensions
-- https://bricklife.com/scratch-gui/ (Stable version)
-- https://bricklife.com/scratch-lego-bluetooth-extensions/ (Development version)
+Load any `.mjs` file via the **Extension Loader** in an Xcratch-compatible
+editor (<https://xcratch.github.io/> or <https://crispstrobe.github.io/scratch-gui/>).
+Click the bottom-left "Add Extension" icon → **Extension Loader** → paste a
+URL like:
 
-## Xcratch
-[Xcratch](https://xcratch.github.io) is an extendable Scratch programming environment. You can load LEGO Bluetooth extensions into Xcratch from the following URLs:
-- LEGO Powered UP Hub https://bricklife.com/scratch-gui/xcratch/poweredup.mjs
-- LEGO Powered UP Remote Control https://bricklife.com/scratch-gui/xcratch/legoremote.mjs
-- LEGO Technic CONTROL+ Hub https://bricklife.com/scratch-gui/xcratch/controlplus.mjs
-- LEGO DUPLO Train https://bricklife.com/scratch-gui/xcratch/duplotrain.mjs
-- LEGO Mario https://bricklife.com/scratch-gui/xcratch/legomario.mjs
-- LEGO Luigi https://bricklife.com/scratch-gui/xcratch/legoluigi.mjs
-- LEGO Peach https://bricklife.com/scratch-gui/xcratch/legopeach.mjs
-- LEGO Education SPIKE Essential Hub https://bricklife.com/scratch-gui/xcratch/spikeessential.mjs
-- General LEGO BLE Device https://bricklife.com/scratch-gui/xcratch/legoble.mjs
+```
+https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/spikeprimebtc.mjs
+```
 
-- LEGO Boost Hub https://bricklife.com/scratch-gui/xcratch/legoboost.mjs (work in progress!)
+Or via jsDelivr:
 
-- LEGO Education SPIKE Prime Hub (work in progress...)
-  - (v. 2 - legacy, bluetooth classic!) / Robot Inventor Hub https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/spikeprime_legacy.mjs (original bricklife's version) or (work in progress) my extended version: https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/spikeprimebtc.mjs (tested and working on Windows 10 in Chrome Browser with Scratch Link 1.4.3.0 App installed) or
-  - (v. 3 - not bluetooth classic but bluetooth low energy (ble), even more work in progress) https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/spikeprime.mjs
-    (note that you can switch firmwares by running *upgrade* from spike prime app, or *downgrade* https://spikelegacy.legoeducation.com/hubdowngrade/#step-1 or dfu-util/pybricksdev (backup/restore)))
+```
+https://cdn.jsdelivr.net/gh/CrispStrobe/scratch-lego-bluetooth-extensions@master/dist/spikeprimebtc.mjs
+```
 
-also (not LEGO related, but might prove useful):
-- Gamepad (universal controller support): https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/dualshock4.mjs
-- Planet Maths (from CodePM by https://www.ac-grenoble.fr/maths): https://crispstrobe.github.io/scratch-lego-bluetooth-extensions/dist/planetemaths.mjs
+## Extension list
 
-## Turbowarp
+### BLE (Bluetooth Low Energy)
 
-Check this other repo: https://github.com/CrispStrobe/lego-nxt-bt
+| Device | File | Status |
+|--------|------|--------|
+| LEGO Powered UP Hub | [`poweredup.mjs`](./dist/poweredup.mjs) | works |
+| LEGO Powered UP Remote Control | [`legoremote.mjs`](./dist/legoremote.mjs) | works |
+| LEGO Technic CONTROL+ Hub | [`controlplus.mjs`](./dist/controlplus.mjs) | works |
+| LEGO DUPLO Train | [`duplotrain.mjs`](./dist/duplotrain.mjs) | works |
+| LEGO Mario / Luigi / Peach | [`legomario.mjs`](./dist/legomario.mjs), [`legoluigi.mjs`](./dist/legoluigi.mjs), [`legopeach.mjs`](./dist/legopeach.mjs) | works |
+| LEGO Education SPIKE Essential Hub | [`spikeessential.mjs`](./dist/spikeessential.mjs) | works |
+| LEGO Education SPIKE Prime Hub (FW 3.x BLE) | [`spikeprimeble.mjs`](./dist/spikeprimeble.mjs) | work in progress |
+| LEGO Boost (enhanced) | [`legoboost.mjs`](./dist/legoboost.mjs) | work in progress |
+| Generic LEGO BLE | [`legoble.mjs`](./dist/legoble.mjs) | works |
 
-Here are also two older intermediate experimental (mostly untested) LEGO Education SPIKE Prime Hub Extensions for TurboWarp: [for newer BLE firmware](https://gist.github.com/CrispStrobe/eb7a2a3a1337e016a31afb2e8852c8ea) and [for older BTC firmware](https://gist.github.com/CrispStrobe/a0664af6bc533228b8e048115955f0fb)
+### Bluetooth Classic (SPP)
+
+| Device | File | Status |
+|--------|------|--------|
+| Spike Prime / Robot Inventor Hub (FW 2.x BTC) | [`spikeprime_legacy.mjs`](./dist/spikeprime_legacy.mjs) (bricklife's), [`spikeprime_btc32.mjs`](./dist/spikeprime_btc32.mjs) (extended) | tested on Windows 10 + Chrome + Scratch Link 1.4.3.0 |
+
+### Non-LEGO utilities
+
+| File | What it does |
+|------|------|
+| [`dualshock4.mjs`](./dist/dualshock4.mjs) / [`gamepad10.mjs`](./dist/gamepad10.mjs) | Universal gamepad / DualShock4 input |
+| [`planetemaths.mjs`](./dist/planetemaths.mjs) | Math operations (rewritten from CodePM by ac-grenoble) |
+
+## Compatibility notes
+
+- **Most extensions need [Scratch Link](https://scratch.mit.edu/scratchlink/)**
+  running on the host (macOS / Windows). Without it, the BLE / BTC sessions
+  can't open.
+- **iOS:** Web BT and Web Serial don't exist in Mobile Safari. The
+  Scratch-Link-emulating shells [Scrub](https://github.com/bricklife/Scrub)
+  or [`turbowarp-ios`](https://github.com/CrispStrobe/turbowarp-ios) are
+  required. Connecting to "non-Apple-approved" hardware (e.g. EV3 BTC, FW 2.x
+  Spike Prime via BTC) generally requires an Xcode debug build of one of
+  those shells.
+- **Switching Spike Prime firmware:** upgrade via the LEGO Spike Prime app,
+  or [downgrade here](https://spikelegacy.legoeducation.com/hubdowngrade/#step-1),
+  or use `dfu-util` / `pybricksdev` (backup/restore). FW 2.x is BTC; FW 3.x
+  is BLE — choose the matching extension.
+
+## Multilingual extensions
+
+Some extensions support multiple UI languages via a `translations.json` file
+applied to both the GUI strings and the VM blocks. Building those requires
+the slightly-modified `scripts/build.js` in this repo (not the upstream
+`xcratch-build`).
+
+**TODOs:**
+- Migrate to the newer Babel/Rollup pipeline.
+- Adapt to the newer Scratch/Xcratch framework (`scratch-editor`, `xcratch-create`).
+
+## Upstream / credits
+
+Built on [bricklife/scratch-lego-bluetooth-extensions](https://github.com/bricklife/scratch-lego-bluetooth-extensions),
+which itself extends Scratch 3.0. The original distribution lives at:
+
+- <https://bricklife.com/scratch-gui/> — stable
+- <https://bricklife.com/scratch-lego-bluetooth-extensions/> — development
+
+## Older TurboWarp Spike Prime experiments
+
+Two older, mostly-untested TurboWarp extensions for Spike Prime live as
+gists — superseded by [`CrispStrobe/extensions`](https://github.com/CrispStrobe/extensions)
+but kept here for archival reference:
+
+- [Newer BLE firmware](https://gist.github.com/CrispStrobe/eb7a2a3a1337e016a31afb2e8852c8ea)
+- [Older BTC firmware](https://gist.github.com/CrispStrobe/a0664af6bc533228b8e048115955f0fb)
